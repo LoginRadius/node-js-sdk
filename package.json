@@ -1,0 +1,18 @@
+{
+    "name": "LoginRadius Node.js SDK",
+    "version": "1.0.0",
+    "description": "LoginRadius SDK for node.js",
+    "contributors": [{ "name": "LoginRadius Team", "email": "developers@loginradius.com" }],
+    "homepage": "https://www.loginradius.com",
+    "directories" : { "lib" : "./lib" },
+    "main" : "./loginradius.js",
+    "engines": { "node": ">= 0.6.x" },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "nodeunit": ">=0.5.0",
+        "xml2js"  : ">=0.1.0",
+        "yaml"    : ">=0.2.0",
+        "iconv": ">=1.0.0"
+    }
+}
