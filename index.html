@@ -1,43 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Node-js-sdk by LoginRadius</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Node-js-sdk : LoginRadius's Node.js SDK is a development kit that lets you integrate Social Login through providers such as Facebook, Google, Twitter, and over 20 more on a Node.js website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc." />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Node-js-sdk</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Node-js-sdk</h1>
-        <p>LoginRadius's Node.js SDK is a development kit that lets you integrate Social Login through providers such as Facebook, Google, Twitter, and over 20 more on a Node.js website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</p>
 
-        <p class="view"><a href="https://github.com/LoginRadius/Node-js-SDK">View the Project on GitHub <small>LoginRadius/Node-js-SDK</small></a></p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/LoginRadius/Node-js-SDK">View on GitHub</a>
 
+          <h1 id="project_title">Node-js-sdk</h1>
+          <h2 id="project_tagline">LoginRadius's Node.js SDK is a development kit that lets you integrate Social Login through providers such as Facebook, Google, Twitter, and over 20 more on a Node.js website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</h2>
 
-        <ul>
-          <li><a href="https://github.com/LoginRadius/Node-js-SDK/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/LoginRadius/Node-js-SDK/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/LoginRadius/Node-js-SDK">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>Node-js</h1>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/LoginRadius/Node-js-SDK/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/LoginRadius/Node-js-SDK/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
 
-<p>LoginRadius's Node.js SDK is a development kit that lets you integrate Social Login through providers such as Facebook, Google, Twitter, and over 20 more on a Node.js website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</p>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>LoginRadius's node-js SDK is used to implement Social Login on your node-js website</h1>
+
+<p>LoginRadius's node-js SDK is a development kit that lets you integrate Social Login through providers such as Facebook, Google, Twitter, and over 20 more on a Node-js website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</p>
+
+<h1>Steps to implement LoginRadius node-js SDK</h1>
+
+<p>Step 1: Download the LoginRadius SDK and add it to your web project inside node_module directory.</p>
+
+<p>a. Copy the LoginRadius SDK file to your project directory.</p>
+
+<p>b. Include SDK class file on your callback page.</p>
+
+<pre><code>  var lr = require('LoginRadius');
+</code></pre>
+
+<p>Step 2: Create LoginRadius object in your code file</p>
+
+<p>On your callback page, create a LoginRadius object using your unique LoginRadius API Secret.</p>
+
+<pre><code>  lr.loginradiusauth(req.body.token ,'--YOUR API SECRET---');
+</code></pre>
+
+<p>Step 3: Validate, authenticate and store data from LoginRadius: </p>
+
+<p>Validate the object using 'IsAuthenticated' variable. After successful validation, access user profile data such as ID, First Name, Last Name, Email using profile.ID, profile.FirstName, profile.LastName, etc.</p>
+
+<p>Note: Few providers like Twitter, LinkedIn, etc. doesn't provide email address with User Profile data, so you need to handle these cases in your callback page.</p>
+
+<p>These are the quick and easy steps to integrate Social Login on your node-js website, if you have any questions or need a further assistance please contact us at <a href="mailto:hello@loginradius.com">hello@loginradius.com</a>.</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/LoginRadius">LoginRadius</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Node-js-sdk maintained by <a href="https://github.com/LoginRadius">LoginRadius</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -48,6 +81,7 @@
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
+
 
   </body>
 </html>
