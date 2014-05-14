@@ -1,0 +1,157 @@
+h1= title
+
+
+- var tableGeneration = function(tableData){
+- if (typeof(tableData) !== 'undefined' && tableData.length ){
+  
+  table
+    thead
+       tr
+         each value, key in tableData[0]
+            th=key 
+    tbody        
+      each properties , keys in tableData
+        tr
+            each property, key in properties
+                td=property 
+-}
+-}
+
+-var contactTable = function(contacts){
+-if(typeof(contacts) !== 'undefined'){
+  table      
+       each contactlist, keys in contacts
+        -if(typeof(contactlist) !== 'undefined' && contactlist.length ){
+         thead
+          tr
+           each contact, key in contactlist[0]
+            th=key
+         tbody
+           each friend, key in contactlist
+             tr
+               each value, key1 in friend
+                td=value 
+         -}
+-}
+-}
+-var imageUrl = function(userprofile){
+-if(typeof(userprofile) !== 'undefined'){
+     each userdata,key in userprofile
+       -if(typeof(userdata) !== 'undefined'){
+       -if(typeof(userdata) === '[object Object]') {
+       -}else{
+       -if(key == 'ImageUrl'){       
+        img(src=userdata, height="300", width="300", alt='') 
+       -}
+       -if(key == 'FullName'){
+        div<b>Name : </b>      
+          span #{userdata}          
+       -}
+       -}
+       -}
+-}
+-}
+-var userProfileData = function(userprofile){
+-if(typeof(userprofile) !== 'undefined'){
+   table
+     each userdata,key in userprofile
+      tr
+       -if(typeof(userdata) !== 'undefined'){
+       -if(userdata instanceof Array) {
+          td #{key}
+            table 
+              thead
+                tr
+                  each data,k in userdata[0]
+                   th=k
+              tbody
+                 each data,k in userdata
+                   tr
+                    each d, ka in data
+                      td=d
+       -}else{
+       -if(key == 'ImageUrl'){       
+       -imageUrl=userdata
+       -}
+       th=key
+       td=userdata
+       -}
+       -}
+-}
+-}
+
+-if(!data.userprofile){
+<script src="http://hub.loginradius.com/include/js/LoginRadius.js" ></script> <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "";$ui.apikey = "b51b425e-150e-4071-92bd-bad89fdcbb4e";$ui.callback=""; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); }); </script>
+<p>Choose an ID Provider to get User Data</p>
+<div id="interfacecontainerdiv" class="interfacecontainerdiv"></div>
+-}else{
+
+
+
+<h3>Post Status</h3>
+p=data.isposted
+
+<h3>Direct Message</h3>
+p=data.issent
+
+<h3>Profile Photo</h3>
+p #{imageUrl(data.userprofile)}
+
+<h3>User Profile Data</h3>
+p #{userProfileData(data.userprofile)}
+
+
+<h3>Contacts</h3>
+p #{contactTable(data.contacts)}
+
+<h3>Albums</h3>
+p #{tableGeneration(data.albums)}
+
+
+<h3>Photos</h3>
+p #{tableGeneration(data.photos)}
+
+
+<h3>Posts</h3>
+p #{tableGeneration(data.posts)}
+
+
+<h3>Groups</h3>
+p #{tableGeneration(data.groups)}
+
+
+<h3>Likes</h3>
+p #{tableGeneration(data.likes)}
+
+
+
+<h3>Statuses</h3>
+p #{tableGeneration(data.statuses)}
+
+
+<h3>Events</h3>
+p #{tableGeneration(data.events)}
+
+
+<h3>Companies</h3>
+p #{tableGeneration(data.companies)}
+
+<h3>Checks-Ins</h3>
+p #{tableGeneration(data.checkins)}
+
+
+<h3>Mentions</h3>
+p #{tableGeneration(data.mentions)}
+
+
+<h3>Followings</h3>
+p #{tableGeneration(data.followings)}
+
+
+<h3>Audios</h3>
+p #{tableGeneration(data.audios)}
+
+<h3>Videos</h3>
+p #{tableGeneration(data.videos)}
+
+-}

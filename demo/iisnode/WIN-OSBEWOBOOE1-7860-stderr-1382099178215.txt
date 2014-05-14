@@ -1,0 +1,19 @@
+TypeError: C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo/views/index.jade:62
+    60|          td
+    61|            table
+  > 62|             thead
+    63|              tr
+    64|                each data,k in userdata[0]
+    65|                  th=k
+
+Cannot read property 'length' of undefined
+    at __jade.unshift.lineno (eval at <anonymous> (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\jade\lib\jade.js:160:8))
+    at __jade.unshift.lineno (eval at <anonymous> (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\jade\lib\jade.js:160:8))
+    at userProfileData (eval at <anonymous> (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\jade\lib\jade.js:160:8))
+    at eval (eval at <anonymous> (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\jade\lib\jade.js:160:8))
+    at Object.exports.compile (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\jade\lib\jade.js:165:12)
+    at ServerResponse.res._render (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\express\lib\view.js:425:21)
+    at ServerResponse.res.render (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\express\lib\view.js:318:17)
+    at exports.callback (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\routes\index.js:55:81)
+    at exports.postMessage (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\LoginRadius\loginradius.js:250:9)
+    at Request._callback (C:\Users\Administrator\Documents\My Web Sites\LoginRadiusDemo\node_modules\LoginRadius\loginradius.js:256:9)
