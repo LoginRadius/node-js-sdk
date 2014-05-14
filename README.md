@@ -11,6 +11,6 @@ LoginRadius helps businesses boost user engagement on their web/mobile platform,
 capture accurate consumer data, and get unique social insight into their customer base.
 
 
-Please visit http://apidocs.loginradius.com/ for more information.
+Please visit http://apidocs.loginradius.com/nodejs/index.html for more information.
 
  
