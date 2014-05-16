@@ -7,7 +7,7 @@
 var lr = require('LoginRadius');
 
 //Set LoginRadius Api Secret
-var secret = '0e59f675-8752-43f2-b45f-722038cde7a8';
+var secret = 'API_SECRET_HERE';
 
 exports.index = function (req, res) {
     res.render('index', { title: 'LoginRadius NodeJs SDK Demo', data: '' });
