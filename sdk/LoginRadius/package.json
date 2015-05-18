@@ -1,19 +1,43 @@
 {
-    "name": "LoginRadius",
-    "version": "2.0.0",
-    "description": "An LoginRadius SDK for node.js",
-    "contributors": [{ "name": "LoginRadius Team", "email": "support@loginradius.com" }],
-    "homepage": "https://www.loginradius.com",
-    "directories" : { "lib" : "./lib" },
-    "main" : "./loginradius.js",
-    "engines": { "node": ">= 0.6.x" },
-    "dependencies": {
-		"request":"~2.11.5"
-    },
-    "devDependencies": {
-        "nodeunit": ">=0.5.0",
-        "xml2js"  : ">=0.1.0",
-        "yaml"    : ">=0.2.0",
-        "iconv": ">=1.0.0"
-    }
+  "name": "loginradius-sdk",
+  "version": "2.0.2",
+  "description": "An LoginRadius SDK for node.js",
+  "contributors": [
+    "LoginRadius Team <support@loginradius.com>"
+  ],
+  "homepage": "https://www.loginradius.com",
+  "directories": {
+    "lib": "./lib"
+  },
+  "main": "./loginradius.js",
+  "engines": {
+    "node": ">= 0.6.x"
+  },
+  "dependencies": {
+    "request": "~2.11.5"
+  },
+  "devDependencies": {
+    "nodeunit": ">=0.5.0",
+    "xml2js": ">=0.1.0",
+    "yaml": ">=0.2.0",
+    "iconv": ">=1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LoginRadius/Node-js-SDK"
+  },
+  "keywords": [
+    "Social Login",
+    "LoginRadius",
+    "Social APIs",
+    "User Management"
+  ],
+  "author": "LoginRadius Team <developers@loginradius.com> (http://www.loginradius.com/developers/)",
+  "license": "https://github.com/LoginRadius/Node-js-SDK/blob/master/LICENSE",
+  "bugs": {
+    "url": "https://github.com/LoginRadius/Node-js-SDK/issues"
+  }
 }
