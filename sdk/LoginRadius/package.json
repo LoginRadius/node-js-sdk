@@ -1,7 +1,7 @@
 {
   "name": "loginradius-sdk",
-  "version": "2.0.3",
-  "description": "An LoginRadius SDK for node.js",
+  "version": "2.0.4",
+  "description": "A LoginRadius SDK for node.js",
   "contributors": [
     "LoginRadius Team <developers@loginradius.com>"
   ],

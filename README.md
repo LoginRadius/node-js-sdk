@@ -2,8 +2,6 @@
 
 LoginRadius Node.js wrapper provides access to LoginRadius.
 
-Note : Documentation sample code is dependent of [express][1] module for Node.js.
-
 LoginRadius is a unified social API platform that combines 30 major social platforms into a single simplified and maintenance-free API. With LoginRadius' API, 
 websites and mobile apps can implement social login, capture user social data, enable social sharing, add single sign-on, and more.
 
@@ -11,6 +9,4 @@ LoginRadius helps businesses boost user engagement on their web/mobile platform,
 capture accurate consumer data, and get unique social insight into their customer base.
 
 
-Please visit http://apidocs.loginradius.com/nodejs/index.html for more information.
-
- 
+Please visit [http://apidocs.loginradius.com/v2.0/docs/nodejs](http://apidocs.loginradius.com/v2.0/docs/nodejs) for more information.
