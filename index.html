@@ -1,314 +1,44 @@
-<!doctype html>
-<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
-<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
-  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
-
-  <title>Node-js-sdk</title>
-  <meta name="description" content="LoginRadius's Node.js SDK is a development kit that lets you integrate Social Login through providers such as Facebook, Google, Twitter, and over 20 more on a Node.js website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.">
-
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
-</head>
-
-<body>
-
-  <div class="wrapper">
-    <header>
-      <h1 class="title">Node-js-sdk</h1>
-    </header>
-    <div id="container">
-      <p class="tagline">LoginRadius's Node.js SDK is a development kit that lets you integrate Social Login through providers such as Facebook, Google, Twitter, and over 20 more on a Node.js website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/LoginRadius/Node-js-SDK/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/LoginRadius/Node-js-SDK/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/LoginRadius/Node-js-SDK" class="code">View Node-js-sdk on GitHub</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h1>LoginRadius library for Node-JS</h1>
-
-<p>NodeJS library for the LoginRadius API. Get social authentication, user profile data and send messages using many social network and email clients such as Facebook, Google, Twitter, Yahoo, LinkedIn, etc.</p>
-
-<p>Note : Documentation sample code is dependent of <a href="http://expressjs.com/">express</a> module for nodejs</p>
-
-<h2>Installation</h2>
-
-<ol>
-<li>
-<strong>Font-end interface:</strong> Add social login interface code from your LoginRadius user account to your webpage.</li>
-<li>
-<strong>Call-back setup:</strong> Set-up the callback URL in your LoginRadius user account, this is the URL where user would be redirected after authentication.</li>
-<li>
-<strong>Library set-up and installation:</strong> Add the LoginRadius nodejs module   into your project and follow the instructions to implementLoginRadius nodejs module  into your callback page.</li>
-</ol><h2>Basic Setup</h2>
-
-<p>Download <a href="https://github.com/LoginRadius/Node-js-SDK">LoginRadius nodejs module</a>  and add in node_module directory of project. Add node module reference to your callback handler</p>
-
-<p><strong>Sample code for authentication and get basic profile data</strong></p>
-
-<pre><code>var lr = require('LoginRadius');
-</code></pre>
-
-<p>Callback handler and user profile : for getting user profile and handle successfully authentication call  <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#socialAuthentication">socialAuthentication</a> method it takes token, secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<pre><code>function handler(isauthenicated, userprofile){
-//use your user profile data
-}
-
-lr.socialAuthentication(req.body.token, secret, handler);
-</code></pre>
-
-<h1>Advance features(for Paid customers only)</h1>
-
-<h2>LoginRaidus Contacts API</h2>
-
-<p>You can use this API to fetch contacts from users social networks/email clients - Facebook, Twitter, LinkedIn, Google, Yahoo.</p>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Get User Contacts:</strong> Get User Contacts: for getting User Contacts call  <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#getUserContacts">getUserContacts</a> method it takes token, secret (as provided on manage page of LoginRadius) and one callback  handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code>function handler(isauthenicated, contactlist){
-//use your user profile data
-}
-lr.getUserContacts(req.body.token, secret, handler);
-</code></pre>
-
-<p>This API is use to get contacts/network data for user’s social account. This API is only supported by oAuth ID providers such as Facebook, LinkedIn, Twitter, Google, Yahoo, MSN.</p>
-
-<h2>LoginRadius Post API</h2>
-
-<p>You can use this API to Post data to users social networks/email - Facebook, Twitter, LinkedIn, Google, Yahoo.</p>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Update status message:</strong> For update status message call <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#setStatusMessage">setStatusMessage</a> method it  takes token,  secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code> var status = {
- to :'',
- title :'',
- url : '',
- imageurl : '',
- status : 'This is LoginRadius Nodejs modile testing :)',
- caption : '',
- description : ''
-};
-
-function handler(isauthenicated, statusmessage){
-//use your user profile data
-}
-lr.setStatusMessage(req.body.token, secret, status  ,handler); 
-</code></pre>
-
-<p>This API is use to set status message on user wall and user friends wall.        </p>
-
-<h2>Get Posts </h2>
-
-<p>You can use this API to get posts from users social network - Facebook</p>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Get User Post:</strong> for getting user timeline call  <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#getPosts">getPosts</a> method it  takes token, secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code>function handler(isauthenicated, postlist){
-//use your user profile data
-}
-lr.getPosts(req.body.token, secret, handler);
-</code></pre>
-
-<p>This API is use to get user post on user wall it works only in facebook</p>
-
-<h2>Get Twitter Mentions</h2>
-
-<p>You can use this API to get mentions from users social network - Twitter.</p>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Get Twitter Mention:</strong> For getting twitter mention call <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#getMentions">getMentions</a> method it  takes token, secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code>function handler(isauthenicated, twittermentionlist){
-//use your user profile data
-}
-lr.getMentions(req.body.token, secret, handler);
-</code></pre>
-
-<p>Mention  List has detail about user mention list  it have fields for mention data  such as ID, Text,DateTime,etc. </p>
-
-<h2>Facebook Groups</h2>
-
-<p>You can use this API to get groups from users social network - Facebook.</p>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Get User groups:</strong> For getting user Groups call <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#getGroups">getGroups</a> method it  takes token, secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code>function handler(isauthenicated, grouplist){
-//use your user profile data
-}
-lr.getGroups(req.body.token, secret, handler);
-</code></pre>
-
-<p>Groups List has detail about user groups which may be subscribed by user or it may be created by  user, it have two fields such as ID, Name etc.</p>
-
-<h2>Get LinkedIn follow companies</h2>
-
-<p>You can use this API to get followed companies list from users social network - LinkedIn.</p>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Get Follow Company:</strong> For getting user followed company call <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#getCompanies">getCompanies</a> method it  takes token, secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code>function handler(isauthenicated, companylist){
-//use your user profile data
-}
-lr.getCompanies(req.body.token, secret, handler);
-</code></pre>
-
-<p>Function is use to get user's followed companies. It return companies in List format.</p>
-
-<h2>Get Facebook events</h2>
-
-<p>You can use this API to get events from users social network - Facebook.</p>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Get User Events :</strong> For getting user events call <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#getEvents">getEvents</a> method it  takes token, secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code>function handler(isauthenicated, eventlist){
-//use your user profile data
-}
-lr.getEvents(req.body.token, secret, handler);
-</code></pre>
-
-<p>Events List has detail about user event and user friends event which is linked with user  this has limited  fields such as ID, Name,StartTime, RsvpStatus,Location etc.</p>
-
-<h2>Get Status</h2>
-
-<p>You can use this API to get status messages from users social network - Facebook.</p>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Get Status Message:</strong> For getting Status Message call <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#getStatusMessages">getStatusMessages</a> method it  takes token, secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code>function handler(isauthenicated, statusmessageslist){
-//use your user profile data
-}
-lr.getStatusMessages(req.body.token, secret, handler);
-</code></pre>
-
-<p>This api returns user status message containing these fields  such as ID,ImageUrl ,Linkes etc. (see the list of all data fields below)</p>
-
-<h2>Get TimeLine</h2>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p>Saved/Get Your LoginRadius Token That LoginRadius Provide You When You Login   , authenticate from LoginRadius .</p>
-
-<p><strong>Get TimeLine:</strong> For getting user timeline call  <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#getTimelineFeed">getTimelineFeed</a> method it  takes token, secret (as provided on manage page of LoginRadius) and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong></p>
-
-<pre><code>function handler(isauthenicated, twittertimelinelist){
-//use your user profile data
-}
-lr.getTimelineFeed(req.body.token, secret, handler);
-</code></pre>
-
-<p>This API is use to get user timline feed it works only in twitter</p>
-
-<h2>Direct Message</h2>
-
-<blockquote>
-<p>LoginRadius generates a unique session token, when user logs in with
-any of social network. The lifetime of LoginRadius token is 15 mins, get/Save this Token to call this API.</p>
-</blockquote>
-
-<p><strong>Send Direct Message:</strong> For send direct message in linkedin and twitter call   <a href="http://api.loginradius.com/nodejs/symbols/_global_.html#sendDirectMessage">sendDirectMessage</a> method it  takes token, secret (as provided on manage page of LoginRadius) and sendto,subject,message and one callback handler (in callback handler two arguments pass first boolean type and second JSON object)</p>
-
-<p><strong>Nodejs</strong> </p>
-
-<pre><code>function handler(isauthenicated, message){
-//use your user profile data
-}
-lr.sendDirectMessage(req.body.token,secret, sendto, subject, message, handler);
-</code></pre>
-
-<p>Send Direct Message: This API is use to send direct message to user  and user friends inbox</p>
-
-<p><strong>Request:</strong> Please let us know your feedback and comments. If you have any questions or need a further assistance please contact us at <a href="mailto:hello@loginradius.com">hello@loginradius.com</a>.</p>
-        </article>
-      </div>
-    </div>
-    <footer>
-      <div class="owner">
-      <p><a href="https://github.com/LoginRadius" class="avatar"><img src="https://secure.gravatar.com/avatar/d9882d6df450dc0c42c02cab0f786522?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/LoginRadius">LoginRadius</a> maintains <a href="https://github.com/LoginRadius/Node-js-SDK">Node-js-sdk</a></p>
-
-
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
-    </footer>
-  </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/LoginRadius/Node-js-SDK/tarball/master" class="tar">tar</a><a href="https://github.com/LoginRadius/Node-js-SDK/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Node-js-sdk by LoginRadius</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Node-js-sdk</h1>
+      <h2 class="project-tagline">LoginRadius&#39;s Node.js SDK is a development kit that lets you integrate Social Login through providers such as Facebook, Google, Twitter, and over 20 more on a Node.js website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</h2>
+      <a href="https://github.com/LoginRadius/node-js-sdk" class="btn">View on GitHub</a>
+      <a href="https://github.com/LoginRadius/node-js-sdk/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/LoginRadius/node-js-sdk/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="loginradius" class="anchor" href="#loginradius" aria-hidden="true"><span class="octicon octicon-link"></span></a>LoginRadius</h1>
+
+<p>LoginRadius Node.js wrapper provides access to LoginRadius.</p>
+
+<p>LoginRadius is a unified social API platform that combines 30 major social platforms into a single simplified and maintenance-free API. With LoginRadius' API, 
+websites and mobile apps can implement social login, capture user social data, enable social sharing, add single sign-on, and more.</p>
+
+<p>LoginRadius helps businesses boost user engagement on their web/mobile platform, manage online identities, utilize social media for marketing, 
+capture accurate consumer data, and get unique social insight into their customer base.</p>
+
+<p>Please visit <a href="http://apidocs.loginradius.com/v2.0/docs/nodejs">http://apidocs.loginradius.com/v2.0/docs/nodejs</a> for more information.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/LoginRadius/node-js-sdk">Node-js-sdk</a> is maintained by <a href="https://github.com/LoginRadius">LoginRadius</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
 
             <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -321,5 +51,6 @@ lr.sendDirectMessage(req.body.token,secret, sendto, subject, message, handler);
             } catch(err) {}
           </script>
 
-</body>
+  </body>
 </html>
+
