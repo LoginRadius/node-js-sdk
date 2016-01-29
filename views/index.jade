@@ -1,0 +1,155 @@
+h1= title
+
+-var tableGeneration = function(tableData){
+	-if (typeof(tableData) !== 'undefined' && tableData.length ){
+		table
+			thead
+				tr
+					each value, key in tableData[0]
+						th=key 
+			tbody
+				each properties , keys in tableData
+					tr
+						each property, key in properties
+							td=property 
+	-}
+-}
+
+-var contactTable = function(contacts){
+	-if(typeof(contacts) !== 'undefined'){
+		table      
+			each contactlist, keys in contacts
+				-if(typeof(contactlist) !== 'undefined' && contactlist.length ){
+					thead
+						tr
+							each contact, key in contactlist[0]
+								th=key
+					tbody
+						each friend, key in contactlist
+							tr
+								each value, key1 in friend
+									td=value 
+				-}
+	-}
+-}
+
+-var imageUrl = function(userprofile){
+	-if(typeof(userprofile) !== 'undefined'){
+		each userdata,key in userprofile
+			-if(typeof(userdata) !== 'undefined'){
+				-if(typeof(userdata) === '[object Object]') {
+				-}else{
+					-if(key == 'ImageUrl'){       
+						img(src=userdata, height="300", width="300", alt='') 
+				-}
+				-if(key == 'FullName'){
+					div<b>Name : </b>      
+					span #{userdata}          
+				-}
+				-}
+			-}
+	-}
+-}
+
+-var userProfileData = function(userprofile){
+	-if(typeof(userprofile) !== 'undefined'){
+		table
+			each userdata,key in userprofile
+				tr
+					-if(typeof(userdata) !== 'undefined'){
+						-if(userdata instanceof Array && 0 < userdata.length) {
+							th #{key}
+							td
+								table 
+									thead
+										tr
+											each data,k in userdata[0]
+												th=k
+									tbody
+										each data,k in userdata
+											tr
+												each d, ka in data
+													td=d
+						-}else{
+							-if(key == 'ImageUrl'){       
+								-imageUrl=userdata
+							-}
+								th=key
+								td=userdata
+						-}
+					-}
+	-}
+-}
+
+-if( ! data.userprofile ){
+	script(src="http://hub.loginradius.com/include/js/LoginRadius.js")
+	script.
+		var options={} 
+		options.login=true
+		LoginRadius_SocialLogin.util.ready(function () { 
+				$ui = LoginRadius_SocialLogin.lr_login_settings
+				$ui.interfacesize = ""
+				$ui.apikey = '#{apikey}'
+				$ui.callback= encodeURIComponent("http://localhost:3000/callback")
+				$ui.lrinterfacecontainer ="interfacecontainerdiv"
+				LoginRadius_SocialLogin.init(options); 
+		})
+
+	p="Choose an ID Provider to get User Data"
+	div#interfacecontainerdiv.interfacecontainerdiv
+-}else{
+
+	h3="Post Status"
+	p=data.isposted
+
+	h3="Direct Message"
+	p=data.issent
+
+	h3="Profile Photo"
+	p #{imageUrl(data.userprofile)}
+
+	h3="User Profile Data"
+	p #{userProfileData(data.userprofile)}
+
+	h3="Contacts"
+	p #{contactTable(data.contacts)}
+
+	h3="Albums"
+	p #{tableGeneration(data.albums)}
+
+	h3="Photos"
+	p #{tableGeneration(data.photos)}
+
+	h3="Posts"
+	p #{tableGeneration(data.posts)}
+
+	h3="Groups"
+	p #{tableGeneration(data.groups)}
+
+	h3="Likes"
+	p #{tableGeneration(data.likes)}
+
+	h3="Statuses"
+	p #{tableGeneration(data.statuses)}
+
+	h3="Events"
+	p #{tableGeneration(data.events)}
+
+	h3="Companies"
+	p #{tableGeneration(data.companies)}
+
+	h3="Checks-Ins"
+	p #{tableGeneration(data.checkins)}
+
+	h3="Mentions"
+	p #{tableGeneration(data.mentions)}
+
+	h3="Followings"
+	p #{tableGeneration(data.followings)}
+
+	h3="Audios"
+	p #{tableGeneration(data.audios)}
+
+	h3="Videos"
+	p #{tableGeneration(data.videos)}
+-}
