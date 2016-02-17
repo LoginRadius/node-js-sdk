@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 var express = require('express')
-  , routes = require('./routes')
+  , routes = require('./routes/routes.js')
   , lr = require('LoginRadius');
 
 var app = module.exports = express.createServer();
@@ -18,17 +18,16 @@ app.configure( function() {
 	app.use( express.static( __dirname + '/public') );
 });
 
-app.configure( 'development', function() {
-	app.use( express.errorHandler( { dumpExceptions: true, showStack: true } ) );
-});
 
-app.configure( 'production', function() {
-	app.use( express.errorHandler() );
-});
+
+
 
 // Routes
 app.get( '/', routes.index );
 app.post( '/callback', routes.callback );
+app.get( '/sociallogin', routes.sociallogin );
+app.get( '/userreg', routes.userreg );
+app.get( '/userreg/*', routes.userreg );
 
 app.listen( 3000, function() {
 	console.log( "Express server listening on port %d in %s mode", app.address().port, app.settings.env );

@@ -5,19 +5,19 @@
 
 //To load LoginRadius module
 var lr = require('LoginRadius');
+var apikey = 'f98a9ddb-5f36-47e3-9511-645c6de5bf97';
 
-exports.index = function ( req, res ) {
-	res.render( 'index', { title: 'LoginRadius NodeJs SDK Demo', data: '', apikey: 'f98a9ddb-5f36-47e3-9511-645c6de5bf97' } );
+exports.index = function ( request, response ) {
+	response.render( 'index', { title: 'LoginRadius NodeJs SDK Demo', data: '', apikey: apikey } );
 };
 
-
 //callback returns complete asynchronous user data
-exports.callback = function ( req, res ) {
+exports.callback = function ( request, response ) {
 
-	if ( req.body.token != undefined && req.body.token != '' ) { 
+	if ( request.body.token != undefined && request.body.token != '' ) { 
 		var data = {};
 
-		lr.getAccessToken( req.body.token ).then( function( accesstoken ) {
+		lr.getAccessToken( request.body.token ).then( function( accesstoken ) {
 			
 			data.token = accesstoken.access_token;
 
@@ -190,11 +190,19 @@ exports.callback = function ( req, res ) {
 			
 			data.issent = postmsg && postmsg.isPosted == true ? "successfully sent!!" : "Not sent!!";
 
-			res.render('index', {
+			response.render('index', {
 				title: 'Welcome to User Profile Data',
 				data: data
 			});
 		});
 		
 	}
+};
+
+exports.sociallogin = function( request, response ) {
+	response.render( 'sociallogin', { title: 'Social Login', data: '', apikey: apikey } );
+};
+
+exports.userreg = function ( request, response ) {
+	response.render( 'userreg', { title: 'User Registration', url: request.url, data: '', apikey: apikey } );
 };

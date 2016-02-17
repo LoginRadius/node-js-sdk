@@ -1,0 +1,46 @@
+script.
+	option = {};
+	option.apikey = "<Your LoginRadius API key>";
+	option.appName = "<LoginRadius Site Name>";
+	option.emailVerificationUrl = "<email verification url>";
+	option.forgotPasswordUrl = "<forgot password url>";
+	option.passwordlength = {
+		min: 10,
+		max: 32
+	};
+	option.formRenderDelay = 100;
+	option.inFormvalidationMessage = true / false;
+	option.V2Recaptcha = true;
+	option.enableLoginOnEmailVerification = true;
+	option.termsAndConditionHtml = "<p>Accept <a style='font-size: 12px;display: inline;' href='https://www.loginradius.com/loginradius/terms'> Terms</a> and <a href='https://www.loginradius.com/loginradius/privacy' style='font-size: 12px;display: inline;'>Condition</a> By clicking on Register<p>";
+script(src='//cdn.loginradius.com/hub/prod/js/LoginRadiusRaaS.js')
+div.nav
+	ul
+		if url == '/userreg/changepwd'
+			li.nav-link(data-url='/userreg/changepwd') Change Password
+		else
+			li.nav-link(data-url='/userreg/login') Login
+			li.nav-link(data-url='/userreg/registration') Registration
+			li.nav-link(data-url='/userreg/lostpwd') Lost Password
+h2= url
+if url == '/userreg/login'
+	h1 Login
+else if url == '/userreg/registration'
+	h1 Register
+	div#registration-container
+	script.
+		$LR.util.ready(function() {
+			var raasoption = {};
+			raasoption.apikey = "<Your API key>";
+			LoginRadiusRaaS.init(raasoption, 'registration', function(response) {
+				// On Success
+				console.log(response);
+			}, function(errors) {
+				// On Errors
+				console.log(errors);
+			}, "registration-container");
+		});
+else if url == '/userreg/lostpwd'
+	h1 Lost Password
+else if url == '/userreg/changepwd'
+	h1 Change Password
