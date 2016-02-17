@@ -1,9 +1,9 @@
 script.
 	raasoption = {};
-	raasoption.apikey = "<Your LoginRadius API key>";
-	raasoption.appName = "<LoginRadius Site Name>";
-	raasoption.emailVerificationUrl = "<email verification url>";
-	raasoption.forgotPasswordUrl = "<forgot password url>";
+	raasoption.apikey = '#{apikey}';
+	raasoption.appName = '#{sitename}';
+	raasoption.emailVerificationUrl = "/userreg/login";
+	raasoption.forgotPasswordUrl = "/userreg/login";
 	raasoption.passwordlength = {
 		min: 10,
 		max: 32
@@ -23,8 +23,27 @@ div.nav
 			li.nav-link(data-url='/userreg/registration') Registration
 			li.nav-link(data-url='/userreg/lostpwd') Lost Password
 h2= url
+
 if url == '/userreg/login'
 	h1 Login
+	div#login-container
+	script.
+		$LR.util.ready(function() {
+			LoginRadiusRaaS.init(raasoption, 'login', function(response) {
+				// On Success this callback will call
+				// response will be { access_token : ’<token>’,  expires_in : ‘<date and   time>’ }
+				// you can use token response.access_token and get user profile using your 
+				// LoginRadius SDK technology.
+				// On Success
+				console.log(response);
+			}, function(errors) {
+				// on failure this function will call ‘errors’ which is an array of errors with message.
+				// every kind of error will be returned in this method
+				// you can run a loop on this array.
+				// On Errors
+				console.log(errors);
+			}, "login-container");
+		});
 else if url == '/userreg/registration'
 	h1 Register
 	div#registration-container
@@ -40,5 +59,38 @@ else if url == '/userreg/registration'
 		});
 else if url == '/userreg/lostpwd'
 	h1 Lost Password
+	div#forgotpassword-container
+	script.
+		$LR.util.ready(function() {
+			LoginRadiusRaaS.init(raasoption, 'forgotpassword', function(response) {
+				// On Success this callback will call
+				// response will be { isPosted : true }
+				// in this case user will get an email for password resetting
+				// On Success
+				console.log(response);
+			}, function(errors) {
+				// on failure this function will call ‘errors’ which is an array of errors with message.
+				// every kind of error will be returned in this method
+				// you can run a loop on this array.
+				// On Errors
+				console.log(errors);
+			}, "forgotpassword-container");
+		});
 else if url == '/userreg/changepwd'
 	h1 Change Password
+	div#resetpassword-container
+	script.
+		$LR.util.ready(function() {
+			LoginRadiusRaaS.init(raasoption, 'resetpassword', function(response) {
+				// On Success this callback will call
+				// response will be { isPosted : true }
+				// On Success
+				console.log(response);
+			}, function(errors) {
+				// on failure this function will call 'errors' which is an array of errors with message.
+				// every kind of error will be returned in this method
+				// you can run a loop on this array.
+				// On Errors
+				console.log(errors);
+			}, "resetpassword-container");
+		});
