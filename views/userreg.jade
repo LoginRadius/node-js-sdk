@@ -1,18 +1,18 @@
 script.
-	option = {};
-	option.apikey = "<Your LoginRadius API key>";
-	option.appName = "<LoginRadius Site Name>";
-	option.emailVerificationUrl = "<email verification url>";
-	option.forgotPasswordUrl = "<forgot password url>";
-	option.passwordlength = {
+	raasoption = {};
+	raasoption.apikey = "<Your LoginRadius API key>";
+	raasoption.appName = "<LoginRadius Site Name>";
+	raasoption.emailVerificationUrl = "<email verification url>";
+	raasoption.forgotPasswordUrl = "<forgot password url>";
+	raasoption.passwordlength = {
 		min: 10,
 		max: 32
 	};
-	option.formRenderDelay = 100;
-	option.inFormvalidationMessage = true / false;
-	option.V2Recaptcha = true;
-	option.enableLoginOnEmailVerification = true;
-	option.termsAndConditionHtml = "<p>Accept <a style='font-size: 12px;display: inline;' href='https://www.loginradius.com/loginradius/terms'> Terms</a> and <a href='https://www.loginradius.com/loginradius/privacy' style='font-size: 12px;display: inline;'>Condition</a> By clicking on Register<p>";
+	raasoption.formRenderDelay = 100;
+	raasoption.inFormvalidationMessage = true / false;
+	raasoption.V2Recaptcha = true;
+	raasoption.enableLoginOnEmailVerification = true;
+	raasoption.termsAndConditionHtml = "<p>Accept <a style='font-size: 12px;display: inline;' href='https://www.loginradius.com/loginradius/terms'> Terms</a> and <a href='https://www.loginradius.com/loginradius/privacy' style='font-size: 12px;display: inline;'>Condition</a> By clicking on Register<p>";
 script(src='//cdn.loginradius.com/hub/prod/js/LoginRadiusRaaS.js')
 div.nav
 	ul
@@ -30,8 +30,6 @@ else if url == '/userreg/registration'
 	div#registration-container
 	script.
 		$LR.util.ready(function() {
-			var raasoption = {};
-			raasoption.apikey = "<Your API key>";
 			LoginRadiusRaaS.init(raasoption, 'registration', function(response) {
 				// On Success
 				console.log(response);
