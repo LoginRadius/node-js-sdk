@@ -1,3 +1,36 @@
+-var userProfileData = function(userprofile){
+	-if(typeof(userprofile) !== 'undefined'){
+		table
+			each userdata,key in userprofile
+				tr
+					-if(typeof(userdata) !== 'undefined'){
+						-if(userdata instanceof Array && 0 < userdata.length) {
+							th #{key}
+							td
+								table 
+									thead
+										tr
+											each data,k in userdata[0]
+												th=k
+									tbody
+										each data,k in userdata
+											tr
+												each d, ka in data
+													td=d
+						-}else{
+							-if(key == 'ImageUrl'){       
+								-imageUrl=userdata
+							-}
+								th=key
+								td=userdata
+						-}
+					-}
+	-}
+-}
+script(type="text/html",id="loginradiuscustom_tmpl").
+	<span class="lr-provider-label lr-sl-shaded-brick-button lr-flat-<#=Name.toLowerCase()#>" onclick="return  $LR.util.openWindow('<#= Endpoint #>&is_access_token=true&callback=<#= window.location #>');" title="Sign up with <#= Name #>" alt="Sign in with <#=Name#>">
+	<span class="lr-raas-icon lr-raas-<#=Name.toLowerCase()#>"><#=Name#></span>
+	</span>
 script.
 	raasoption = {};
 	raasoption.apikey = '#{apikey}';
@@ -13,20 +46,44 @@ script.
 	raasoption.V2Recaptcha = true;
 	raasoption.enableLoginOnEmailVerification = true;
 	raasoption.termsAndConditionHtml = "<p>Accept <a style='font-size: 12px;display: inline;' href='https://www.loginradius.com/loginradius/terms'> Terms</a> and <a href='https://www.loginradius.com/loginradius/privacy' style='font-size: 12px;display: inline;'>Condition</a> By clicking on Register<p>";
+	raasoption.templatename = "loginradiuscustom_tmpl";
+	raasoption.hashTemplate = true;
 script(src='//cdn.loginradius.com/hub/prod/js/LoginRadiusRaaS.js')
 div.nav
 	ul
-		if url == '/userreg/changepwd'
-			li.nav-link(data-url='/userreg/changepwd') Change Password
+		if data
+			li.nav-link.logout(data-url='/userreg/profile') User Profile
+			li.nav-link.logout(data-url='/userreg/changepwd') Change Password
+			li.nav-link.logout(data-url='logout') Logout
 		else
-			li.nav-link(data-url='/userreg/login') Login
-			li.nav-link(data-url='/userreg/registration') Registration
-			li.nav-link(data-url='/userreg/lostpwd') Lost Password
-h2= url
-
+			li.nav-link.login(data-url='/userreg/login') Login
+			li.nav-link.login(data-url='/userreg/registration') Registration
+			li.nav-link.login(data-url='/userreg/lostpwd') Lost Password
+if url == '/userreg/login' || url == '/userreg/registration'
+	div#social-login-container.interfacecontainerdiv
+	script.
+		LoginRadiusRaaS.CustomInterface(".interfacecontainerdiv", raasoption);
+	script.
+		$LR.util.ready(function() {
+			LoginRadiusRaaS.init(raasoption, 'sociallogin', function(response) {
+				// On Success this callback will call
+				// response will be string as token
+				// On Success
+				console.log(response);
+				if(response) {
+					window.location.href = '/userreg/profile';
+				}
+			}, function(errors) {
+				// on failure this function will call ‘errors’ which is an array of errors with message.
+				// every kind of error will be returned in this method
+				// you can run a loop on this array
+				// On Errors
+				console.log(errors);
+			}, "social-login-container");
+		});
 if url == '/userreg/login'
 	h1 Login
-	div#login-container
+	div#login-container.lr-input-style
 	script.
 		$LR.util.ready(function() {
 			LoginRadiusRaaS.init(raasoption, 'login', function(response) {
@@ -36,6 +93,9 @@ if url == '/userreg/login'
 				// LoginRadius SDK technology.
 				// On Success
 				console.log(response);
+				if(response) {
+					window.location.href = '/userreg/profile';
+				}
 			}, function(errors) {
 				// on failure this function will call ‘errors’ which is an array of errors with message.
 				// every kind of error will be returned in this method
@@ -46,7 +106,7 @@ if url == '/userreg/login'
 		});
 else if url == '/userreg/registration'
 	h1 Register
-	div#registration-container
+	div#registration-container.lr-input-style
 	script.
 		$LR.util.ready(function() {
 			LoginRadiusRaaS.init(raasoption, 'registration', function(response) {
@@ -59,7 +119,7 @@ else if url == '/userreg/registration'
 		});
 else if url == '/userreg/lostpwd'
 	h1 Lost Password
-	div#forgotpassword-container
+	div#forgotpassword-container.lr-input-style
 	script.
 		$LR.util.ready(function() {
 			LoginRadiusRaaS.init(raasoption, 'forgotpassword', function(response) {
@@ -78,7 +138,7 @@ else if url == '/userreg/lostpwd'
 		});
 else if url == '/userreg/changepwd'
 	h1 Change Password
-	div#resetpassword-container
+	div#resetpassword-container.lr-input-style
 	script.
 		$LR.util.ready(function() {
 			LoginRadiusRaaS.init(raasoption, 'resetpassword', function(response) {
@@ -94,3 +154,6 @@ else if url == '/userreg/changepwd'
 				console.log(errors);
 			}, "resetpassword-container");
 		});
+else if url == '/userreg/profile'
+	h1 User Profile Data
+	div#user-data #{userProfileData(data)}

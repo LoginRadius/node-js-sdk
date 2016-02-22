@@ -5,19 +5,12 @@ LoginRadius Combined Node SDK features a combined SDK set to encompass Social Lo
 # Getting Started
 
 ## Configuration
-- Navigate to routes/index.js and find
-
-	exports.index = function ( req, res ) {
-		res.render( 'index', { title: 'LoginRadius NodeJs SDK Demo', data: '', apikey: '{{ LR API KEY }}' } );
-	};
-	
-- Change the placeholder {{ LR API KEY }} with your own LoginRadius API Key
-
-- Navigate to node_modules/LoginRadius/config.js
-- Replace the two placeholders with your LoginRadius API Key and API Secret
+- Edit server.js
+- Replace the placeholders in the config object with your LoginRadius credentials
+- apikey, apisecret, sitename
 
 ## Running the Demo
 
 run node server.js at command line
 
-Navigate to localhost:3000 in a web browser after server started messages has been given
+Navigate to localhost:3000 in a web browser after server started messages has been given. You will see a menu which allows you to select Social Login or User Registration.

@@ -86,6 +86,8 @@ h1= title
 	script.
 		var options={} 
 		options.login=true
+		//Disabling console log messages - please delete when api has been updated
+		LoginRadius_SocialLogin.console.log = function(){};
 		LoginRadius_SocialLogin.util.ready(function () { 
 				$ui = LoginRadius_SocialLogin.lr_login_settings
 				$ui.interfacesize = ""
