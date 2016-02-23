@@ -9,7 +9,7 @@ var config = {
 // Module dependencies.
 var express = require('express')
   ,routes = require('./routes/routes.js')
-  ,lr = require('LoginRadius')(config);
+  ,lr = require('loginradius-sdk')(config);
 
 var app = module.exports = express.createServer();
 

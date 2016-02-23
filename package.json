@@ -4,9 +4,13 @@
   "author": "LoginRadius <support@loginradius.com>",
   "description": "LoginRadius Combined NodeJs SDK Demo",
   "contributors": [ 
+    { 
+      "name": "LoginRadius Team", 
+      "email": "support@loginradius.com" 
+    },
     {
       "name": "Zoie Carnegie",
-      "email": "zoie@loginradius.com"
+      "email": "zoie.carnegie@gmail.com"
     }
   ],  
   "main": "./server.js",  
