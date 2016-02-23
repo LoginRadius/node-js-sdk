@@ -1,0 +1,32 @@
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	padding: 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+	color: #00B7FF;
+}
+
+td {
+    border: 1px solid #000;
+}
+
+th {
+	border: 1px solid #000;
+}
+ul {
+	width:100%;
+	background-color: #ccc;
+}
+li.nav-link {
+    display: inline-block;
+    padding: 10px;
+    background-color: #ccc;
+}
+li.nav-link:hover {
+	background-color: #999;
+}

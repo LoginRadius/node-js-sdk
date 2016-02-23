@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "WebMatrixExpressSite",
   "version": "0.1.0",
   "author": "The WebMatrix Team <webmatrix@microsoft.com>",
@@ -8,20 +9,49 @@
       "name": "Justin Beckwith",
       "email": "justbe@microsoft.com"
     } 
+=======
+  "name": "loginradius-node-sdk-demo",
+  "version": "0.1.0",
+  "author": "LoginRadius <support@loginradius.com>",
+  "description": "LoginRadius Combined NodeJs SDK Demo",
+  "contributors": [ 
+    { 
+      "name": "LoginRadius Team", 
+      "email": "support@loginradius.com" 
+    },
+    {
+      "name": "Zoie Carnegie",
+      "email": "zoie.carnegie@gmail.com"
+    }
+>>>>>>> private/3.0
   ],  
   "main": "./server.js",  
   "keywords": [
     "azure",
     "boilerplate",
+<<<<<<< HEAD
     "express"
   ],
   "dependencies" : {
     "express": "2.5.7",
     "jade": ">= 0.0.1"
+=======
+    "express",
+    "loginradius"
+  ],
+  "dependencies" : {
+    "express": "2.5.7",
+    "jade": ">= 0.0.1",
+    "loginradius-sdk": ">= 3.0.2"
+>>>>>>> private/3.0
   },
   "noAnalyze": true,
   "license": "Apache",
   "engines": {
+<<<<<<< HEAD
     "node": ">=0.6.14"
+=======
+    "node": ">=0.11.13"
+>>>>>>> private/3.0
   }
 }
