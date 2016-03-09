@@ -6,7 +6,7 @@ module.exports = function ( config ) {
 	module.postObjectCreateUpdate = function( objectid, uid, formData ) {
 
 		// Additional Custom json object
-		config.request( { method: 'POST', uri: apiDomain + "/raas/v1/user/customObject/upsert?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid + "&accountid=" + uid, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
+		config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/upsert?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
@@ -18,7 +18,7 @@ module.exports = function ( config ) {
 	// Custom Object by Account ID (GET)
 	module.getObjectByAccountId = function( objectid, uid  ) {
 
-		config.request( { uri: apiDomain + "/raas/v1/user/customObject?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid + "&accountid=" + uid }, function ( data ) {
+		config.request( { uri: config.apidomain + "/raas/v1/user/customObject?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
@@ -30,7 +30,7 @@ module.exports = function ( config ) {
 	// Custom Object by Multiple Account IDs (GET)
 	module.getObjectByAccountIds = function( objectid, uids  ) {
 
-		config.request( { uri: apiDomain + "/raas/v1/user/customObject?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid + "&accountids=" + uids }, function ( data ) {
+		config.request( { uri: config.apidomain + "/raas/v1/user/customObject?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountids=" + uids }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
@@ -42,7 +42,7 @@ module.exports = function ( config ) {
 	// Custom Object Check ( GET )
 	module.getObjectCheck = function( objectid, uid  ) {
 
-		config.request( { uri: apiDomain + "/raas/v1/user/customObject/check?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid + "&accountid=" + uid }, function ( data ) {
+		config.request( { uri: config.apidomain + "/raas/v1/user/customObject/check?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
@@ -55,7 +55,7 @@ module.exports = function ( config ) {
 	// Custom Object by Unique Object ID ( GET )
 	module.getObjectByUniqueObjectId = function( objectid, uid  ) {
 
-		config.request( { uri: apiDomain + "/raas/v1/user/customObject?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid }, function ( data ) {
+		config.request( { uri: config.apidomain + "/raas/v1/user/customObject?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
@@ -67,7 +67,7 @@ module.exports = function ( config ) {
 	// Custom Objects by Query ( GET )
 	module.getObjectByQuery = function( objectid, query, cursor ) {
 
-		config.request( { uri: apiDomain + "/raas/v1/user/customObject?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid + "&q=" + query + "&cursor=" + cursor }, function ( data ) {
+		config.request( { uri: config.apidomain + "/raas/v1/user/customObject?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&q=" + query + "&cursor=" + cursor }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
@@ -79,7 +79,7 @@ module.exports = function ( config ) {
 	// Custom Object by Object ID ( GET )
 	module.getObjectByObjectId = function( objectid, cursor ) {
 
-		config.request( { uri: apiDomain + "/raas/v1/user/customObject?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid + "&cursor=" + cursor }, function ( data ) {
+		config.request( { uri: config.apidomain + "/raas/v1/user/customObject?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&cursor=" + cursor }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
@@ -92,7 +92,7 @@ module.exports = function ( config ) {
 	module.postObjectDelete= function( objectid, uid ) {
 
 		// Additional Custom json object
-		config.request( { method: 'POST', uri: apiDomain + "/raas/v1/user/customObject/status?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid + "&accountid=" + uid, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
+		config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/status?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
@@ -104,7 +104,7 @@ module.exports = function ( config ) {
 	// Custom Object Stats ( GET )
 	module.getObjectStats = function( objectid ) {
 
-		config.request( { uri: apiDomain + "/raas/v1/user/customObject/stats?appkey=" + apiKey + "&appsecret=" + apiSecret + "&objectid=" + objectid }, function ( data ) {
+		config.request( { uri: config.apidomain + "/raas/v1/user/customObject/stats?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid }, function ( data ) {
             if( data && data.errorCode ) {
                 reject( data );
             } else {
