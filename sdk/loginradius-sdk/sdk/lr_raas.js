@@ -84,7 +84,7 @@ module.exports = function ( config ) {
     // User Email Availability - Server( GET )
     module.getUserEmailAvailabilityServer = function( email ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/user/checkemail?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&emailid=" + email }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/user/checkemail?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&emailid=" + email }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -97,7 +97,7 @@ module.exports = function ( config ) {
     // User Password Forgot Token( GET )
     module.getUserPasswordForgotToken = function( email ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/account/password/forgot?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&email=" + email }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/account/password/forgot?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&email=" + email }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -111,7 +111,7 @@ module.exports = function ( config ) {
     // User Password( GET )
     module.getUserPassword = function ( userid ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + userid }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + userid }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -125,7 +125,7 @@ module.exports = function ( config ) {
     // User Password Update( POST )
     module.postUserPasswordUpdate = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST', uri: apiDomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
+            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -139,7 +139,7 @@ module.exports = function ( config ) {
     // User Password Set( POST )
     module.postUserPasswordSet = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST', uri: apiDomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id + "&action=" + formData.action, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded'} }, function ( data ) {
+            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id + "&action=" + formData.action, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded'} }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -152,7 +152,7 @@ module.exports = function ( config ) {
     // User Profile By Id( GET )
     module.getUserProfileById = function ( userid ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/user?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + userid }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/user?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + userid }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -165,7 +165,7 @@ module.exports = function ( config ) {
     // User Profile By Email( GET )
     module.getUserProfileByEmail = function ( email ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/user?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&emailid=" + email }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/user?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&emailid=" + email }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -178,7 +178,7 @@ module.exports = function ( config ) {
     // User Registration( POST )
     module.postUserRegistration = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/user/register?appkey=" + config.apikey + "&appsecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/user/register?appkey=" + config.apikey + "&appsecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -191,7 +191,7 @@ module.exports = function ( config ) {
     // User Update( POST )
     module.postUserUpdate = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/user?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/user?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -204,7 +204,7 @@ module.exports = function ( config ) {
     // User Email Verification Resend ( GET )
     module.getUserEmailVerificationResend = function ( email, link, template ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/account/verificationemail?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&emailid=" + email + "&link=" + link + "&template=" + template }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/account/verificationemail?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&emailid=" + email + "&link=" + link + "&template=" + template }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -215,11 +215,17 @@ module.exports = function ( config ) {
     }
 
     // Account API
-    
-    // Account Block/Unblock( POST )
+
+    /** Account Block/Unblock( POST )
+    * @function 
+    * @public
+    * @param formData {object}
+    *        formData.accountid {String} UID, the identifier for each user account, it may have multiple IDs(identifier for each social platform) attached with
+    *        formData.isblock {Bool} true to block the account, false to unblock the account.
+    */
     module.postUserAccountBlockUnblock = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/account/status?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/status?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -232,7 +238,7 @@ module.exports = function ( config ) {
     // Account Link( POST )
     module.postAccountLink = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/account/link?appkey=" + config.apikey + "&appsecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/link?appkey=" + config.apikey + "&appsecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -245,7 +251,7 @@ module.exports = function ( config ) {
     // Account Delete( GET )
     module.getAccountDelete = function( uid, callback ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/account/delete?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/account/delete?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -258,7 +264,7 @@ module.exports = function ( config ) {
     // Account Password Change( POST )
     module.postAccountPasswordChange = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -271,7 +277,7 @@ module.exports = function ( config ) {
     // Account Password Get( GET )
     module.getAccountPassword = function( uid ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -284,7 +290,7 @@ module.exports = function ( config ) {
     // Account Password Set( POST )
     module.postAccountPasswordSet = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid + "&action=set", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid + "&action=set", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -297,7 +303,7 @@ module.exports = function ( config ) {
     // Account Unlink( POST )
     module.postAccountUnlink = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/account/unlink?appkey=" + config.apikey + "&appsecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/unlink?appkey=" + config.apikey + "&appsecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -311,7 +317,7 @@ module.exports = function ( config ) {
     // Account Profiles( GET )
     module.getAccountProfiles = function( uid ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/account?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/account?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -326,7 +332,7 @@ module.exports = function ( config ) {
     // Account Username Change (POST)
     module.postAccountUsernameChange = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/account/changeusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountId=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/changeusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountId=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -340,7 +346,7 @@ module.exports = function ( config ) {
     // This API is used to check username exists or not on your site
     module.getAccountUsernameCheck = function( username ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: apiDomain + "/raas/v1/user/checkusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&username=" + username }, function ( data ) {
+            config.request( { uri: config.apidomain + "/raas/v1/user/checkusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&username=" + username }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -355,7 +361,7 @@ module.exports = function ( config ) {
     // newusername: String
     module.postAccountUsernameSet = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: apiDomain + "/raas/v1/account/setusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountId=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/setusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountId=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
