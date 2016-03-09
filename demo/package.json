@@ -17,8 +17,7 @@
   "keywords": [
     "azure",
     "boilerplate",
-    "express",
-    "loginradius"
+    "express"
   ],
   "dependencies" : {
     "express": "2.5.7",
