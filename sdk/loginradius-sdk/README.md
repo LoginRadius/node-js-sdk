@@ -206,6 +206,13 @@ http://apidocs.loginradius.com/docs/link-user
 This API is used to block or un-block a user using the users unique UserID (UID).
 http://apidocs.loginradius.com/docs/account-blockunblock
 
+	/** Account Block/Unblock( POST )
+	* @function 
+	* @public
+	* @param formData {object}
+	*        formData.accountid {String} UID, the identifier for each user account, it may have multiple IDs(identifier for each social platform) attached with
+	*        formData.isblock {Bool} true to block the account, false to unblock the account.
+	*/
 	lr.postUserAccountBlockUnblock( formData );
 
 #### Get User Profiles
