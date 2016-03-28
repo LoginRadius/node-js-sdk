@@ -219,7 +219,7 @@ exports.userreg = function (config) {
 
 			});
 		} else {
-			response.render( 'userreg', { title: 'User Registration', url: url, apikey: config.apikey, sitename: config.sitename } );
+			response.render( 'userreg', { title: 'User Registration', url: url, data: null, apikey: config.apikey, sitename: config.sitename } );
 		}
 		
 	}
