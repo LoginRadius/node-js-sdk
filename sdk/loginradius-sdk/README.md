@@ -125,70 +125,246 @@ http://apidocs.loginradius.com/docs/post-message
 #### User Authentication (GET)
 This API is used to authenticate users and returns the profile data associated with the authenticated user.
 http://apidocs.loginradius.com/docs/user-authentication
+##### Example:
 
-	lr.getUserAuthentication( username, password );
+	var username = "johndoe1234@mailinator.com";
+	var password = "test1234";
+
+	lr.getUserAuthentication( username, password ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### User Create (POST)
 This API is used to create a new user on your site. This API bypasses the normal email verification process and manually creates the user for your system.
 http://apidocs.loginradius.com/docs/create-user
+##### Example:
 
-	lr.postUserCreate( formData );
+	var formData = {
+		"emailid": "johndoe1234@mailinator.com",
+		"password": "test1234",
+		"firstname": "John",
+		"lastname": "Doe",
+		"gender": "Male",
+		"birthdate": "01-28-1976",
+		"country": "Canada",
+		"city": "Edmonton",
+		"state": "Alberta",
+		"phonenumber": "8651234567",
+		"address1": "1234 Lane NW",
+		"address2": "Apt 201",
+		"company": "loginradius",
+		"postalcode": "T5M0H3",
+		"customfields": {"CustomField":"Value"} // Define custom fields from LoginRadius dashboard
+	}
+
+	lr.postUserCreate( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### User Create Registration Profile (POST)
 This API is used to create a user using the currently logged in social provider.
 http://apidocs.loginradius.com/docs/create-user-registration-profile
+##### Example:
 
-	lr.postUserCreateRegistrationProfile( formData );
+	var formData = {
+		"accountid": "{{UID}}",
+		"password": "test1234",
+		"emailid": "johndoe12344@mailinator.com"
+	};
+
+	lr.postUserCreateRegistrationProfile( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Delete User with Email Confirmation (GET)
 This API is used to remove an user's account from LoginRadius system. For security and mis-click concerns, it will send a delete confirmation email to user's email inbox to ask user to confirm the action.
 http://apidocs.loginradius.com/docs/user-delete-with-email-confirmation
 
-	lr.getUserDeleteWithEmailConfirm( id, link, template );
+	var id = "{{ID}}";
+	var link = "http://localhost/delete";
+	var template = "Deleted";
+
+	lr.getUserDeleteWithEmailConfirm( id, link, template ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### User Email Add/Remove (POST)
 This API is used to add or remove a particular email from one user's account.
 http://apidocs.loginradius.com/docs/user-email-set
+##### Example:
 
-	lr.postUserEmailAddRemove( formData );
+	var formData = {
+		"accountid": "{{UID}}",
+		"action": "Add/Remove",
+		"EmailId": "Email Address",
+		"EmailType": "Business/Personal"
+	};
+
+	lr.postUserEmailAddRemove( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### User Check Email Availability (GET)
 This API is used to check the availability of an email from your Customer registration system.
-http://apidocs.loginradius.com/docs/user-email-availability-server
+http://apidocs.loginradius.com/docs/user-email-availability
+##### Example:
 
-	lr.getUserEmailAvailability( email );
+	var email = "tester@mail.com";
+
+	lr.getUserEmailAvailability( email ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
+
+#### Users Check Email Availability Server (GET)
+This API checks for the existence of the specified email in your Cloud Storage.
+http://apidocs.loginradius.com/docs/user-email-availability-server
+##### Example:
+
+	var email = "tester@mail.com";
+
+	lr.getUserEmailAvailabilityServer( email ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### User Forgot Password Token (GET)
 This API generates a forgot password token so you can manually pass into the reset password page and reset some's password.
 http://apidocs.loginradius.com/docs/user-password-forgot-token
+##### Example:
 
-	lr.getUserPasswordForgotToken( email );
+	var email = "tester@mail.com";
+
+	lr.getUserPasswordForgotToken( email ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### User Register
 This API used to register user from server side, verification email will be send to provided email address
 http://apidocs.loginradius.com/docs/registration-api
 
-	lr.postUserRegistration( formData );
+	var formData = {
+		"emailid": "testanotheruser@mailinator.com",
+		"password": "test1234",
+		"firstname": "Test",
+		"lastname":	"User",
+		"gender": "F",
+		"birthdate": "mm-dd-yyyy",
+		"country":	"Canada",
+		"city":	"Edmonton",
+		"state": "Alberta",
+		"phonenumber": "7801234567",
+		"address1":	"Box 1777",
+		"address2": "",
+		"company": "LoginRadius",
+		"postalcode": "T5J1L5",
+		"emailsubscription": true,
+		"customfields": {"CustomField":"Value"}, // Define custom fields from LoginRadius dashboard
+		"emailverificationurl":	"http://localhost/login"
+	};
+
+	lr.postUserRegistration( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 
 #### User Update (POST)
 This API is used to Modify/Update details of an existing user.
 http://apidocs.loginradius.com/docs/update-user
 
-	lr.postUserUpdate( formData );
+	var formData = {
+		"userid": "94a76a7c1d374f9698e2ad7b932377ab",
+		"firstname": "John",
+		"lastname": "Doe",
+		"gender": "F",
+		"birthdate": "01-13-1921",
+		"city": "",
+		"state": "",
+		"phonenumber": "",
+		"nickname": "",
+		"profilename": "",
+		"website": "",
+		"hometown": "",
+		"industry": "",
+		"relationshipstatus": "",
+		"Languages": "",
+		"age": "",
+		"placeslived": "",
+		"address1": "1234 Lane NW",
+		"address2": "Apt 201",
+		"company": "loginradius",
+		"postalcode": "T5M0H3",
+		"emailsubscription": true,
+		"customfields": {"CustomField":"Value"}, // Define custom fields from LoginRadius dashboard
+		"imageUrl": "",
+		"thumbnailImageUrl": "",
+		"timezone": "",
+		"about": "",
+		"webprofiles": "",
+		"type": "",
+		"country": "",
+	};
+	
+	lr.postUserUpdate( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 
 #### Get User Profile By User ID
 This API retrieves the profile data associated with the specific user using the users unique UserID.
 http://apidocs.loginradius.com/docs/get-user-profile
+##### Example:
 
-	lr.getUserProfileById( userid );
+	var userid = "94a76a7c1d374f9698e2ad7b932377ab";
+
+	lr.getUserProfileById( userid ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
+
+#### User Password (GET)
+This API returns the encrypted hashed password for the specified User. This API is officially deprecated, We encourage you to use the Account Password Get API.
+##### Example:
+
+	var userid = "{{ID}}";
+
+	lr.getUserPassword( userid ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Get User Profile By Email
 This API retrieves the profile data associated with the specific user using the passing in email address.
 http://apidocs.loginradius.com/docs/user-profile-by-email
+##### Example:
 
-	lr.getUserProfileByEmail( email );
+	var email = "johndoe1234@mailinator.com";
+
+	lr.getUserProfileByEmail( email ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 ### Account API
 
@@ -205,21 +381,29 @@ http://apidocs.loginradius.com/docs/link-user
 #### Block/Unblock Account
 This API is used to block or un-block a user using the users unique UserID (UID).
 http://apidocs.loginradius.com/docs/account-blockunblock
+	
+	var formData = {
+		"accountid": "d644d13338424330b889193c501b77d8", //UID, the identifier for each user account
+		"isblock": false //{Bool} true to block the account, false to unblock the account.
+	};
 
-	/** Account Block/Unblock( POST )
-	* @function 
-	* @public
-	* @param formData {object}
-	*        formData.accountid {String} UID, the identifier for each user account, it may have multiple IDs(identifier for each social platform) attached with
-	*        formData.isblock {Bool} true to block the account, false to unblock the account.
-	*/
-	lr.postUserAccountBlockUnblock( formData );
+	lr.postUserAccountBlockUnblock( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Get User Profiles
 This API is used to retrieve all of the profile data from each of the linked social provider accounts associated with the account. For ex: A user has linked facebook and google account then this api will retrieve both profile data.
 http://apidocs.loginradius.com/docs/get-user-profiles
 
-	lr.getAccountProfiles( uid );
+	var uid = "d644d13338424330b889193c501b77d8";
+
+	lr.getAccountProfiles( uid ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Account Delete
 Delete an account from your LoginRadius app.
@@ -255,7 +439,13 @@ http://apidocs.loginradius.com/docs/user-name-change
 This API is used to check username exists or not on your site.
 http://apidocs.loginradius.com/docs/user-name-check-server
 
-	lr.getAccountUsernameCheck( username );
+	var username = "tester";
+
+	lr.getAccountUsernameCheck( username ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Set UserName
 This API is used for set user name by user Id.
