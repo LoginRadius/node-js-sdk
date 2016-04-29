@@ -4,20 +4,6 @@ module.exports = function ( config ) {
 
 	// Custom Object Create/Update (POST)
 	module.postObjectCreateUpdate = function( objectid, uid, formData ) {
-<<<<<<< HEAD
-        
-
-
-		// Additional Custom json object
-        return new Promise( function( resolve, reject ) {
-		config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/upsert?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
-            if( data && data.errorCode ) {
-                reject( data );
-            } else {
-                resolve( data );
-            }   
-        });  }); 
-=======
         return new Promise( function( resolve, reject ) {
     		// Additional Custom json object
     		config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/upsert?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
@@ -28,21 +14,10 @@ module.exports = function ( config ) {
                 }  
             });
         });
->>>>>>> dev
 	}
 
 	// Custom Object by Account ID (GET)
 	module.getObjectByAccountId = function( objectid, uid  ) {
-<<<<<<< HEAD
-return new Promise( function( resolve, reject ) {
-		config.request( { uri: config.apidomain + "/raas/v1/user/customObject?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid }, function ( data ) {
-            if( data && data.errorCode ) {
-                reject( data );
-            } else {
-                resolve( data );
-            }   
-        });}); 
-=======
         return new Promise( function( resolve, reject ) {
     		config.request( { uri: config.apidomain + "/raas/v1/user/customObject?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid }, function ( data ) {
                 if( data && data.errorCode ) {
@@ -52,7 +27,6 @@ return new Promise( function( resolve, reject ) {
                 }   
             });
         });
->>>>>>> dev
 	}
 
 	// Custom Object by Multiple Account IDs (GET)
