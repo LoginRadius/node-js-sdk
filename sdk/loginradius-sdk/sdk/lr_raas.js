@@ -125,7 +125,7 @@ module.exports = function ( config ) {
     // User Password Update( POST )
     module.postUserPasswordUpdate = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
+            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.userid, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -139,7 +139,7 @@ module.exports = function ( config ) {
     // User Password Set( POST )
     module.postUserPasswordSet = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id + "&action=" + formData.action, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded'} }, function ( data ) {
+            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.userid + "&action=" + formData.action, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded'} }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -191,7 +191,7 @@ module.exports = function ( config ) {
     // User Update( POST )
     module.postUserUpdate = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/user?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.id, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/user?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&userid=" + formData.userid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -225,7 +225,7 @@ module.exports = function ( config ) {
     */
     module.postUserAccountBlockUnblock = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/status?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/status?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.accountid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
