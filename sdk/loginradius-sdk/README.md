@@ -550,19 +550,40 @@ http://apidocs.loginradius.com/docs/save-custom-object
 This API is used to retrieve all of the custom objects by account ID (UID).
 http://apidocs.loginradius.com/docs/get-custom-object-by-account-id
 
-	lr.getObjectByAccountId( objectid, uid  );
+	var objectid = "{{Custom Object ID}}";
+	var uid = "{{UID}}";
+	
+	lr.getObjectByAccountId( objectid, uid  ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Custom Object by Multiple Account IDs (GET)
 This API is used to retrieve all of the custom objects via a list of account IDs(UID) separated by , (Max 20).
 http://apidocs.loginradius.com/docs/get-custom-object-by-multiple-account-ids
-
-	lr.getObjectByAccountIds( objectid, uids  );
+	
+	var objectid = "{{Custom Object ID}}";
+	var ids = "{{UID}},{{UID}}"; // Max 20
+	
+	lr.getObjectByAccountIds( objectid, uids  ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Custom Object Check (GET)
 This API is used to check the presence of a Custom Object for the specified account ID(UID)
 http://apidocs.loginradius.com/docs/custom-object-check
-
-	lr.getObjectCheck( objectid, uid  );
+	
+	var objectid = "{{Custom Object ID}}";
+	var uid = "{{UID}}";
+	
+	lr.getObjectCheck( objectid, uid  ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Custom Objects by Query (GET)
 This API is used to retrieve all of the Custom Objects based on the specified query.
@@ -574,18 +595,41 @@ http://apidocs.loginradius.com/docs/get-custom-objects-by-query
 This API is used to retrieve all of the Custom objects based on the Object ID.
 http://apidocs.loginradius.com/docs/get-all-custom-object-records
 
-	lr.getObjectByObjectId( objectid, cursor );
+	var objectid = "{{Custom Object ID}}";
+	var cursor = 1;
+
+	lr.getObjectByObjectId( objectid, cursor ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Custom Object Delete (POST)
 This API is used to remove the specified Custom Object based on the account ID(UID).
 http://apidocs.loginradius.com/docs/delete-custom-object
-
-	lr.postObjectDelete( objectid, uid );
+	
+	var objectid = "{{Custom Object ID}}";
+	var uid = "{{UID}}";
+	var formdata = {
+		"isBlock": false
+	};
+	
+	lr.postObjectDelete( objectid, uid, formdata ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Custom Object Stats (GET)
 This API is used to get the current storage information for a specified Custom Object.
 http://apidocs.loginradius.com/docs/get-custom-object-stats
 
-	lr.getObjectStats( objectid );
+	var objectid = "{{Custom Object ID}}";
+		
+	lr.getObjectStats( objectid ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 
