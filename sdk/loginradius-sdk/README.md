@@ -372,11 +372,31 @@ http://apidocs.loginradius.com/docs/user-profile-by-email
 This API is used to link a user account with a specified providers user account.
 http://apidocs.loginradius.com/docs/link-user
 
-	lr.postAccountLink( formData );
+	var formData = {
+		"accountid": "d644d13338424330b889193c501b77d8", //UID, the identifier for each user account
+		"provider": "twitter", //A supported social provider in lower case
+		"providerid": "1234567" //The ID of the social provider
+	};
+	
+	lr.postAccountLink( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Unlink Account
 
-	lr.postAccountUnlink( formData );
+	var formData = {
+		"accountid": "d644d13338424330b889193c501b77d8", //UID, the identifier for each user account
+		"provider": "twitter", //A supported social provider in lower case
+		"providerid": "1234567" //The ID of the social provider
+	};
+
+	lr.postAccountUnlink( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Block/Unblock Account
 This API is used to block or un-block a user using the users unique UserID (UID).
@@ -409,31 +429,73 @@ http://apidocs.loginradius.com/docs/get-user-profiles
 Delete an account from your LoginRadius app.
 http://apidocs.loginradius.com/docs/account-delete
 
-	lr.getAccountDelete( uid, callback );
+	var uid = "d644d13338424330b889193c501b77d8";
+
+	lr.getAccountDelete( uid ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Change Account Password
 This API is used to change the password field of an account, you need to know the old password before you change it.
 http://apidocs.loginradius.com/docs/account-password-change
 
-	lr.postAccountPasswordChange( formData );
+	var formData = {
+		"accountid": "462c90fe93af4ef3a640ac17c7bdfe60", //UID, the identifier for each user account
+		"oldpassword": "old", //Old Password
+		"newpassword": "new" //New Password
+	};
+
+	lr.postAccountPasswordChange( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Get Account Password
 This API is used to get the password field of an account.
 http://apidocs.loginradius.com/docs/account-password-get
 
-	lr.getAccountPassword( uid );
+	var uid = "462c90fe93af4ef3a640ac17c7bdfe60";
+
+	lr.getAccountPassword( uid ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Set Account Password
 This API is used to set a password for an account. It does not require to know the previous(old) password.
 http://apidocs.loginradius.com/docs/account-password-set
 
-	lr.postAccountPasswordSet( formData );
+	var formData = {
+		"accountid": "462c90fe93af4ef3a640ac17c7bdfe60", //UID, the identifier for each user account
+		"action": "set", //Action
+		"password": "test1234" //Password
+	}
+
+	lr.postAccountPasswordSet( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Change UserName
 This API is used for changing user name by account Id.
 http://apidocs.loginradius.com/docs/user-name-change
 
-	lr.postAccountUsernameChange( formData );
+	var formData = {
+		"accountid": "462c90fe93af4ef3a640ac17c7bdfe60", //UID, the identifier for each user account
+		"oldusername": "oldusername", //Current username
+		"newusername": "newusername" //New username
+	}
+
+	lr.postAccountUsernameChange( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Check UserName
 This API is used to check username exists or not on your site.
@@ -451,13 +513,30 @@ http://apidocs.loginradius.com/docs/user-name-check-server
 This API is used for set user name by user Id.
 http://apidocs.loginradius.com/docs/user-name-set
 
-	lr.postAccountUsernameSet( formData );
+	var formData = {
+		"accountid": "462c90fe93af4ef3a640ac17c7bdfe60", //UID, the identifier for each user account
+		"newusername": "newusername" //New username
+	}
+
+	lr.postAccountUsernameSet( formData ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Resend Email Verification
 This API is used to generate an email-token that can be sent out to a user in a link in order to verify their email.
 http://apidocs.loginradius.com/docs/verification-email-resend
 
-	lr.getUserEmailVerificationResend( email, link, template );
+	var email = "test@mailinator.com"; // User's email address
+	var link = "http://localhost/login"; // Verification Url link address
+	var template = ""; // Verification Email Template
+
+	lr.getUserEmailVerificationResend( email, link, template ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 ### Custom Object API
 

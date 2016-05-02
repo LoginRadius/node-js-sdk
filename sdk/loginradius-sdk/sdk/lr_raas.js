@@ -249,7 +249,7 @@ module.exports = function ( config ) {
     }
 
     // Account Delete( GET )
-    module.getAccountDelete = function( uid, callback ) {
+    module.getAccountDelete = function( uid ) {
         return new Promise( function( resolve, reject ) {
             config.request( { uri: config.apidomain + "/raas/v1/account/delete?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid }, function ( data ) {
                 if( data && data.errorCode ) {
@@ -264,7 +264,7 @@ module.exports = function ( config ) {
     // Account Password Change( POST )
     module.postAccountPasswordChange = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.accountid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -290,7 +290,7 @@ module.exports = function ( config ) {
     // Account Password Set( POST )
     module.postAccountPasswordSet = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.uid + "&action=set", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/password?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.accountid + "&action=set", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -332,7 +332,7 @@ module.exports = function ( config ) {
     // Account Username Change (POST)
     module.postAccountUsernameChange = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/changeusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountId=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/changeusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountId=" + formData.accountid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -361,7 +361,7 @@ module.exports = function ( config ) {
     // newusername: String
     module.postAccountUsernameSet = function( formData ) {
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/setusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountId=" + formData.uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/setusername?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountId=" + formData.accountid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
