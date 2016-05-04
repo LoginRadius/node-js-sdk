@@ -26,99 +26,193 @@ LoginRadius Combined Node SDK features a combined SDK set to encompass Social Lo
 
 #### Get Access token
 http://apidocs.loginradius.com/docs/access-token
+##### Example:
 
-	lr.getAccessToken( token );
+	lr.getAccessToken( token ).then( function( accesstoken ) {
+		console.log( accesstoken );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get User Profile Data
 http://apidocs.loginradius.com/docs/user-profile
+##### Example:
 
-	lr.getUserProfile( accesstoken );
-
+	lr.getUserProfile( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
+	
 #### Get photo Albums Data
 http://apidocs.loginradius.com/docs/album
+##### Example:
 
-	lr.getAlbums( accesstoken );
+	lr.getAlbums( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get photos Data
 http://apidocs.loginradius.com/docs/photo
+##### Example:
 
-	lr.getPhotos( accesstoken, albumId );
+	lr.getPhotos( accesstoken, albumId ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Checkins Data
 http://apidocs.loginradius.com/docs/check-in
+##### Example:
 
-	lr.getCheckins( accesstoken );
-
+	lr.getCheckins( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
+	
 #### Get Audio Data
 http://apidocs.loginradius.com/docs/audio
+##### Example:
 
-	lr.getAudios( accesstoken );
+	lr.getAudios( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Contacts Data
 http://apidocs.loginradius.com/docs/contact
+##### Example:
 
-	lr.getContacts( accesstoken, 0 );
+	lr.getContacts( accesstoken, 0 ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Mentions Data
 http://apidocs.loginradius.com/docs/mention
+##### Example:
 
-	lr.getMentions( accesstoken );
-
+	lr.getMentions( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
+	
 #### Get Following Data
 http://apidocs.loginradius.com/docs/following
+##### Example:
 
-	lr.getFollowings( accesstoken );
+	lr.getFollowings( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Events Data
 http://apidocs.loginradius.com/docs/event
+##### Example:
 
-	lr.getEvents( accesstoken );
+	lr.getEvents( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Posts Data
 http://apidocs.loginradius.com/docs/post
+##### Example:
 
-	lr.getPosts( accesstoken );
+	lr.getPosts( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Followed Companies Data
 http://apidocs.loginradius.com/docs/following
+##### Example:
 
-	lr.getCompanies( accesstoken );
+	lr.getCompanies( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get groups Data
 http://apidocs.loginradius.com/docs/group
+##### Example:
 
-	lr.getGroups( accesstoken );
+	lr.getGroups( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get status Data
 http://apidocs.loginradius.com/docs/get-status-posting
+##### Example:
 
-	lr.getStatuses( accesstoken );
+	lr.getStatuses( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Videos Data
 http://apidocs.loginradius.com/docs/video
+##### Example:
 
-	lr.getVideos( accesstoken );
+	lr.getVideos( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Likes Data
 http://apidocs.loginradius.com/docs/like
+##### Example:
 
-	lr.getLikes( accesstoken );
+	lr.getLikes( accesstoken ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Get Pages Data
 http://apidocs.loginradius.com/docs/page
+##### Example:
 
-	lr.getPage( access_token, pagename );
-		
+	lr.getPage( access_token, pagename ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
+	
 #### Post Status Data
 http://apidocs.loginradius.com/docs/post-status-posting
+##### Example:
 
-	lr.postStatus( accesstoken, title, url, status, imageurl, caption, description );
+	lr.postStatus( accesstoken, title, url, status, imageurl, caption, description ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 	
 #### Send Message Data
 http://apidocs.loginradius.com/docs/post-message
+##### Example:
 
-	lr.postMessage( accesstoken, to, subject, message );
-
+	lr.postMessage( accesstoken, to, subject, message ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 ### User Registration API
 
@@ -185,6 +279,7 @@ http://apidocs.loginradius.com/docs/create-user-registration-profile
 #### Delete User with Email Confirmation (GET)
 This API is used to remove an user's account from LoginRadius system. For security and mis-click concerns, it will send a delete confirmation email to user's email inbox to ask user to confirm the action.
 http://apidocs.loginradius.com/docs/user-delete-with-email-confirmation
+##### Example:
 
 	var id = "{{ID}}";
 	var link = "http://localhost/delete";
@@ -256,6 +351,7 @@ http://apidocs.loginradius.com/docs/user-password-forgot-token
 #### User Register
 This API used to register user from server side, verification email will be send to provided email address
 http://apidocs.loginradius.com/docs/registration-api
+##### Example:
 
 	var formData = {
 		"emailid": "testanotheruser@mailinator.com",
@@ -287,6 +383,7 @@ http://apidocs.loginradius.com/docs/registration-api
 #### User Update (POST)
 This API is used to Modify/Update details of an existing user.
 http://apidocs.loginradius.com/docs/update-user
+##### Example:
 
 	var formData = {
 		"userid": "94a76a7c1d374f9698e2ad7b932377ab",
@@ -371,6 +468,7 @@ http://apidocs.loginradius.com/docs/user-profile-by-email
 #### Link Account
 This API is used to link a user account with a specified providers user account.
 http://apidocs.loginradius.com/docs/link-user
+##### Example:
 
 	var formData = {
 		"accountid": "d644d13338424330b889193c501b77d8", //UID, the identifier for each user account
@@ -385,6 +483,7 @@ http://apidocs.loginradius.com/docs/link-user
 	});
 
 #### Unlink Account
+##### Example:
 
 	var formData = {
 		"accountid": "d644d13338424330b889193c501b77d8", //UID, the identifier for each user account
@@ -401,7 +500,8 @@ http://apidocs.loginradius.com/docs/link-user
 #### Block/Unblock Account
 This API is used to block or un-block a user using the users unique UserID (UID).
 http://apidocs.loginradius.com/docs/account-blockunblock
-	
+##### Example:
+
 	var formData = {
 		"accountid": "d644d13338424330b889193c501b77d8", //UID, the identifier for each user account
 		"isblock": false //{Bool} true to block the account, false to unblock the account.
@@ -416,6 +516,7 @@ http://apidocs.loginradius.com/docs/account-blockunblock
 #### Get User Profiles
 This API is used to retrieve all of the profile data from each of the linked social provider accounts associated with the account. For ex: A user has linked facebook and google account then this api will retrieve both profile data.
 http://apidocs.loginradius.com/docs/get-user-profiles
+##### Example:
 
 	var uid = "d644d13338424330b889193c501b77d8";
 
@@ -428,6 +529,7 @@ http://apidocs.loginradius.com/docs/get-user-profiles
 #### Account Delete
 Delete an account from your LoginRadius app.
 http://apidocs.loginradius.com/docs/account-delete
+##### Example:
 
 	var uid = "d644d13338424330b889193c501b77d8";
 
@@ -440,6 +542,7 @@ http://apidocs.loginradius.com/docs/account-delete
 #### Change Account Password
 This API is used to change the password field of an account, you need to know the old password before you change it.
 http://apidocs.loginradius.com/docs/account-password-change
+##### Example:
 
 	var formData = {
 		"accountid": "462c90fe93af4ef3a640ac17c7bdfe60", //UID, the identifier for each user account
@@ -456,6 +559,7 @@ http://apidocs.loginradius.com/docs/account-password-change
 #### Get Account Password
 This API is used to get the password field of an account.
 http://apidocs.loginradius.com/docs/account-password-get
+##### Example:
 
 	var uid = "462c90fe93af4ef3a640ac17c7bdfe60";
 
@@ -468,6 +572,7 @@ http://apidocs.loginradius.com/docs/account-password-get
 #### Set Account Password
 This API is used to set a password for an account. It does not require to know the previous(old) password.
 http://apidocs.loginradius.com/docs/account-password-set
+##### Example:
 
 	var formData = {
 		"accountid": "462c90fe93af4ef3a640ac17c7bdfe60", //UID, the identifier for each user account
@@ -484,6 +589,7 @@ http://apidocs.loginradius.com/docs/account-password-set
 #### Change UserName
 This API is used for changing user name by account Id.
 http://apidocs.loginradius.com/docs/user-name-change
+##### Example:
 
 	var formData = {
 		"accountid": "462c90fe93af4ef3a640ac17c7bdfe60", //UID, the identifier for each user account
@@ -500,6 +606,7 @@ http://apidocs.loginradius.com/docs/user-name-change
 #### Check UserName
 This API is used to check username exists or not on your site.
 http://apidocs.loginradius.com/docs/user-name-check-server
+##### Example:
 
 	var username = "tester";
 
@@ -512,6 +619,7 @@ http://apidocs.loginradius.com/docs/user-name-check-server
 #### Set UserName
 This API is used for set user name by user Id.
 http://apidocs.loginradius.com/docs/user-name-set
+##### Example:
 
 	var formData = {
 		"accountid": "462c90fe93af4ef3a640ac17c7bdfe60", //UID, the identifier for each user account
@@ -527,6 +635,7 @@ http://apidocs.loginradius.com/docs/user-name-set
 #### Resend Email Verification
 This API is used to generate an email-token that can be sent out to a user in a link in order to verify their email.
 http://apidocs.loginradius.com/docs/verification-email-resend
+##### Example:
 
 	var email = "test@mailinator.com"; // User's email address
 	var link = "http://localhost/login"; // Verification Url link address
@@ -543,12 +652,14 @@ http://apidocs.loginradius.com/docs/verification-email-resend
 #### Custom Object Create/Update (POST)
 This API is used to write information in JSON format to the custom object for the specified account.
 http://apidocs.loginradius.com/docs/save-custom-object
+##### Example:
 
 	lr.postObjectCreateUpdate( objectid, uid, formData );
 
 #### Custom Object by Account ID (GET)
 This API is used to retrieve all of the custom objects by account ID (UID).
 http://apidocs.loginradius.com/docs/get-custom-object-by-account-id
+##### Example:
 
 	var objectid = "{{Custom Object ID}}";
 	var uid = "{{UID}}";
@@ -562,7 +673,8 @@ http://apidocs.loginradius.com/docs/get-custom-object-by-account-id
 #### Custom Object by Multiple Account IDs (GET)
 This API is used to retrieve all of the custom objects via a list of account IDs(UID) separated by , (Max 20).
 http://apidocs.loginradius.com/docs/get-custom-object-by-multiple-account-ids
-	
+##### Example:
+
 	var objectid = "{{Custom Object ID}}";
 	var ids = "{{UID}},{{UID}}"; // Max 20
 	
@@ -575,6 +687,7 @@ http://apidocs.loginradius.com/docs/get-custom-object-by-multiple-account-ids
 #### Custom Object Check (GET)
 This API is used to check the presence of a Custom Object for the specified account ID(UID)
 http://apidocs.loginradius.com/docs/custom-object-check
+##### Example:
 	
 	var objectid = "{{Custom Object ID}}";
 	var uid = "{{UID}}";
@@ -588,12 +701,22 @@ http://apidocs.loginradius.com/docs/custom-object-check
 #### Custom Objects by Query (GET)
 This API is used to retrieve all of the Custom Objects based on the specified query.
 http://apidocs.loginradius.com/docs/get-custom-objects-by-query
+##### Example:
 
-	lr.getObjectByQuery( objectid, query, cursor );
+	var objectid = "{{Custom Object ID}}";
+	var query = "{{Query}}";
+	var cursor = 1;
+	
+	lr.getObjectByQuery( objectid, query, cursor ).then( function( response ) {
+		console.log( response );
+	}).catch( function( error ) {
+		console.log( error );
+	});
 
 #### Custom Object by Object ID (GET)
 This API is used to retrieve all of the Custom objects based on the Object ID.
 http://apidocs.loginradius.com/docs/get-all-custom-object-records
+##### Example:
 
 	var objectid = "{{Custom Object ID}}";
 	var cursor = 1;
@@ -607,6 +730,7 @@ http://apidocs.loginradius.com/docs/get-all-custom-object-records
 #### Custom Object Delete (POST)
 This API is used to remove the specified Custom Object based on the account ID(UID).
 http://apidocs.loginradius.com/docs/delete-custom-object
+##### Example:
 	
 	var objectid = "{{Custom Object ID}}";
 	var uid = "{{UID}}";
@@ -623,6 +747,7 @@ http://apidocs.loginradius.com/docs/delete-custom-object
 #### Custom Object Stats (GET)
 This API is used to get the current storage information for a specified Custom Object.
 http://apidocs.loginradius.com/docs/get-custom-object-stats
+##### Example:
 
 	var objectid = "{{Custom Object ID}}";
 		
