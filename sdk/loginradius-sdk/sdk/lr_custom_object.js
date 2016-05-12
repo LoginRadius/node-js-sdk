@@ -3,19 +3,6 @@ module.exports = function ( config ) {
     var module = {};
 
 	// Custom Object Create/Update (POST)
-	// module.postObjectCreateUpdate = function( objectid, uid, formData ) {
- //        return new Promise( function( resolve, reject ) {
- //    		// Additional Custom json object
- //    		config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/upsert?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
- //                if( data && data.errorCode ) {
- //                    reject( data );
- //                } else {
- //                    resolve( data );
- //                }  
- //            });
- //        });
-	// }
-
     module.postObjectCreateUpdate = function( objectid, uid, formData ) {
         return new Promise( function( resolve, reject ) {
             // Additional Custom json object

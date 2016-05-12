@@ -107,6 +107,19 @@ module.exports = function ( config ) {
         });
     }
 
+    // User Profile By Access Token( GET )
+    module.getUserProfileByAccessToken = function ( access_token ) {
+        return new Promise( function( resolve, reject ) {
+            config.request( config.apidomain + "/api/v2/userprofile?access_token=" + access_token, function ( data ) {
+                if( data && data.errorCode ) {
+                    reject( data );
+                } else {
+                    resolve( data );
+                }   
+            });
+        });
+    }
+
     // Deprecated
     // User Password( GET )
     module.getUserPassword = function ( userid ) {
@@ -214,15 +227,36 @@ module.exports = function ( config ) {
         });
     }
 
-    // Account API
+    // Token Validate (GET)
+    module.getTokenValidate = function ( access_token ) {
+        return new Promise( function( resolve, reject ) {
+            config.request( { uri: config.apidomain + "/api/v2/access_token/validate?key=" + config.apikey + "&secret=" + config.apisecret + "&access_token=" + access_token }, function ( data ) {
+                if( data && data.errorCode ) {
+                    reject( data );
+                } else {
+                    resolve( data );
+                }   
+            });
+        });
+    }
 
-    /** Account Block/Unblock( POST )
-    * @function 
-    * @public
-    * @param formData {object}
-    *        formData.accountid {String} UID, the identifier for each user account, it may have multiple IDs(identifier for each social platform) attached with
-    *        formData.isblock {Bool} true to block the account, false to unblock the account.
-    */
+
+    // Token Invalidate (GET)
+    module.getTokenInvalidate = function ( access_token ) {
+        return new Promise( function( resolve, reject ) {
+            config.request( { uri: config.apidomain + "/api/v2/access_token/invalidate?key=" + config.apikey + "&secret=" + config.apisecret + "&access_token=" + access_token }, function ( data ) {
+                if( data && data.errorCode ) {
+                    reject( data );
+                } else {
+                    resolve( data );
+                }   
+            });
+        });
+    }
+
+    // ** Account API **
+
+    // Account Block/Unblock( POST )
     module.postUserAccountBlockUnblock = function( formData ) {
         return new Promise( function( resolve, reject ) {
             config.request( { method: 'POST',uri: config.apidomain + "/raas/v1/account/status?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + formData.accountid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
@@ -252,6 +286,19 @@ module.exports = function ( config ) {
     module.getAccountDelete = function( uid ) {
         return new Promise( function( resolve, reject ) {
             config.request( { uri: config.apidomain + "/raas/v1/account/delete?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid }, function ( data ) {
+                if( data && data.errorCode ) {
+                    reject( data );
+                } else {
+                    resolve( data );
+                }   
+            });
+        });
+    }
+
+    // Account Delete with Email Confirmation (GET)
+    module.getAccountDeleteWithEmailConfirm = function( uid, link, template ) {
+        return new Promise( function( resolve, reject ) {
+            config.request( { uri: config.apidomain + "/raas/v1/account/deleteuseremail?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&accountid=" + uid + "&deleteuserlink=" + link + "&template=" + template}, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
