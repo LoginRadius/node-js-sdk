@@ -3,10 +3,10 @@ module.exports = function ( config ) {
     var module = {};
 
 	// Custom Object Create/Update (POST)
-	module.postObjectCreateUpdate = function( objectid, uid, formData ) {
+    module.postObjectCreateUpdate = function( objectid, uid, formData ) {
         return new Promise( function( resolve, reject ) {
-    		// Additional Custom json object
-    		config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/upsert?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, form: formData, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
+            // Additional Custom json object
+            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/upsert?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -14,7 +14,7 @@ module.exports = function ( config ) {
                 }  
             });
         });
-	}
+    }
 
 	// Custom Object by Account ID (GET)
 	module.getObjectByAccountId = function( objectid, uid  ) {
@@ -95,11 +95,11 @@ module.exports = function ( config ) {
         });
 	}
 
-	// Custom Object Delete ( POST )
-	module.postObjectDelete= function( objectid, uid ) {
+    // Custom Object Delete ( POST )
+    module.postObjectDelete= function( objectid, uid, formData ) {
         return new Promise( function( resolve, reject ) {
-    		// Additional Custom json object
-    		config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/status?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, headers: { 'content-type': 'application/x-www-form-urlencoded' } }, function ( data ) {
+            // Additional Custom json object
+            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/user/customObject/status?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&objectid=" + objectid + "&accountid=" + uid, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if( data && data.errorCode ) {
                     reject( data );
                 } else {
@@ -107,7 +107,7 @@ module.exports = function ( config ) {
                 }   
             });
         });
-	}
+    }
 
 	// Custom Object Stats ( GET )
 	module.getObjectStats = function( objectid ) {
