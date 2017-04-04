@@ -15,6 +15,24 @@ module.exports = function ( config ) {
             });
         }); 
     };
+    
+    /**The getSessions API is used to get the active sessions for an accountId.
+    * @function  
+    * @public
+    * @param token {String} A valid account Id.
+    */
+    module.getSessions = function( accountId ) {
+        return new Promise( function( resolve, reject ) {
+            config.request( { uri: config.apidomain + "/api/v2/access_token/activeSession?key=" + config.apikey + "&secret=" + config.apisecret +"&accountId=" +accountId}, function( data ) {
+                if( data && data.errorCode ) {
+                    reject( data );
+                } else {
+                    resolve( data );
+                }
+                
+            });
+        });
+    }
 
     // User Create( POST )
     module.postUserCreate = function( formData ) {
@@ -103,6 +121,22 @@ module.exports = function ( config ) {
                 } else {
                     resolve( data );
                 }   
+            });
+        });
+    }
+	
+	// User Password Reset( POST )
+    module.postUserPasswordReset = function( vtoken, password, welcomeEmailTemplate ) {
+        var formData={
+            "password": password
+        }
+        return new Promise( function( resolve, reject ) {
+            config.request( { method: 'POST', uri: config.apidomain + "/raas/v1/account/password/reset?appkey=" + config.apikey + "&appsecret=" + config.apisecret + "&vtoken=" + vtoken + "&welcomeEmailTemplate=" + welcomeEmailTemplate , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+                if( data && data.errorCode ) {
+                    reject( data );
+                } else {
+                    resolve( data );
+                }
             });
         });
     }
@@ -428,6 +462,38 @@ module.exports = function ( config ) {
                 } else {
                     resolve( data );
                 }   
+            });
+        });
+    }
+    // User Password Forgot Send( GET )
+    // API is used to send a forgot password email. 
+    module.getUserPasswordForgotSend = function(email, domain, template) {
+        return new Promise(function(resolve, reject) {
+            config.request({
+                uri: config.apidomain + "/raas/client/password/forgot?apikey=" + config.apikey + "&emailid=" + email + "&resetpasswordurl=" + domain + "&template=" + template
+            }, function(data) {
+
+                if (data && data.errorCode) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    }
+    // Verify email link( GET )
+    // API is used to verify email link. 
+    module.getUserVerifyEmail = function(vtoken, callback) {
+        return new Promise(function(resolve, reject) {
+            config.request({
+                uri: config.apidomain + "/raas/client/auth/verifyemail?apikey=" + config.apikey + "&vtoken=" + vtoken + "&callback=" + callback
+            }, function(data) {
+
+                if (data && data.errorCode) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
             });
         });
     }
