@@ -1,15 +1,11 @@
 {
   "name": "loginradius-sdk",
-  "version": "3.0.6",
+  "version": "3.2.1",
   "description": "An LoginRadius SDK for node.js",
   "contributors": [
     {
       "name": "LoginRadius Team",
       "email": "support@loginradius.com"
-    },
-    {
-      "name": "Zoie Carnegie",
-      "email": "zoie.carnegie@gmail.com"
     }
   ],
   "homepage": "https://www.loginradius.com",
@@ -29,5 +25,12 @@
     "xml2js": ">=0.1.0",
     "yaml": ">=0.2.0",
     "iconv": ">=1.0.0"
-  }
+  },
+  "keywords": [
+    "node",
+    "loginradius",
+    "cIAM",
+    "Customer Registration"
+  ],
+  "license": "MIT"
 }
