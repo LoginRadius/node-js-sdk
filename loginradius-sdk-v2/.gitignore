@@ -14,5 +14,4 @@ results
 npm-debug.log
 prepros.cfg
 .DS_Store
-.idea/
-
+node_modules/
