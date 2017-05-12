@@ -7,10 +7,10 @@ module.exports = function (config) {
     module.otp = {};
 
     // Phone User Registration by SMS ( POST )
-    module.register = function (formData, verificationUrl, smsTemplate) {
+    module.register = function (formData, verificationUrl, smsTemplate, startDate, endDate, timeDifference) {
         verificationUrl = helper.checkNullOrUndefined(verificationUrl);
         smsTemplate = helper.checkNullOrUndefined(smsTemplate);
-
+        timeDifference = helper.checkNullOrUndefined(timeDifference);
         return new Promise(function (resolve, reject) {
             helper.getSott(function (sott) {
                 config.request({
@@ -25,18 +25,18 @@ module.exports = function (config) {
                         resolve(data);
                     }
                 });
-            }, config);
+            }, config, startDate, endDate, timeDifference);
         });
 
     }
 
     // Phone Login( GET )
-    module.login = function (phone, password, loginUrl, smsTemplate) {
+    module.login = function (phone, password, loginUrl, smsTemplate, reCaptchaKey) {
         loginUrl = helper.checkNullOrUndefined(loginUrl);
         smsTemplate = helper.checkNullOrUndefined(smsTemplate);
+        reCaptchaKey = helper.checkNullOrUndefined(reCaptchaKey);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + phoneAuthEndpoint +"login?apikey=" + config.apikey + "&phone=" + phone + "&password=" + password + "&loginUrl=" + loginUrl + "&smsTemplate=" + smsTemplate}, function (data) {
-                console.log(data);
+            config.request({uri: config.apidomain + phoneAuthEndpoint +"login?apikey=" + config.apikey + "&phone=" + phone + "&password=" + password + "&loginUrl=" + loginUrl + "&smsTemplate=" + smsTemplate + "&g-recaptcha-response="+ reCaptchaKey}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -172,17 +172,13 @@ module.exports = function (config) {
     }
 
     // Phone Verify OTP by Token( PUT )
-    module.otp.verifyByToken = function (phone, access_token, otp, smsTemplate) {
+    module.otp.verifyByToken = function ( access_token, otp, smsTemplate) {
         smsTemplate = helper.checkNullOrUndefined(smsTemplate);
-        var formData = {
-            "phone": phone
-        }
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
                 uri: config.apidomain + phoneAuthEndpoint +"phone/otp?apikey=" + config.apikey + "&access_token=" + access_token + "&otp=" + otp + "&smsTemplate=" + smsTemplate,
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify(formData)
+                headers: {'content-type': 'application/json'}
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);

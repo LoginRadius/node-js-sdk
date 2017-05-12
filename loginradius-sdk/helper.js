@@ -3,17 +3,24 @@ function checkNullOrUndefined(input) {
     return (input === null || typeof(input) === 'undefined') ? '' : input;
 };
 
+//Check value for null support
+function checkNullSupport(input) {
+    return (input === true );
+};
+
 //Get Error response
 function checkError(input) {
     return input && input.ErrorCode;
 };
 
+//Get Server Time
+
+
 //Calculate SOTT.
-function getSott(callback, config, startDate, endDate) {
-    var cipher = require('./sdk/sott')(config.apisecret, config.apikey, startDate, endDate);
+function getSott(callback, config, startDate, endDate, timeDifference) {
+    var cipher = require('./sdk/sott')(config, startDate, endDate, timeDifference);
     cipher.then(
         function(sott) {
-            // console.log(sott);
             return callback(sott);
         },
         function(reason) {
@@ -24,5 +31,6 @@ function getSott(callback, config, startDate, endDate) {
 module.exports = {
     checkNullOrUndefined: checkNullOrUndefined,
     checkError: checkError,
-    getSott: getSott
+    getSott: getSott,
+    checkNullSupport: checkNullSupport
 }

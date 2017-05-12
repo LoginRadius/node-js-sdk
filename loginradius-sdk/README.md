@@ -18,7 +18,7 @@ Please visit [here](http://www.loginradius.com/) for more information.
 
 # Installing
 
-	$ npm install loginradius-sdk-v2
+	$ npm install loginradius-sdk
 
 
 ## Documentation

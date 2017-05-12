@@ -2,12 +2,16 @@ module.exports = function (config) {
 
     var module = {};
     var authEndpoint = "/identity/v2/auth/";
+    var backUpManageEndPoint = "/identity/v2/manage/account/2FA/backupcode";
     var helper = require('./../helper.js');
 
 	module.login = {};
     module.twoFactor = {};
     module.profile = {};
     module.customObject = {};
+    module.twoFactor.backUpCode ={};
+    module.autoLogin ={};
+    module.autoLogin.sendEmailWithToken = {};
 
     // Token Validity( GET )
     module.validity = function (access_token) {
@@ -34,13 +38,14 @@ module.exports = function (config) {
             });
         });
     };
-	
-	module.login.byEmail = function (email, password, verificationUrl, loginUrl, emailTemplate) {
+
+    module.login.byEmail = function (email, password, verificationUrl, loginUrl, emailTemplate, reCaptchaKey) {
         verificationUrl = helper.checkNullOrUndefined(verificationUrl);
         loginUrl = helper.checkNullOrUndefined(loginUrl);
         emailTemplate = helper.checkNullOrUndefined(emailTemplate);
+        reCaptchaKey = helper.checkNullOrUndefined(reCaptchaKey);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + authEndpoint +"login?apikey=" + config.apikey + "&email=" + email + "&password=" + password + "&loginUrl=" + loginUrl + "&verificationUrl=" + verificationUrl + "&emailTemplate=" + emailTemplate}, function (data) {
+            config.request({uri: config.apidomain + authEndpoint +"login?apikey=" + config.apikey + "&email=" + email + "&password=" + password + "&loginUrl=" + loginUrl + "&verificationUrl=" + verificationUrl + "&emailTemplate=" + emailTemplate + "&g-recaptcha-response="+ reCaptchaKey, }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -52,12 +57,13 @@ module.exports = function (config) {
   
 
     // Login by Username( GET )
-    module.login.byUsername = function (username, password, verificationUrl, loginUrl, emailTemplate) {
+    module.login.byUsername = function (username, password, verificationUrl, loginUrl, emailTemplate, reCaptchaKey) {
         verificationUrl = helper.checkNullOrUndefined(verificationUrl);
         loginUrl = helper.checkNullOrUndefined(loginUrl);
         emailTemplate = helper.checkNullOrUndefined(emailTemplate);
+        reCaptchaKey = helper.checkNullOrUndefined(reCaptchaKey);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + authEndpoint +"login?apikey=" + config.apikey + "&username=" + username + "&password=" + password + "&loginUrl=" + loginUrl + "&verificationUrl=" + verificationUrl + "&emailTemplate=" + emailTemplate}, function (data) {
+            config.request({uri: config.apidomain + authEndpoint +"login?apikey=" + config.apikey + "&username=" + username + "&password=" + password + "&loginUrl=" + loginUrl + "&verificationUrl=" + verificationUrl + "&emailTemplate=" + emailTemplate + "&g-recaptcha-response="+ reCaptchaKey}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -68,9 +74,19 @@ module.exports = function (config) {
     };
 
     // User Registration( POST )
-    module.register = function (formData, verificationUrl, emailTemplate) {
+    /*
+    @params fromData (JSON) A valid json data (required)
+    @params verificationUrl (optional)
+    @params emailTemplate (optional)
+    @params startDate A valid start date in ISO format (optional)
+    @params endDate A valid end date in ISO format with valid range (optional)
+    @params sottValidityTime A valid time in minute(By default value will be 10) (optional)
+     */
+    module.register = function (formData, verificationUrl, emailTemplate ,startDate, endDate, timeDifference) {
         verificationUrl = helper.checkNullOrUndefined(verificationUrl);
         emailTemplate = helper.checkNullOrUndefined(emailTemplate);
+        timeDifference = helper.checkNullOrUndefined(timeDifference);
+
         return new Promise(function (resolve, reject) {
             helper.getSott(function (sott) {
             config.request({
@@ -85,7 +101,7 @@ module.exports = function (config) {
                     resolve(data);
                 }
             });
-        },config);
+        },config, startDate, endDate, timeDifference);
         });
     }
 
@@ -126,9 +142,14 @@ module.exports = function (config) {
     }
 
     // Update Profile By Access Token( PUT )
-    module.profile.updateByToken = function (access_token, formData, verificationUrl, emailTemplate) {
+    /*
+     @nullSupport: (boolean) Default value will be false, pass true if wants to update other fields with null.
+     */
+    module.profile.updateByToken = function (access_token, formData, verificationUrl, emailTemplate, nullSupport) {
         verificationUrl = helper.checkNullOrUndefined(verificationUrl);
         emailTemplate = helper.checkNullOrUndefined(emailTemplate);
+        nullSupport = helper.checkNullSupport(nullSupport);
+        formData.NullSupport = nullSupport;
         return new Promise(function (resolve, reject) {
             config.request({
                 method: 'PUT',
@@ -649,11 +670,11 @@ module.exports = function (config) {
     };
 
     //Get SOTT directly.
-    module.getSott =  function (startDate, endDate) {
+    module.getSott =  function (startDate, endDate, timeDifference) {
         return new Promise(function (resolve, reject) {
             helper.getSott(function (sott) {
                 resolve(sott);
-            },config, startDate, endDate);
+            },config, startDate, endDate, timeDifference);
         });
     };
 
@@ -693,6 +714,127 @@ module.exports = function (config) {
                 uri: config.apidomain + authEndpoint +"account/2FA/authenticator?apikey=" + config.apikey + "&access_token=" + access_token,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(payload)
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //Login By BackUp Code
+    module.twoFactor.backUpCode.login = function ( SecondFactorAuthenticationToken, backup_code ) {
+        return new Promise(function (resolve, reject) {
+            config.request({
+                uri: config.apidomain + authEndpoint +"login/2FA/backupcode?apikey=" + config.apikey + "&SecondFactorAuthenticationToken=" + access_token + "&backupcode=" +backup_code
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //Get Backup code for login by access token
+    module.twoFactor.backUpCode.getByToken = function ( access_token ) {
+        return new Promise(function (resolve, reject) {
+            config.request({
+                uri: config.apidomain + authEndpoint +"account/2FA/backupcode?apikey=" + config.apikey + "&access_token=" + access_token
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //Reset Backup code by access token
+    module.twoFactor.backUpCode.resetByToken = function ( access_token ) {
+        return new Promise(function (resolve, reject) {
+            config.request({
+                uri: config.apidomain + authEndpoint +"account/2FA/backupcode/reset?apikey=" + config.apikey + "&access_token=" + access_token
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //Management API
+    //Get Backup code by UID
+    module.twoFactor.backUpCode.getByUid = function ( uid ) {
+        return new Promise(function (resolve, reject) {
+            config.request({
+                uri: config.apidomain + backUpManageEndPoint +"?apikey=" + config.apikey + "&apisecret="+ config.apisecret + "&uid=" + uid
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //Reset Backup code by UID
+    module.twoFactor.backUpCode.resetByUid = function ( uid ) {
+        return new Promise(function (resolve, reject) {
+            config.request({
+                uri: config.apidomain + backUpManageEndPoint +"/reset?apikey=" + config.apikey + "&apisecret="+ config.apisecret + "&uid=" + uid
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //Email prompt auto login send email with token by Email( GET )
+    module.autoLogin.sendEmailWithToken.byEmail = function ( email, clientGuid, autoLoginEmailTemplate, welcomeEmailTemplate ) {
+        return new Promise(function (resolve, reject) {
+            config.request({
+                uri: config.apidomain + authEndpoint +"login/autologin/?apikey=" + config.apikey + "&email="+ email + "&clientGuid=" + clientGuid + "&autoLoginEmailTemplate=" +autoLoginEmailTemplate + "&welcomeEmailTemplate=" + welcomeEmailTemplate
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //Email prompt auto login send email with token by UserName( GET  )
+    module.autoLogin.sendEmailWithToken.byUsername = function ( username, clientGuid, autoLoginEmailTemplate, welcomeEmailTemplate ) {
+        return new Promise(function (resolve, reject) {
+            config.request({
+                uri: config.apidomain + authEndpoint +"login/autologin/?apikey=" + config.apikey + "&userName="+ username + "&clientGuid=" + clientGuid + "&autoLoginEmailTemplate=" +autoLoginEmailTemplate + "&welcomeEmailTemplate=" + welcomeEmailTemplate
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //Email Prompt Auto Login Ping( GET )
+    module.autoLogin.ping = function ( clientGuid ) {
+        return new Promise(function (resolve, reject) {
+            config.request({
+                uri: config.apidomain + authEndpoint +"login/autologin/ping?apikey=" + config.apikey + "&clientGuid=" + clientGuid
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);

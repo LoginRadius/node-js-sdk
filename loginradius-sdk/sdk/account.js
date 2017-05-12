@@ -133,7 +133,12 @@ module.exports = function (config, helper) {
     };
 
     // Account Update( PUT )
-    module.update = function (uid, formData) {
+    /*
+     @nullSupport: (boolean) Default value will be false, pass true if wants to update other fields with null.
+     */
+    module.update = function (uid, formData, nullSupport) {
+        nullSupport = helper.checkNullSupport(nullSupport);
+        formData.NullSupport = nullSupport;
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
