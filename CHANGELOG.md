@@ -3,7 +3,14 @@
 
 >LoginRadius Node JS SDK Change Log provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/sdk-libraries/nodejs)
 =============================================================
+Version 4.1.1
 
+Released on May 16, 2017
+<br>
+- Improved code
+
+See the documentation [here](https://docs.loginradius.com/api/v2/sdk-libraries/nodejs)
+=============================================================
 Version 4.1.0
 
 Released on May 12, 2017
@@ -11,8 +18,9 @@ Released on May 12, 2017
 - Add start and end time for SOTT to validate it for long time frame.
 - Add API to get server time for SOTT if don't pass the start and end time.
 - Improved SOTT feature.
-- Add Email prompt auto login APIs.
-- Add Role Context and additional permission APIs
+- Add Email prompt auto login API.
+- Add Email prompt auto login Ping API
+- Add Role Context and additional permission API
 
 See the documentation [here](https://docs.loginradius.com/api/v2/sdk-libraries/nodejs)
 

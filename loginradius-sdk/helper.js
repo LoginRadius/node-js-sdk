@@ -17,8 +17,8 @@ function checkError(input) {
 
 
 //Calculate SOTT.
-function getSott(callback, config, startDate, endDate, timeDifference) {
-    var cipher = require('./sdk/sott')(config, startDate, endDate, timeDifference);
+function getSott(callback, config, startDate, endDate ) {
+    var cipher = require('./sdk/sott')(config.apisecret, config.apikey, startDate, endDate);
     cipher.then(
         function(sott) {
             return callback(sott);

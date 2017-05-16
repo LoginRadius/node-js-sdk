@@ -7,10 +7,9 @@ module.exports = function (config) {
     module.otp = {};
 
     // Phone User Registration by SMS ( POST )
-    module.register = function (formData, verificationUrl, smsTemplate, startDate, endDate, timeDifference) {
+    module.register = function (formData, verificationUrl, smsTemplate, startDate, endDate) {
         verificationUrl = helper.checkNullOrUndefined(verificationUrl);
         smsTemplate = helper.checkNullOrUndefined(smsTemplate);
-        timeDifference = helper.checkNullOrUndefined(timeDifference);
         return new Promise(function (resolve, reject) {
             helper.getSott(function (sott) {
                 config.request({
@@ -25,7 +24,7 @@ module.exports = function (config) {
                         resolve(data);
                     }
                 });
-            }, config, startDate, endDate, timeDifference);
+            }, config, startDate, endDate);
         });
 
     }

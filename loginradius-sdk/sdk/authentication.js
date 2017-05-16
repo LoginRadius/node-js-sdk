@@ -11,7 +11,6 @@ module.exports = function (config) {
     module.customObject = {};
     module.twoFactor.backUpCode ={};
     module.autoLogin ={};
-    module.autoLogin.sendEmailWithToken = {};
 
     // Token Validity( GET )
     module.validity = function (access_token) {
@@ -80,12 +79,10 @@ module.exports = function (config) {
     @params emailTemplate (optional)
     @params startDate A valid start date in ISO format (optional)
     @params endDate A valid end date in ISO format with valid range (optional)
-    @params sottValidityTime A valid time in minute(By default value will be 10) (optional)
      */
-    module.register = function (formData, verificationUrl, emailTemplate ,startDate, endDate, timeDifference) {
+    module.register = function (formData, verificationUrl, emailTemplate ,startDate, endDate ) {
         verificationUrl = helper.checkNullOrUndefined(verificationUrl);
         emailTemplate = helper.checkNullOrUndefined(emailTemplate);
-        timeDifference = helper.checkNullOrUndefined(timeDifference);
 
         return new Promise(function (resolve, reject) {
             helper.getSott(function (sott) {
@@ -101,7 +98,7 @@ module.exports = function (config) {
                     resolve(data);
                 }
             });
-        },config, startDate, endDate, timeDifference);
+        },config, startDate, endDate);
         });
     }
 
@@ -670,11 +667,11 @@ module.exports = function (config) {
     };
 
     //Get SOTT directly.
-    module.getSott =  function (startDate, endDate, timeDifference) {
+    module.getSott =  function (startDate, endDate) {
         return new Promise(function (resolve, reject) {
             helper.getSott(function (sott) {
                 resolve(sott);
-            },config, startDate, endDate, timeDifference);
+            },config, startDate, endDate);
         });
     };
 
@@ -801,7 +798,7 @@ module.exports = function (config) {
     };
 
     //Email prompt auto login send email with token by Email( GET )
-    module.autoLogin.sendEmailWithToken.byEmail = function ( email, clientGuid, autoLoginEmailTemplate, welcomeEmailTemplate ) {
+    module.autoLogin.byEmail = function ( email, clientGuid, autoLoginEmailTemplate, welcomeEmailTemplate ) {
         return new Promise(function (resolve, reject) {
             config.request({
                 uri: config.apidomain + authEndpoint +"login/autologin/?apikey=" + config.apikey + "&email="+ email + "&clientGuid=" + clientGuid + "&autoLoginEmailTemplate=" +autoLoginEmailTemplate + "&welcomeEmailTemplate=" + welcomeEmailTemplate
@@ -816,7 +813,7 @@ module.exports = function (config) {
     };
 
     //Email prompt auto login send email with token by UserName( GET  )
-    module.autoLogin.sendEmailWithToken.byUsername = function ( username, clientGuid, autoLoginEmailTemplate, welcomeEmailTemplate ) {
+    module.autoLogin.byUsername = function ( username, clientGuid, autoLoginEmailTemplate, welcomeEmailTemplate ) {
         return new Promise(function (resolve, reject) {
             config.request({
                 uri: config.apidomain + authEndpoint +"login/autologin/?apikey=" + config.apikey + "&userName="+ username + "&clientGuid=" + clientGuid + "&autoLoginEmailTemplate=" +autoLoginEmailTemplate + "&welcomeEmailTemplate=" + welcomeEmailTemplate
@@ -835,6 +832,25 @@ module.exports = function (config) {
         return new Promise(function (resolve, reject) {
             config.request({
                 uri: config.apidomain + authEndpoint +"login/autologin/ping?apikey=" + config.apikey + "&clientGuid=" + clientGuid
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    };
+
+    //This API is used to get Server Start Time and End Time( GET )
+    module.getServerTime = function ( timeDifference ) {
+        if(!timeDifference){
+           var timeDifference = "10";
+        }
+        return new Promise(function (resolve, reject) {
+            config.request({
+                method: 'GET',
+                uri: config.apidomain + "/identity/v2/serverinfo?timedifference=" + timeDifference+ "&apikey="+ config.apikey
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
