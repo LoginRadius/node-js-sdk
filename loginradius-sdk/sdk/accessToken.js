@@ -12,7 +12,8 @@ module.exports = function (config) {
      * @public
      * @param token {String} A valid session token, which is added to redirect uri of your website after successfully logged in to provider
      */
-    module.exchange = function (token) {
+    module.exchange = function (token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + tokenEndpoint +"?token=" + token + "&secret=" + config.apisecret}, function (data) {
                 if (helper.checkError(data)) {
@@ -27,7 +28,8 @@ module.exports = function (config) {
 	
 	
     // Token Validity( GET )
-    module.validity = function (access_token) {
+    module.validity = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + tokenEndpoint +"/Validate?key=" + config.apikey + "&secret=" + config.apisecret + "&access_token=" + access_token}, function (data) {
                 if (helper.checkError(data)) {
@@ -40,7 +42,8 @@ module.exports = function (config) {
     };
 
     // Token Invalidate( GET )
-    module.invalidate = function (access_token) {
+    module.invalidate = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + tokenEndpoint +"/invalidate?key=" + config.apikey + "&secret=" + config.apisecret + "&access_token=" + access_token}, function (data) {
                 if (helper.checkError(data)) {
@@ -53,7 +56,8 @@ module.exports = function (config) {
     };
 
     // Token Refresh( GET )
-    module.refresh = function (access_token) {
+    module.refresh = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + tokenEndpoint +"/refresh?access_token=" + access_token + "&secret=" + config.apisecret }, function (data) {
                 if (helper.checkError(data)) {
@@ -66,7 +70,8 @@ module.exports = function (config) {
     };
 
     // Get Active Session By TOKEN( GET )
-    module.activeSession.getByToken = function (access_token) {
+    module.activeSession.getByToken = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + tokenEndpoint +"/activeSession?key=" + config.apikey + "&secret=" + config.apisecret +"&token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
@@ -78,7 +83,8 @@ module.exports = function (config) {
         });
     };
     // Get Active Session By UID( GET )
-    module.activeSession.getByUid = function (uid) {
+    module.activeSession.getByUid = function (uid, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + tokenEndpoint +"/activeSession?key=" + config.apikey + "&secret=" + config.apisecret +"&accountId=" + uid }, function (data) {
                 if (helper.checkError(data)) {
@@ -92,7 +98,8 @@ module.exports = function (config) {
 
 
     // Access Token via Facebook Token( GET )
-    module.getFacebookToken = function (fb_access_token) {
+    module.getFacebookToken = function (fb_access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + tokenEndpoint +"/facebook?key=" + config.apikey + "&fb_access_token=" + fb_access_token }, function (data) {
                 if (helper.checkError(data)) {
@@ -105,7 +112,8 @@ module.exports = function (config) {
     };
 
     // Access Token via Twitter Token( GET )
-    module.getTwitterToken = function (tw_access_token, tw_token_secret) {
+    module.getTwitterToken = function (tw_access_token, tw_token_secret, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + tokenEndpoint +"/twitter?key=" + config.apikey + "&tw_access_token=" + tw_access_token +"&tw_token_secret=" + tw_token_secret}, function (data) {
                 if (helper.checkError(data)) {

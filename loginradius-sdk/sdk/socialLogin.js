@@ -9,9 +9,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API
      */
-    module.getUserProfile = function (access_token) {
+    module.getUserProfile = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"userprofile?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"userprofile?access_token=" + access_token}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -28,9 +29,10 @@ module.exports = function (config) {
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      * @param albumId {String} A valid albumId, it return album photos
      */
-    module.getPhotos = function (access_token, albumId) {
+    module.getPhotos = function (access_token, albumId, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"photo?access_token=" + access_token + "&albumid=" + albumId, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"photo?access_token=" + access_token + "&albumid=" + albumId }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -46,9 +48,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getCheckins = function (access_token) {
+    module.getCheckins = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"checkin?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"checkin?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -64,9 +67,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getAlbums = function (access_token) {
+    module.getAlbums = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"album?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"album?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -82,9 +86,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getAudios = function (access_token) {
+    module.getAudios = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"audio?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"audio?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -100,9 +105,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getMentions = function (access_token) {
+    module.getMentions = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"mention?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"mention?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -117,9 +123,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getFollowings = function (access_token) {
+    module.getFollowings = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"following?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"following?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -134,9 +141,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getEvents = function (access_token) {
+    module.getEvents = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"event?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"event?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -151,9 +159,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getPosts = function (access_token) {
+    module.getPosts = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"post?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"post?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -168,9 +177,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getCompanies = function (access_token) {
+    module.getCompanies = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"company?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"company?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -185,9 +195,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getGroups = function (access_token) {
+    module.getGroups = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"group?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"group?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -202,9 +213,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getStatuses = function (access_token) {
+    module.getStatuses = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"status?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"status?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -220,9 +232,10 @@ module.exports = function (config) {
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      * @param Curser {int} value for getting next records set
      */
-    module.getContacts = function (access_token, cursor) {
+    module.getContacts = function (access_token, cursor, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"contact?access_token=" + access_token + "&cursor=" + cursor, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"contact?access_token=" + access_token + "&cursor=" + cursor }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -237,9 +250,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getVideos = function (access_token) {
+    module.getVideos = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"video?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"video?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -254,9 +268,10 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      */
-    module.getLikes = function (access_token) {
+    module.getLikes = function (access_token, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"like?access_token=" + access_token, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"like?access_token=" + access_token }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -277,9 +292,10 @@ module.exports = function (config) {
      * @param caption {String} A caption of the status message
      * @param description {String} A description of the status message
      */
-    module.postStatus = function (access_token, title, url, status, imageurl, caption, description) {
+    module.postStatus = function (access_token, title, url, status, imageurl, caption, description, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"status/js?access_token=" + access_token + "&title=" + title + "&url=" + url + "&imageurl=" + imageurl + "&status=" + status + "&caption=" + caption + "&description=" + description, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"status/js?access_token=" + access_token + "&title=" + title + "&url=" + url + "&imageurl=" + encodeURIComponent(imageurl) + "&status=" + status + "&caption=" + caption + "&description=" + description }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -297,9 +313,10 @@ module.exports = function (config) {
      * @param subject {String} The subject of the message to be send
      * @param message {String} The details of the message to be send
      */
-    module.postMessage = function (access_token, to, subject, message) {
+    module.postMessage = function (access_token, to, subject, message, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"message/js?access_token=" + access_token + "&to=" + to + "&subject=" + subject + "&message=" + message, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"message/js?access_token=" + access_token + "&to=" + to + "&subject=" + subject + "&message=" + message }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -310,9 +327,10 @@ module.exports = function (config) {
     };
 
     //Get Message
-    module.getMessage = function (access_token, to, subject, message) {
+    module.getMessage = function (access_token, to, subject, message, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"message/js?access_token=" + access_token + "&to=" + to + "&subject=" + subject + "&message=" + message, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"message/js?access_token=" + access_token + "&to=" + to + "&subject=" + subject + "&message=" + message }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -326,10 +344,10 @@ module.exports = function (config) {
     // The data will be normalized into LoginRadius’ standard data format.
     // This API requires setting permissions in your LoginRadius Dashboard.
     // http://apidocs.loginradius.com/docs/page
-    module.getPage = function (access_token, pagename) {
-
+    module.getPage = function (access_token, pagename, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request(config.apidomain + socialLoginEndpoint +"page?access_token=" + access_token + "&pagename=" + pagename, function (data) {
+            config.request({ uri: config.apidomain + socialLoginEndpoint +"page?access_token=" + access_token + "&pagename=" + pagename }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {

@@ -47,7 +47,7 @@ module.exports = function (secret, key, startDate, endDate) {
 
             const hash = crypto.createHash('md5');
             hash.update(cryptedText, 'ascii');
-            resolve(cryptedText.split("+").join("%2B") + "*" + (hash.digest()).toString('hex'));
+            resolve(cryptedText+ "*" + (hash.digest()).toString('hex'));
         });
     }
 

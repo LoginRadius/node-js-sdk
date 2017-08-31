@@ -2,6 +2,30 @@
 -----
 
 >LoginRadius Node JS SDK Change Log provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/sdk-libraries/nodejs)
+
+
+=============================================================
+
+Version 4.2.0
+
+Released on August 31, 2017
+<br>
+- Added No Registration by phone and email APIs.
+- Added Invalidate Phone number APIs.
+- Added create, retrieve, update and delete Custom Registration Data APIs.
+- Added retrive Security Question APIs.
+- Added server side API to generate SOTT.
+- Added Auto Login by Phone and Username.
+- Added email verify Auto Login API.
+- Allows you to set proxy configurations, if you want to setup Http Server Proxy Configuration through your NodeJs SDK.
+- Enhanced Reset password APIs by adding an parater ResetPasswordEmailTemplate to Send Email or SMS on password reset.
+- Enhanced all APIs with projection of fields which allows to select fields that you require as an API response.
+- Enhanced Custom Object Update API by adding an extra parater isAllowedReplace.
+- Enhanced Account profile Update API by adding an extra parater nullSupport.
+- Enhanced Login APIs by adding and extra parameter securityanswer.
+
+See the documentation [here](https://docs.loginradius.com/api/v2/sdk-libraries/nodejs)
+
 =============================================================
 Version 4.1.1
 

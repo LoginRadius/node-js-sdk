@@ -5,15 +5,30 @@ function checkNullOrUndefined(input) {
 
 //Check value for null support
 function checkNullSupport(input) {
-    return (input === true );
+    if(input)
+        return true;
+    else
+        return false;
 };
+
+function checkFields(input, config) {
+    var fields = (input === null || typeof(input) === 'undefined') ? '*' : input;
+    config.fieldsParam = "&fields=";
+    config.fieldsValue = fields;
+}
 
 //Get Error response
 function checkError(input) {
     return input && input.ErrorCode;
 };
 
-//Get Server Time
+//
+function allowedReplaceType(input) {
+    if(input)
+        return "replace";
+    else
+        return "partialreplace";
+};
 
 
 //Calculate SOTT.
@@ -32,5 +47,7 @@ module.exports = {
     checkNullOrUndefined: checkNullOrUndefined,
     checkError: checkError,
     getSott: getSott,
-    checkNullSupport: checkNullSupport
+    checkNullSupport: checkNullSupport,
+    allowedReplaceType: allowedReplaceType,
+    checkFields: checkFields
 }

@@ -6,7 +6,8 @@ module.exports = function (config, helper) {
     var helper = require('./../helper.js');
 
     // Account Create Custom Object( POST )
-    module.createByUid = function (uid, objectName, formData) {
+    module.createByUid = function (uid, objectName, formData, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "POST",
@@ -24,11 +25,13 @@ module.exports = function (config, helper) {
     };
 
     // Account Update Custom Object( PUT )
-    module.update = function (uid, objectRecordId, objectName, formData) {
+    module.update = function (uid, objectRecordId, objectName, formData, isAllowedReplace, fields) {
+        isAllowedReplace = helper.allowedReplaceType(isAllowedReplace);
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
-                uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName,
+                uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName + "&updateType=" + isAllowedReplace,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -42,7 +45,8 @@ module.exports = function (config, helper) {
     };
 
     // Account Custom Object By UID( GET )
-    module.getByUID = function (uid, objectName) {
+    module.getByUID = function (uid, objectName, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + accountEndpoint + uid + "/customobject?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName}, function (data) {
                 if (helper.checkError(data)) {
@@ -55,7 +59,8 @@ module.exports = function (config, helper) {
     };
 
     // Account Custom Object by ObjectRecordId( GET )
-    module.getByObjectRecordId = function (uid, objectRecordId, objectName) {
+    module.getByObjectRecordId = function (uid, objectRecordId, objectName, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName}, function (data) {
                 if (helper.checkError(data)) {
@@ -68,7 +73,8 @@ module.exports = function (config, helper) {
     };
 
     // Account Delete Custom Object by ObjectRecordId( DELETE )
-    module.remove = function (uid, objectRecordId, objectName) {
+    module.remove = function (uid, objectRecordId, objectName, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "DELETE",
@@ -83,5 +89,5 @@ module.exports = function (config, helper) {
         });
     };
 
-	return module;
+    return module;
 }

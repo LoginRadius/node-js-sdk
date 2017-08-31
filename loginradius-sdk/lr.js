@@ -3,9 +3,15 @@ var _ = require('underscore');
 
 module.exports = function (config) {
 	config.request = function (options, callback) {
+		if ( config.proxy && config.proxy.host && config.proxy.port ) {
+			var proxyUrl = "http://" + config.proxy.user + ":" + config.proxy.password + "@" + config.proxy.host + ":" + config.proxy.port;
+			options.proxy = proxyUrl;
+		}
+		fieldsList = config.fieldsParam + config.fieldsValue
+		options.uri+=fieldsList;
 		request(options, function (error, response, body) {
 			if (error) {
-				console.log(error);
+				throw (error);
 			} else {
 				callback(JSON.parse(body));
 			}
@@ -21,8 +27,8 @@ module.exports = function (config) {
 	var phoneAuthentication = require('./sdk/phoneAuthentication.js')(config);
 	var socialLogin = require('./sdk/socialLogin.js')(config);
 	var customObject = require('./sdk/customObject.js')(config);
+	var customRegistrationData = require('./sdk/customRegistrationData.js')(config);
 	var accessToken = require('./sdk/accessToken.js')(config);
-	var cloudStorage = require('./sdk/cloudStorage.js')(config);
 
 	return {
 		authentication: authentication,
@@ -33,8 +39,8 @@ module.exports = function (config) {
 		phoneAuthentication: phoneAuthentication,
 		socialLogin: socialLogin,
 		customObject: customObject,
+		customRegistrationData: customRegistrationData,
 		accessToken: accessToken,
 		helper: helper,
-		cloudStorage:cloudStorage
 	};
 };

@@ -5,10 +5,10 @@ module.exports = function (config) {
     var helper = require('./../helper.js');
 
     // Test WebHook( GET )
-    module.test = function () {
+    module.test = function (fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({uri: config.apidomain + webHookEndpoint +"/test?apikey=" + config.apikey + "&apisecret=" + config.apisecret}, function (data) {
-                console.log(data);
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -19,11 +19,12 @@ module.exports = function (config) {
     }
 
     // Subscribe Web Hooks( POST )
-    module.subscribe = function (target_url, event) {
+    module.subscribe = function (target_url, event, fields) {
         var formData = {
             "TargetUrl": target_url,
             "Event": event
         }
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
                 method: 'post',
@@ -31,7 +32,6 @@ module.exports = function (config) {
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
-                console.log(data);
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -42,11 +42,12 @@ module.exports = function (config) {
     }
 
     // Unsubscribe Web Hooks( DELETE )
-    module.unsubscribe = function (target_url, event) {
+    module.unsubscribe = function (target_url, event, fields) {
         var formData = {
             "TargetUrl": target_url,
             "Event": event
         }
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
                 method: 'delete',
@@ -54,7 +55,6 @@ module.exports = function (config) {
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
-                console.log(data);
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -65,12 +65,12 @@ module.exports = function (config) {
     }
 
     // Get Subscribed Web Hooks( GET )
-    module.getSubscribed = function (event) {
+    module.getSubscribed = function (event, fields) {
+        helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
                 uri: config.apidomain + webHookEndpoint +"?apikey=" + config.apikey + "&apisecret=" + config.apisecret+"&event="+event,
             }, function (data) {
-                console.log(data);
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {

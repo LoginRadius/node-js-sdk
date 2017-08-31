@@ -2,7 +2,7 @@
   "name": "loginradius-sdk",
   "readme": "",
   "scripts": {},
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "An LoginRadius SDK for node.js",
   "homepage": "https://www.loginradius.com",
   "main": "./lr.js",
