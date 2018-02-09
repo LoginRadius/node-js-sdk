@@ -10,13 +10,13 @@ module.exports = function ( config ) {
     module.create = function( formData, fields ) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'post',uri: config.apidomain + roleEndpoint +"role?apikey=" + config.apikey + "&apisecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'post',uri: config.apidomain + roleEndpoint +"role", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -24,13 +24,13 @@ module.exports = function ( config ) {
     module.get = function( fields) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: config.apidomain + roleEndpoint +"role?apikey=" + config.apikey + "&apisecret=" + config.apisecret }, function ( data ) {
+            config.request( { uri: config.apidomain + roleEndpoint +"role" }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -38,13 +38,13 @@ module.exports = function ( config ) {
     module.remove = function(role, fields) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( {method: 'DELETE', uri: config.apidomain + roleEndpoint +"role/"+ role +"?apikey=" + config.apikey + "&apisecret=" + config.apisecret}, function ( data ) {
+            config.request( {method: 'DELETE', uri: config.apidomain + roleEndpoint +"role/"+ role }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 	
@@ -52,13 +52,13 @@ module.exports = function ( config ) {
     module.permission.add = function(role, formData, fields) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'PUT', uri: config.apidomain + roleEndpoint +"role/" + role + "/permission?apikey=" + config.apikey + "&apisecret=" + config.apisecret , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'PUT', uri: config.apidomain + roleEndpoint +"role/" + role + "/permission" , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -66,13 +66,13 @@ module.exports = function ( config ) {
     module.permission.remove = function(role, formData, fields) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'DELETE', uri: config.apidomain + roleEndpoint +"role/"+ role +"/permission?apikey=" + config.apikey + "&apisecret=" + config.apisecret , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'DELETE', uri: config.apidomain + roleEndpoint +"role/"+ role +"/permission" , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -80,14 +80,14 @@ module.exports = function ( config ) {
     module.context.get = function( uid, fields ) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: config.apidomain + roleEndpoint +"account/"+ uid +"/rolecontext?apikey=" + config.apikey + "&apisecret=" + config.apisecret },
+            config.request( { uri: config.apidomain + roleEndpoint +"account/"+ uid +"/rolecontext" },
                 function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -95,13 +95,13 @@ module.exports = function ( config ) {
     module.context.add = function( uid, formData, fields ) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'PUT', uri: config.apidomain + roleEndpoint +"account/"+ uid +"/rolecontext?apikey=" + config.apikey + "&apisecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'PUT', uri: config.apidomain + roleEndpoint +"account/"+ uid +"/rolecontext", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( JSON.stringify(data) );
                 }
-            });
+            },true);
         });
     }
 
@@ -109,13 +109,13 @@ module.exports = function ( config ) {
     module.context.delete = function( uid, roleContextName, fields ) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'DELETE', uri: config.apidomain + roleEndpoint +"account/" + uid + "/rolecontext/" + roleContextName +"?apikey=" + config.apikey + "&apisecret=" + config.apisecret, headers: { 'content-type': 'application/json' } }, function ( data ) {
+            config.request( { method: 'DELETE', uri: config.apidomain + roleEndpoint +"account/" + uid + "/rolecontext/" + roleContextName, headers: { 'content-type': 'application/json' } }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -124,13 +124,13 @@ module.exports = function ( config ) {
         var formData = { "Roles" : [roleName] };
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'DELETE', uri: config.apidomain + roleEndpoint +"account/" + uid + "/rolecontext/" + roleContextName + "/role?apikey=" + config.apikey + "&apisecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'DELETE', uri: config.apidomain + roleEndpoint +"account/" + uid + "/rolecontext/" + roleContextName + "/role", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -139,13 +139,13 @@ module.exports = function ( config ) {
         var formData = { "AdditionalPermissions" : [additionalPermission] };
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'DELETE', uri: config.apidomain + roleEndpoint +"account/" + uid + "/rolecontext/" + roleContextName + "/additionalpermission?apikey=" + config.apikey + "&apisecret=" + config.apisecret, headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'DELETE', uri: config.apidomain + roleEndpoint +"account/" + uid + "/rolecontext/" + roleContextName + "/additionalpermission", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 

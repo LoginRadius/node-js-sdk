@@ -2,12 +2,26 @@ var request = require('request');
 var _ = require('underscore');
 
 module.exports = function (config) {
-	config.request = function (options, callback) {
+	config.request = function (options, callback, managementAPI) {
 		if ( config.proxy && config.proxy.host && config.proxy.port ) {
 			var proxyUrl = "http://" + config.proxy.user + ":" + config.proxy.password + "@" + config.proxy.host + ":" + config.proxy.port;
 			options.proxy = proxyUrl;
 		}
-		fieldsList = config.fieldsParam + config.fieldsValue
+		var customHeader = {
+			'X-LoginRadius-ApiKey' : config.apikey,
+			'X-LoginRadius-ApiSecret' : config.apisecret
+		}
+		if(managementAPI){
+			if(options.headers)
+				Object.assign(options.headers, customHeader );
+			else
+				options.headers = customHeader;
+		}
+		if(options.uri.match(/\?./))
+			fieldsList = config.fieldsParam + config.fieldsValue;
+		else
+			fieldsList = "?fields=" + config.fieldsValue;
+
 		options.uri+=fieldsList;
 		request(options, function (error, response, body) {
 			if (error) {
@@ -29,6 +43,7 @@ module.exports = function (config) {
 	var customObject = require('./sdk/customObject.js')(config);
 	var customRegistrationData = require('./sdk/customRegistrationData.js')(config);
 	var accessToken = require('./sdk/accessToken.js')(config);
+	var cloudApi = require('./sdk/cloudApi.js')(config);
 
 	return {
 		authentication: authentication,
@@ -41,6 +56,7 @@ module.exports = function (config) {
 		customObject: customObject,
 		customRegistrationData: customRegistrationData,
 		accessToken: accessToken,
+		cloudApi: cloudApi,
 		helper: helper,
 	};
 };

@@ -2,7 +2,7 @@ module.exports = function (config, helper) {
 
     var module = {};
     var accountEndpoint = "/identity/v2/manage/account/";
-    var archivedEndpoint = "/api/v2/identity/archived?apikey=";
+    var archivedEndpoint = "/api/v2/identity/archived";
     var helper = require('./../helper.js');
 
     module.profile = {};
@@ -11,13 +11,13 @@ module.exports = function (config, helper) {
     module.getByUid = function ( uid, fields ) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + accountEndpoint +"access_token?apikey=" + config.apikey + "&apisecret=" + config.apisecret +"&uid=" +uid }, function (data) {
+            config.request({uri: config.apidomain + accountEndpoint +"access_token?uid=" +uid }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -27,7 +27,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "POST",
-                uri: config.apidomain + accountEndpoint + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret,
+                uri: config.apidomain + accountEndpoint,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -36,7 +36,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -49,7 +49,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "POST",
-                uri: config.apidomain + accountEndpoint + "forgot/token?apikey=" + config.apikey + "&apisecret=" + config.apisecret,
+                uri: config.apidomain + accountEndpoint + "forgot/token",
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(payload)
             }, function (data) {
@@ -58,7 +58,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -71,7 +71,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "POST",
-                uri: config.apidomain + accountEndpoint + "verify/token?apikey=" + config.apikey + "&apisecret=" + config.apisecret,
+                uri: config.apidomain + accountEndpoint + "verify/token",
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(payload)
             }, function (data) {
@@ -80,7 +80,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -88,13 +88,13 @@ module.exports = function (config, helper) {
     module.profile.getByEmail = function (email, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + accountEndpoint + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&email=" + email}, function (data) {
+            config.request({uri: config.apidomain + accountEndpoint + "?email=" + email}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -102,13 +102,13 @@ module.exports = function (config, helper) {
     module.profile.getByUsername = function (username, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + accountEndpoint + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&username=" + username}, function (data) {
+            config.request({uri: config.apidomain + accountEndpoint + "?username=" + username}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -116,13 +116,13 @@ module.exports = function (config, helper) {
     module.profile.getByPhone = function (phone, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + accountEndpoint + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&phone=" + phone}, function (data) {
+            config.request({uri: config.apidomain + accountEndpoint + "?phone=" + phone}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -130,13 +130,13 @@ module.exports = function (config, helper) {
     module.profile.getByUid = function (uid, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + accountEndpoint + uid + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret}, function (data) {
+            config.request({uri: config.apidomain + accountEndpoint + uid }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -150,7 +150,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
-                uri: config.apidomain + accountEndpoint + uid + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&nullSupport=" + nullSupport,
+                uri: config.apidomain + accountEndpoint + uid + "?nullSupport=" + nullSupport,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -159,7 +159,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -169,14 +169,14 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "DELETE",
-                uri: config.apidomain + accountEndpoint + uid + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret
+                uri: config.apidomain + accountEndpoint + uid
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -189,7 +189,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
-                uri: config.apidomain + accountEndpoint + uid + "/password?apikey=" + config.apikey + "&apisecret=" + config.apisecret,
+                uri: config.apidomain + accountEndpoint + uid + "/password",
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -198,7 +198,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -206,13 +206,13 @@ module.exports = function (config, helper) {
     module.getPassword = function (uid, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + accountEndpoint + uid + "/password?apikey=" + config.apikey + "&apisecret=" + config.apisecret}, function (data) {
+            config.request({uri: config.apidomain + accountEndpoint + uid + "/password"}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -226,14 +226,14 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
-                uri: config.apidomain + accountEndpoint + uid + "/invalidateemail?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&verificationUrl=" + verificationUrl + "&emailTemplate=" + emailTemplate
+                uri: config.apidomain + accountEndpoint + uid + "/invalidateemail?verificationUrl=" + verificationUrl + "&emailTemplate=" + emailTemplate
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -243,13 +243,13 @@ module.exports = function (config, helper) {
     module.getDeletedAccountByEmail = function (email, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + archivedEndpoint + config.apikey + "&apisecret=" + config.apisecret + "&email=" + email}, function (data) {
+            config.request({uri: config.apidomain + archivedEndpoint + "?email=" + email}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -257,13 +257,13 @@ module.exports = function (config, helper) {
     module.getDeletedAccountByPhone = function (phone, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + archivedEndpoint + config.apikey + "&apisecret=" + config.apisecret + "&phone=" + phone}, function (data) {
+            config.request({uri: config.apidomain + archivedEndpoint + "?phone=" + phone}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -271,13 +271,13 @@ module.exports = function (config, helper) {
     module.getDeletedAccountByUid = function (uid, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + archivedEndpoint + config.apikey + "&apisecret=" + config.apisecret + "&uid=" + uid}, function (data) {
+            config.request({uri: config.apidomain + archivedEndpoint + "?uid=" + uid}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -286,13 +286,13 @@ module.exports = function (config, helper) {
     module.assignRole = function(uid, formData, fields) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'PUT', uri: config.apidomain + accountEndpoint + uid + "/role?apikey=" + config.apikey + "&apisecret=" + config.apisecret , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'PUT', uri: config.apidomain + accountEndpoint + uid + "/role" , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -300,13 +300,13 @@ module.exports = function (config, helper) {
 	 module.unassignRole = function(uid, formData, fields) {
          helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'DELETE', uri: config.apidomain + accountEndpoint + uid + "/role?apikey=" + config.apikey + "&apisecret=" + config.apisecret , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'DELETE', uri: config.apidomain + accountEndpoint + uid + "/role" , headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     };
 	
@@ -314,13 +314,13 @@ module.exports = function (config, helper) {
     module.getRoleByUid = function( uid, fields ) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: config.apidomain + accountEndpoint + uid + "/role?apikey=" + config.apikey + "&apisecret=" + config.apisecret }, function ( data ) {
+            config.request( { uri: config.apidomain + accountEndpoint + uid + "/role" }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 
@@ -330,7 +330,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
-                uri: config.apidomain + accountEndpoint + uid + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret,
+                uri: config.apidomain + accountEndpoint + uid,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -339,7 +339,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     }
     
@@ -349,14 +349,14 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
-                uri: config.apidomain + accountEndpoint + uid + "/invalidatephone?apikey=" + config.apikey + "&apisecret=" + config.apisecret
+                uri: config.apidomain + accountEndpoint + uid + "/invalidatephone"
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     }
 
@@ -367,13 +367,13 @@ module.exports = function (config, helper) {
             var timeDifference = "10";
         }
         return new Promise( function( resolve, reject ) {
-            config.request( { uri: config.apidomain + accountEndpoint + "sott?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&timedifference="+ timeDifference }, function ( data ) {
+            config.request({ uri: config.apidomain + accountEndpoint + "sott?timedifference="+ timeDifference }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {
                     resolve( data );
                 }
-            });
+            },true);
         });
     }
 	

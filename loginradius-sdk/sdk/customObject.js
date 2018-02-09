@@ -11,7 +11,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "POST",
-                uri: config.apidomain + accountEndpoint + uid + "/customobject?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName,
+                uri: config.apidomain + accountEndpoint + uid + "/customobject?objectname=" + objectName,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -20,7 +20,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -31,7 +31,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
-                uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName + "&updateType=" + isAllowedReplace,
+                uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?objectname=" + objectName + "&updateType=" + isAllowedReplace,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -40,7 +40,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -48,13 +48,13 @@ module.exports = function (config, helper) {
     module.getByUID = function (uid, objectName, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + accountEndpoint + uid + "/customobject?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName}, function (data) {
+            config.request({uri: config.apidomain + accountEndpoint + uid + "/customobject?objectname=" + objectName}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -62,13 +62,13 @@ module.exports = function (config, helper) {
     module.getByObjectRecordId = function (uid, objectRecordId, objectName, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName}, function (data) {
+            config.request({uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?objectname=" + objectName}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -78,14 +78,14 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "DELETE",
-                uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&objectname=" + objectName
+                uri: config.apidomain + accountEndpoint + uid + "/customobject/" + objectRecordId + "?objectname=" + objectName
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 

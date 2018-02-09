@@ -264,11 +264,113 @@ module.exports = function (config) {
     }
 
     // Reset Password By Security Question( PUT )
+    /*
+     var securityanswer = {"cb7*******3e40ef8a****01fb****20": "Security Answer of this question ID"};
+     var userid = "";                          //Email / Username / Phone (User id by which user will log in)
+     var password = "xxxxxxxxxxxxx";
+     var resetPasswordEmailTemplate = "template name" // Template which will send after resetting password successfully.(Optional)
+     */
     module.resetPasswordbySecurityQuestion = function ( securityanswer, userid, password, resetPasswordEmailTemplate, fields ) {
         resetPasswordEmailTemplate = helper.checkNullOrUndefined( resetPasswordEmailTemplate );
         var formData = {
             "securityanswer": securityanswer,
             "userid": userid,
+            "password": password,
+            "resetPasswordEmailTemplate": resetPasswordEmailTemplate
+        }
+        helper.checkFields(fields, config);
+        return new Promise(function (resolve, reject) {
+            config.request({
+                method: 'PUT',
+                uri: config.apidomain + authEndpoint +"password/securityanswer?apikey=" + config.apikey,
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(formData)
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    }
+
+    // Reset Password By Security Question and email( PUT )
+    /*
+     var securityanswer = {"cb7*******3e40ef8a****01fb****20": "Security Answer of this question ID"};
+     var email = "";                          //Email by which user will log in
+     var password = "xxxxxxxxxxxxx";
+     var resetPasswordEmailTemplate = "template name" // Template which will send after resetting password successfully.(Optional)
+     */
+    module.resetPasswordbyEmail = function ( securityanswer, email, password, resetPasswordEmailTemplate, fields ) {
+        resetPasswordEmailTemplate = helper.checkNullOrUndefined( resetPasswordEmailTemplate );
+        var formData = {
+            "securityanswer": securityanswer,
+            "email": email,
+            "password": password,
+            "resetPasswordEmailTemplate": resetPasswordEmailTemplate
+        }
+        helper.checkFields(fields, config);
+        return new Promise(function (resolve, reject) {
+            config.request({
+                method: 'PUT',
+                uri: config.apidomain + authEndpoint +"password/securityanswer?apikey=" + config.apikey,
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(formData)
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    }
+
+    // Reset Password By Security Question and username( PUT )
+    /*
+     var securityanswer = {"cb7*******3e40ef8a****01fb****20": "Security Answer of this question ID"};
+     var username = "";                          //Username by which user will log in
+     var password = "xxxxxxxxxxxxx";
+     var resetPasswordEmailTemplate = "template name" // Template which will send after resetting password successfully.(Optional)
+     */
+    module.resetPasswordbyUsername = function ( securityanswer, username, password, resetPasswordEmailTemplate, fields ) {
+        resetPasswordEmailTemplate = helper.checkNullOrUndefined( resetPasswordEmailTemplate );
+        var formData = {
+            "securityanswer": securityanswer,
+            "username": username,
+            "password": password,
+            "resetPasswordEmailTemplate": resetPasswordEmailTemplate
+        }
+        helper.checkFields(fields, config);
+        return new Promise(function (resolve, reject) {
+            config.request({
+                method: 'PUT',
+                uri: config.apidomain + authEndpoint +"password/securityanswer?apikey=" + config.apikey,
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(formData)
+            }, function (data) {
+                if (helper.checkError(data)) {
+                    reject(data);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    }
+
+    // Reset Password By Security Question and phone( PUT )
+    /*
+     var securityanswer = {"cb7*******3e40ef8a****01fb****20": "Security Answer of this question ID"};
+     var phone = "";                          //phone by which user will log in
+     var password = "xxxxxxxxxxxxx";
+     var resetPasswordEmailTemplate = "template name" // Template which will send after resetting password successfully.(Optional)
+     */
+    module.resetPasswordbyPhone = function ( securityanswer, phone, password, resetPasswordEmailTemplate, fields ) {
+        resetPasswordEmailTemplate = helper.checkNullOrUndefined( resetPasswordEmailTemplate );
+        var formData = {
+            "securityanswer": securityanswer,
+            "phone": phone,
             "password": password,
             "resetPasswordEmailTemplate": resetPasswordEmailTemplate
         }
@@ -753,7 +855,7 @@ module.exports = function (config) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "DELETE",
-                uri: config.apidomain + "/identity/v2/manage/account/2FA/authenticator?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&uid=" + uid,
+                uri: config.apidomain + "/identity/v2/manage/account/2FA/authenticator?uid=" + uid,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(payload)
             }, function (data) {
@@ -762,7 +864,7 @@ module.exports = function (config) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -844,14 +946,14 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
-                uri: config.apidomain + backUpManageEndPoint +"?apikey=" + config.apikey + "&apisecret="+ config.apisecret + "&uid=" + uid
+                uri: config.apidomain + backUpManageEndPoint +"?uid=" + uid
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -860,14 +962,14 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
-                uri: config.apidomain + backUpManageEndPoint +"/reset?apikey=" + config.apikey + "&apisecret="+ config.apisecret + "&uid=" + uid
+                uri: config.apidomain + backUpManageEndPoint +"/reset?uid=" + uid
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 

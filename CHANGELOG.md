@@ -6,6 +6,16 @@
 
 =============================================================
 
+Version 4.3.0
+Released on Feb 09, 2018
+<br>
+- Added configuration API.
+- Improved structure and naming convention
+- APIKey and APISecret will pass in header in all management APIs
+- Splitted Reset Password by Security Answer into three APIs(by email, phone and username)
+
+=============================================================
+
 Version 4.2.0
 
 Released on August 31, 2017

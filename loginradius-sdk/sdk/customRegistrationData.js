@@ -13,7 +13,7 @@ module.exports = function (config, helper) {
         limit = helper.checkNullOrUndefined(limit);
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
-            config.request({uri: config.apidomain + regMngEndpoint + type + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret + "&parentid=" + parentid + "&skip=" + skip + "&limit=" + limit}, function (data) {
+            config.request({uri: config.apidomain + regMngEndpoint + type + "?parentid=" + parentid + "&skip=" + skip + "&limit=" + limit}, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
@@ -59,7 +59,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "POST",
-                uri: config.apidomain + regMngEndpoint + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret ,
+                uri: config.apidomain + regMngEndpoint,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -68,7 +68,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -89,7 +89,7 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
-                uri: config.apidomain + regMngEndpoint + recordId + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret,
+                uri: config.apidomain + regMngEndpoint + recordId,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
             }, function (data) {
@@ -98,7 +98,7 @@ module.exports = function (config, helper) {
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
@@ -108,14 +108,14 @@ module.exports = function (config, helper) {
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "DELETE",
-                uri: config.apidomain + regMngEndpoint + recordId + "?apikey=" + config.apikey + "&apisecret=" + config.apisecret
+                uri: config.apidomain + regMngEndpoint + recordId
             }, function (data) {
                 if (helper.checkError(data)) {
                     reject(data);
                 } else {
                     resolve(data);
                 }
-            });
+            },true);
         });
     };
 
