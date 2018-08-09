@@ -71,7 +71,7 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
-                method: 'post',
+                method: 'POST',
                 uri: config.apidomain + restHookEndpoint +"resthook/subscribe?api_key=" + config.apikey + "&api_secret=" + config.apisecret,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
@@ -97,7 +97,7 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
-                method: 'post',
+                method: 'POST',
                 uri: config.apidomain + restHookEndpoint +"resthook/unsubscribe?api_key=" + config.apikey + "&api_secret=" + config.apisecret,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)

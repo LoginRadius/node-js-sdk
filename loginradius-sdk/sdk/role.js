@@ -10,7 +10,7 @@ module.exports = function ( config ) {
     module.create = function( formData, fields ) {
         helper.checkFields(fields, config);
         return new Promise( function( resolve, reject ) {
-            config.request( { method: 'post',uri: config.apidomain + roleEndpoint +"role", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
+            config.request( { method: 'POST',uri: config.apidomain + roleEndpoint +"role", headers: { 'content-type': 'application/json' }, body: JSON.stringify(formData) }, function ( data ) {
                 if(helper.checkError(data)) {
                     reject( data );
                 } else {

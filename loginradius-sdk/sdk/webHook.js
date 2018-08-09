@@ -27,7 +27,7 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
-                method: 'post',
+                method: 'POST',
                 uri: config.apidomain + webHookEndpoint +"/?apikey=" + config.apikey + "&apisecret=" + config.apisecret,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
@@ -50,7 +50,7 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
-                method: 'delete',
+                method: 'DELETE',
                 uri: config.apidomain + webHookEndpoint +"/?apikey=" + config.apikey + "&apisecret=" + config.apisecret,
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(formData)
