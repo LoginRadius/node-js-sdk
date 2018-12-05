@@ -24,4 +24,4 @@ Please visit [here](http://www.loginradius.com/) for more information.
 
 ## Documentation
 
-[Getting Started](https://docs.loginradius.com/api/v2/sdk-libraries/nodejs) - Everything you need to begin using this SDK.
+[Getting Started](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library) - Everything you need to begin using this SDK.

@@ -1,18 +1,63 @@
 # Node SDK
 -----
 
->LoginRadius Node JS SDK Change Log provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/sdk-libraries/nodejs)
+>LoginRadius Node JS SDK Change Log provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
+
+Version 4.4.0
+
+Released on Dec 5, 2018
+<br>
+Enhancements :
+- A Demo has been added to the SDK under the demo directory.
+- Request Access Token Header and Payload Option
+- Implemented Custom Domain option.
+- Implement functionality to customize your region.
+- API Route Changes: We have renamed some login flow for better naming. "Auto Login" to "Smart Login", "No Registration" renamed to "One touch Login" and "Instant Link Login" to "PasswordLess Login".
+- Implemented API Request Signing option: Passed hashed of secret instead of API Secret Key in API Calling.
+- Added Option to Prevent Sending Email Verification.
+
+Breaking Changes:
+<br>
+
+  APIs have been changed to correctly reflect the format found in the API Docs. As a result a significant amount of methods have to be called with different module or method names. For the updated names and calls, check the Node.JS SDK documentation.
+- module.autoLogin.byEmail replaced with module.smartLogin.byEmail
+- module.autoLogin.byUsername replaced with module.smartLogin.byUsername
+- module.autoLogin.verify replaced with module.smartLogin.verify
+- module.autoLogin.ping replaced with module.smartLogin.ping
+- module.instantLinkLoginByEmail replaced with module.passwordlessLoginByEmail
+- module.instantLinkLoginByUsername  replaced with module.passwordlessLoginByUsername
+- module.instantLinkLoginVerify  replaced with module.passwordlessLoginVerify
+- module.otp.send replaced with module.passwordlessPhoneLoginUsingOTP
+- module.simplifiedRegistrationByEmail replaced with module.oneTouchLoginByEmail
+- module.simplifiedRegistrationByPhone  replaced with module.oneTouchLoginByPhone
+- module.simplifiedRegistrationVerifyOtp  replaced with module.oneTouchLoginVerifyOtp
+- module.twoFactor.emailLogin  replaced with module.mfaEmailLogin
+- module.twoFactor.usernameLogin  replaced with module.mfaUsernameLogin
+- module.twoFactor.phoneLogin replaced with module.mfaPhoneLogin
+- cloudApi replaced with configApi
+
+Added:
+- sendWelcomeEmail API
+- acceptPrivacyPolicy API
+- mfaValidateGoogleAuthCode API
+- mfaReauthenticate API
+- validateMFAByGoogleAuthenticatorCode API
+- validateMFAByBackupCode API
+- validateMFAByOTP API
+- validateMFAByPassword API
 
 =============================================================
 
 Version 4.3.1
-Released on Aug 09, 2018
+
+Released on Aug 9, 2018
 <br>
 - Capitalised calling METHOD names.
 
 =============================================================
 
 Version 4.3.0
+
 Released on Feb 09, 2018
 <br>
 - Added configuration API.
