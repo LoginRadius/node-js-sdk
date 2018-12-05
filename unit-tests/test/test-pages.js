@@ -15,8 +15,7 @@ describe("NodeJS SDK Unit Testing", function () {
     beforeEach(function () {
        console.log("running something before each test");
     });
-    //importTest("accesstokenTest", './test_cases/accesstokenTest');
-    importTest("cloudapi", './test_cases/cloudApiTest');
+    importTest("accesstokenTest", './test_cases/accesstokenTest');   
   
     after(function () {
         console.log("after all tests");

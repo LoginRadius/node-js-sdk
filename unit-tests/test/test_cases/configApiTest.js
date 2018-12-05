@@ -6,7 +6,7 @@ var variables = common.variables;
 
 
 it('Get Configuration', function(done){
-    lrtest.cloudApi.getConfigurationList().then(function(response){
+    lrtest.configApi.getConfigurationList().then(function(response){
         console.log(response);
   expect(response.AppName).to.exist;
   done();

@@ -48,7 +48,7 @@ it('Token Validity( GET )', function(done){
 
   it(' User Registration( POST )', function(done){
     this.timeout(5000);
-    lrtest.authentication.userregister(variables.formdata).then(function(response){
+    lrtest.authentication.register(variables.formdata).then(function(response){
   expect(response.IsPosted).to.exist;
   done();
   }).catch(function(error){

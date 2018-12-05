@@ -5,7 +5,7 @@ var variables = common.variables;
 
 it('Phone User Registration by SMS ( POST )', function(done){
     this.timeout(5000);
-    lrtest.phoneAuthentication.userregister(variables.formdata).then(function(response){
+    lrtest.phoneAuthentication.register(variables.formdata).then(function(response){
   expect(response.IsPosted).to.exist;
   done();
   }).catch(function(error){

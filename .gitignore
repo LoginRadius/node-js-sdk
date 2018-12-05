@@ -16,3 +16,7 @@ prepros.cfg
 .DS_Store
 .idea/
 
+/nbproject/private/
+nbproject/project.properties
+nbproject/project.xml
+/sdk-node-js-customer-identity/nbproject/private/

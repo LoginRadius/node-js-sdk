@@ -1,8 +1,8 @@
 var config = {
 	apidomain: 'https://api.loginradius.com',
-	apikey: '146cce15-561e-4de7-9872-e85604ebad1e',
-	apisecret: '4d8279c9-fd67-4a98-a85e-7d4a0813b9d8',
-	sitename: 'internal-apeksha',
+	apikey: '<API-KEY>',
+	apisecret: '<API-KEY>',
+	sitename: '<API-KEY>',
 	api_request_signing: false,
     proxy:{
 	  method:'',	
