@@ -6,29 +6,17 @@ module.exports = function (secret, key, startDate, endDate) {
 
     return new Promise(
         function (resolve, reject) {
+            var tempToken = '';
             if(!startDate){
                 let date = new Date();
-                var tempToken =
-                    date.getUTCFullYear() + "/"
-                    + eval(date.getUTCMonth() + 1) + "/"
-                    + date.getUTCDate() + " "
-                    + date.getUTCHours() + ":"
-                    + (date.getUTCMinutes() < 10 ? "0" + date.getUTCMinutes() : date.getUTCMinutes()) + ":"
-                    + (date.getUTCSeconds() < 10 ? "0" + date.getUTCSeconds() : date.getUTCSeconds())
-                    + "#" + key + "#";
+                var nextMonth = date.getUTCMonth() + 1;
+                tempToken =date.getUTCFullYear() + "/"+ nextMonth + "/"+ date.getUTCDate() + " "+ date.getUTCHours() + ":" + (date.getUTCMinutes() < 10 ? "0" + date.getUTCMinutes() : date.getUTCMinutes()) + ":" + (date.getUTCSeconds() < 10 ? "0" + date.getUTCSeconds() : date.getUTCSeconds()) + "#" + key + "#";
+                date.setUTCMinutes(date.getUTCMinutes() + 10);
 
-                    date.setUTCMinutes(date.getUTCMinutes() + 10);
-
-                tempToken +=
-                    date.getUTCFullYear() + "/"
-                    + eval(date.getUTCMonth() + 1) + "/"
-                    + date.getUTCDate() + " "
-                    + date.getUTCHours() + ":"
-                    + (date.getUTCMinutes() < 10 ? "0" + date.getUTCMinutes() : date.getUTCMinutes()) + ":"
-                    + (date.getUTCSeconds() < 10 ? "0" + date.getUTCSeconds() : date.getUTCSeconds());
+                tempToken += date.getUTCFullYear() + "/"+ nextMonth + "/"+ date.getUTCDate() + " "+ date.getUTCHours() + ":"+ (date.getUTCMinutes() < 10 ? "0" + date.getUTCMinutes() : date.getUTCMinutes()) + ":"+ (date.getUTCSeconds() < 10 ? "0" + date.getUTCSeconds() : date.getUTCSeconds());
             }
             else {
-                var tempToken = startDate + "#" + key + "#" + endDate;
+                tempToken = startDate + "#" + key + "#" + endDate;
             }
             encrypt(tempToken, resolve, reject);
         }

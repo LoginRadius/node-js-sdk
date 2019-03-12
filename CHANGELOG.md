@@ -3,6 +3,15 @@
 
 >LoginRadius Node JS SDK Change Log provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
 
+Version 4.5.0
+
+Released on March 12, 2019
+<br>
+- Enable gZip Compression.
+- Resolved JShint detected warnings & errors 
+
+=============================================================
+
 Version 4.4.0
 
 Released on Dec 5, 2018

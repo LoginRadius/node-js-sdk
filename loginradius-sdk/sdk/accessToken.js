@@ -24,7 +24,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 	
 	
     // Token Validity( GET )
@@ -254,7 +254,7 @@ module.exports = function (config) {
             "imageurl": imageurl,
             "caption": caption,
             "description": description
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function(resolve, reject){
             config.request({

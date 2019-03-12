@@ -16,14 +16,14 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     // Subscribe Web Hooks( POST )
     module.subscribe = function (target_url, event, fields) {
         var formData = {
             "TargetUrl": target_url,
             "Event": event
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -39,14 +39,14 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     // Unsubscribe Web Hooks( DELETE )
     module.unsubscribe = function (target_url, event, fields) {
         var formData = {
             "TargetUrl": target_url,
             "Event": event
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -62,14 +62,14 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     // Get Subscribed Web Hooks( GET )
     module.getSubscribed = function (event, fields) {
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
-                uri: config.apidomain + webHookEndpoint +"?apikey=" + config.apikey + "&apisecret=" + config.apisecret+"&event="+event+config.serverRegion,
+                uri: config.apidomain + webHookEndpoint +"?apikey=" + config.apikey + "&apisecret=" + config.apisecret+"&event="+event+config.serverRegion
             }, function (data, status) {
                 if (helper.checkError(data, status)) {
                     reject(data);
@@ -78,7 +78,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     return module;
 };

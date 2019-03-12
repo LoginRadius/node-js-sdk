@@ -12,7 +12,7 @@ module.exports = function (config) {
         var customHeader = {
             'X-LoginRadius-ApiKey': config.apikey,
             'X-LoginRadius-ApiSecret': config.apisecret
-        }
+        };
         if (config.fieldsParam && config.fieldsValue)
         {
             if (options.uri.match(/\?./)) {
@@ -27,13 +27,9 @@ module.exports = function (config) {
                     options.uri += "&apikey=" + encodeURIComponent(config.apikey);
                 }
                 expiry_date = new Date();
-                expiry_date = new Date(expiry_date.getTime() + 60 * 60000);
-                expiry_date = expiry_date.getFullYear() + "-"
-                        + (eval(expiry_date.getMonth() + 1) < 10 ? "0" + eval(expiry_date.getMonth() + 1) : eval(expiry_date.getMonth() + 1)) + "-"
-                        + (expiry_date.getDate() < 10 ? "0" + expiry_date.getDate() : expiry_date.getDate()) + " "
-                        + (expiry_date.getHours() < 10 ? "0" + expiry_date.getHours() : expiry_date.getHours()) + ":"
-                        + (expiry_date.getMinutes() < 10 ? "0" + expiry_date.getMinutes() : expiry_date.getMinutes()) + ":"
-                        + (expiry_date.getSeconds() < 10 ? "0" + expiry_date.getSeconds() : expiry_date.getSeconds());
+                expiry_date = new Date(expiry_date.getTime() + 60 * 60000);                
+                var month = expiry_date.getMonth() + 1;
+                expiry_date = expiry_date.getFullYear() + "-" + (month < 10 ? "0" + month : month) + "-" + (expiry_date.getDate() < 10 ? "0" + expiry_date.getDate() : expiry_date.getDate()) + " " + (expiry_date.getHours() < 10 ? "0" + expiry_date.getHours() : expiry_date.getHours()) + ":" + (expiry_date.getMinutes() < 10 ? "0" + expiry_date.getMinutes() : expiry_date.getMinutes()) + ":" + (expiry_date.getSeconds() < 10 ? "0" + expiry_date.getSeconds() : expiry_date.getSeconds());
                 encodeurl = encodeURIComponent(decodeURIComponent(options.uri)).toLowerCase();
                 if (options.body) {
                     url_string = expiry_date + ':' + encodeurl + ':' + options.body;
@@ -59,13 +55,13 @@ module.exports = function (config) {
                     options.headers = customHeader;
             }
         }
-
+		options.gzip = true;
         request(options, function (error, response, body) {
             if (error) {
                 callback(error, 'serverError');
             } else {
                 try {
-                    var response = JSON.parse(body);
+                    response = JSON.parse(body);
                     callback(response);
                 } catch (err) {
                     var jsondata = {
@@ -74,7 +70,7 @@ module.exports = function (config) {
                         "Message": "Oops something went wrong, Please try again.",
                         "IsProviderError": false,
                         "ProviderErrorResponse": null
-                    }
+                    };
                     callback(jsondata, 'serverError');
                 }
             }

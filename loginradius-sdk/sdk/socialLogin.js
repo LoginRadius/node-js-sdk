@@ -8,6 +8,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API
+     * @param fields {String} 
      */
     module.getUserProfile = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -28,6 +29,7 @@ module.exports = function (config) {
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
      * @param albumId {String} A valid albumId, it return album photos
+     * @param fields {String} 
      */
     module.getPhotos = function (access_token, albumId, fields) {
         helper.checkFields(fields, config);
@@ -47,6 +49,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getCheckins = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -66,6 +69,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getAlbums = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -85,6 +89,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getAudios = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -104,6 +109,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getMentions = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -122,6 +128,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getFollowings = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -140,6 +147,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getEvents = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -158,6 +166,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getPosts = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -176,6 +185,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getCompanies = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -194,6 +204,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getGroups = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -212,6 +223,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getStatuses = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -230,7 +242,8 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
-     * @param Curser {int} value for getting next records set
+     * @param cursor {int} value for getting next records set
+     * @param fields {String} 
      */
     module.getContacts = function (access_token, cursor, fields) {
         helper.checkFields(fields, config);
@@ -249,6 +262,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getVideos = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -267,6 +281,7 @@ module.exports = function (config) {
      * @function
      * @public
      * @param access_token {String} A valid session token,which is fetch from Access Token API.
+     * @param fields {String} 
      */
     module.getLikes = function (access_token, fields) {
         helper.checkFields(fields, config);
@@ -291,6 +306,7 @@ module.exports = function (config) {
      * @param imageurl {String} An image URL of the status message
      * @param caption {String} A caption of the status message
      * @param description {String} A description of the status message
+     * @param fields {String} 
      */
     module.postStatus = function (access_token, title, url, status, imageurl, caption, description, fields) {
         helper.checkFields(fields, config);
@@ -312,6 +328,7 @@ module.exports = function (config) {
      * @param to {String} A valid friend id to send the message, it would be fetched from the contacts list
      * @param subject {String} The subject of the message to be send
      * @param message {String} The details of the message to be send
+     * @param fields {String} 
      */
     module.postMessage = function (access_token, to, subject, message, fields) {
         helper.checkFields(fields, config);
@@ -355,7 +372,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     return module;
 };

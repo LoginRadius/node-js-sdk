@@ -1,4 +1,4 @@
-module.exports = function (config, helper) {
+module.exports = function (config) {
 
     var module = {};
     var accountEndpoint = "/identity/v2/manage/account/";
@@ -90,4 +90,4 @@ module.exports = function (config, helper) {
     };
 
     return module;
-}
+};

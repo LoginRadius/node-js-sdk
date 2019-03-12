@@ -1,4 +1,4 @@
-module.exports = function (config, helper) {
+module.exports = function (config) {
 
 	var module = {};
     var regAuthEndpoint = "/identity/v2/auth/registrationdata/";
@@ -163,4 +163,4 @@ module.exports = function (config, helper) {
     };
 
 	return module;
-}
+};

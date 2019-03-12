@@ -22,7 +22,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
     
     // Get Context with Roles and Permissions( GET )
     module.context.get = function( uid, fields ) {
@@ -37,7 +37,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     // Get Account Role( GET )
     module.get = function( fields) {
@@ -51,7 +51,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }    
+    }; 
     
      // Get Roles by UID(GET)
      module.getRolesByUid = function( uid, fields ) {
@@ -66,7 +66,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }    
+    };  
     	
     // Add Permissions To Role( PUT )
     module.permission.add = function(role, formData, fields) {
@@ -80,7 +80,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     // Assign Roles by UID( PUT )
     module.assignRolesByUid = function( uid, formData, fields ) {
@@ -97,7 +97,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }    
+    };   
     
     // Add/Update Role Context with  Roles and Permissions( PUT )
     module.context.add = function( uid, formData, fields ) {
@@ -111,7 +111,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     // Delete Account Role( DELETE )
     module.remove = function(role, fields) {
@@ -125,7 +125,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     // Unassign Roles by UID ( DELETE )
     module.unassignRolesByUid = function( uid, formData, fields ) {
@@ -139,7 +139,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     // Remove Account Permission( DELETE )
     module.permission.remove = function(rolename, formData, fields) {
@@ -153,7 +153,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     // Delete Context ( DELETE )
     module.context.delete = function( uid, roleContextName, fields ) {
@@ -167,7 +167,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     // Delete Role from context ( Delete )
     module.context.deleteRole = function( uid, roleContextName, roleName, fields ) {
@@ -182,7 +182,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     // Delete Additional Permission ( Delete )
     module.context.deletePermission = function( uid, roleContextName, additionalPermission, fields ) {
@@ -197,7 +197,7 @@ module.exports = function ( config ) {
                 }
             },true);
         });
-    }
+    };
 
     return module;
 };

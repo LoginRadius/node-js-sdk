@@ -1,4 +1,4 @@
-module.exports = function (config, helper) {
+module.exports = function (config) {
 
     var module = {};
     var accountEndpoint = "/identity/v2/manage/account/";
@@ -30,7 +30,7 @@ module.exports = function (config, helper) {
     module.emailVerifyToken = function (email, fields) {
         var payload = {
             "email": email
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -52,7 +52,7 @@ module.exports = function (config, helper) {
     module.forgotPasswordToken = function (email, fields) {
         var payload = {
             "email": email
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -84,7 +84,7 @@ module.exports = function (config, helper) {
                 }
             }, true);
         });        
-    }
+    };
     
     // Get Access Token based on UID or user impersonation API ( GET )
     module.getByUid = function ( uid, fields ) {
@@ -233,7 +233,7 @@ module.exports = function (config, helper) {
                 }
             },true);
         });
-    }
+    };
 	
     //Account Invalidate Verification Email( PUT )
     module.invalidateVerificationEmail = function (uid, verificationUrl, emailTemplate, fields) {
@@ -259,7 +259,7 @@ module.exports = function (config, helper) {
     module.removeEmail = function(uid, email, fields){
         var payload = {
             "Email" : email
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise( function(resolve, reject){
             config.request({
@@ -275,7 +275,7 @@ module.exports = function (config, helper) {
                 }
             },true);
         });        
-    }
+    };
 
     // Account Delete( DELETE )
     module.remove = function (uid, fields) {
@@ -310,13 +310,13 @@ module.exports = function (config, helper) {
                 }
             },true);
         });
-    }
+    };
 
     // Get SOTT( GET )
     module.generateSott = function( timeDifference, fields ) {        
         helper.checkFields(fields, config);
         if(!timeDifference){
-            var timeDifference = "10";
+            timeDifference = "10";
         }           
         return new Promise( function( resolve, reject ) {
             config.request({ uri: config.apidomain + accountEndpoint + "sott?timedifference="+ timeDifference+config.serverRegion },
@@ -328,7 +328,7 @@ module.exports = function (config, helper) {
                 }
             },true);
         });
-    }
+    };
 	
     // Account Deleted Profile by Email( GET )
     module.getDeletedAccountByEmail = function (email, fields) {

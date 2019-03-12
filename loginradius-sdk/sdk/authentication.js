@@ -41,7 +41,7 @@ module.exports = function (config) {
                 });
             }, config, startDate, endDate);
         });
-    }
+    };
     
     //Get SOTT directly.
     module.getSott =  function (startDate, endDate, fields) {
@@ -65,7 +65,7 @@ module.exports = function (config) {
             "email": email,
             "password": password,
             "securityanswer": securityanswer
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -95,7 +95,7 @@ module.exports = function (config) {
             "username": username,
             "password": password,
             "securityanswer": securityanswer
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -144,7 +144,7 @@ module.exports = function (config) {
         emailTemplate = helper.checkNullOrUndefined(emailTemplate);
         var formData = {
             "email": email
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -160,7 +160,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }    
+    };
     
     // Check Email Availability( GET )
     module.getCheckEmail = function (email, fields) {
@@ -204,7 +204,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
     
     //Accept Privacy Policy (GET)
     module.acceptPrivacyPolicy = function (access_token, fields) {
@@ -221,7 +221,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     // Auth Send Welcome Email
     module.sendWelcomeEmail = function (access_token, welcomeemailtemplate, fields) {
@@ -238,7 +238,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }    
+    };
       
     // Get Social Identity( GET )
     module.getSocialProfile = function (access_token, fields) {
@@ -319,7 +319,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     // Token Invalidate( GET )
     module.invalidate = function (access_token, fields) {
@@ -478,7 +478,7 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         var formData = {
             "email": email
-        }
+        };
         return new Promise(function (resolve, reject) {
             config.request({
                 method: 'PUT',
@@ -493,7 +493,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
     
     // Reset Password by Reset Token( PUT )
     module.resetPassword = function (resettoken, password, welcomeEmailTemplate, resetPasswordEmailTemplate, fields) {
@@ -505,7 +505,7 @@ module.exports = function (config) {
             "password": password,
             "welcomeEmailTemplate": welcomeEmailTemplate,
             "resetPasswordEmailTemplate": resetPasswordEmailTemplate
-        }
+        };
         return new Promise(function (resolve, reject) {
             config.request({
                 method: 'PUT',
@@ -533,7 +533,7 @@ module.exports = function (config) {
             "Otp": otp,
             "welcomeEmailTemplate": welcomeemailtemplate,
             "resetPasswordEmailTemplate": resetpasswordemailtemplate
-        }
+        };
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
@@ -564,7 +564,7 @@ module.exports = function (config) {
             "email": email,
             "password": password,
             "resetPasswordEmailTemplate": resetPasswordEmailTemplate
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -580,7 +580,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
     
     // Reset Password By Security Answer and phone( PUT )
     /*
@@ -596,7 +596,7 @@ module.exports = function (config) {
             "phone": phone,
             "password": password,
             "resetPasswordEmailTemplate": resetPasswordEmailTemplate
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -612,7 +612,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     // Reset Password By Security Answer and username( PUT )
     /*
@@ -628,7 +628,7 @@ module.exports = function (config) {
             "username": username,
             "password": password,
             "resetPasswordEmailTemplate": resetPasswordEmailTemplate
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -644,7 +644,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
     
      // Change Username( PUT )
     module.changeUsername = function (access_token, username, fields) {
@@ -693,13 +693,13 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
     
      // Update Security Question by Access_token( PUT )
     module.updateSecurityQuestionByAccessToken = function (access_token, securityanswer, fields) {
         var formData = {
             "SecurityQuestionAnswer": securityanswer
-        }
+        };
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {
             config.request({
@@ -716,7 +716,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
 
     // Delete Account With Email Confirmation( DELETE )
     module.removeAccountByEmailConfirmation = function (access_token, deleteUrl, emailTemplate, fields) {
@@ -736,7 +736,7 @@ module.exports = function (config) {
                 }
             });
         });
-    }
+    };
     
     // Remove Email( DELETE )
     module.removeEmail = function (access_token, email, fields) {
@@ -1096,7 +1096,7 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         var formdata = {
             "googleauthenticatorcode": googleauthenticatorcode
-        }
+        };
         return new Promise(function (resolve, reject) {
             config.request({
                 method: "PUT",
@@ -1195,7 +1195,7 @@ module.exports = function (config) {
                 } else {
                     resolve(data);
                 }
-            })
+            });
         });
     };    
     
@@ -1317,7 +1317,7 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         var formdata = {
             "googleauthenticatorcode": googleauthenticatorcode
-        }
+        };
         return new Promise(function (resolve, reject) {
             config.request({
                 uri: config.apidomain + authEndpoint + "account/reauth/2fa/googleauthenticatorcode?apikey=" + config.apikey+config.serverRegion,
@@ -1344,7 +1344,7 @@ module.exports = function (config) {
         helper.checkFields(fields, config);
         var formdata = {
             "backupcode": backupcode
-        }
+        };
         return new Promise(function (resolve, reject) {
             config.request({
                 uri: config.apidomain + authEndpoint + "account/reauth/2fa/BackupCode?apikey=" + config.apikey+config.serverRegion,
@@ -1638,7 +1638,7 @@ module.exports = function (config) {
     //This API is used to get Server Start Time and End Time( GET )
     module.getServerTime = function (timeDifference, fields) {
         if (!timeDifference) {
-            var timeDifference = "10";
+            timeDifference = "10";
         }
         helper.checkFields(fields, config);
         return new Promise(function (resolve, reject) {

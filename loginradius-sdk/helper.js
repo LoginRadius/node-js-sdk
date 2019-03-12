@@ -2,7 +2,7 @@
 //Check null or undefined parameter
 function checkNullOrUndefined(input) {
     return (input === null || typeof(input) === 'undefined') ? '' : input;
-};
+}
 
 //Check value for null support
 function checkNullSupport(input) {
@@ -10,7 +10,7 @@ function checkNullSupport(input) {
         return true;
     else
         return false;
-};
+}
 
 function checkFields(input, config) {
     var fields = (input === null || typeof(input) === 'undefined') ? '*' : input;
@@ -24,14 +24,14 @@ function checkError(input, status) {
          return input;
     }
     return input && input.ErrorCode;
-};
+}
 
 function allowedReplaceType(input) {
     if(input)
         return "replace";
     else
         return "partialreplace";
-};
+}
 
 //Calculate SOTT.
 function getSott(callback, config, startDate, endDate ) { 
@@ -42,7 +42,7 @@ function getSott(callback, config, startDate, endDate ) {
         },
         function(reason) {
             console.log(reason);
-        })
+        });
 }
 
 module.exports = {
@@ -52,4 +52,4 @@ module.exports = {
     checkNullSupport: checkNullSupport,
     allowedReplaceType: allowedReplaceType,
     checkFields: checkFields
-}
+};

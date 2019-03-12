@@ -12,12 +12,12 @@ var config = {
         user: '',
         password: ''
     }
-}
+};
 
 // Module dependencies.
-var express = require('express')
-        , lrv2 = require('loginradius-sdk')(config)
-        , bodyParser = require('body-parser');
+var express = require('express'),
+        lrv2 = require('loginradius-sdk')(config),
+        bodyParser = require('body-parser');
 var app = express();
 app.use('/demo', express.static(__dirname + '/demo'));
 app.use(bodyParser());
@@ -261,7 +261,7 @@ app.post('/ajax_handler/profile', function (req, res) {
             });
         }
     } else if (action == 'getProfileByUid') {
-        var uid = req.body.uid ? req.body.uid : '';  ;
+        var uid = req.body.uid ? req.body.uid : '';
         if (uid == '') {
             output.message = 'uid is required';
         } else {       
