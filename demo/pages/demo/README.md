@@ -11,12 +11,12 @@ LoginRadius is a unified **Customer Identity Management** API platform that comb
 
 LoginRadius helps businesses boost user engagement on their web/mobile platform, manage online identities, utilize social media for marketing, capture accurate consumer data and get unique social insight into their customer base.
 
-Please visit https://docs.loginradius.com/api/v2/deployment/sdk-libraries/php-library for more information.
+Please visit https://www.loginradius.com/docs/api/v2/deployment/sdk-libraries/node-js-library for more information.
 
-PHP Library
+NodeJS Library
 --------------
 
-This document contains information and examples regarding the LoginRadius PHP SDK. It provides guidance for working with social authentication, capture user profile data, enable social login, enable social sharing, single sign-on, user profile data and sending messages with a variety of social networks such as Facebook, Google, Twitter, Yahoo, LinkedIn, and more.
+This document contains information and examples regarding the LoginRadius NodeJS SDK.
 
 # LoginRadius
 
@@ -24,9 +24,9 @@ A demo Node web application using the NodeJS SDK.
 
 ## Configuration
 
-1. Download the demo, ajax_handler, src/loginradiusSDK from Node sdk repo or clone the whole repo.
+1. Download the demo, from Node sdk repo or clone the whole repo.
 2. Upload these on server and wrapped in one directory.
 3. Set your LoginRadius credentials on the client and server side:
-	* Server side: `ajax_handler/config.php`
-	* Client side: `demo/assets/js/options.js`
-4. Demo will appear on `http://localhost/test/demo`
+	* Server side: `demo/pages/server.js`
+	* Client side: `pages/demo/assets/js/options.js`
+4. Demo will appear on `http://localhost:3000/test/demo`
