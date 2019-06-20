@@ -1,5 +1,5 @@
 // Config variable 
-var config = {    
+const config = {    
     apidomain: '<YOUR-API-CUSTOM-DOMAIN>',
     apikey: '<YOUR-API-KEY>',
     apisecret: '<YOUR-SECRET-KEY>',
@@ -13,14 +13,17 @@ var config = {
         password: ''
     }
 };
-
+const port = 3000
 // Module dependencies.
-var express = require('express'),
+const express = require('express'),
         lrv2 = require('loginradius-sdk')(config),
         bodyParser = require('body-parser');
-var app = express();
+const app = express();
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use('/demo', express.static(__dirname + '/demo'));
-app.use(bodyParser());
 app.post('/ajax_handler/login', function (req, res) {        
     var action = req.body.action ? req.body.action : '';
     var output = {};
@@ -524,4 +527,4 @@ app.post('/ajax_handler/profile', function (req, res) {
         });
     }
 });
-app.listen(3000);
+app.listen(port, () => console.log(`Demo app can be accessed at localhost:${port}/demo`));
