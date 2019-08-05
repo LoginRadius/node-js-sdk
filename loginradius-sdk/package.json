@@ -2,10 +2,10 @@
   "name": "loginradius-sdk",
   "readme": "",
   "scripts": {},
-  "version": "4.5.0",
-  "description": "An LoginRadius SDK for node.js",
+  "version": "10.0.0-beta",
+  "description": "A LoginRadius SDK for node.js",
   "homepage": "https://www.loginradius.com",
-  "main": "./lr.js",
+  "main": "./sdk/util/lr.js",
   "repository": {
     "type": "git",
     "url": "",
@@ -19,8 +19,7 @@
     }
   ],
   "dependencies": {
-    "request": ">= 2.12.0",
-    "underscore": "~1.8.3"
+    "request": ">= 2.12.0"
   },
   "maintainers": [
     {
