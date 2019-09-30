@@ -15,10 +15,13 @@ LoginRadius centralizes it all in one place, making it easy to manage and access
 
 LoginRadius helps businesses boost user engagement on their web/mobile platform, manage online identities, utilize social media for marketing, capture accurate consumer data, and get unique social insight into their customer base.
 
+Please visit [here](http://www.loginradius.com/) for more information.
 
-Node.js Library
-=====
+# Installing
 
+	$ npm install loginradius-sdk@10.0.0
+
+## Documentation
 -----
 
 >Disclaimer<br>
@@ -31,10 +34,10 @@ LoginRadius Combined Node SDK features a combined SDK set to encompass Social Lo
 This document contains information and examples regarding the LoginRadius Node.js SDK. It provides guidance for working with social authentication, user profile data, and sending messages with a variety of social networks such as Facebook, Google, Twitter, Yahoo, LinkedIn, and more. 
 You can get the SDK from [here](http://github.com/LoginRadius/node-js-sdk) 
 
-Note: The latest version(10.0.0-beta) of Node js SDK works with LoginRadius V2 APIs.
+Note: The latest version(10.0.0) of Node js SDK works with LoginRadius V2 APIs.
 
 Installation <br/>
-run `npm install loginradius-sdk@10.0.0-beta` <br/>
+run `npm install loginradius-sdk@10.0.0` <br/>
 Configuration <br/>
 Create `var config` in project
 ```
@@ -62,7 +65,7 @@ Require the loginradius-sdk package and pass the config object
  ```
 
 
-  ### Authentication API 
+  ### Authentication API
 
 
 List of APIs in this Section:<br>
@@ -85,7 +88,6 @@ List of APIs in this Section:<br>
 * POST : [Auth Login by Username](#LoginByUserName-post-)<br>
 * POST : [Auth Forgot Password](#ForgotPassword-post-)<br>
 * POST : [Auth User Registration by Email](#UserRegistrationByEmail-post-)<br>
-* POST : [Phone User Registration by SMS](#UserRegistrationByPhone-post-)<br>
 * POST : [Auth User Registration By Captcha](#UserRegistrationByCaptcha-post-)<br>
 * GET : [Get Security Questions By Email](#GetSecurityQuestionsByEmail-get-)<br>
 * GET : [Get Security Questions By UserName](#GetSecurityQuestionsByUserName-get-)<br>
@@ -116,19 +118,19 @@ List of APIs in this Section:<br>
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
-  
- var userProfileUpdateModel ={ 
+
+var userProfileUpdateModel ={ 
 "firstName" : "<firstName>",
 "lastName" : "<lastName>"
-};  //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var nullSupport = true; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var nullSupport = true; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.authenticationApi.updateProfileByAccessToken(accessToken, userProfileUpdateModel, emailTemplate, fields, nullSupport, smsTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -147,13 +149,13 @@ lrv2.authenticationApi.updateProfileByAccessToken(accessToken, userProfileUpdate
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
-  
- var unlockProfileModel ={ 
+
+var unlockProfileModel ={ 
 "g-recaptcha-response" : "<g-recaptcha-response>"
 };  //Required
- 
+
 lrv2.authenticationApi.unlockAccountByToken(accessToken, unlockProfileModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -173,15 +175,15 @@ lrv2.authenticationApi.unlockAccountByToken(accessToken, unlockProfileModel).the
 
  ```
 
-  
- var emailVerificationByOtpModel ={ 
+
+var emailVerificationByOtpModel ={ 
 "email" : "<email>",
 "otp" : "<otp>"
-};  //Required 
-var fields = null; //Optional 
-var url = "<url>"; //Optional 
+};  //Required
+var fields = null; //Optional
+var url = "<url>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.authenticationApi.verifyEmailByOTP(emailVerificationByOtpModel, fields, url, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -201,13 +203,13 @@ lrv2.authenticationApi.verifyEmailByOTP(emailVerificationByOtpModel, fields, url
 
  ```
 
-  
- var resetPasswordBySecurityAnswerAndEmailModel ={ 
+
+var resetPasswordBySecurityAnswerAndEmailModel ={ 
 "email" : "<email>",
 "password" : "<password>",
 "securityAnswer" : {"QuestionID":"Answer"}
 };  //Required
- 
+
 lrv2.authenticationApi.resetPasswordBySecurityAnswerAndEmail(resetPasswordBySecurityAnswerAndEmailModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -227,13 +229,13 @@ lrv2.authenticationApi.resetPasswordBySecurityAnswerAndEmail(resetPasswordBySecu
 
  ```
 
-  
- var resetPasswordBySecurityAnswerAndPhoneModel ={ 
+
+var resetPasswordBySecurityAnswerAndPhoneModel ={ 
 "password" : "<password>",
 "phone" : "<phone>",
 "securityAnswer" : {"QuestionID":"Answer"}
 };  //Required
- 
+
 lrv2.authenticationApi.resetPasswordBySecurityAnswerAndPhone(resetPasswordBySecurityAnswerAndPhoneModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -253,13 +255,13 @@ lrv2.authenticationApi.resetPasswordBySecurityAnswerAndPhone(resetPasswordBySecu
 
  ```
 
-  
- var resetPasswordBySecurityAnswerAndUserNameModel ={ 
+
+var resetPasswordBySecurityAnswerAndUserNameModel ={ 
 "password" : "<password>",
 "securityAnswer" : {"QuestionID":"Answer"},
 "userName" : "<userName>"
 };  //Required
- 
+
 lrv2.authenticationApi.resetPasswordBySecurityAnswerAndUserName(resetPasswordBySecurityAnswerAndUserNameModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -279,12 +281,12 @@ lrv2.authenticationApi.resetPasswordBySecurityAnswerAndUserName(resetPasswordByS
 
  ```
 
-  
- var resetPasswordByResetTokenModel ={ 
+
+var resetPasswordByResetTokenModel ={ 
 "password" : "<password>",
 "resetToken" : "<resetToken>"
 };  //Required
- 
+
 lrv2.authenticationApi.resetPasswordByResetToken(resetPasswordByResetTokenModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -304,13 +306,13 @@ lrv2.authenticationApi.resetPasswordByResetToken(resetPasswordByResetTokenModel)
 
  ```
 
-  
- var resetPasswordByEmailAndOtpModel ={ 
+
+var resetPasswordByEmailAndOtpModel ={ 
 "email" : "<email>",
 "otp" : "<otp>",
 "password" : "<password>"
 };  //Required
- 
+
 lrv2.authenticationApi.resetPasswordByEmailOTP(resetPasswordByEmailAndOtpModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -330,13 +332,13 @@ lrv2.authenticationApi.resetPasswordByEmailOTP(resetPasswordByEmailAndOtpModel).
 
  ```
 
-  
- var resetPasswordByUserNameModel ={ 
+
+var resetPasswordByUserNameModel ={ 
 "otp" : "<otp>",
 "password" : "<password>",
 "userName" : "<userName>"
 };  //Required
- 
+
 lrv2.authenticationApi.resetPasswordByOTPAndUserName(resetPasswordByUserNameModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -355,11 +357,11 @@ lrv2.authenticationApi.resetPasswordByOTPAndUserName(resetPasswordByUserNameMode
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var newPassword = "<newPassword>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var newPassword = "<newPassword>"; //Required
 var oldPassword = "<oldPassword>"; //Required
- 
+
 lrv2.authenticationApi.changePassword(accessToken, newPassword, oldPassword).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -378,10 +380,10 @@ lrv2.authenticationApi.changePassword(accessToken, newPassword, oldPassword).the
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var candidateToken = "<candidateToken>"; //Required
- 
+
 lrv2.authenticationApi.linkSocialIdentities(accessToken, candidateToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -400,10 +402,10 @@ lrv2.authenticationApi.linkSocialIdentities(accessToken, candidateToken).then((r
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var username = "<username>"; //Required
- 
+
 lrv2.authenticationApi.setOrChangeUserName(accessToken, username).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -422,11 +424,11 @@ lrv2.authenticationApi.setOrChangeUserName(accessToken, username).then((response
  
 
  ```
- 
-var email = "<email>"; //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
+
+var email = "<email>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.authenticationApi.authResendEmailVerification(email, emailTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -445,13 +447,13 @@ lrv2.authenticationApi.authResendEmailVerification(email, emailTemplate, verific
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var email = "<email>"; //Required 
-var type = "<type>"; //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
+
+var accessToken = "<accessToken>"; //Required
+var email = "<email>"; //Required
+var type = "<type>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.authenticationApi.addEmail(accessToken, email, type, emailTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -471,16 +473,16 @@ lrv2.authenticationApi.addEmail(accessToken, email, type, emailTemplate, verific
 
  ```
 
-  
- var emailAuthenticationModel ={ 
+
+var emailAuthenticationModel ={ 
 "email" : "<email>",
 "password" : "<password>"
-};  //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.authenticationApi.loginByEmail(emailAuthenticationModel, emailTemplate, fields, loginUrl, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -500,16 +502,16 @@ lrv2.authenticationApi.loginByEmail(emailAuthenticationModel, emailTemplate, fie
 
  ```
 
-  
- var userNameAuthenticationModel ={ 
+
+var userNameAuthenticationModel ={ 
 "password" : "<password>",
 "username" : "<username>"
-};  //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.authenticationApi.loginByUserName(userNameAuthenticationModel, emailTemplate, fields, loginUrl, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -528,11 +530,11 @@ lrv2.authenticationApi.loginByUserName(userNameAuthenticationModel, emailTemplat
  
 
  ```
- 
-var email = "<email>"; //Required 
-var resetPasswordUrl = "<resetPasswordUrl>"; //Required 
+
+var email = "<email>"; //Required
+var resetPasswordUrl = "<resetPasswordUrl>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
- 
+
 lrv2.authenticationApi.forgotPassword(email, resetPasswordUrl, emailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -552,8 +554,8 @@ lrv2.authenticationApi.forgotPassword(email, resetPasswordUrl, emailTemplate).th
 
  ```
 
-  
- var authUserRegistrationModel ={ 
+
+var authUserRegistrationModel ={ 
 "email" : [   { 
  "type" : "<type>"  ,
  "value" : "<value>"   
@@ -561,48 +563,15 @@ lrv2.authenticationApi.forgotPassword(email, resetPasswordUrl, emailTemplate).th
 "firstName" : "<firstName>",
 "lastName" : "<lastName>",
 "password" : "<password>"
-};  //Required 
-var sott = "<sott>"; //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var options = "<options>"; //Optional 
-var verificationUrl = "<verificationUrl>"; //Optional 
+};  //Required
+var sott = "<sott>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var options = "<options>"; //Optional
+var verificationUrl = "<verificationUrl>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.authenticationApi.userRegistrationByEmail(authUserRegistrationModel, sott, emailTemplate, fields, options, verificationUrl, welcomeEmailTemplate).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
- 
-<h6 id="UserRegistrationByPhone-post-"> Phone User Registration by SMS (POST)</h6>
- This API registers the new users into your Cloud Storage and triggers the phone verification process.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/phone-authentication/phone-user-registration-by-sms)
-
- 
- 
-
- ```
-
-  
- var authUserRegistrationModel ={ 
-"firstName" : "<firstName>",
-"lastName" : "<lastName>",
-"password" : "<password>",
-"phoneId" : "<phoneId>"
-};  //Required 
-var sott = "<sott>"; //Required 
-var fields = null; //Optional 
-var options = "<options>"; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
-var verificationUrl = "<verificationUrl>"; //Optional 
-var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
-lrv2.authenticationApi.userRegistrationByPhone(authUserRegistrationModel, sott, fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -621,8 +590,8 @@ lrv2.authenticationApi.userRegistrationByPhone(authUserRegistrationModel, sott, 
 
  ```
 
-  
- var authUserRegistrationModelWithCaptcha ={ 
+
+var authUserRegistrationModelWithCaptcha ={ 
 "email" : [   { 
  "type" : "<type>"  ,
  "value" : "<value>"   
@@ -631,14 +600,14 @@ lrv2.authenticationApi.userRegistrationByPhone(authUserRegistrationModel, sott, 
 "g-recaptcha-response" : "<g-recaptcha-response>",
 "lastName" : "<lastName>",
 "password" : "<password>"
-};  //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var options = "<options>"; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
-var verificationUrl = "<verificationUrl>"; //Optional 
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var options = "<options>"; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
+var verificationUrl = "<verificationUrl>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.authenticationApi.userRegistrationByCaptcha(authUserRegistrationModelWithCaptcha, emailTemplate, fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -657,9 +626,9 @@ lrv2.authenticationApi.userRegistrationByCaptcha(authUserRegistrationModelWithCa
  
 
  ```
- 
+
 var email = "<email>"; //Required
- 
+
 lrv2.authenticationApi.getSecurityQuestionsByEmail(email).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -678,9 +647,9 @@ lrv2.authenticationApi.getSecurityQuestionsByEmail(email).then((response) => {
  
 
  ```
- 
+
 var userName = "<userName>"; //Required
- 
+
 lrv2.authenticationApi.getSecurityQuestionsByUserName(userName).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -699,9 +668,9 @@ lrv2.authenticationApi.getSecurityQuestionsByUserName(userName).then((response) 
  
 
  ```
- 
+
 var phone = "<phone>"; //Required
- 
+
 lrv2.authenticationApi.getSecurityQuestionsByPhone(phone).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -720,9 +689,9 @@ lrv2.authenticationApi.getSecurityQuestionsByPhone(phone).then((response) => {
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.authenticationApi.getSecurityQuestionsByAccessToken(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -741,9 +710,9 @@ lrv2.authenticationApi.getSecurityQuestionsByAccessToken(accessToken).then((resp
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.authenticationApi.authValidateAccessToken(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -762,10 +731,10 @@ lrv2.authenticationApi.authValidateAccessToken(accessToken).then((response) => {
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var preventRefresh = true; //Optional
- 
+
 lrv2.authenticationApi.authInValidateAccessToken(accessToken, preventRefresh).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -784,9 +753,9 @@ lrv2.authenticationApi.authInValidateAccessToken(accessToken, preventRefresh).th
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.authenticationApi.getAccessTokenInfo(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -805,10 +774,10 @@ lrv2.authenticationApi.getAccessTokenInfo(accessToken).then((response) => {
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.authenticationApi.getProfileByAccessToken(accessToken, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -827,10 +796,10 @@ lrv2.authenticationApi.getProfileByAccessToken(accessToken, fields).then((respon
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.authenticationApi.sendWelcomeEmail(accessToken, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -849,9 +818,9 @@ lrv2.authenticationApi.sendWelcomeEmail(accessToken, welcomeEmailTemplate).then(
  
 
  ```
- 
+
 var deletetoken = "<deletetoken>"; //Required
- 
+
 lrv2.authenticationApi.deleteAccountByDeleteToken(deletetoken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -870,9 +839,9 @@ lrv2.authenticationApi.deleteAccountByDeleteToken(deletetoken).then((response) =
  
 
  ```
- 
+
 var email = "<email>"; //Required
- 
+
 lrv2.authenticationApi.checkEmailAvailability(email).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -891,12 +860,12 @@ lrv2.authenticationApi.checkEmailAvailability(email).then((response) => {
  
 
  ```
- 
-var verificationToken = "<verificationToken>"; //Required 
-var fields = null; //Optional 
-var url = "<url>"; //Optional 
+
+var verificationToken = "<verificationToken>"; //Required
+var fields = null; //Optional
+var url = "<url>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.authenticationApi.verifyEmail(verificationToken, fields, url, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -915,10 +884,10 @@ lrv2.authenticationApi.verifyEmail(verificationToken, fields, url, welcomeEmailT
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.authenticationApi.getSocialIdentity(accessToken, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -937,9 +906,9 @@ lrv2.authenticationApi.getSocialIdentity(accessToken, fields).then((response) =>
  
 
  ```
- 
+
 var username = "<username>"; //Required
- 
+
 lrv2.authenticationApi.checkUserNameAvailability(username).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -958,10 +927,10 @@ lrv2.authenticationApi.checkUserNameAvailability(username).then((response) => {
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.authenticationApi.acceptPrivacyPolicy(accessToken, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -980,9 +949,9 @@ lrv2.authenticationApi.acceptPrivacyPolicy(accessToken, fields).then((response) 
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.authenticationApi.getPrivacyPolicyHistoryByAccessToken(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1001,11 +970,11 @@ lrv2.authenticationApi.getPrivacyPolicyHistoryByAccessToken(accessToken).then((r
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var deleteUrl = "<deleteUrl>"; //Optional 
+
+var accessToken = "<accessToken>"; //Required
+var deleteUrl = "<deleteUrl>"; //Optional
 var emailTemplate = "<emailTemplate>"; //Optional
- 
+
 lrv2.authenticationApi.deleteAccountWithEmailConfirmation(accessToken, deleteUrl, emailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1024,10 +993,10 @@ lrv2.authenticationApi.deleteAccountWithEmailConfirmation(accessToken, deleteUrl
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var email = "<email>"; //Required
- 
+
 lrv2.authenticationApi.removeEmail(accessToken, email).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1046,11 +1015,11 @@ lrv2.authenticationApi.removeEmail(accessToken, email).then((response) => {
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var provider = "<provider>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var provider = "<provider>"; //Required
 var providerId = "<providerId>"; //Required
- 
+
 lrv2.authenticationApi.unlinkSocialIdentities(accessToken, provider, providerId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1064,7 +1033,7 @@ lrv2.authenticationApi.unlinkSocialIdentities(accessToken, provider, providerId)
  
  
 
-### AccountApi 
+### Account API
 
 
 List of APIs in this Section:<br>
@@ -1075,6 +1044,7 @@ List of APIs in this Section:<br>
 * PUT : [Account Invalidate Verification Email](#InvalidateAccountEmailVerification-put-)<br>
 * PUT : [Reset phone ID verification](#ResetPhoneIDVerificationByUid-put-)<br>
 * PUT : [Upsert Email](#UpsertEmail-put-)<br>
+* PUT : [Update UID](#AccountUpdateUid-put-)<br>
 * POST : [Account Create](#CreateAccount-post-)<br>
 * POST : [Forgot Password token](#GetForgotPasswordToken-post-)<br>
 * POST : [Email Verification token](#GetEmailVerificationToken-post-)<br>
@@ -1090,26 +1060,27 @@ List of APIs in this Section:<br>
 * GET : [Account Identities by Email](#GetAccountIdentitiesByEmail-get-)<br>
 * DELETE : [Account Delete](#DeleteAccountByUid-delete-)<br>
 * DELETE : [Account Remove Email](#RemoveEmail-delete-)<br>
+* DELETE : [Delete User Profiles By Email](#AccountDeleteByEmail-delete-)<br>
 
 
 
 <h6 id="UpdateAccountByUid-put-"> Account Update (PUT)</h6>
- This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update)
+ This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docshttps://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update)
 
  
  
 
  ```
 
-  
- var accountUserProfileUpdateModel ={ 
+
+var accountUserProfileUpdateModel ={ 
 "firstName" : "<firstName>",
 "lastName" : "<lastName>"
-};  //Required 
-var uid = "<uid>"; //Required 
-var fields = null; //Optional 
+};  //Required
+var uid = "<uid>"; //Required
+var fields = null; //Optional
 var nullSupport = true; //Optional
- 
+
 lrv2.accountApi.updateAccountByUid(accountUserProfileUpdateModel, uid, fields, nullSupport).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1128,11 +1099,11 @@ lrv2.accountApi.updateAccountByUid(accountUserProfileUpdateModel, uid, fields, n
  
 
  ```
- 
-var phone = "<phone>"; //Required 
-var uid = "<uid>"; //Required 
+
+var phone = "<phone>"; //Required
+var uid = "<uid>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.updatePhoneIDByUid(phone, uid, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1151,10 +1122,10 @@ lrv2.accountApi.updatePhoneIDByUid(phone, uid, fields).then((response) => {
  
 
  ```
- 
-var password = "<password>"; //Required 
+
+var password = "<password>"; //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.accountApi.setAccountPasswordByUid(password, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1173,11 +1144,11 @@ lrv2.accountApi.setAccountPasswordByUid(password, uid).then((response) => {
  
 
  ```
- 
-var uid = "<uid>"; //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
+
+var uid = "<uid>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.accountApi.invalidateAccountEmailVerification(uid, emailTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1196,10 +1167,10 @@ lrv2.accountApi.invalidateAccountEmailVerification(uid, emailTemplate, verificat
  
 
  ```
- 
-var uid = "<uid>"; //Required 
+
+var uid = "<uid>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.accountApi.resetPhoneIDVerificationByUid(uid, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1219,17 +1190,42 @@ lrv2.accountApi.resetPhoneIDVerificationByUid(uid, smsTemplate).then((response) 
 
  ```
 
-  
- var upsertEmailModel ={ 
+
+var upsertEmailModel ={ 
 "email" : [   { 
  "type" : "<type>"  ,
  "value" : "<value>"   
 }  ] 
-};  //Required 
-var uid = "<uid>"; //Required 
+};  //Required
+var uid = "<uid>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.upsertEmail(upsertEmailModel, uid, fields).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="AccountUpdateUid-put-"> Update UID (PUT)</h6>
+ This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update/)
+
+ 
+ 
+
+ ```
+
+
+var updateUidModel ={ 
+"newUid" : "<newUid>"
+};  //Required
+var uid = "<uid>"; //Required
+
+lrv2.accountApi.accountUpdateUid(updateUidModel, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -1248,8 +1244,8 @@ lrv2.accountApi.upsertEmail(upsertEmailModel, uid, fields).then((response) => {
 
  ```
 
-  
- var accountCreateModel ={ 
+
+var accountCreateModel ={ 
 "email" : [   { 
  "type" : "<type>"  ,
  "value" : "<value>"   
@@ -1257,9 +1253,9 @@ lrv2.accountApi.upsertEmail(upsertEmailModel, uid, fields).then((response) => {
 "firstName" : "<firstName>",
 "lastName" : "<lastName>",
 "password" : "<password>"
-};  //Required 
+};  //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.createAccount(accountCreateModel, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1278,12 +1274,12 @@ lrv2.accountApi.createAccount(accountCreateModel, fields).then((response) => {
  
 
  ```
- 
-var email = "<email>"; //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var resetPasswordUrl = "<resetPasswordUrl>"; //Optional 
+
+var email = "<email>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var resetPasswordUrl = "<resetPasswordUrl>"; //Optional
 var sendEmail = true; //Optional
- 
+
 lrv2.accountApi.getForgotPasswordToken(email, emailTemplate, resetPasswordUrl, sendEmail).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1302,9 +1298,9 @@ lrv2.accountApi.getForgotPasswordToken(email, emailTemplate, resetPasswordUrl, s
  
 
  ```
- 
+
 var email = "<email>"; //Required
- 
+
 lrv2.accountApi.getEmailVerificationToken(email).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1323,9 +1319,9 @@ lrv2.accountApi.getEmailVerificationToken(email).then((response) => {
  
 
  ```
- 
+
 var uid = "<uid>"; //Required
- 
+
 lrv2.accountApi.getPrivacyPolicyHistoryByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1344,10 +1340,10 @@ lrv2.accountApi.getPrivacyPolicyHistoryByUid(uid).then((response) => {
  
 
  ```
- 
-var email = "<email>"; //Required 
+
+var email = "<email>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.getAccountProfileByEmail(email, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1366,10 +1362,10 @@ lrv2.accountApi.getAccountProfileByEmail(email, fields).then((response) => {
  
 
  ```
- 
-var userName = "<userName>"; //Required 
+
+var userName = "<userName>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.getAccountProfileByUserName(userName, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1388,10 +1384,10 @@ lrv2.accountApi.getAccountProfileByUserName(userName, fields).then((response) =>
  
 
  ```
- 
-var phone = "<phone>"; //Required 
+
+var phone = "<phone>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.getAccountProfileByPhone(phone, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1410,10 +1406,10 @@ lrv2.accountApi.getAccountProfileByPhone(phone, fields).then((response) => {
  
 
  ```
- 
-var uid = "<uid>"; //Required 
+
+var uid = "<uid>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.getAccountProfileByUid(uid, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1432,9 +1428,9 @@ lrv2.accountApi.getAccountProfileByUid(uid, fields).then((response) => {
  
 
  ```
- 
+
 var uid = "<uid>"; //Required
- 
+
 lrv2.accountApi.getAccountPasswordHashByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1453,9 +1449,9 @@ lrv2.accountApi.getAccountPasswordHashByUid(uid).then((response) => {
  
 
  ```
- 
+
 var uid = "<uid>"; //Required
- 
+
 lrv2.accountApi.getAccessTokenByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1474,9 +1470,9 @@ lrv2.accountApi.getAccessTokenByUid(uid).then((response) => {
  
 
  ```
- 
+
 var refreshToken = "<refreshToken>"; //Required
- 
+
 lrv2.accountApi.refreshAccessTokenByRefreshToken(refreshToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1495,9 +1491,9 @@ lrv2.accountApi.refreshAccessTokenByRefreshToken(refreshToken).then((response) =
  
 
  ```
- 
+
 var refreshToken = "<refreshToken>"; //Required
- 
+
 lrv2.accountApi.revokeRefreshToken(refreshToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1516,10 +1512,10 @@ lrv2.accountApi.revokeRefreshToken(refreshToken).then((response) => {
  
 
  ```
- 
-var email = "<email>"; //Required 
+
+var email = "<email>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.getAccountIdentitiesByEmail(email, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1538,9 +1534,9 @@ lrv2.accountApi.getAccountIdentitiesByEmail(email, fields).then((response) => {
  
 
  ```
- 
+
 var uid = "<uid>"; //Required
- 
+
 lrv2.accountApi.deleteAccountByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1559,12 +1555,33 @@ lrv2.accountApi.deleteAccountByUid(uid).then((response) => {
  
 
  ```
- 
-var email = "<email>"; //Required 
-var uid = "<uid>"; //Required 
+
+var email = "<email>"; //Required
+var uid = "<uid>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.accountApi.removeEmail(email, uid, fields).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="AccountDeleteByEmail-delete-"> Delete User Profiles By Email (DELETE)</h6>
+ This API is used to delete all user profiles associated with an Email.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-email-delete/)
+
+ 
+ 
+
+ ```
+
+var email = "<email>"; //Required
+
+lrv2.accountApi.accountDeleteByEmail(email).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -1577,7 +1594,7 @@ lrv2.accountApi.removeEmail(email, uid, fields).then((response) => {
  
  
 
-### SocialApi 
+### Social API
 
 
 List of APIs in this Section:<br>
@@ -1593,18 +1610,24 @@ List of APIs in this Section:<br>
 * GET : [Get Active Session By Account Id](#GetActiveSessionByAccountID-get-)<br>
 * GET : [Get Active Session By Profile Id](#GetActiveSessionByProfileID-get-)<br>
 * GET : [Album](#GetAlbums-get-)<br>
+* GET : [Get Albums with cursor](#GetAlbumsWithCursor-get-)<br>
 * GET : [Audio](#GetAudios-get-)<br>
+* GET : [Get Audio With Cursor](#GetAudiosWithCursor-get-)<br>
 * GET : [Check In](#GetCheckIns-get-)<br>
+* GET : [Get CheckIns With Cursor](#GetCheckInsWithCursor-get-)<br>
 * GET : [Contact](#GetContacts-get-)<br>
 * GET : [Event](#GetEvents-get-)<br>
+* GET : [Get Events With Cursor](#GetEventsWithCursor-get-)<br>
 * GET : [Following](#GetFollowings-get-)<br>
+* GET : [Get Followings With Cursor](#GetFollowingsWithCursor-get-)<br>
 * GET : [Group](#GetGroups-get-)<br>
+* GET : [Get Groups With Cursor](#GetGroupsWithCursor-get-)<br>
 * GET : [Like](#GetLikes-get-)<br>
+* GET : [Get Likes With Cursor](#GetLikesWithCursor-get-)<br>
 * GET : [Mention](#GetMentions-get-)<br>
 * GET : [Page](#GetPage-get-)<br>
 * GET : [Photo](#GetPhotos-get-)<br>
 * GET : [Get Post](#GetPosts-get-)<br>
-* GET : [Get Status](#GetStatus-get-)<br>
 * GET : [Get Trackable Status Stats](#GetTrackableStatusStats-get-)<br>
 * GET : [Trackable Status Fetching](#TrackableStatusFetching-get-)<br>
 * GET : [User Profile](#GetSocialUserProfile-get-)<br>
@@ -1614,18 +1637,18 @@ List of APIs in this Section:<br>
 
 
 <h6 id="PostMessage-post-"> Post Message API (POST)</h6>
- Post Message API is used to post messages to the user’s contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user’s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post-message-api)
+ Post Message API is used to post messages to the user's contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user?s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post-message-api)
 
  
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var message = "<message>"; //Required 
-var subject = "<subject>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var message = "<message>"; //Required
+var subject = "<subject>"; //Required
 var to = "<to>"; //Required
- 
+
 lrv2.socialApi.postMessage(accessToken, message, subject, to).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1638,22 +1661,22 @@ lrv2.socialApi.postMessage(accessToken, message, subject, to).then((response) =>
   
  
 <h6 id="StatusPosting-post-"> Status Posting  (POST)</h6>
- The Status API is used to update the status on the user’s wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/status-posting/)
+ The Status API is used to update the status on the user's wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/status-posting/)
 
  
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var caption = "<caption>"; //Required 
-var description = "<description>"; //Required 
-var imageurl = "<imageurl>"; //Required 
-var status = "<status>"; //Required 
-var title = "<title>"; //Required 
-var url = "<url>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var caption = "<caption>"; //Required
+var description = "<description>"; //Required
+var imageurl = "<imageurl>"; //Required
+var status = "<status>"; //Required
+var title = "<title>"; //Required
+var url = "<url>"; //Required
 var shorturl = "<shorturl>"; //Optional
- 
+
 lrv2.socialApi.statusPosting(accessToken, caption, description, imageurl, status, title, url, shorturl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1666,16 +1689,16 @@ lrv2.socialApi.statusPosting(accessToken, caption, description, imageurl, status
   
  
 <h6 id="TrackableStatusPosting-post-"> Trackable Status Posting (POST)</h6>
- The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user’s wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/trackable-status-posting/)
+ The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/trackable-status-posting/)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
-  
- var statusModel ={ 
+
+var statusModel ={ 
 "caption" : "<caption>",
 "description" : "<description>",
 "imageurl" : "<imageurl>",
@@ -1683,7 +1706,7 @@ var accessToken = "<accessToken>"; //Required
 "title" : "<title>",
 "url" : "<url>"
 };  //Required
- 
+
 lrv2.socialApi.trackableStatusPosting(accessToken, statusModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1702,9 +1725,9 @@ lrv2.socialApi.trackableStatusPosting(accessToken, statusModel).then((response) 
  
 
  ```
- 
+
 var token = "<token>"; //Required
- 
+
 lrv2.socialApi.exchangeAccessToken(token).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1723,10 +1746,10 @@ lrv2.socialApi.exchangeAccessToken(token).then((response) => {
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var expiresIn = 0; //Optional
- 
+
 lrv2.socialApi.refreshAccessToken(accessToken, expiresIn).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1745,9 +1768,9 @@ lrv2.socialApi.refreshAccessToken(accessToken, expiresIn).then((response) => {
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.socialApi.validateAccessToken(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1766,9 +1789,9 @@ lrv2.socialApi.validateAccessToken(accessToken).then((response) => {
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.socialApi.inValidateAccessToken(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1787,9 +1810,9 @@ lrv2.socialApi.inValidateAccessToken(accessToken).then((response) => {
  
 
  ```
- 
+
 var token = "<token>"; //Required
- 
+
 lrv2.socialApi.getActiveSession(token).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1808,9 +1831,9 @@ lrv2.socialApi.getActiveSession(token).then((response) => {
  
 
  ```
- 
+
 var accountId = "<accountId>"; //Required
- 
+
 lrv2.socialApi.getActiveSessionByAccountID(accountId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1829,9 +1852,9 @@ lrv2.socialApi.getActiveSessionByAccountID(accountId).then((response) => {
  
 
  ```
- 
+
 var profileId = "<profileId>"; //Required
- 
+
 lrv2.socialApi.getActiveSessionByProfileID(profileId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1850,9 +1873,9 @@ lrv2.socialApi.getActiveSessionByProfileID(profileId).then((response) => {
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.socialApi.getAlbums(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1864,16 +1887,38 @@ lrv2.socialApi.getAlbums(accessToken).then((response) => {
   
   
  
-<h6 id="GetAudios-get-"> Audio (GET)</h6>
- The Audio API is used to get audio files data from the user’s social account.<br><br><b>Supported Providers:</b> Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
+<h6 id="GetAlbumsWithCursor-get-"> Get Albums with cursor (GET)</h6>
+ <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/album/)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
+var nextCursor = "<nextCursor>"; //Required
+
+lrv2.socialApi.getAlbumsWithCursor(accessToken, nextCursor).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
+  
+  
+ 
+<h6 id="GetAudios-get-"> Audio (GET)</h6>
+ The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
 lrv2.socialApi.getAudios(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1885,16 +1930,38 @@ lrv2.socialApi.getAudios(accessToken).then((response) => {
   
   
  
-<h6 id="GetCheckIns-get-"> Check In (GET)</h6>
- The Check In API is used to get check Ins data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
+<h6 id="GetAudiosWithCursor-get-"> Get Audio With Cursor (GET)</h6>
+ The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/audio)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
+var nextCursor = "<nextCursor>"; //Required
+
+lrv2.socialApi.getAudiosWithCursor(accessToken, nextCursor).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
+  
+  
+ 
+<h6 id="GetCheckIns-get-"> Check In (GET)</h6>
+ The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
 lrv2.socialApi.getCheckIns(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1906,17 +1973,39 @@ lrv2.socialApi.getCheckIns(accessToken).then((response) => {
   
   
  
-<h6 id="GetContacts-get-"> Contact (GET)</h6>
- The Contact API is used to get contacts/friends/connections data from the user’s social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius’ standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/contact)
+<h6 id="GetCheckInsWithCursor-get-"> Get CheckIns With Cursor (GET)</h6>
+ The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/check-in)
 
  
  
 
  ```
+
+var accessToken = "<accessToken>"; //Required
+var nextCursor = "<nextCursor>"; //Required
+
+lrv2.socialApi.getCheckInsWithCursor(accessToken, nextCursor).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
-var accessToken = "<accessToken>"; //Required 
+  
+  
+ 
+<h6 id="GetContacts-get-"> Contact (GET)</h6>
+ The Contact API is used to get contacts/friends/connections data from the user's social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius' standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/contact)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Optional
- 
+
 lrv2.socialApi.getContacts(accessToken, nextCursor).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1929,15 +2018,15 @@ lrv2.socialApi.getContacts(accessToken, nextCursor).then((response) => {
   
  
 <h6 id="GetEvents-get-"> Event (GET)</h6>
- The Event API is used to get the event data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Live  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
+ The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.socialApi.getEvents(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1949,16 +2038,38 @@ lrv2.socialApi.getEvents(accessToken).then((response) => {
   
   
  
-<h6 id="GetFollowings-get-"> Following (GET)</h6>
- Get the following user list from the user’s social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
+<h6 id="GetEventsWithCursor-get-"> Get Events With Cursor (GET)</h6>
+ The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/event)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
+var nextCursor = "<nextCursor>"; //Required
+
+lrv2.socialApi.getEventsWithCursor(accessToken, nextCursor).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
+  
+  
+ 
+<h6 id="GetFollowings-get-"> Following (GET)</h6>
+ Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
 lrv2.socialApi.getFollowings(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1970,16 +2081,38 @@ lrv2.socialApi.getFollowings(accessToken).then((response) => {
   
   
  
-<h6 id="GetGroups-get-"> Group (GET)</h6>
- The Group API is used to get group data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
+<h6 id="GetFollowingsWithCursor-get-"> Get Followings With Cursor (GET)</h6>
+ Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/following)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
+var nextCursor = "<nextCursor>"; //Required
+
+lrv2.socialApi.getFollowingsWithCursor(accessToken, nextCursor).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
+  
+  
+ 
+<h6 id="GetGroups-get-"> Group (GET)</h6>
+ The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
 lrv2.socialApi.getGroups(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -1991,16 +2124,38 @@ lrv2.socialApi.getGroups(accessToken).then((response) => {
   
   
  
-<h6 id="GetLikes-get-"> Like (GET)</h6>
- The Like API is used to get likes data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
+<h6 id="GetGroupsWithCursor-get-"> Get Groups With Cursor (GET)</h6>
+ The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/group)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
+var nextCursor = "<nextCursor>"; //Required
+
+lrv2.socialApi.getGroupsWithCursor(accessToken, nextCursor).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
+  
+  
+ 
+<h6 id="GetLikes-get-"> Like (GET)</h6>
+ The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
 lrv2.socialApi.getLikes(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2012,16 +2167,38 @@ lrv2.socialApi.getLikes(accessToken).then((response) => {
   
   
  
-<h6 id="GetMentions-get-"> Mention (GET)</h6>
- The Mention API is used to get mentions data from the user’s social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/mention)
+<h6 id="GetLikesWithCursor-get-"> Get Likes With Cursor (GET)</h6>
+ The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/like)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
+var nextCursor = "<nextCursor>"; //Required
+
+lrv2.socialApi.getLikesWithCursor(accessToken, nextCursor).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
+  
+  
+ 
+<h6 id="GetMentions-get-"> Mention (GET)</h6>
+ The Mention API is used to get mentions data from the user's social account.<br><br><b>Supported Providers:</b> Twitter  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/mention)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
 lrv2.socialApi.getMentions(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2034,16 +2211,16 @@ lrv2.socialApi.getMentions(accessToken).then((response) => {
   
  
 <h6 id="GetPage-get-"> Page (GET)</h6>
- The Page API is used to get the page data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/page)
+ The Page API is used to get the page data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/page)
 
  
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var pageName = "<pageName>"; //Required
- 
+
 lrv2.socialApi.getPage(accessToken, pageName).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2056,16 +2233,16 @@ lrv2.socialApi.getPage(accessToken, pageName).then((response) => {
   
  
 <h6 id="GetPhotos-get-"> Photo (GET)</h6>
- The Photo API is used to get photo data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/photo)
+ The Photo API is used to get photo data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/photo)
 
  
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var albumId = "<albumId>"; //Required
- 
+
 lrv2.socialApi.getPhotos(accessToken, albumId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2078,15 +2255,15 @@ lrv2.socialApi.getPhotos(accessToken, albumId).then((response) => {
   
  
 <h6 id="GetPosts-get-"> Get Post (GET)</h6>
- The Post API is used to get post message data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post)
+ The Post API is used to get post message data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/post)
 
  
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.socialApi.getPosts(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2098,43 +2275,22 @@ lrv2.socialApi.getPosts(accessToken).then((response) => {
   
   
  
-<h6 id="GetStatus-get-"> Get Status (GET)</h6>
- The Status API is used to get the status messages from the user’s social account.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/status-fetching)
-
- 
- 
-
- ```
- 
-var accessToken = "<accessToken>"; //Required
- 
-lrv2.socialApi.getStatus(accessToken).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
- 
 <h6 id="GetTrackableStatusStats-get-"> Get Trackable Status Stats (GET)</h6>
- The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user’s wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/get-trackable-status-stats/)
+ The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/get-trackable-status-stats/)
 
  
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var caption = "<caption>"; //Required 
-var description = "<description>"; //Required 
-var imageurl = "<imageurl>"; //Required 
-var status = "<status>"; //Required 
-var title = "<title>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var caption = "<caption>"; //Required
+var description = "<description>"; //Required
+var imageurl = "<imageurl>"; //Required
+var status = "<status>"; //Required
+var title = "<title>"; //Required
 var url = "<url>"; //Required
- 
+
 lrv2.socialApi.getTrackableStatusStats(accessToken, caption, description, imageurl, status, title, url).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2153,9 +2309,9 @@ lrv2.socialApi.getTrackableStatusStats(accessToken, caption, description, imageu
  
 
  ```
- 
+
 var postId = "<postId>"; //Required
- 
+
 lrv2.socialApi.trackableStatusFetching(postId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2168,16 +2324,16 @@ lrv2.socialApi.trackableStatusFetching(postId).then((response) => {
   
  
 <h6 id="GetSocialUserProfile-get-"> User Profile (GET)</h6>
- The User Profile API is used to get social profile data from the user’s social account after authentication.<br><br><b>Supported Providers:</b>  All  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/user-profile)
+ The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/user-profile)
 
  
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.socialApi.getSocialUserProfile(accessToken, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2190,16 +2346,16 @@ lrv2.socialApi.getSocialUserProfile(accessToken, fields).then((response) => {
   
  
 <h6 id="GetRefreshedSocialUserProfile-get-"> Refresh User Profile (GET)</h6>
- The User Profile API is used to get the latest updated social profile data from the user’s social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius’ standard data format. This API should be called using the access token retrieved from the refresh access token API.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-user-profile)
+ The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-user-profile)
 
  
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.socialApi.getRefreshedSocialUserProfile(accessToken, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2212,16 +2368,16 @@ lrv2.socialApi.getRefreshedSocialUserProfile(accessToken, fields).then((response
   
  
 <h6 id="GetVideos-get-"> Video (GET)</h6>
- The Video API is used to get video files data from the user’s social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/video)
+ The Video API is used to get video files data from the user's social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/advanced-social-api/video)
 
  
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
- 
+
 lrv2.socialApi.getVideos(accessToken, nextCursor).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2235,7 +2391,7 @@ lrv2.socialApi.getVideos(accessToken, nextCursor).then((response) => {
  
  
 
-### CustomObjectApi 
+### CustomObject API
 
 
 List of APIs in this Section:<br>
@@ -2260,14 +2416,14 @@ List of APIs in this Section:<br>
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var objectName = "<objectName>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var objectName = "<objectName>"; //Required
 var objectRecordId = "<objectRecordId>"; //Required
-  
- var object = { "customdata1": "Store my customdata1 value" };  //Required 
+
+var object = { "customdata1": "Store my customdata1 value" };  //Required
 var updateType = "<updateType>"; //Optional
- 
+
 lrv2.customObjectApi.updateCustomObjectByToken(accessToken, objectName, objectRecordId, object, updateType).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2286,14 +2442,14 @@ lrv2.customObjectApi.updateCustomObjectByToken(accessToken, objectName, objectRe
  
 
  ```
- 
-var objectName = "<objectName>"; //Required 
+
+var objectName = "<objectName>"; //Required
 var objectRecordId = "<objectRecordId>"; //Required
-  
- var object = { "customdata1": "Store my customdata1 value" };  //Required 
-var uid = "<uid>"; //Required 
+
+var object = { "customdata1": "Store my customdata1 value" };  //Required
+var uid = "<uid>"; //Required
 var updateType = "<updateType>"; //Optional
- 
+
 lrv2.customObjectApi.updateCustomObjectByUid(objectName, objectRecordId, object, uid, updateType).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2312,12 +2468,12 @@ lrv2.customObjectApi.updateCustomObjectByUid(objectName, objectRecordId, object,
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
-  
- var object = { "customdata1": "Store my customdata1 value" };  //Required
- 
+
+var object = { "customdata1": "Store my customdata1 value" };  //Required
+
 lrv2.customObjectApi.createCustomObjectByToken(accessToken, objectName, object).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2336,12 +2492,12 @@ lrv2.customObjectApi.createCustomObjectByToken(accessToken, objectName, object).
  
 
  ```
- 
+
 var objectName = "<objectName>"; //Required
-  
- var object = { "customdata1": "Store my customdata1 value" };  //Required 
+
+var object = { "customdata1": "Store my customdata1 value" };  //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.customObjectApi.createCustomObjectByUid(objectName, object, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2360,10 +2516,10 @@ lrv2.customObjectApi.createCustomObjectByUid(objectName, object, uid).then((resp
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
- 
+
 lrv2.customObjectApi.getCustomObjectByToken(accessToken, objectName).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2382,11 +2538,11 @@ lrv2.customObjectApi.getCustomObjectByToken(accessToken, objectName).then((respo
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var objectName = "<objectName>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var objectName = "<objectName>"; //Required
 var objectRecordId = "<objectRecordId>"; //Required
- 
+
 lrv2.customObjectApi.getCustomObjectByRecordIDAndToken(accessToken, objectName, objectRecordId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2405,10 +2561,10 @@ lrv2.customObjectApi.getCustomObjectByRecordIDAndToken(accessToken, objectName, 
  
 
  ```
- 
-var objectName = "<objectName>"; //Required 
+
+var objectName = "<objectName>"; //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.customObjectApi.getCustomObjectByUid(objectName, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2427,11 +2583,11 @@ lrv2.customObjectApi.getCustomObjectByUid(objectName, uid).then((response) => {
  
 
  ```
- 
-var objectName = "<objectName>"; //Required 
-var objectRecordId = "<objectRecordId>"; //Required 
+
+var objectName = "<objectName>"; //Required
+var objectRecordId = "<objectRecordId>"; //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.customObjectApi.getCustomObjectByRecordID(objectName, objectRecordId, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2450,11 +2606,11 @@ lrv2.customObjectApi.getCustomObjectByRecordID(objectName, objectRecordId, uid).
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var objectName = "<objectName>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var objectName = "<objectName>"; //Required
 var objectRecordId = "<objectRecordId>"; //Required
- 
+
 lrv2.customObjectApi.deleteCustomObjectByToken(accessToken, objectName, objectRecordId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2473,11 +2629,11 @@ lrv2.customObjectApi.deleteCustomObjectByToken(accessToken, objectName, objectRe
  
 
  ```
- 
-var objectName = "<objectName>"; //Required 
-var objectRecordId = "<objectRecordId>"; //Required 
+
+var objectName = "<objectName>"; //Required
+var objectRecordId = "<objectRecordId>"; //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.customObjectApi.deleteCustomObjectByRecordID(objectName, objectRecordId, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2491,7 +2647,7 @@ lrv2.customObjectApi.deleteCustomObjectByRecordID(objectName, objectRecordId, ui
  
  
 
-### PhoneAuthenticationApi 
+### PhoneAuthentication API
 
 
 List of APIs in this Section:<br>
@@ -2504,6 +2660,7 @@ List of APIs in this Section:<br>
 * POST : [Phone Forgot Password by OTP](#ForgotPasswordByPhoneOTP-post-)<br>
 * POST : [Phone Resend Verification OTP](#PhoneResendVerificationOTP-post-)<br>
 * POST : [Phone Resend Verification OTP By Token](#PhoneResendVerificationOTPByToken-post-)<br>
+* POST : [Phone User Registration by SMS](#UserRegistrationByPhone-post-)<br>
 * GET : [Phone Number Availability](#CheckPhoneNumberAvailability-get-)<br>
 * DELETE : [Remove Phone ID by Access Token](#RemovePhoneIDByAccessToken-delete-)<br>
 
@@ -2517,13 +2674,13 @@ List of APIs in this Section:<br>
 
  ```
 
-  
- var resetPasswordByOTPModel ={ 
+
+var resetPasswordByOTPModel ={ 
 "otp" : "<otp>",
 "password" : "<password>",
 "phone" : "<phone>"
 };  //Required
- 
+
 lrv2.phoneAuthenticationApi.resetPasswordByPhoneOTP(resetPasswordByOTPModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2542,12 +2699,12 @@ lrv2.phoneAuthenticationApi.resetPasswordByPhoneOTP(resetPasswordByOTPModel).the
  
 
  ```
- 
-var otp = "<otp>"; //Required 
-var phone = "<phone>"; //Required 
-var fields = null; //Optional 
+
+var otp = "<otp>"; //Required
+var phone = "<phone>"; //Required
+var fields = null; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.phoneAuthenticationApi.phoneVerificationByOTP(otp, phone, fields, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2566,11 +2723,11 @@ lrv2.phoneAuthenticationApi.phoneVerificationByOTP(otp, phone, fields, smsTempla
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var otp = "<otp>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var otp = "<otp>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.phoneAuthenticationApi.phoneVerificationOTPByAccessToken(accessToken, otp, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2589,11 +2746,11 @@ lrv2.phoneAuthenticationApi.phoneVerificationOTPByAccessToken(accessToken, otp, 
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var phone = "<phone>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.phoneAuthenticationApi.updatePhoneNumber(accessToken, phone, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2613,15 +2770,15 @@ lrv2.phoneAuthenticationApi.updatePhoneNumber(accessToken, phone, smsTemplate).t
 
  ```
 
-  
- var phoneAuthenticationModel ={ 
+
+var phoneAuthenticationModel ={ 
 "password" : "<password>",
 "phone" : "<phone>"
-};  //Required 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
+};  //Required
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.phoneAuthenticationApi.loginByPhone(phoneAuthenticationModel, fields, loginUrl, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2640,10 +2797,10 @@ lrv2.phoneAuthenticationApi.loginByPhone(phoneAuthenticationModel, fields, login
  
 
  ```
- 
-var phone = "<phone>"; //Required 
+
+var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.phoneAuthenticationApi.forgotPasswordByPhoneOTP(phone, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2662,10 +2819,10 @@ lrv2.phoneAuthenticationApi.forgotPasswordByPhoneOTP(phone, smsTemplate).then((r
  
 
  ```
- 
-var phone = "<phone>"; //Required 
+
+var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.phoneAuthenticationApi.phoneResendVerificationOTP(phone, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2684,12 +2841,45 @@ lrv2.phoneAuthenticationApi.phoneResendVerificationOTP(phone, smsTemplate).then(
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var phone = "<phone>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.phoneAuthenticationApi.phoneResendVerificationOTPByToken(accessToken, phone, smsTemplate).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="UserRegistrationByPhone-post-"> Phone User Registration by SMS (POST)</h6>
+ This API registers the new users into your Cloud Storage and triggers the phone verification process.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/phone-authentication/phone-user-registration-by-sms)
+
+ 
+ 
+
+ ```
+
+
+var authUserRegistrationModel ={ 
+"firstName" : "<firstName>",
+"lastName" : "<lastName>",
+"password" : "<password>",
+"phoneId" : "<phoneId>"
+};  //Required
+var sott = "<sott>"; //Required
+var fields = null; //Optional
+var options = "<options>"; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
+var verificationUrl = "<verificationUrl>"; //Optional
+var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
+
+lrv2.phoneAuthenticationApi.userRegistrationByPhone(authUserRegistrationModel, sott, fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2707,9 +2897,9 @@ lrv2.phoneAuthenticationApi.phoneResendVerificationOTPByToken(accessToken, phone
  
 
  ```
- 
+
 var phone = "<phone>"; //Required
- 
+
 lrv2.phoneAuthenticationApi.checkPhoneNumberAvailability(phone).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2728,9 +2918,9 @@ lrv2.phoneAuthenticationApi.checkPhoneNumberAvailability(phone).then((response) 
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.phoneAuthenticationApi.removePhoneIDByAccessToken(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2744,7 +2934,7 @@ lrv2.phoneAuthenticationApi.removePhoneIDByAccessToken(accessToken).then((respon
  
  
 
-### MultiFactorAuthenticationApi 
+### MultiFactorAuthentication API
 
 
 List of APIs in this Section:<br>
@@ -2756,10 +2946,6 @@ List of APIs in this Section:<br>
 * PUT : [MFA Validate Google Auth Code](#MFAValidateGoogleAuthCode-put-)<br>
 * PUT : [MFA Validate Backup code](#MFAValidateBackupCode-put-)<br>
 * PUT : [MFA Update Phone Number](#MFAUpdatePhoneNumber-put-)<br>
-* PUT : [Validate MFA by OTP](#MFAReAuthenticateByOTP-put-)<br>
-* PUT : [Validate MFA by Backup Code](#MFAReAuthenticateByBackupCode-put-)<br>
-* PUT : [Validate MFA by Google Authenticator Code](#MFAReAuthenticateByGoogleAuth-put-)<br>
-* PUT : [Validate MFA by Password](#MFAReAuthenticateByPassword-put-)<br>
 * POST : [MFA Email Login](#MFALoginByEmail-post-)<br>
 * POST : [MFA UserName Login](#MFALoginByUserName-post-)<br>
 * POST : [MFA Phone Login](#MFALoginByPhone-post-)<br>
@@ -2767,7 +2953,6 @@ List of APIs in this Section:<br>
 * GET : [MFA Backup Code by Access Token](#MFABackupCodeByAccessToken-get-)<br>
 * GET : [Reset Backup Code by Access Token](#MFAResetBackupCodeByAccessToken-get-)<br>
 * GET : [MFA Resend Otp](#MFAResendOTP-get-)<br>
-* GET : [Multi Factor Re-Authenticate](#MFAReAuthenticate-get-)<br>
 * GET : [MFA Backup Code by UID](#MFABackupCodeByUid-get-)<br>
 * GET : [MFA Reset Backup Code by UID](#MFAResetBackupCodeByUid-get-)<br>
 * DELETE : [MFA Reset Google Authenticator by Token](#MFAResetGoogleAuthByToken-delete-)<br>
@@ -2784,14 +2969,14 @@ List of APIs in this Section:<br>
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
-  
- var multiFactorAuthModelWithLockout ={ 
+
+var multiFactorAuthModelWithLockout ={ 
 "otp" : "<otp>"
-};  //Required 
+};  //Required
 var fields = null; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaUpdateSetting(accessToken, multiFactorAuthModelWithLockout, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2810,15 +2995,15 @@ lrv2.multiFactorAuthenticationApi.mfaUpdateSetting(accessToken, multiFactorAuthM
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
-  
- var multiFactorAuthModelByGoogleAuthenticatorCode ={ 
+
+var multiFactorAuthModelByGoogleAuthenticatorCode ={ 
 "googleAuthenticatorCode" : "<googleAuthenticatorCode>"
-};  //Required 
-var fields = null; //Optional 
+};  //Required
+var fields = null; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaUpdateByAccessToken(accessToken, multiFactorAuthModelByGoogleAuthenticatorCode, fields, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2837,11 +3022,11 @@ lrv2.multiFactorAuthenticationApi.mfaUpdateByAccessToken(accessToken, multiFacto
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
-var phoneNo2FA = "<phoneNo2FA>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
+var phoneNo2FA = "<phoneNo2FA>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumberByToken(accessToken, phoneNo2FA, smsTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2861,14 +3046,14 @@ lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumberByToken(accessToken, phone
 
  ```
 
-  
- var multiFactorAuthModelWithLockout ={ 
+
+var multiFactorAuthModelWithLockout ={ 
 "otp" : "<otp>"
-};  //Required 
-var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required 
-var fields = null; //Optional 
+};  //Required
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
+var fields = null; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaValidateOTPByPhone(multiFactorAuthModelWithLockout, secondFactorAuthenticationToken, fields, smsTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2887,12 +3072,12 @@ lrv2.multiFactorAuthenticationApi.mfaValidateOTPByPhone(multiFactorAuthModelWith
  
 
  ```
- 
-var googleAuthenticatorCode = "<googleAuthenticatorCode>"; //Required 
-var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required 
-var fields = null; //Optional 
+
+var googleAuthenticatorCode = "<googleAuthenticatorCode>"; //Required
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
+var fields = null; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthenticatorCode, secondFactorAuthenticationToken, fields, smsTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2912,13 +3097,13 @@ lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthenticatorC
 
  ```
 
-  
- var multiFactorAuthModelByBackupCode ={ 
+
+var multiFactorAuthModelByBackupCode ={ 
 "backupCode" : "<backupCode>"
-};  //Required 
-var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required 
+};  //Required
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaValidateBackupCode(multiFactorAuthModelByBackupCode, secondFactorAuthenticationToken, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -2937,113 +3122,12 @@ lrv2.multiFactorAuthenticationApi.mfaValidateBackupCode(multiFactorAuthModelByBa
  
 
  ```
- 
-var phoneNo2FA = "<phoneNo2FA>"; //Required 
-var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required 
+
+var phoneNo2FA = "<phoneNo2FA>"; //Required
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumber(phoneNo2FA, secondFactorAuthenticationToken, smsTemplate2FA).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByOTP-put-"> Validate MFA by OTP (PUT)</h6>
- This API is used to re-authenticate via Multi-factor authentication by passing the One Time Password received via SMS  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-otp)
-
- 
- 
-
- ```
- 
-var accessToken = "<accessToken>"; //Required
-  
- var reauthByOtpModel ={ 
-"otp" : "<otp>"
-};  //Required
- 
-lrv2.multiFactorAuthenticationApi.mfaReAuthenticateByOTP(accessToken, reauthByOtpModel).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByBackupCode-put-"> Validate MFA by Backup Code (PUT)</h6>
- This API is used to re-authenticate by set of backup codes via access_token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-backup-code)
-
- 
- 
-
- ```
- 
-var accessToken = "<accessToken>"; //Required
-  
- var reauthByBackupCodeModel ={ 
-"backupCode" : "<backupCode>"
-};  //Required
- 
-lrv2.multiFactorAuthenticationApi.mfaReAuthenticateByBackupCode(accessToken, reauthByBackupCodeModel).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByGoogleAuth-put-"> Validate MFA by Google Authenticator Code (PUT)</h6>
- This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-google-authenticator-code)
-
- 
- 
-
- ```
- 
-var accessToken = "<accessToken>"; //Required
-  
- var reauthByGoogleAuthenticatorCodeModel ={ 
-"googleAuthenticatorCode" : "<googleAuthenticatorCode>"
-};  //Required
- 
-lrv2.multiFactorAuthenticationApi.mfaReAuthenticateByGoogleAuth(accessToken, reauthByGoogleAuthenticatorCodeModel).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticateByPassword-put-"> Validate MFA by Password (PUT)</h6>
- This API is used to re-authenticate via Multi-factor-authentication by passing the password  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-password)
-
- 
- 
-
- ```
- 
-var accessToken = "<accessToken>"; //Required
-  
- var passwordEventBasedAuthModelWithLockout ={ 
-"password" : "<password>"
-};  //Required 
-var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
- 
-lrv2.multiFactorAuthenticationApi.mfaReAuthenticateByPassword(accessToken, passwordEventBasedAuthModelWithLockout, smsTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3061,16 +3145,16 @@ lrv2.multiFactorAuthenticationApi.mfaReAuthenticateByPassword(accessToken, passw
  
 
  ```
- 
-var email = "<email>"; //Required 
-var password = "<password>"; //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
-var smsTemplate2FA = "<smsTemplate2FA>"; //Optional 
+
+var email = "<email>"; //Required
+var password = "<password>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
+var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3089,16 +3173,16 @@ lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate
  
 
  ```
- 
-var password = "<password>"; //Required 
-var username = "<username>"; //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
-var smsTemplate2FA = "<smsTemplate2FA>"; //Optional 
+
+var password = "<password>"; //Required
+var username = "<username>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
+var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaLoginByUserName(password, username, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3117,16 +3201,16 @@ lrv2.multiFactorAuthenticationApi.mfaLoginByUserName(password, username, emailTe
  
 
  ```
- 
-var password = "<password>"; //Required 
-var phone = "<phone>"; //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
-var smsTemplate2FA = "<smsTemplate2FA>"; //Optional 
+
+var password = "<password>"; //Required
+var phone = "<phone>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
+var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaLoginByPhone(password, phone, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3145,10 +3229,10 @@ lrv2.multiFactorAuthenticationApi.mfaLoginByPhone(password, phone, emailTemplate
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaConfigureByAccessToken(accessToken, smsTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3167,9 +3251,9 @@ lrv2.multiFactorAuthenticationApi.mfaConfigureByAccessToken(accessToken, smsTemp
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.multiFactorAuthenticationApi.mfaBackupCodeByAccessToken(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3188,9 +3272,9 @@ lrv2.multiFactorAuthenticationApi.mfaBackupCodeByAccessToken(accessToken).then((
  
 
  ```
- 
+
 var accessToken = "<accessToken>"; //Required
- 
+
 lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByAccessToken(accessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3209,33 +3293,11 @@ lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByAccessToken(accessToken).t
  
 
  ```
- 
-var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required 
+
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
- 
+
 lrv2.multiFactorAuthenticationApi.mfaResendOTP(secondFactorAuthenticationToken, smsTemplate2FA).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
- 
-<h6 id="MFAReAuthenticate-get-"> Multi Factor Re-Authenticate (GET)</h6>
- This API is used to trigger the Multi-Factor Autentication workflow for the provided access_token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-trigger/)
-
- 
- 
-
- ```
- 
-var accessToken = "<accessToken>"; //Required 
-var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
- 
-lrv2.multiFactorAuthenticationApi.mfaReAuthenticate(accessToken, smsTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3253,9 +3315,9 @@ lrv2.multiFactorAuthenticationApi.mfaReAuthenticate(accessToken, smsTemplate2FA)
  
 
  ```
- 
+
 var uid = "<uid>"; //Required
- 
+
 lrv2.multiFactorAuthenticationApi.mfaBackupCodeByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3274,9 +3336,9 @@ lrv2.multiFactorAuthenticationApi.mfaBackupCodeByUid(uid).then((response) => {
  
 
  ```
- 
+
 var uid = "<uid>"; //Required
- 
+
 lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3295,10 +3357,10 @@ lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByUid(uid).then((response) =
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var googleauthenticator = true; //Required
- 
+
 lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthByToken(accessToken, googleauthenticator).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3317,10 +3379,10 @@ lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthByToken(accessToken, googlea
  
 
  ```
- 
-var accessToken = "<accessToken>"; //Required 
+
+var accessToken = "<accessToken>"; //Required
 var otpauthenticator = true; //Required
- 
+
 lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthByToken(accessToken, otpauthenticator).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3339,10 +3401,10 @@ lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthByToken(accessToken, otpauthent
  
 
  ```
- 
-var otpauthenticator = true; //Required 
+
+var otpauthenticator = true; //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthenticatorByUid(otpauthenticator, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3361,10 +3423,10 @@ lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthenticatorByUid(otpauthenticator
  
 
  ```
- 
-var googleauthenticator = true; //Required 
+
+var googleauthenticator = true; //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthenticatorByUid(googleauthenticator, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3378,7 +3440,724 @@ lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthenticatorByUid(googleauthent
  
  
 
-### SmartLoginApi 
+### PINAuthentication API
+
+
+List of APIs in this Section:<br>
+
+* PUT : [Reset PIN By ResetToken](#ResetPINByResetToken-put-)<br>
+* PUT : [Reset PIN By SecurityAnswer And Email](#ResetPINByEmailAndSecurityAnswer-put-)<br>
+* PUT : [Reset PIN By SecurityAnswer And Username](#ResetPINByUsernameAndSecurityAnswer-put-)<br>
+* PUT : [Reset PIN By SecurityAnswer And Phone](#ResetPINByPhoneAndSecurityAnswer-put-)<br>
+* PUT : [Change PIN By Token](#ChangePINByAccessToken-put-)<br>
+* PUT : [Reset PIN by Phone and OTP](#ResetPINByPhoneAndOtp-put-)<br>
+* PUT : [Reset PIN by Email and OTP](#ResetPINByEmailAndOtp-put-)<br>
+* PUT : [Reset PIN by Username and OTP](#ResetPINByUsernameAndOtp-put-)<br>
+* POST : [PIN Login](#PINLogin-post-)<br>
+* POST : [Forgot PIN By Email](#SendForgotPINEmailByEmail-post-)<br>
+* POST : [Forgot PIN By UserName](#SendForgotPINEmailByUsername-post-)<br>
+* POST : [Forgot PIN By Phone](#SendForgotPINSMSByPhone-post-)<br>
+* POST : [Set PIN By PinAuthToken](#SetPINByPinAuthToken-post-)<br>
+* GET : [Invalidate PIN Session Token](#InValidatePinSessionToken-get-)<br>
+
+
+
+<h6 id="ResetPINByResetToken-put-"> Reset PIN By ResetToken (PUT)</h6>
+ This API is used to reset pin using reset token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-resettoken/)
+
+ 
+ 
+
+ ```
+
+
+var resetPINByResetToken ={ 
+"pin" : "<pin>",
+"resetToken" : "<resetToken>"
+};  //Required
+
+lrv2.pinAuthenticationApi.resetPINByResetToken(resetPINByResetToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByEmailAndSecurityAnswer-put-"> Reset PIN By SecurityAnswer And Email (PUT)</h6>
+ This API is used to reset pin using security question answer and email.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-securityanswer-and-email/)
+
+ 
+ 
+
+ ```
+
+
+var resetPINBySecurityQuestionAnswerAndEmailModel ={ 
+"email" : "<email>",
+"pin" : "<pin>",
+"securityAnswer" : {"QuestionID":"Answer"}
+};  //Required
+
+lrv2.pinAuthenticationApi.resetPINByEmailAndSecurityAnswer(resetPINBySecurityQuestionAnswerAndEmailModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByUsernameAndSecurityAnswer-put-"> Reset PIN By SecurityAnswer And Username (PUT)</h6>
+ This API is used to reset pin using security question answer and username.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-securityanswer-and-username/)
+
+ 
+ 
+
+ ```
+
+
+var resetPINBySecurityQuestionAnswerAndUsernameModel ={ 
+"pin" : "<pin>",
+"securityAnswer" : {"QuestionID":"Answer"},
+"username" : "<username>"
+};  //Required
+
+lrv2.pinAuthenticationApi.resetPINByUsernameAndSecurityAnswer(resetPINBySecurityQuestionAnswerAndUsernameModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByPhoneAndSecurityAnswer-put-"> Reset PIN By SecurityAnswer And Phone (PUT)</h6>
+ This API is used to reset pin using security question answer and phone.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-securityanswer-and-phone/)
+
+ 
+ 
+
+ ```
+
+
+var resetPINBySecurityQuestionAnswerAndPhoneModel ={ 
+"phone" : "<phone>",
+"pin" : "<pin>",
+"securityAnswer" : {"QuestionID":"Answer"}
+};  //Required
+
+lrv2.pinAuthenticationApi.resetPINByPhoneAndSecurityAnswer(resetPINBySecurityQuestionAnswerAndPhoneModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="ChangePINByAccessToken-put-"> Change PIN By Token (PUT)</h6>
+ This API is used to change a user's PIN using access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/change-pin-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var changePINModel ={ 
+"newPIN" : "<newPIN>",
+"oldPIN" : "<oldPIN>"
+};  //Required
+
+lrv2.pinAuthenticationApi.changePINByAccessToken(accessToken, changePINModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByPhoneAndOtp-put-"> Reset PIN by Phone and OTP (PUT)</h6>
+ This API is used to reset pin using phoneId and OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-phone-and-otp/)
+
+ 
+ 
+
+ ```
+
+
+var resetPINByPhoneAndOTPModel ={ 
+"otp" : "<otp>",
+"phone" : "<phone>",
+"pin" : "<pin>"
+};  //Required
+
+lrv2.pinAuthenticationApi.resetPINByPhoneAndOtp(resetPINByPhoneAndOTPModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByEmailAndOtp-put-"> Reset PIN by Email and OTP (PUT)</h6>
+ This API is used to reset pin using email and OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-email-and-otp/)
+
+ 
+ 
+
+ ```
+
+
+var resetPINByEmailAndOtpModel ={ 
+"email" : "<email>",
+"otp" : "<otp>",
+"pin" : "<pin>"
+};  //Required
+
+lrv2.pinAuthenticationApi.resetPINByEmailAndOtp(resetPINByEmailAndOtpModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="ResetPINByUsernameAndOtp-put-"> Reset PIN by Username and OTP (PUT)</h6>
+ This API is used to reset pin using username and OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/reset-pin-by-username-and-otp/)
+
+ 
+ 
+
+ ```
+
+
+var resetPINByUsernameAndOtpModel ={ 
+"otp" : "<otp>",
+"pin" : "<pin>",
+"username" : "<username>"
+};  //Required
+
+lrv2.pinAuthenticationApi.resetPINByUsernameAndOtp(resetPINByUsernameAndOtpModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="PINLogin-post-"> PIN Login (POST)</h6>
+ This API is used to login a user by pin and session_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/login-by-pin/)
+
+ 
+ 
+
+ ```
+
+
+var loginByPINModel ={ 
+"pin" : "<pin>"
+};  //Required
+var sessionToken = "<sessionToken>"; //Required
+
+lrv2.pinAuthenticationApi.pinLogin(loginByPINModel, sessionToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="SendForgotPINEmailByEmail-post-"> Forgot PIN By Email (POST)</h6>
+ This API sends the reset pin email to specified email address.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/forgot-pin-by-email/)
+
+ 
+ 
+
+ ```
+
+
+var forgotPINLinkByEmailModel ={ 
+"email" : "<email>"
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var resetPINUrl = "<resetPINUrl>"; //Optional
+
+lrv2.pinAuthenticationApi.sendForgotPINEmailByEmail(forgotPINLinkByEmailModel, emailTemplate, resetPINUrl).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="SendForgotPINEmailByUsername-post-"> Forgot PIN By UserName (POST)</h6>
+ This API sends the reset pin email using username.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/forgot-pin-by-username/)
+
+ 
+ 
+
+ ```
+
+
+var forgotPINLinkByUserNameModel ={ 
+"userName" : "<userName>"
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var resetPINUrl = "<resetPINUrl>"; //Optional
+
+lrv2.pinAuthenticationApi.sendForgotPINEmailByUsername(forgotPINLinkByUserNameModel, emailTemplate, resetPINUrl).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="SendForgotPINSMSByPhone-post-"> Forgot PIN By Phone (POST)</h6>
+ This API sends the OTP to specified phone number  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/forgot-pin-by-phone/)
+
+ 
+ 
+
+ ```
+
+
+var forgotPINOtpByPhoneModel ={ 
+"phone" : "<phone>"
+};  //Required
+var smsTemplate = "<smsTemplate>"; //Optional
+
+lrv2.pinAuthenticationApi.sendForgotPINSMSByPhone(forgotPINOtpByPhoneModel, smsTemplate).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="SetPINByPinAuthToken-post-"> Set PIN By PinAuthToken (POST)</h6>
+ This API is used to change a user's PIN using Pin Auth token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/set-pin-by-pinauthtoken/)
+
+ 
+ 
+
+ ```
+
+
+var pinRequiredModel ={ 
+"pin" : "<pin>"
+};  //Required
+var pinAuthToken = "<pinAuthToken>"; //Required
+
+lrv2.pinAuthenticationApi.setPINByPinAuthToken(pinRequiredModel, pinAuthToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="InValidatePinSessionToken-get-"> Invalidate PIN Session Token (GET)</h6>
+ This API is used to invalidate pin session token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/pin-authentication/invalidate-pin-session-token/)
+
+ 
+ 
+
+ ```
+
+var sessionToken = "<sessionToken>"; //Required
+
+lrv2.pinAuthenticationApi.inValidatePinSessionToken(sessionToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+ 
+
+### ReAuthentication API
+
+
+List of APIs in this Section:<br>
+
+* PUT : [Validate MFA by OTP](#MFAReAuthenticateByOTP-put-)<br>
+* PUT : [Validate MFA by Backup Code](#MFAReAuthenticateByBackupCode-put-)<br>
+* PUT : [Validate MFA by Google Authenticator Code](#MFAReAuthenticateByGoogleAuth-put-)<br>
+* PUT : [Validate MFA by Password](#MFAReAuthenticateByPassword-put-)<br>
+* PUT : [MFA Re-authentication by PIN](#VerifyPINAuthentication-put-)<br>
+* GET : [Multi Factor Re-Authenticate](#MFAReAuthenticate-get-)<br>
+
+
+
+<h6 id="MFAReAuthenticateByOTP-put-"> Validate MFA by OTP (PUT)</h6>
+ This API is used to re-authenticate via Multi-factor authentication by passing the One Time Password received via SMS  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-otp/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var reauthByOtpModel ={ 
+"otp" : "<otp>"
+};  //Required
+
+lrv2.reAuthenticationApi.mfaReAuthenticateByOTP(accessToken, reauthByOtpModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAReAuthenticateByBackupCode-put-"> Validate MFA by Backup Code (PUT)</h6>
+ This API is used to re-authenticate by set of backup codes via access_token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-backup-code/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var reauthByBackupCodeModel ={ 
+"backupCode" : "<backupCode>"
+};  //Required
+
+lrv2.reAuthenticationApi.mfaReAuthenticateByBackupCode(accessToken, reauthByBackupCodeModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAReAuthenticateByGoogleAuth-put-"> Validate MFA by Google Authenticator Code (PUT)</h6>
+ This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-google-authenticator-code)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var reauthByGoogleAuthenticatorCodeModel ={ 
+"googleAuthenticatorCode" : "<googleAuthenticatorCode>"
+};  //Required
+
+lrv2.reAuthenticationApi.mfaReAuthenticateByGoogleAuth(accessToken, reauthByGoogleAuthenticatorCodeModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAReAuthenticateByPassword-put-"> Validate MFA by Password (PUT)</h6>
+ This API is used to re-authenticate via Multi-factor-authentication by passing the password  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-password)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var passwordEventBasedAuthModelWithLockout ={ 
+"password" : "<password>"
+};  //Required
+var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+
+lrv2.reAuthenticationApi.mfaReAuthenticateByPassword(accessToken, passwordEventBasedAuthModelWithLockout, smsTemplate2FA).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="VerifyPINAuthentication-put-"> MFA Re-authentication by PIN (PUT)</h6>
+ This API is used to validate the triggered MFA authentication flow with a password.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/pin/re-auth-by-pin/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var pinAuthEventBasedAuthModelWithLockout ={ 
+"pin" : "<pin>"
+};  //Required
+var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+
+lrv2.reAuthenticationApi.verifyPINAuthentication(accessToken, pinAuthEventBasedAuthModelWithLockout, smsTemplate2FA).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAReAuthenticate-get-"> Multi Factor Re-Authenticate (GET)</h6>
+ This API is used to trigger the Multi-Factor Autentication workflow for the provided access_token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-trigger/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+
+lrv2.reAuthenticationApi.mfaReAuthenticate(accessToken, smsTemplate2FA).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+ 
+
+### ConsentManagement API
+
+
+List of APIs in this Section:<br>
+
+* PUT : [Update Consent By Access Token](#UpdateConsentProfileByAccessToken-put-)<br>
+* POST : [Consent By ConsentToken](#SubmitConsentByConsentToken-post-)<br>
+* POST : [Post Consent By Access Token](#SubmitConsentByAccessToken-post-)<br>
+* GET : [Get Consent Logs By Uid](#GetConsentLogsByUid-get-)<br>
+* GET : [Get Consent Log by Access Token](#GetConsentLogs-get-)<br>
+* GET : [Get Verify Consent By Access Token](#VerifyConsentByAccessToken-get-)<br>
+
+
+
+<h6 id="UpdateConsentProfileByAccessToken-put-"> Update Consent By Access Token (PUT)</h6>
+ This API is to update consents using access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/update-consent-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var consentUpdateModel ={ 
+"consents" : [   { 
+ "consentOptionId" : "<consentOptionId>"  ,
+"isAccepted" : true  
+}  ] 
+};  //Required
+
+lrv2.consentManagementApi.updateConsentProfileByAccessToken(accessToken, consentUpdateModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="SubmitConsentByConsentToken-post-"> Consent By ConsentToken (POST)</h6>
+ This API is to submit consent form using consent token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/consent-by-consent-token/)
+
+ 
+ 
+
+ ```
+
+var consentToken = "<consentToken>"; //Required
+
+var consentSubmitModel ={ 
+"data" : [   { 
+ "consentOptionId" : "<consentOptionId>"  ,
+"isAccepted" : true  
+}  ] ,
+"events" : [   { 
+ "event" : "<event>"  ,
+"isCustom" : true  
+}  ] 
+};  //Required
+
+lrv2.consentManagementApi.submitConsentByConsentToken(consentToken, consentSubmitModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="SubmitConsentByAccessToken-post-"> Post Consent By Access Token (POST)</h6>
+ API to provide a way to end user to submit a consent form for particular event type.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/consent-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var consentSubmitModel ={ 
+"data" : [   { 
+ "consentOptionId" : "<consentOptionId>"  ,
+"isAccepted" : true  
+}  ] ,
+"events" : [   { 
+ "event" : "<event>"  ,
+"isCustom" : true  
+}  ] 
+};  //Required
+
+lrv2.consentManagementApi.submitConsentByAccessToken(accessToken, consentSubmitModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="GetConsentLogsByUid-get-"> Get Consent Logs By Uid (GET)</h6>
+ This API is used to get the Consent logs of the user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/consent-log-by-uid/)
+
+ 
+ 
+
+ ```
+
+var uid = "<uid>"; //Required
+
+lrv2.consentManagementApi.getConsentLogsByUid(uid).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="GetConsentLogs-get-"> Get Consent Log by Access Token (GET)</h6>
+ This API is used to fetch consent logs.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/consent-log-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+lrv2.consentManagementApi.getConsentLogs(accessToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="VerifyConsentByAccessToken-get-"> Get Verify Consent By Access Token (GET)</h6>
+ This API is used to check if consent is submitted for a particular event or not.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/consent-management/verify-consent-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+var event = "<event>"; //Required
+var isCustom = true; //Required
+
+lrv2.consentManagementApi.verifyConsentByAccessToken(accessToken, event, isCustom).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+ 
+
+### SmartLogin API
 
 
 List of APIs in this Section:<br>
@@ -3397,10 +4176,10 @@ List of APIs in this Section:<br>
  
 
  ```
- 
-var verificationToken = "<verificationToken>"; //Required 
+
+var verificationToken = "<verificationToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.smartLoginApi.smartLoginTokenVerification(verificationToken, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3419,13 +4198,13 @@ lrv2.smartLoginApi.smartLoginTokenVerification(verificationToken, welcomeEmailTe
  
 
  ```
- 
-var clientGuid = "<clientGuid>"; //Required 
-var email = "<email>"; //Required 
-var redirectUrl = "<redirectUrl>"; //Optional 
-var smartLoginEmailTemplate = "<smartLoginEmailTemplate>"; //Optional 
+
+var clientGuid = "<clientGuid>"; //Required
+var email = "<email>"; //Required
+var redirectUrl = "<redirectUrl>"; //Optional
+var smartLoginEmailTemplate = "<smartLoginEmailTemplate>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.smartLoginApi.smartLoginByEmail(clientGuid, email, redirectUrl, smartLoginEmailTemplate, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3444,13 +4223,13 @@ lrv2.smartLoginApi.smartLoginByEmail(clientGuid, email, redirectUrl, smartLoginE
  
 
  ```
- 
-var clientGuid = "<clientGuid>"; //Required 
-var username = "<username>"; //Required 
-var redirectUrl = "<redirectUrl>"; //Optional 
-var smartLoginEmailTemplate = "<smartLoginEmailTemplate>"; //Optional 
+
+var clientGuid = "<clientGuid>"; //Required
+var username = "<username>"; //Required
+var redirectUrl = "<redirectUrl>"; //Optional
+var smartLoginEmailTemplate = "<smartLoginEmailTemplate>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.smartLoginApi.smartLoginByUserName(clientGuid, username, redirectUrl, smartLoginEmailTemplate, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3469,10 +4248,10 @@ lrv2.smartLoginApi.smartLoginByUserName(clientGuid, username, redirectUrl, smart
  
 
  ```
- 
-var clientGuid = "<clientGuid>"; //Required 
+
+var clientGuid = "<clientGuid>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.smartLoginApi.smartLoginPing(clientGuid, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3486,7 +4265,7 @@ lrv2.smartLoginApi.smartLoginPing(clientGuid, fields).then((response) => {
  
  
 
-### OneTouchLoginApi 
+### OneTouchLogin API
 
 
 List of APIs in this Section:<br>
@@ -3506,12 +4285,12 @@ List of APIs in this Section:<br>
  
 
  ```
- 
-var otp = "<otp>"; //Required 
-var phone = "<phone>"; //Required 
-var fields = null; //Optional 
+
+var otp = "<otp>"; //Required
+var phone = "<phone>"; //Required
+var fields = null; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.oneTouchLoginApi.oneTouchLoginOTPVerification(otp, phone, fields, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3531,16 +4310,16 @@ lrv2.oneTouchLoginApi.oneTouchLoginOTPVerification(otp, phone, fields, smsTempla
 
  ```
 
-  
- var oneTouchLoginByEmailModel ={ 
+
+var oneTouchLoginByEmailModel ={ 
 "clientguid" : "<clientguid>",
 "email" : "<email>",
 "g-recaptcha-response" : "<g-recaptcha-response>"
-};  //Required 
-var oneTouchLoginEmailTemplate = "<oneTouchLoginEmailTemplate>"; //Optional 
-var redirecturl = "<redirecturl>"; //Optional 
+};  //Required
+var oneTouchLoginEmailTemplate = "<oneTouchLoginEmailTemplate>"; //Optional
+var redirecturl = "<redirecturl>"; //Optional
 var welcomeemailtemplate = "<welcomeemailtemplate>"; //Optional
- 
+
 lrv2.oneTouchLoginApi.oneTouchLoginByEmail(oneTouchLoginByEmailModel, oneTouchLoginEmailTemplate, redirecturl, welcomeemailtemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3560,13 +4339,13 @@ lrv2.oneTouchLoginApi.oneTouchLoginByEmail(oneTouchLoginByEmailModel, oneTouchLo
 
  ```
 
-  
- var oneTouchLoginByPhoneModel ={ 
+
+var oneTouchLoginByPhoneModel ={ 
 "g-recaptcha-response" : "<g-recaptcha-response>",
 "phone" : "<phone>"
-};  //Required 
+};  //Required
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.oneTouchLoginApi.oneTouchLoginByPhone(oneTouchLoginByPhoneModel, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3585,10 +4364,10 @@ lrv2.oneTouchLoginApi.oneTouchLoginByPhone(oneTouchLoginByPhoneModel, smsTemplat
  
 
  ```
- 
-var verificationToken = "<verificationToken>"; //Required 
+
+var verificationToken = "<verificationToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.oneTouchLoginApi.oneTouchEmailVerification(verificationToken, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3607,10 +4386,10 @@ lrv2.oneTouchLoginApi.oneTouchEmailVerification(verificationToken, welcomeEmailT
  
 
  ```
- 
-var clientGuid = "<clientGuid>"; //Required 
+
+var clientGuid = "<clientGuid>"; //Required
 var fields = null; //Optional
- 
+
 lrv2.oneTouchLoginApi.oneTouchLoginPing(clientGuid, fields).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3624,7 +4403,7 @@ lrv2.oneTouchLoginApi.oneTouchLoginPing(clientGuid, fields).then((response) => {
  
  
 
-### PasswordLessLoginApi 
+### PasswordLessLogin API
 
 
 List of APIs in this Section:<br>
@@ -3645,14 +4424,14 @@ List of APIs in this Section:<br>
 
  ```
 
-  
- var passwordLessLoginOtpModel ={ 
+
+var passwordLessLoginOtpModel ={ 
 "otp" : "<otp>",
 "phone" : "<phone>"
-};  //Required 
-var fields = null; //Optional 
+};  //Required
+var fields = null; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.passwordLessLoginApi.passwordlessLoginPhoneVerification(passwordLessLoginOtpModel, fields, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3671,10 +4450,10 @@ lrv2.passwordLessLoginApi.passwordlessLoginPhoneVerification(passwordLessLoginOt
  
 
  ```
- 
-var phone = "<phone>"; //Required 
+
+var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
- 
+
 lrv2.passwordLessLoginApi.passwordlessLoginByPhone(phone, smsTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3693,11 +4472,11 @@ lrv2.passwordLessLoginApi.passwordlessLoginByPhone(phone, smsTemplate).then((res
  
 
  ```
- 
-var email = "<email>"; //Required 
-var passwordLessLoginTemplate = "<passwordLessLoginTemplate>"; //Optional 
+
+var email = "<email>"; //Required
+var passwordLessLoginTemplate = "<passwordLessLoginTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.passwordLessLoginApi.passwordlessLoginByEmail(email, passwordLessLoginTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3716,11 +4495,11 @@ lrv2.passwordLessLoginApi.passwordlessLoginByEmail(email, passwordLessLoginTempl
  
 
  ```
- 
-var username = "<username>"; //Required 
-var passwordLessLoginTemplate = "<passwordLessLoginTemplate>"; //Optional 
+
+var username = "<username>"; //Required
+var passwordLessLoginTemplate = "<passwordLessLoginTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.passwordLessLoginApi.passwordlessLoginByUserName(username, passwordLessLoginTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3739,11 +4518,11 @@ lrv2.passwordLessLoginApi.passwordlessLoginByUserName(username, passwordLessLogi
  
 
  ```
- 
-var verificationToken = "<verificationToken>"; //Required 
-var fields = null; //Optional 
+
+var verificationToken = "<verificationToken>"; //Required
+var fields = null; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
- 
+
 lrv2.passwordLessLoginApi.passwordlessLoginVerification(verificationToken, fields, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3757,7 +4536,7 @@ lrv2.passwordLessLoginApi.passwordlessLoginVerification(verificationToken, field
  
  
 
-### ConfigurationApi 
+### Configuration API
 
 
 List of APIs in this Section:<br>
@@ -3773,9 +4552,9 @@ List of APIs in this Section:<br>
  
 
  ```
- 
+
 var timeDifference = 0; //Optional
- 
+
 lrv2.configurationApi.getServerInfo(timeDifference).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3796,7 +4575,7 @@ lrv2.configurationApi.getServerInfo(timeDifference).then((response) => {
  
  
 
-### RoleApi 
+### Role API
 
 
 List of APIs in this Section:<br>
@@ -3826,12 +4605,12 @@ List of APIs in this Section:<br>
 
  ```
 
-  
- var accountRolesModel ={ 
+
+var accountRolesModel ={ 
 "roles" : [  "roles" ] 
-};  //Required 
+};  //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.roleApi.assignRolesByUid(accountRolesModel, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3851,17 +4630,17 @@ lrv2.roleApi.assignRolesByUid(accountRolesModel, uid).then((response) => {
 
  ```
 
-  
- var accountRoleContextModel ={ 
+
+var accountRoleContextModel ={ 
 "roleContext" : [   { 
   "additionalPermissions" : ["<additionalPermissions>" ] ,
  "context" : "<context>"  ,
  "expiration" : "<expiration>"  ,
   "roles" : ["<roles>" ]  
 }  ] 
-};  //Required 
+};  //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.roleApi.updateRoleContextByUid(accountRoleContextModel, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3881,12 +4660,12 @@ lrv2.roleApi.updateRoleContextByUid(accountRoleContextModel, uid).then((response
 
  ```
 
-  
- var permissionsModel ={ 
+
+var permissionsModel ={ 
 "permissions" : [  "permissions" ] 
-};  //Required 
+};  //Required
 var role = "<role>"; //Required
- 
+
 lrv2.roleApi.addRolePermissions(permissionsModel, role).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3906,14 +4685,14 @@ lrv2.roleApi.addRolePermissions(permissionsModel, role).then((response) => {
 
  ```
 
-  
- var rolesModel ={ 
+
+var rolesModel ={ 
 "roles" : [   { 
  "name" : "<name>"  ,
 "permissions" : {"Permission_name":true}  
 }  ] 
 };  //Required
- 
+
 lrv2.roleApi.createRoles(rolesModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3932,9 +4711,9 @@ lrv2.roleApi.createRoles(rolesModel).then((response) => {
  
 
  ```
- 
+
 var uid = "<uid>"; //Required
- 
+
 lrv2.roleApi.getRolesByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3953,9 +4732,9 @@ lrv2.roleApi.getRolesByUid(uid).then((response) => {
  
 
  ```
- 
+
 var uid = "<uid>"; //Required
- 
+
 lrv2.roleApi.getRoleContextByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3974,9 +4753,9 @@ lrv2.roleApi.getRoleContextByUid(uid).then((response) => {
  
 
  ```
- 
+
 var contextName = "<contextName>"; //Required
- 
+
 lrv2.roleApi.getRoleContextByContextName(contextName).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -3996,7 +4775,7 @@ lrv2.roleApi.getRoleContextByContextName(contextName).then((response) => {
 
  ```
 
- 
+
 lrv2.roleApi.getRolesList().then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4016,12 +4795,12 @@ lrv2.roleApi.getRolesList().then((response) => {
 
  ```
 
-  
- var accountRolesModel ={ 
+
+var accountRolesModel ={ 
 "roles" : [  "roles" ] 
-};  //Required 
+};  //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.roleApi.unassignRolesByUid(accountRolesModel, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4040,10 +4819,10 @@ lrv2.roleApi.unassignRolesByUid(accountRolesModel, uid).then((response) => {
  
 
  ```
- 
-var contextName = "<contextName>"; //Required 
+
+var contextName = "<contextName>"; //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.roleApi.deleteRoleContextByUid(contextName, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4062,14 +4841,14 @@ lrv2.roleApi.deleteRoleContextByUid(contextName, uid).then((response) => {
  
 
  ```
- 
+
 var contextName = "<contextName>"; //Required
-  
- var roleContextRemoveRoleModel ={ 
+
+var roleContextRemoveRoleModel ={ 
 "roles" : [  "roles" ] 
-};  //Required 
+};  //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.roleApi.deleteRolesFromRoleContextByUid(contextName, roleContextRemoveRoleModel, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4088,14 +4867,14 @@ lrv2.roleApi.deleteRolesFromRoleContextByUid(contextName, roleContextRemoveRoleM
  
 
  ```
- 
+
 var contextName = "<contextName>"; //Required
-  
- var roleContextAdditionalPermissionRemoveRoleModel ={ 
+
+var roleContextAdditionalPermissionRemoveRoleModel ={ 
 "additionalPermissions" : [  "additionalPermissions" ] 
-};  //Required 
+};  //Required
 var uid = "<uid>"; //Required
- 
+
 lrv2.roleApi.deleteAdditionalPermissionFromRoleContextByUid(contextName, roleContextAdditionalPermissionRemoveRoleModel, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4114,9 +4893,9 @@ lrv2.roleApi.deleteAdditionalPermissionFromRoleContextByUid(contextName, roleCon
  
 
  ```
- 
+
 var role = "<role>"; //Required
- 
+
 lrv2.roleApi.deleteRole(role).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4136,12 +4915,12 @@ lrv2.roleApi.deleteRole(role).then((response) => {
 
  ```
 
-  
- var permissionsModel ={ 
+
+var permissionsModel ={ 
 "permissions" : [  "permissions" ] 
-};  //Required 
+};  //Required
 var role = "<role>"; //Required
- 
+
 lrv2.roleApi.removeRolePermissions(permissionsModel, role).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4155,7 +4934,7 @@ lrv2.roleApi.removeRolePermissions(permissionsModel, role).then((response) => {
  
  
 
-### CustomRegistrationDataApi 
+### CustomRegistrationData API
 
 
 List of APIs in this Section:<br>
@@ -4178,15 +4957,15 @@ List of APIs in this Section:<br>
 
  ```
 
-  
- var registrationDataUpdateModel ={ 
+
+var registrationDataUpdateModel ={ 
 "isActive" : true,
 "key" : "<key>",
 "type" : "<type>",
 "value" : "<value>"
-};  //Required 
+};  //Required
 var recordId = "<recordId>"; //Required
- 
+
 lrv2.customRegistrationDataApi.updateRegistrationData(registrationDataUpdateModel, recordId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4205,10 +4984,10 @@ lrv2.customRegistrationDataApi.updateRegistrationData(registrationDataUpdateMode
  
 
  ```
- 
-var code = "<code>"; //Required 
+
+var code = "<code>"; //Required
 var recordId = "<recordId>"; //Required
- 
+
 lrv2.customRegistrationDataApi.validateRegistrationDataCode(code, recordId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4228,8 +5007,8 @@ lrv2.customRegistrationDataApi.validateRegistrationDataCode(code, recordId).then
 
  ```
 
-  
- var registrationDataCreateModelList ={ 
+
+var registrationDataCreateModelList ={ 
 "data" : [   { 
  "code" : "<code>"  ,
 "isActive" : true ,
@@ -4239,7 +5018,7 @@ lrv2.customRegistrationDataApi.validateRegistrationDataCode(code, recordId).then
  "value" : "<value>"   
 }  ] 
 };  //Required
- 
+
 lrv2.customRegistrationDataApi.addRegistrationData(registrationDataCreateModelList).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4258,12 +5037,12 @@ lrv2.customRegistrationDataApi.addRegistrationData(registrationDataCreateModelLi
  
 
  ```
- 
-var type = "<type>"; //Required 
-var limit = 0; //Optional 
-var parentId = "<parentId>"; //Optional 
+
+var type = "<type>"; //Required
+var limit = 0; //Optional
+var parentId = "<parentId>"; //Optional
 var skip = 0; //Optional
- 
+
 lrv2.customRegistrationDataApi.authGetRegistrationData(type, limit, parentId, skip).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4282,12 +5061,12 @@ lrv2.customRegistrationDataApi.authGetRegistrationData(type, limit, parentId, sk
  
 
  ```
- 
-var type = "<type>"; //Required 
-var limit = 0; //Optional 
-var parentId = "<parentId>"; //Optional 
+
+var type = "<type>"; //Required
+var limit = 0; //Optional
+var parentId = "<parentId>"; //Optional
 var skip = 0; //Optional
- 
+
 lrv2.customRegistrationDataApi.getRegistrationData(type, limit, parentId, skip).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4306,9 +5085,9 @@ lrv2.customRegistrationDataApi.getRegistrationData(type, limit, parentId, skip).
  
 
  ```
- 
+
 var recordId = "<recordId>"; //Required
- 
+
 lrv2.customRegistrationDataApi.deleteRegistrationData(recordId).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4327,9 +5106,9 @@ lrv2.customRegistrationDataApi.deleteRegistrationData(recordId).then((response) 
  
 
  ```
- 
+
 var type = "<type>"; //Required
- 
+
 lrv2.customRegistrationDataApi.deleteAllRecordsByDataSource(type).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4343,7 +5122,7 @@ lrv2.customRegistrationDataApi.deleteAllRecordsByDataSource(type).then((response
  
  
 
-### RiskBasedAuthenticationApi 
+### RiskBasedAuthentication API
 
 
 List of APIs in this Section:<br>
@@ -4362,29 +5141,29 @@ List of APIs in this Section:<br>
 
  ```
 
-  
- var emailAuthenticationModel ={ 
+
+var emailAuthenticationModel ={ 
 "email" : "<email>",
 "password" : "<password>"
-};  //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
-var passwordDelegation = true; //Optional 
-var passwordDelegationApp = "<passwordDelegationApp>"; //Optional 
-var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional 
-var rbaBrowserSmsTemplate = "<rbaBrowserSmsTemplate>"; //Optional 
-var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional 
-var rbaCitySmsTemplate = "<rbaCitySmsTemplate>"; //Optional 
-var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional 
-var rbaCountrySmsTemplate = "<rbaCountrySmsTemplate>"; //Optional 
-var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional 
-var rbaIpSmsTemplate = "<rbaIpSmsTemplate>"; //Optional 
-var rbaOneclickEmailTemplate = "<rbaOneclickEmailTemplate>"; //Optional 
-var rbaOTPSmsTemplate = "<rbaOTPSmsTemplate>"; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
+var passwordDelegation = true; //Optional
+var passwordDelegationApp = "<passwordDelegationApp>"; //Optional
+var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
+var rbaBrowserSmsTemplate = "<rbaBrowserSmsTemplate>"; //Optional
+var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
+var rbaCitySmsTemplate = "<rbaCitySmsTemplate>"; //Optional
+var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
+var rbaCountrySmsTemplate = "<rbaCountrySmsTemplate>"; //Optional
+var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
+var rbaIpSmsTemplate = "<rbaIpSmsTemplate>"; //Optional
+var rbaOneclickEmailTemplate = "<rbaOneclickEmailTemplate>"; //Optional
+var rbaOTPSmsTemplate = "<rbaOTPSmsTemplate>"; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.riskBasedAuthenticationApi.rbaLoginByEmail(emailAuthenticationModel, emailTemplate, fields, loginUrl, passwordDelegation, passwordDelegationApp, rbaBrowserEmailTemplate, rbaBrowserSmsTemplate, rbaCityEmailTemplate, rbaCitySmsTemplate, rbaCountryEmailTemplate, rbaCountrySmsTemplate, rbaIpEmailTemplate, rbaIpSmsTemplate, rbaOneclickEmailTemplate, rbaOTPSmsTemplate, smsTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4404,29 +5183,29 @@ lrv2.riskBasedAuthenticationApi.rbaLoginByEmail(emailAuthenticationModel, emailT
 
  ```
 
-  
- var userNameAuthenticationModel ={ 
+
+var userNameAuthenticationModel ={ 
 "password" : "<password>",
 "username" : "<username>"
-};  //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
-var passwordDelegation = true; //Optional 
-var passwordDelegationApp = "<passwordDelegationApp>"; //Optional 
-var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional 
-var rbaBrowserSmsTemplate = "<rbaBrowserSmsTemplate>"; //Optional 
-var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional 
-var rbaCitySmsTemplate = "<rbaCitySmsTemplate>"; //Optional 
-var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional 
-var rbaCountrySmsTemplate = "<rbaCountrySmsTemplate>"; //Optional 
-var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional 
-var rbaIpSmsTemplate = "<rbaIpSmsTemplate>"; //Optional 
-var rbaOneclickEmailTemplate = "<rbaOneclickEmailTemplate>"; //Optional 
-var rbaOTPSmsTemplate = "<rbaOTPSmsTemplate>"; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
+var passwordDelegation = true; //Optional
+var passwordDelegationApp = "<passwordDelegationApp>"; //Optional
+var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
+var rbaBrowserSmsTemplate = "<rbaBrowserSmsTemplate>"; //Optional
+var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
+var rbaCitySmsTemplate = "<rbaCitySmsTemplate>"; //Optional
+var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
+var rbaCountrySmsTemplate = "<rbaCountrySmsTemplate>"; //Optional
+var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
+var rbaIpSmsTemplate = "<rbaIpSmsTemplate>"; //Optional
+var rbaOneclickEmailTemplate = "<rbaOneclickEmailTemplate>"; //Optional
+var rbaOTPSmsTemplate = "<rbaOTPSmsTemplate>"; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.riskBasedAuthenticationApi.rbaLoginByUserName(userNameAuthenticationModel, emailTemplate, fields, loginUrl, passwordDelegation, passwordDelegationApp, rbaBrowserEmailTemplate, rbaBrowserSmsTemplate, rbaCityEmailTemplate, rbaCitySmsTemplate, rbaCountryEmailTemplate, rbaCountrySmsTemplate, rbaIpEmailTemplate, rbaIpSmsTemplate, rbaOneclickEmailTemplate, rbaOTPSmsTemplate, smsTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4446,29 +5225,29 @@ lrv2.riskBasedAuthenticationApi.rbaLoginByUserName(userNameAuthenticationModel, 
 
  ```
 
-  
- var phoneAuthenticationModel ={ 
+
+var phoneAuthenticationModel ={ 
 "password" : "<password>",
 "phone" : "<phone>"
-};  //Required 
-var emailTemplate = "<emailTemplate>"; //Optional 
-var fields = null; //Optional 
-var loginUrl = "<loginUrl>"; //Optional 
-var passwordDelegation = true; //Optional 
-var passwordDelegationApp = "<passwordDelegationApp>"; //Optional 
-var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional 
-var rbaBrowserSmsTemplate = "<rbaBrowserSmsTemplate>"; //Optional 
-var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional 
-var rbaCitySmsTemplate = "<rbaCitySmsTemplate>"; //Optional 
-var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional 
-var rbaCountrySmsTemplate = "<rbaCountrySmsTemplate>"; //Optional 
-var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional 
-var rbaIpSmsTemplate = "<rbaIpSmsTemplate>"; //Optional 
-var rbaOneclickEmailTemplate = "<rbaOneclickEmailTemplate>"; //Optional 
-var rbaOTPSmsTemplate = "<rbaOTPSmsTemplate>"; //Optional 
-var smsTemplate = "<smsTemplate>"; //Optional 
+};  //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var loginUrl = "<loginUrl>"; //Optional
+var passwordDelegation = true; //Optional
+var passwordDelegationApp = "<passwordDelegationApp>"; //Optional
+var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
+var rbaBrowserSmsTemplate = "<rbaBrowserSmsTemplate>"; //Optional
+var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
+var rbaCitySmsTemplate = "<rbaCitySmsTemplate>"; //Optional
+var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
+var rbaCountrySmsTemplate = "<rbaCountrySmsTemplate>"; //Optional
+var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
+var rbaIpSmsTemplate = "<rbaIpSmsTemplate>"; //Optional
+var rbaOneclickEmailTemplate = "<rbaOneclickEmailTemplate>"; //Optional
+var rbaOTPSmsTemplate = "<rbaOTPSmsTemplate>"; //Optional
+var smsTemplate = "<smsTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
- 
+
 lrv2.riskBasedAuthenticationApi.rbaLoginByPhone(phoneAuthenticationModel, emailTemplate, fields, loginUrl, passwordDelegation, passwordDelegationApp, rbaBrowserEmailTemplate, rbaBrowserSmsTemplate, rbaCityEmailTemplate, rbaCitySmsTemplate, rbaCountryEmailTemplate, rbaCountrySmsTemplate, rbaIpEmailTemplate, rbaIpSmsTemplate, rbaOneclickEmailTemplate, rbaOTPSmsTemplate, smsTemplate, verificationUrl).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4482,7 +5261,7 @@ lrv2.riskBasedAuthenticationApi.rbaLoginByPhone(phoneAuthenticationModel, emailT
  
  
 
-### SottApi 
+### Sott API
 
 
 List of APIs in this Section:<br>
@@ -4498,9 +5277,9 @@ List of APIs in this Section:<br>
  
 
  ```
- 
+
 var timeDifference = 0; //Optional
- 
+
 lrv2.sottApi.generateSott(timeDifference).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4514,7 +5293,7 @@ lrv2.sottApi.generateSott(timeDifference).then((response) => {
  
  
 
-### NativeSocialApi 
+### NativeSocial API
 
 
 List of APIs in this Section:<br>
@@ -4522,7 +5301,7 @@ List of APIs in this Section:<br>
 * GET : [Access Token via Facebook Token](#GetAccessTokenByFacebookAccessToken-get-)<br>
 * GET : [Access Token via Twitter Token](#GetAccessTokenByTwitterAccessToken-get-)<br>
 * GET : [Access Token via Google Token](#GetAccessTokenByGoogleAccessToken-get-)<br>
-* GET : [LoginRadius Access Token using google JWT token for Native Mobile Login](#GetAccessTokenByGoogleJWTAccessToken-get-)<br>
+* GET : [Access Token using google JWT token for Native Mobile Login](#GetAccessTokenByGoogleJWTAccessToken-get-)<br>
 * GET : [Access Token via Linkedin Token](#GetAccessTokenByLinkedinAccessToken-get-)<br>
 * GET : [Get Access Token By Foursquare Access Token](#GetAccessTokenByFoursquareAccessToken-get-)<br>
 * GET : [Access Token via Vkontakte Token](#GetAccessTokenByVkontakteAccessToken-get-)<br>
@@ -4531,15 +5310,15 @@ List of APIs in this Section:<br>
 
 
 <h6 id="GetAccessTokenByFacebookAccessToken-get-"> Access Token via Facebook Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Facebook’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-facebook-token/)
+ The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-facebook-token/)
 
  
  
 
  ```
- 
+
 var fbAccessToken = "<fbAccessToken>"; //Required
- 
+
 lrv2.nativeSocialApi.getAccessTokenByFacebookAccessToken(fbAccessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4552,16 +5331,16 @@ lrv2.nativeSocialApi.getAccessTokenByFacebookAccessToken(fbAccessToken).then((re
   
  
 <h6 id="GetAccessTokenByTwitterAccessToken-get-"> Access Token via Twitter Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Twitter’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-twitter-token)
+ The API is used to get LoginRadius access token by sending Twitter's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-twitter-token)
 
  
  
 
  ```
- 
-var twAccessToken = "<twAccessToken>"; //Required 
+
+var twAccessToken = "<twAccessToken>"; //Required
 var twTokenSecret = "<twTokenSecret>"; //Required
- 
+
 lrv2.nativeSocialApi.getAccessTokenByTwitterAccessToken(twAccessToken, twTokenSecret).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4574,17 +5353,17 @@ lrv2.nativeSocialApi.getAccessTokenByTwitterAccessToken(twAccessToken, twTokenSe
   
  
 <h6 id="GetAccessTokenByGoogleAccessToken-get-"> Access Token via Google Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Google’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-token)
+ The API is used to get LoginRadius access token by sending Google's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-token)
 
  
  
 
  ```
- 
-var googleAccessToken = "<googleAccessToken>"; //Required 
-var clientId = "<clientId>"; //Optional 
+
+var googleAccessToken = "<googleAccessToken>"; //Required
+var clientId = "<clientId>"; //Optional
 var refreshToken = "<refreshToken>"; //Optional
- 
+
 lrv2.nativeSocialApi.getAccessTokenByGoogleAccessToken(googleAccessToken, clientId, refreshToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4596,16 +5375,16 @@ lrv2.nativeSocialApi.getAccessTokenByGoogleAccessToken(googleAccessToken, client
   
   
  
-<h6 id="GetAccessTokenByGoogleJWTAccessToken-get-"> LoginRadius Access Token using google JWT token for Native Mobile Login (GET)</h6>
+<h6 id="GetAccessTokenByGoogleJWTAccessToken-get-"> Access Token using google JWT token for Native Mobile Login (GET)</h6>
  This API is used to Get LoginRadius Access Token using google jwt id token for google native mobile login/registration.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-googlejwt)
 
  
  
 
  ```
- 
+
 var idToken = "<idToken>"; //Required
- 
+
 lrv2.nativeSocialApi.getAccessTokenByGoogleJWTAccessToken(idToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4618,15 +5397,15 @@ lrv2.nativeSocialApi.getAccessTokenByGoogleJWTAccessToken(idToken).then((respons
   
  
 <h6 id="GetAccessTokenByLinkedinAccessToken-get-"> Access Token via Linkedin Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Linkedin’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-linkedin-token/)
+ The API is used to get LoginRadius access token by sending Linkedin's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-linkedin-token/)
 
  
  
 
  ```
- 
+
 var lnAccessToken = "<lnAccessToken>"; //Required
- 
+
 lrv2.nativeSocialApi.getAccessTokenByLinkedinAccessToken(lnAccessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4639,15 +5418,15 @@ lrv2.nativeSocialApi.getAccessTokenByLinkedinAccessToken(lnAccessToken).then((re
   
  
 <h6 id="GetAccessTokenByFoursquareAccessToken-get-"> Get Access Token By Foursquare Access Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Foursquare’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-foursquare-token/)
+ The API is used to get LoginRadius access token by sending Foursquare's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-foursquare-token/)
 
  
  
 
  ```
- 
+
 var fsAccessToken = "<fsAccessToken>"; //Required
- 
+
 lrv2.nativeSocialApi.getAccessTokenByFoursquareAccessToken(fsAccessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4660,15 +5439,15 @@ lrv2.nativeSocialApi.getAccessTokenByFoursquareAccessToken(fsAccessToken).then((
   
  
 <h6 id="GetAccessTokenByVkontakteAccessToken-get-"> Access Token via Vkontakte Token (GET)</h6>
- The API is used to get LoginRadius access token by sending Vkontakte’s access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-vkontakte-token)
+ The API is used to get LoginRadius access token by sending Vkontakte's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-vkontakte-token)
 
  
  
 
  ```
- 
+
 var vkAccessToken = "<vkAccessToken>"; //Required
- 
+
 lrv2.nativeSocialApi.getAccessTokenByVkontakteAccessToken(vkAccessToken).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4681,15 +5460,15 @@ lrv2.nativeSocialApi.getAccessTokenByVkontakteAccessToken(vkAccessToken).then((r
   
  
 <h6 id="GetAccessTokenByGoogleAuthCode-get-"> Access Token via Google AuthCode (GET)</h6>
- The API is used to get LoginRadius access token by sending Google’s AuthCode. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-auth-code)
+ The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-auth-code)
 
  
  
 
  ```
- 
+
 var googleAuthcode = "<googleAuthcode>"; //Required
- 
+
 lrv2.nativeSocialApi.getAccessTokenByGoogleAuthCode(googleAuthcode).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4703,7 +5482,7 @@ lrv2.nativeSocialApi.getAccessTokenByGoogleAuthCode(googleAuthcode).then((respon
  
  
 
-### WebHookApi 
+### WebHook API
 
 
 List of APIs in this Section:<br>
@@ -4723,12 +5502,12 @@ List of APIs in this Section:<br>
 
  ```
 
-  
- var webHookSubscribeModel ={ 
+
+var webHookSubscribeModel ={ 
 "event" : "<event>",
 "targetUrl" : "<targetUrl>"
 };  //Required
- 
+
 lrv2.webHookApi.webHookSubscribe(webHookSubscribeModel).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4747,9 +5526,9 @@ lrv2.webHookApi.webHookSubscribe(webHookSubscribeModel).then((response) => {
  
 
  ```
- 
+
 var event = "<event>"; //Required
- 
+
 lrv2.webHookApi.getWebHookSubscribedURLs(event).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4769,7 +5548,7 @@ lrv2.webHookApi.getWebHookSubscribedURLs(event).then((response) => {
 
  ```
 
- 
+
 lrv2.webHookApi.webhookTest().then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -4789,13 +5568,101 @@ lrv2.webHookApi.webhookTest().then((response) => {
 
  ```
 
-  
- var webHookSubscribeModel ={ 
+
+var webHookSubscribeModel ={ 
 "event" : "<event>",
 "targetUrl" : "<targetUrl>"
 };  //Required
- 
+
 lrv2.webHookApi.webHookUnsubscribe(webHookSubscribeModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+ 
+
+### ReAuthentication API
+
+
+List of APIs in this Section:<br>
+
+* POST : [Verify Multifactor OTP Authentication](#VerifyMultiFactorOtpReauthentication-post-)<br>
+* POST : [Verify Multifactor Password Authentication](#VerifyMultiFactorPasswordReauthentication-post-)<br>
+* POST : [Verify Multifactor PIN Authentication](#VerifyMultiFactorPINReauthentication-post-)<br>
+
+
+
+<h6 id="VerifyMultiFactorOtpReauthentication-post-"> Verify Multifactor OTP Authentication (POST)</h6>
+ This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-validate-mfa/)
+
+ 
+ 
+
+ ```
+
+
+var eventBasedMultiFactorToken ={ 
+"secondFactorValidationToken" : "<secondFactorValidationToken>"
+};  //Required
+var uid = "<uid>"; //Required
+
+lrv2.reAuthenticationApi.verifyMultiFactorOtpReauthentication(eventBasedMultiFactorToken, uid).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="VerifyMultiFactorPasswordReauthentication-post-"> Verify Multifactor Password Authentication (POST)</h6>
+ This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by password.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/re-auth-validate-password/)
+
+ 
+ 
+
+ ```
+
+
+var eventBasedMultiFactorToken ={ 
+"secondFactorValidationToken" : "<secondFactorValidationToken>"
+};  //Required
+var uid = "<uid>"; //Required
+
+lrv2.reAuthenticationApi.verifyMultiFactorPasswordReauthentication(eventBasedMultiFactorToken, uid).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="VerifyMultiFactorPINReauthentication-post-"> Verify Multifactor PIN Authentication (POST)</h6>
+ This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by PIN.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/pin/re-auth-validate-pin/)
+
+ 
+ 
+
+ ```
+
+
+var eventBasedMultiFactorToken ={ 
+"secondFactorValidationToken" : "<secondFactorValidationToken>"
+};  //Required
+var uid = "<uid>"; //Required
+
+lrv2.reAuthenticationApi.verifyMultiFactorPINReauthentication(eventBasedMultiFactorToken, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);

@@ -562,5 +562,53 @@ module.exports = function (config) {
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
+
+  /**
+  * This API is used to delete all user profiles associated with an Email.
+  * @param {email} Email of the user
+  * @return Response containing Definition of Delete Request
+  *18.36
+  */
+
+  module.accountDeleteByEmail = function (email) {
+    if (helper.isNullOrWhiteSpace(email)) {
+      return Promise.reject(helper.getValidationMessage('email'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.email = email;
+
+    var resourcePath = 'identity/v2/manage/account';
+
+    return config.request('DELETE', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.
+  * @param {updateUidModel} Payload containing Update UID
+  * @param {uid} UID, the unified identifier for each user account
+  * @return Response containing Definition of Complete Validation data
+  *18.41
+  */
+
+  module.accountUpdateUid = function (updateUidModel, uid) {
+    if (helper.checkJson(updateUidModel)) {
+      return Promise.reject(helper.getValidationMessage('updateUidModel'));
+    }
+    if (helper.isNullOrWhiteSpace(uid)) {
+      return Promise.reject(helper.getValidationMessage('uid'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.uid = uid;
+
+    var resourcePath = 'identity/v2/manage/account/uid';
+
+    return config.request('PUT', resourcePath, queryParameters, updateUidModel);
+  };
   return module;
 };

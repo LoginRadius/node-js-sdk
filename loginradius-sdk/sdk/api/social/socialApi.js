@@ -100,7 +100,7 @@ module.exports = function (config) {
   * This api is use to get all active session by Access Token.
   * @param {token} Token generated from a successful oauth from social platform
   * @return Response containing Definition for Complete active sessions
-  *20.11
+  *20.11.1
   */
 
   module.getActiveSession = function (token) {
@@ -122,7 +122,7 @@ module.exports = function (config) {
   * This api is used to get all active sessions by AccountID(UID).
   * @param {accountId} UID, the unified identifier for each user account
   * @return Response containing Definition for Complete active sessions
-  *20.12
+  *20.11.2
   */
 
   module.getActiveSessionByAccountID = function (accountId) {
@@ -144,7 +144,7 @@ module.exports = function (config) {
   * This api is used to get all active sessions by ProfileId.
   * @param {profileId} Social Provider Id
   * @return Response containing Definition for Complete active sessions
-  *20.13
+  *20.11.3
   */
 
   module.getActiveSessionByProfileID = function (profileId) {
@@ -166,7 +166,7 @@ module.exports = function (config) {
   * <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of Album Data
-  *22.1
+  *22.2.1
   */
 
   module.getAlbums = function (accessToken) {
@@ -183,10 +183,35 @@ module.exports = function (config) {
   };
 
   /**
-  * The Audio API is used to get audio files data from the user’s social account.<br><br><b>Supported Providers:</b> Live, Vkontakte
+  * <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
+  * @return Response Model containing Albums with next cursor
+  *22.2.2
+  */
+
+  module.getAlbumsWithCursor = function (accessToken, nextCursor) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(nextCursor)) {
+      return Promise.reject(helper.getValidationMessage('nextCursor'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.nextCursor = nextCursor;
+
+    var resourcePath = 'api/v2/album';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of Audio Data
-  *24.1
+  *24.2.1
   */
 
   module.getAudios = function (accessToken) {
@@ -203,10 +228,35 @@ module.exports = function (config) {
   };
 
   /**
-  * The Check In API is used to get check Ins data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte
+  * The Audio API is used to get audio files data from the user's social account.<br><br><b>Supported Providers:</b> Live, Vkontakte
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
+  * @return Response Model containing Audio with next cursor
+  *24.2.2
+  */
+
+  module.getAudiosWithCursor = function (accessToken, nextCursor) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(nextCursor)) {
+      return Promise.reject(helper.getValidationMessage('nextCursor'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.nextCursor = nextCursor;
+
+    var resourcePath = 'api/v2/audio';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of CheckIn Data
-  *25.1
+  *25.2.1
   */
 
   module.getCheckIns = function (accessToken) {
@@ -223,7 +273,32 @@ module.exports = function (config) {
   };
 
   /**
-  * The Contact API is used to get contacts/friends/connections data from the user’s social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius’ standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo
+  * The Check In API is used to get check Ins data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Foursquare, Vkontakte
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
+  * @return Response Model containing Checkins with next cursor
+  *25.2.2
+  */
+
+  module.getCheckInsWithCursor = function (accessToken, nextCursor) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(nextCursor)) {
+      return Promise.reject(helper.getValidationMessage('nextCursor'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.nextCursor = nextCursor;
+
+    var resourcePath = 'api/v2/checkin';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * The Contact API is used to get contacts/friends/connections data from the user's social account.This is one of the APIs that makes up the LoginRadius Friend Invite System. The data will normalized into LoginRadius' standard data format. This API requires setting permissions in your LoginRadius Dashboard. <br><br><b>Note:</b> Facebook restricts access to the list of friends that is returned. When using the Contacts API with Facebook you will only receive friends that have accepted some permissions with your app. <br><br><b>Supported Providers:</b> Facebook, Foursquare, Google, LinkedIn, Live, Twitter, Vkontakte, Yahoo
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
   * @return Response containing Definition of Contact Data with Cursor
@@ -247,10 +322,10 @@ module.exports = function (config) {
   };
 
   /**
-  * The Event API is used to get the event data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Live
+  * The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of Events Data
-  *28.1
+  *28.2.1
   */
 
   module.getEvents = function (accessToken) {
@@ -267,10 +342,35 @@ module.exports = function (config) {
   };
 
   /**
-  * Get the following user list from the user’s social account.<br><br><b>Supported Providers:</b> Twitter
+  * The Event API is used to get the event data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Live
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
+  * @return Response Model containing Events with next cursor
+  *28.2.2
+  */
+
+  module.getEventsWithCursor = function (accessToken, nextCursor) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(nextCursor)) {
+      return Promise.reject(helper.getValidationMessage('nextCursor'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.nextCursor = nextCursor;
+
+    var resourcePath = 'api/v2/event';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of Contacts Data
-  *29.1
+  *29.2.1
   */
 
   module.getFollowings = function (accessToken) {
@@ -287,10 +387,35 @@ module.exports = function (config) {
   };
 
   /**
-  * The Group API is used to get group data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte
+  * Get the following user list from the user's social account.<br><br><b>Supported Providers:</b> Twitter
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
+  * @return Response containing Definition of Contact Data with Cursor
+  *29.2.2
+  */
+
+  module.getFollowingsWithCursor = function (accessToken, nextCursor) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(nextCursor)) {
+      return Promise.reject(helper.getValidationMessage('nextCursor'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.nextCursor = nextCursor;
+
+    var resourcePath = 'api/v2/following';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of Groups Data
-  *30.1
+  *30.2.1
   */
 
   module.getGroups = function (accessToken) {
@@ -307,10 +432,35 @@ module.exports = function (config) {
   };
 
   /**
-  * The Like API is used to get likes data from the user’s social account.<br><br><b>Supported Providers:</b> Facebook
+  * The Group API is used to get group data from the user's social account.<br><br><b>Supported Providers:</b> Facebook, Vkontakte
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
+  * @return Response Model containing Groups with next cursor
+  *30.2.2
+  */
+
+  module.getGroupsWithCursor = function (accessToken, nextCursor) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(nextCursor)) {
+      return Promise.reject(helper.getValidationMessage('nextCursor'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.nextCursor = nextCursor;
+
+    var resourcePath = 'api/v2/group';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of Likes Data
-  *31.1
+  *31.2.1
   */
 
   module.getLikes = function (accessToken) {
@@ -327,7 +477,32 @@ module.exports = function (config) {
   };
 
   /**
-  * The Mention API is used to get mentions data from the user’s social account.<br><br><b>Supported Providers:</b> Twitter
+  * The Like API is used to get likes data from the user's social account.<br><br><b>Supported Providers:</b> Facebook
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
+  * @return Response Model containing Likes with next cursor
+  *31.2.2
+  */
+
+  module.getLikesWithCursor = function (accessToken, nextCursor) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(nextCursor)) {
+      return Promise.reject(helper.getValidationMessage('nextCursor'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.nextCursor = nextCursor;
+
+    var resourcePath = 'api/v2/like';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * The Mention API is used to get mentions data from the user's social account.<br><br><b>Supported Providers:</b> Twitter
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of Status Data
   *32.1
@@ -347,7 +522,7 @@ module.exports = function (config) {
   };
 
   /**
-  * Post Message API is used to post messages to the user’s contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user’s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different
+  * Post Message API is used to post messages to the user's contacts.<br><br><b>Supported Providers:</b> Twitter, LinkedIn <br><br>The Message API is used to post messages to the user?s contacts. This is one of the APIs that makes up the LoginRadius Friend Invite System. After using the Contact API, you can send messages to the retrieved contacts. This API requires setting permissions in your LoginRadius Dashboard.<br><br>GET & POST Message API work the same way except the API method is different
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {message} Body of your message
   * @param {subject} Subject of your message
@@ -383,7 +558,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The Page API is used to get the page data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn
+  * The Page API is used to get the page data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, LinkedIn
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {pageName} Name of the page you want to retrieve info from
   * @return Response containing Definition of Complete page data
@@ -408,7 +583,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The Photo API is used to get photo data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte
+  * The Photo API is used to get photo data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook, Foursquare, Google, Live, Vkontakte
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {albumId} The id of the album you want to retrieve info from
   * @return Response Containing List of Photos Data
@@ -433,7 +608,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The Post API is used to get post message data from the user’s social account.<br><br><b>Supported Providers:</b>  Facebook
+  * The Post API is used to get post message data from the user's social account.<br><br><b>Supported Providers:</b>  Facebook
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @return Response Containing List of Posts Data
   *36.1
@@ -453,7 +628,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The Status API is used to update the status on the user’s wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn
+  * The Status API is used to update the status on the user's wall.<br><br><b>Supported Providers:</b>  Facebook, Twitter, LinkedIn
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {caption} Message displayed below the description(Requires URL, Under 70 Characters).
   * @param {description} Description of the displayed URL and Image(Requires URL)
@@ -509,27 +684,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The Status API is used to get the status messages from the user’s social account.
-  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-  * @return Response Containing List of Status Data
-  *37.3
-  */
-
-  module.getStatus = function (accessToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
-    }
-    var queryParameters = {};
-
-    queryParameters.access_token = accessToken;
-
-    var resourcePath = 'api/v2/status';
-
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
-
-  /**
-  * The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user’s wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded
+  * The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.<br><br> POST Input Parameter Format: application/x-www-form-urlencoded
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {statusModel} Model Class containing Definition of payload for Status API
   * @return Response containing Definition for Complete status data
@@ -553,7 +708,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user’s wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.
+  * The Trackable status API works very similar to the Status API but it returns a Post id that you can use to track the stats(shares, likes, comments) for a specific share/post/status update. This API requires setting permissions in your LoginRadius Dashboard.<br><br> The Trackable Status API is used to update the status on the user's wall and return an Post ID value. It is commonly referred to as Permission based sharing or Push notifications.
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {caption} Message displayed below the description(Requires URL, Under 70 Characters).
   * @param {description} Description of the displayed URL and Image(Requires URL)
@@ -625,7 +780,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The User Profile API is used to get social profile data from the user’s social account after authentication.<br><br><b>Supported Providers:</b>  All
+  * The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
   * @return Response containing Definition for Complete UserProfile data
@@ -649,7 +804,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The User Profile API is used to get the latest updated social profile data from the user’s social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius’ standard data format. This API should be called using the access token retrieved from the refresh access token API.
+  * The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
   * @return Response containing Definition for Complete UserProfile data
@@ -673,7 +828,7 @@ module.exports = function (config) {
   };
 
   /**
-  * The Video API is used to get video files data from the user’s social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte
+  * The Video API is used to get video files data from the user's social account.<br><br><b>Supported Providers:</b>   Facebook, Google, Live, Vkontakte
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {nextCursor} Cursor value if not all contacts can be retrieved once.
   * @return Response containing Definition of Video Data with Cursor

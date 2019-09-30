@@ -125,7 +125,7 @@ module.exports = function (config) {
 
   /**
   * This API is used to consume the verification code sent to verify a user's phone number. Use this call for front-end purposes in cases where the user is already logged in by passing the user's access token.
-  * @param {accessToken} Access_Token
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {otp} The Verification Code
   * @param {smsTemplate} SMS Template name
   * @return Response containing Definition of Complete Validation data
@@ -142,18 +142,16 @@ module.exports = function (config) {
     }
     var queryParameters = {};
 
+    queryParameters.access_token = accessToken;
     queryParameters.apiKey = config.apiKey;
     queryParameters.otp = otp;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
 
-    var bodyParameters = {};
-    bodyParameters.access_token = accessToken;
-
     var resourcePath = 'identity/v2/auth/phone/otp';
 
-    return config.request('PUT', resourcePath, queryParameters, bodyParameters);
+    return config.request('PUT', resourcePath, queryParameters, null);
   };
 
   /**
@@ -202,13 +200,13 @@ module.exports = function (config) {
     }
     var queryParameters = {};
 
+    queryParameters.access_token = accessToken;
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
 
     var bodyParameters = {};
-    bodyParameters.access_token = accessToken;
     bodyParameters.phone = phone;
 
     var resourcePath = 'identity/v2/auth/phone/otp';
@@ -251,7 +249,7 @@ module.exports = function (config) {
 
   /**
   * This API is used to check the Phone Number exists or not on your site.
-  * @param {phone} LoginRadius API Key
+  * @param {phone} The Registered Phone Number
   * @return Response containing Definition Complete ExistResponse data
   *11.6
   */
@@ -289,6 +287,52 @@ module.exports = function (config) {
     var resourcePath = 'identity/v2/auth/phone';
 
     return config.request('DELETE', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * This API registers the new users into your Cloud Storage and triggers the phone verification process.
+  * @param {authUserRegistrationModel} Model Class containing Definition of payload for Auth User Registration API
+  * @param {sott} LoginRadius Secured One Time Token
+  * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+  * @param {options} PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
+  * @param {smsTemplate} SMS Template name
+  * @param {verificationUrl} Email verification url
+  * @param {welcomeEmailTemplate} Name of the welcome email template
+  * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
+  *17.1.2
+  */
+
+  module.userRegistrationByPhone = function (authUserRegistrationModel, sott,
+    fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate) {
+    if (helper.checkJson(authUserRegistrationModel)) {
+      return Promise.reject(helper.getValidationMessage('authUserRegistrationModel'));
+    }
+    if (helper.isNullOrWhiteSpace(sott)) {
+      return Promise.reject(helper.getValidationMessage('sott'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.sott = sott;
+    if (!helper.isNullOrWhiteSpace(fields)) {
+      queryParameters.fields = fields;
+    }
+    if (!helper.isNullOrWhiteSpace(options)) {
+      queryParameters.options = options;
+    }
+    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+      queryParameters.smsTemplate = smsTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+      queryParameters.verificationUrl = verificationUrl;
+    }
+    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+      queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
+    }
+
+    var resourcePath = 'identity/v2/auth/register';
+
+    return config.request('POST', resourcePath, queryParameters, authUserRegistrationModel);
   };
   return module;
 };
