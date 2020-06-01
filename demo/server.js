@@ -95,9 +95,10 @@ app.post('/ajax_handler/login', function (req, res) {
       var verificationUrl = 'http://localhost:3000/demo';
       var welcomeEmailTemplate = '';
       var fields = '';
+      var options = '';
 
       lrv2.helper.getSott(config).then(function (sott) {
-        lrv2.authenticationApi.userRegistrationByEmail(userprofileModel, sott, emailTemplate, fields, verificationUrl, welcomeEmailTemplate).then(function (response) {
+        lrv2.authenticationApi.userRegistrationByEmail(userprofileModel, sott, emailTemplate, fields, options, verificationUrl, welcomeEmailTemplate).then(function (response) {
           if ((response.EmailVerified)) {
             output.data = response;
             output.message = 'You have successfully registered.';
