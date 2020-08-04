@@ -2,7 +2,7 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-var request = require('request');
+var https = require('https');
 var path = require('path');
 
 module.exports = function (config = {}) {
@@ -24,7 +24,8 @@ module.exports = function (config = {}) {
       queryParameters.region = config.serverRegion;
     }
 
-    var headers = { 'content-type': 'application/json' };
+    var headers = { 'Content-Type': 'application/json' };
+
     if (queryParameters.sott) {
       Object.assign(headers, { 'X-LoginRadius-Sott': queryParameters.sott });
       delete queryParameters.sott;
@@ -40,12 +41,17 @@ module.exports = function (config = {}) {
     }
     var options = {
       method: type,
-      uri: ((resourcePath === 'ciam/appinfo') ? 'https://config.lrcontent.com' : config.apiDomain) + '/' + resourcePath + ((queryString) ? '?' + queryString : ''),
+      hostname: ((resourcePath === 'ciam/appinfo') ? 'config.lrcontent.com' : config.apiDomain),
+      path: '/' + resourcePath + ((queryString) ? '?' + queryString : ''),
       headers: headers
     };
 
     if (formData !== '' && formData !== null) {
-      options.body = JSON.stringify(formData);
+      var out_text = JSON.stringify(formData);
+      Object.assign(
+        headers,
+        { 'Content-Length': out_text.length }
+      );
     }
 
     if (config.proxy && config.proxy.host && config.proxy.port) {
@@ -59,19 +65,19 @@ module.exports = function (config = {}) {
 
     if (config.fieldsParam && config.fieldsValue) {
       var fieldsList;
-      if (options.uri.match(/\?./)) {
+      if (options.path.match(/\?./)) {
         fieldsList = config.fieldsParam +
           encodeURIComponent(config.fieldsValue);
       } else {
         fieldsList = '?fields=' + encodeURIComponent(config.fieldsValue);
       }
-      options.uri += fieldsList;
+      options.path += fieldsList;
     }
 
     if (isApiSecret) {
       if (config.apiRequestSigning) {
-        if (!options.uri.match('apiKey')) {
-          options.uri += '&apiKey=' + encodeURIComponent(config.apiKey);
+        if (!options.path.match('apiKey')) {
+          options.path += '&apiKey=' + encodeURIComponent(config.apiKey);
         }
         var signingHeader = helper.generateSigningHeader(options, config.apiSecret);
 
@@ -81,22 +87,34 @@ module.exports = function (config = {}) {
       }
     }
     return new Promise(function (resolve, reject) {
-      request(options, (error, response, body) => {
-        if (error) {
-          helper.manageRequestResponse('serverError', error, resolve, reject);
-        } else {
+
+      const req = https.request(options, (resp) => {
+        var data = '';
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        resp.on('end', () => {
           try {
-            response = JSON.parse(body);
+            var response = JSON.parse(data);
             helper.manageRequestResponse('', response, resolve, reject);
           } catch (err) {
             helper.manageRequestResponse('serverError', '', resolve, reject);
           }
-        }
+        });
+      }).on('error', (error) => {
+        helper.manageRequestResponse('serverError', error, resolve, reject);
       });
+
+      if (out_text) {
+        req.write(out_text);
+      }
+
+      req.end();
     });
   };
 
-  config.apiDomain = ((config.apiDomain) && (config.apiDomain !== '')) ? config.apiDomain : 'https://api.loginradius.com';
+  config.apiDomain = ((config.apiDomain) && (config.apiDomain !== '')) ? config.apiDomain : 'api.loginradius.com';
   return {
     helper,
     accountApi: require(path.join(__dirname, '..', 'api', 'account', 'accountApi'))(config),

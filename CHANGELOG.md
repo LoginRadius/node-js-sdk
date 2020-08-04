@@ -1,6 +1,30 @@
 
 > **LoginRadius Node JS SDK Change Log** provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
 
+# Version 11.0.0
+Release on Aug 04, 2020
+
+## Enhancements
+
+ - Added a parameter isWeb in "RefreshAccessToken" API.
+ - Changed the dependency of request package to https package 
+ - Added a parameter SocialAppName in "getAccessTokenByFacebookAccessToken,  getAccessTokenByTwitterAccessToken,
+   getAccessTokenByGoogleAccessToken, getAccessTokenByLinkedinAccessToken, getAccessTokenByAppleIdCode, getAccessTokenByGoogleAuthCode"  native Social login APIs.
+
+
+## Added new multiple APIs for better user experience
+
+ - Added linkSocialIdentities(POST) API.
+ - Added linkSocialIdentitiesByPing(POST) API.
+ - Added getAccessTokenByAppleIdCode API.
+ - Added getAccessTokenByWeChatCode API.
+
+
+## Removed APIs:
+
+ - linkSocialIdentity API(PUT)
+ - getSocialIdentity API(GET)
+
 # Version 10.0.0
 Release on **September 30,2019**
 

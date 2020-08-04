@@ -7,7 +7,7 @@ module.exports = function (config) {
   var helper = require(config.HELPER_PATH);
 
   /**
-  * This API is used to login a user by pin and session_token.
+  * This API is used to login a user by pin and session token.
   * @param {loginByPINModel} Model Class containing Definition of payload for LoginByPin API
   * @param {sessionToken} Session Token of user
   * @return Response containing User Profile Data and access token

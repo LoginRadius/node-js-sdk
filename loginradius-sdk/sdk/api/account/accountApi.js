@@ -494,8 +494,8 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to refresh an access_token via it's associated refresh_token.
-  * @param {refreshToken} LoginRadius refresh_token
+  * This API is used to refresh an access token via it's associated refresh token.
+  * @param {refreshToken} LoginRadius refresh token
   * @return Response containing Definition of Complete Token data
   *18.31
   */
@@ -517,7 +517,7 @@ module.exports = function (config) {
 
   /**
   * The Revoke Refresh Access Token API is used to revoke a refresh token or the Provider Access Token, revoking an existing refresh token will invalidate the refresh token but the associated access token will work until the expiry.
-  * @param {refreshToken} LoginRadius refresh_token
+  * @param {refreshToken} LoginRadius refresh token
   * @return Response containing Definition of Delete Request
   *18.32
   */
