@@ -1044,7 +1044,6 @@ List of APIs in this Section:<br>
 * PUT : [Account Invalidate Verification Email](#InvalidateAccountEmailVerification-put-)<br>
 * PUT : [Reset phone ID verification](#ResetPhoneIDVerificationByUid-put-)<br>
 * PUT : [Upsert Email](#UpsertEmail-put-)<br>
-* PUT : [Update UID](#AccountUpdateUid-put-)<br>
 * POST : [Account Create](#CreateAccount-post-)<br>
 * POST : [Forgot Password token](#GetForgotPasswordToken-post-)<br>
 * POST : [Email Verification token](#GetEmailVerificationToken-post-)<br>
@@ -1209,32 +1208,7 @@ lrv2.accountApi.upsertEmail(upsertEmailModel, uid, fields).then((response) => {
  ```
  
   
-  
  
-<h6 id="AccountUpdateUid-put-"> Update UID (PUT)</h6>
- This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update/)
-
- 
- 
-
- ```
-
-
-var updateUidModel ={ 
-"newUid" : "<newUid>"
-};  //Required
-var uid = "<uid>"; //Required
-
-lrv2.accountApi.accountUpdateUid(updateUidModel, uid).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
  
 <h6 id="CreateAccount-post-"> Account Create (POST)</h6>
  This API is used to create an account in Cloud Storage. This API bypass the normal email verification process and manually creates the user. <br><br>In order to use this API, you need to format a JSON request body with all of the mandatory fields  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-create)
