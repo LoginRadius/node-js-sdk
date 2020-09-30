@@ -1,11 +1,11 @@
-# Node-js-sdk-v2
+# Node-js-sdk-v2 - 🧿
 
 Customer Identity public repo for Node.js V2 SDK, based on LoginRadius V2 APIs.
 
 ![Home Image](http://docs.lrcontent.com/resources/github/banner-1544x500.png)
 
 
-## Introduction ##
+## Introduction ## - 🏆
 
 LoginRadius Node.js Customer Registration wrapper provides access to LoginRadius Identity Management Platform API.
 
@@ -17,11 +17,11 @@ LoginRadius helps businesses boost user engagement on their web/mobile platform,
 
 Please visit [here](http://www.loginradius.com/) for more information.
 
-# Installing
+# Installing - 🌀
 
 	$ npm install loginradius-sdk
 
-## Documentation
+## Documentation - 📝
 -----
 
 >Disclaimer<br>
@@ -30,7 +30,7 @@ Please visit [here](http://www.loginradius.com/) for more information.
 LoginRadius Combined Node SDK features a combined SDK set to encompass Social Login, User Registration, and Custom Object.
 
 
-## Getting Started
+## Getting Started - 🎬
 This document contains information and examples regarding the LoginRadius Node.js SDK. It provides guidance for working with social authentication, user profile data, and sending messages with a variety of social networks such as Facebook, Google, Twitter, Yahoo, LinkedIn, and more. 
 You can get the SDK from [here](http://github.com/LoginRadius/node-js-sdk) 
 
@@ -65,7 +65,7 @@ Require the loginradius-sdk package and pass the config object
  ```
 
 
-  ### Authentication API
+  ### Authentication API - 📞
 
 
 List of APIs in this Section:<br>
@@ -1033,7 +1033,7 @@ lrv2.authenticationApi.unlinkSocialIdentities(accessToken, provider, providerId)
  
  
 
-### Account API
+### Account API - 📞
 
 
 List of APIs in this Section:<br>
@@ -1568,7 +1568,7 @@ lrv2.accountApi.accountDeleteByEmail(email).then((response) => {
  
  
 
-### Social API
+### Social API - 📞
 
 
 List of APIs in this Section:<br>
@@ -2366,7 +2366,7 @@ lrv2.socialApi.getVideos(accessToken, nextCursor).then((response) => {
  
  
 
-### CustomObject API
+### CustomObject API - 📞
 
 
 List of APIs in this Section:<br>
@@ -2622,7 +2622,7 @@ lrv2.customObjectApi.deleteCustomObjectByRecordID(objectName, objectRecordId, ui
  
  
 
-### PhoneAuthentication API
+### PhoneAuthentication API - 📞
 
 
 List of APIs in this Section:<br>
@@ -2909,7 +2909,7 @@ lrv2.phoneAuthenticationApi.removePhoneIDByAccessToken(accessToken).then((respon
  
  
 
-### MultiFactorAuthentication API
+### MultiFactorAuthentication API - 📞
 
 
 List of APIs in this Section:<br>
@@ -3415,7 +3415,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthenticatorByUid(googleauthent
  
  
 
-### PINAuthentication API
+### PINAuthentication API - 📞
 
 
 List of APIs in this Section:<br>
@@ -3794,7 +3794,7 @@ lrv2.pinAuthenticationApi.inValidatePinSessionToken(sessionToken).then((response
  
  
 
-### ReAuthentication API
+### ReAuthentication API - 📞
 
 
 List of APIs in this Section:<br>
@@ -4037,7 +4037,7 @@ lrv2.reAuthenticationApi.mfaReAuthenticate(accessToken, smsTemplate2FA).then((re
  
  
 
-### ConsentManagement API
+### ConsentManagement API - 📞
 
 
 List of APIs in this Section:<br>
@@ -4210,7 +4210,7 @@ lrv2.consentManagementApi.verifyConsentByAccessToken(accessToken, event, isCusto
  
  
 
-### SmartLogin API
+### SmartLogin API - 📞
 
 
 List of APIs in this Section:<br>
@@ -4318,7 +4318,7 @@ lrv2.smartLoginApi.smartLoginPing(clientGuid, fields).then((response) => {
  
  
 
-### OneTouchLogin API
+### OneTouchLogin API - 📞
 
 
 List of APIs in this Section:<br>
@@ -4456,7 +4456,7 @@ lrv2.oneTouchLoginApi.oneTouchLoginPing(clientGuid, fields).then((response) => {
  
  
 
-### PasswordLessLogin API
+### PasswordLessLogin API - 📞
 
 
 List of APIs in this Section:<br>
@@ -4589,7 +4589,7 @@ lrv2.passwordLessLoginApi.passwordlessLoginVerification(verificationToken, field
  
  
 
-### Configuration API
+### Configuration API - 📞
 
 
 List of APIs in this Section:<br>
@@ -4628,7 +4628,7 @@ lrv2.configurationApi.getServerInfo(timeDifference).then((response) => {
  
  
 
-### Role API
+### Role API - 📞
 
 
 List of APIs in this Section:<br>
@@ -4987,7 +4987,7 @@ lrv2.roleApi.removeRolePermissions(permissionsModel, role).then((response) => {
  
  
 
-### CustomRegistrationData API
+### CustomRegistrationData API - 📞
 
 
 List of APIs in this Section:<br>
@@ -5175,7 +5175,7 @@ lrv2.customRegistrationDataApi.deleteAllRecordsByDataSource(type).then((response
  
  
 
-### RiskBasedAuthentication API
+### RiskBasedAuthentication API - 📞
 
 
 List of APIs in this Section:<br>
@@ -5346,7 +5346,7 @@ lrv2.sottApi.generateSott(timeDifference).then((response) => {
  
  
 
-### NativeSocial API
+### NativeSocial API - 📞
 
 
 List of APIs in this Section:<br>
@@ -5585,7 +5585,7 @@ lrv2.nativeSocialApi.getAccessTokenByGoogleAuthCode(googleAuthcode, socialAppNam
  
  
 
-### WebHook API
+### WebHook API - 📞
 
 
 List of APIs in this Section:<br>
@@ -5691,7 +5691,7 @@ lrv2.webHookApi.webHookUnsubscribe(webHookSubscribeModel).then((response) => {
  
 
 
-### Demo <br/>
+### Demo <br/> - ❤️
 We have a demo web application using the Node SDK, which includes the following features:
 * Traditional email login
 * Multi-Factor login
@@ -5712,7 +5712,7 @@ We have a demo web application using the Node SDK, which includes the following 
 You can get a copy of our demo project at [Github](http://github.com/LoginRadius/node-js-sdk) .
 
 
-### Demo Configuration
+### Demo Configuration - 🎁
 Terminal/Command Line:
 
 1. Install Node.Js here . Ensure `npm --version` and `node --version` runs properly
