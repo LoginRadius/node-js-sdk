@@ -108,14 +108,16 @@ var getQueryString = function (string) {
  * @return header object
  */
 var generateSigningHeader = function (options, apiSecret) {
+  var padTen = function (number) {
+    return number.toString().padStart(2, '0')
+  }
   var SIXTY = 60;
   var SIXTYTHOUSAND = 60000;
-  var TEN = 10;
   var expiryDate = new Date();
   expiryDate = new Date(expiryDate.getTime() + SIXTY * SIXTYTHOUSAND);
   var month = expiryDate.getMonth() + 1;
 
-  expiryDate = `${expiryDate.getFullYear()}-${(month < TEN ? '0' + month : month)}-${(expiryDate.getDate() < TEN ? '0' + expiryDate.getDate() : expiryDate.getDate())} ${(expiryDate.getHours() < TEN ? '0' + expiryDate.getHours() : expiryDate.getHours())}:${(expiryDate.getMinutes() < TEN ? '0' + expiryDate.getMinutes() : expiryDate.getMinutes())}:${(expiryDate.getSeconds() < TEN ? '0' + expiryDate.getSeconds() : expiryDate.getSeconds())}`;
+  expiryDate = `${expiryDate.getFullYear()}-${padTen(month)}-${padTen(expiryDate.getDate())} ${padTen(expiryDate.getHours())}:${padTen(expiryDate.getMinutes())}:${padTen(expiryDate.getSeconds())}`;
 
   var encodeUrl = encodeURIComponent(decodeURIComponent(options.uri)).toLowerCase();
 
