@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = function (secret, key, startDate, endDate) {
+  var padTen = function (number) {
+    return number.toString().padStart(2, '0')
+  }
   var crypto = require('crypto');
 
   return new Promise(
@@ -9,10 +12,10 @@ module.exports = function (secret, key, startDate, endDate) {
       if (!startDate) {
         var date = new Date();
         var nextMonth = date.getUTCMonth() + 1;
-        tempToken = date.getUTCFullYear() + '/' + nextMonth + '/' + date.getUTCDate() + ' ' + date.getUTCHours() + ':' + (date.getUTCMinutes() < 10 ? '0' + date.getUTCMinutes() : date.getUTCMinutes()) + ':' + (date.getUTCSeconds() < 10 ? '0' + date.getUTCSeconds() : date.getUTCSeconds()) + '#' + key + '#';
+        tempToken = `${date.getUTCFullYear()}/${nextMonth}/${date.getUTCDate()} ${date.getUTCHours()}:${padTen(date.getUTCMinutes())}:${padTen(date.getUTCSeconds())}#${key}#`;
         date.setUTCMinutes(date.getUTCMinutes() + 10);
 
-        tempToken += date.getUTCFullYear() + '/' + nextMonth + '/' + date.getUTCDate() + ' ' + date.getUTCHours() + ':' + (date.getUTCMinutes() < 10 ? '0' + date.getUTCMinutes() : date.getUTCMinutes()) + ':' + (date.getUTCSeconds() < 10 ? '0' + date.getUTCSeconds() : date.getUTCSeconds());
+        tempToken += `${date.getUTCFullYear()}/${nextMonth}/${date.getUTCDate()} ${date.getUTCHours()}:${padTen(date.getUTCMinutes())}:${padTen(date.getUTCSeconds())}`;
       } else {
         tempToken = `${startDate}#${key}#${endDate}`;
       }
@@ -20,7 +23,7 @@ module.exports = function (secret, key, startDate, endDate) {
     }
   );
 
-  function encrypt (plainText, resolve, reject) {
+  function encrypt(plainText, resolve, reject) {
     var initVector = 'tu89geji340t89u2';
     var keySize = 256;
     var iterations = 10000;
@@ -35,7 +38,7 @@ module.exports = function (secret, key, startDate, endDate) {
 
       var hash = crypto.createHash('md5');
       hash.update(cryptedText, 'ascii');
-      resolve(cryptedText + '*' + (hash.digest()).toString('hex'));
+      resolve(`${cryptedText}*${(hash.digest()).toString('hex')}`);
     });
   }
 };
