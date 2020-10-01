@@ -35,14 +35,14 @@ module.exports = function (config = {}) {
     if (queryParameters.access_token) {
       Object.assign(
         headers,
-        { 'authorization': 'Bearer ' + queryParameters.access_token }
+        { 'authorization': `Bearer ${queryParameters.access_token}` }
       );
       delete queryParameters.access_token;
     }
     var options = {
       method: type,
       hostname: ((resourcePath === 'ciam/appinfo') ? 'config.lrcontent.com' : config.apiDomain),
-      path: '/' + resourcePath + ((queryString) ? '?' + queryString : ''),
+      path: `/${resourcePath}${((queryString) ? '?' + queryString : '')}`,
       headers: headers
     };
 
@@ -55,7 +55,7 @@ module.exports = function (config = {}) {
     }
 
     if (config.proxy && config.proxy.host && config.proxy.port) {
-      options.proxy = (config.proxy.protocol ? config.proxy.protocol : 'http') + '://' + config.proxy.user + ':' + config.proxy.password + '@' + config.proxy.host + ':' + config.proxy.port;
+      options.proxy = `${(config.proxy.protocol ? config.proxy.protocol : 'http')}://${config.proxy.user}:${config.proxy.password}@${config.proxy.host}:${config.proxy.port}`;
     }
 
     var customHeader = {
@@ -77,7 +77,7 @@ module.exports = function (config = {}) {
     if (isApiSecret) {
       if (config.apiRequestSigning) {
         if (!options.path.match('apiKey')) {
-          options.path += '&apiKey=' + encodeURIComponent(config.apiKey);
+          options.path += `&apiKey=${encodeURIComponent(config.apiKey)}`;
         }
         var signingHeader = helper.generateSigningHeader(options, config.apiSecret);
 

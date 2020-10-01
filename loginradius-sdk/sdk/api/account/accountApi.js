@@ -22,7 +22,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/privacypolicy/history';
+    var resourcePath = `identity/v2/manage/account/${uid}/privacypolicy/history`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -217,7 +217,7 @@ module.exports = function (config) {
     var bodyParameters = {};
     bodyParameters.phone = phone;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/phoneid';
+    var resourcePath = `identity/v2/manage/account/${uid}/phoneid`;
 
     return config.request('PUT', resourcePath, queryParameters, bodyParameters);
   };
@@ -238,7 +238,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/password';
+    var resourcePath = `identity/v2/manage/account/${uid}/password`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -266,7 +266,7 @@ module.exports = function (config) {
     var bodyParameters = {};
     bodyParameters.password = password;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/password';
+    var resourcePath = `identity/v2/manage/account/${uid}/password`;
 
     return config.request('PUT', resourcePath, queryParameters, bodyParameters);
   };
@@ -317,7 +317,7 @@ module.exports = function (config) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/invalidateemail';
+    var resourcePath = `identity/v2/manage/account/${uid}/invalidateemail`;
 
     return config.request('PUT', resourcePath, queryParameters, null);
   };
@@ -425,7 +425,7 @@ module.exports = function (config) {
       queryParameters.smsTemplate = smsTemplate;
     }
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/invalidatephone';
+    var resourcePath = `identity/v2/manage/account/${uid}/invalidatephone`;
 
     return config.request('PUT', resourcePath, queryParameters, null);
   };
@@ -455,7 +455,7 @@ module.exports = function (config) {
       queryParameters.fields = fields;
     }
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/email';
+    var resourcePath = `identity/v2/manage/account/${uid}/email`;
 
     return config.request('PUT', resourcePath, queryParameters, upsertEmailModel);
   };
@@ -488,7 +488,7 @@ module.exports = function (config) {
     var bodyParameters = {};
     bodyParameters.email = email;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/email';
+    var resourcePath = `identity/v2/manage/account/${uid}/email`;
 
     return config.request('DELETE', resourcePath, queryParameters, bodyParameters);
   };

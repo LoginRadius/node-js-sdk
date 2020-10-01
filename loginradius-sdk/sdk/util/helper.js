@@ -73,7 +73,7 @@ var getSott = function (config, startDate, endDate) {
  * @return jsondata as json error object
  */
 var getValidationMessage = function (type) {
-  jsondata.Description = 'The API Request Paramter ' + type + ' is not Correct or WellFormated';
+  jsondata.Description = `The API Request Paramter ${type} is not Correct or WellFormated`;
   return jsondata;
 };
 
@@ -115,15 +115,15 @@ var generateSigningHeader = function (options, apiSecret) {
   expiryDate = new Date(expiryDate.getTime() + SIXTY * SIXTYTHOUSAND);
   var month = expiryDate.getMonth() + 1;
 
-  expiryDate = expiryDate.getFullYear() + '-' + (month < TEN ? '0' + month : month) + '-' + (expiryDate.getDate() < TEN ? '0' + expiryDate.getDate() : expiryDate.getDate()) + ' ' + (expiryDate.getHours() < TEN ? '0' + expiryDate.getHours() : expiryDate.getHours()) + ':' + (expiryDate.getMinutes() < TEN ? '0' + expiryDate.getMinutes() : expiryDate.getMinutes()) + ':' + (expiryDate.getSeconds() < TEN ? '0' + expiryDate.getSeconds() : expiryDate.getSeconds());
+  expiryDate = `${expiryDate.getFullYear()}-${(month < TEN ? '0' + month : month)}-${(expiryDate.getDate() < TEN ? '0' + expiryDate.getDate() : expiryDate.getDate())} ${(expiryDate.getHours() < TEN ? '0' + expiryDate.getHours() : expiryDate.getHours())}:${(expiryDate.getMinutes() < TEN ? '0' + expiryDate.getMinutes() : expiryDate.getMinutes())}:${(expiryDate.getSeconds() < TEN ? '0' + expiryDate.getSeconds() : expiryDate.getSeconds())}`;
 
   var encodeUrl = encodeURIComponent(decodeURIComponent(options.uri)).toLowerCase();
 
   var urlString;
   if (options.body) {
-    urlString = expiryDate + ':' + encodeUrl + ':' + options.body;
+    urlString = `${expiryDate}:${encodeUrl}:${options.body}`;
   } else {
-    urlString = expiryDate + ':' + encodeUrl;
+    urlString = `${expiryDate}:${encodeUrl}`;
   }
   var hash = crypto.createHmac('sha256', apiSecret)
     .update(urlString)
@@ -131,7 +131,7 @@ var generateSigningHeader = function (options, apiSecret) {
 
   return {
     'X-Request-Expires': expiryDate,
-    'digest': 'SHA-256=' + hash
+    'digest': `SHA-256=${hash}`
   };
 };
 

@@ -22,7 +22,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/consent/logs';
+    var resourcePath = `identity/v2/manage/account/${uid}/consent/logs`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };

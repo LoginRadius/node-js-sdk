@@ -22,7 +22,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/role';
+    var resourcePath = `identity/v2/manage/account/${uid}/role`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -47,7 +47,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/role';
+    var resourcePath = `identity/v2/manage/account/${uid}/role`;
 
     return config.request('PUT', resourcePath, queryParameters, accountRolesModel);
   };
@@ -72,7 +72,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/role';
+    var resourcePath = `identity/v2/manage/account/${uid}/role`;
 
     return config.request('DELETE', resourcePath, queryParameters, accountRolesModel);
   };
@@ -93,7 +93,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/rolecontext';
+    var resourcePath = `identity/v2/manage/account/${uid}/rolecontext`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -139,7 +139,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/rolecontext';
+    var resourcePath = `identity/v2/manage/account/${uid}/rolecontext`;
 
     return config.request('PUT', resourcePath, queryParameters, accountRoleContextModel);
   };
@@ -164,7 +164,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/rolecontext/' + contextName;
+    var resourcePath = `identity/v2/manage/account/${uid}/rolecontext/${contextName}`;
 
     return config.request('DELETE', resourcePath, queryParameters, null);
   };
@@ -194,7 +194,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/rolecontext/' + contextName + '/role';
+    var resourcePath = `identity/v2/manage/account/${uid}/rolecontext/${contextName}/role`;
 
     return config.request('DELETE', resourcePath, queryParameters, roleContextRemoveRoleModel);
   };
@@ -224,7 +224,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/rolecontext/' + contextName + '/additionalpermission';
+    var resourcePath = `identity/v2/manage/account/${uid}/rolecontext/${contextName}/additionalpermission`;
 
     return config.request('DELETE', resourcePath, queryParameters, roleContextAdditionalPermissionRemoveRoleModel);
   };
@@ -308,7 +308,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/role/' + role + '/permission';
+    var resourcePath = `identity/v2/manage/role/${role}/permission`;
 
     return config.request('PUT', resourcePath, queryParameters, permissionsModel);
   };
@@ -333,7 +333,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/role/' + role + '/permission';
+    var resourcePath = `identity/v2/manage/role/${role}/permission`;
 
     return config.request('DELETE', resourcePath, queryParameters, permissionsModel);
   };

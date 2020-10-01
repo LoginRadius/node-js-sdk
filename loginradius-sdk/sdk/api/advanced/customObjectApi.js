@@ -190,7 +190,7 @@ module.exports = function (config) {
     queryParameters.apiSecret = config.apiSecret;
     queryParameters.objectName = objectName;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject';
+    var resourcePath = `identity/v2/manage/account/${uid}/customobject`;
 
     return config.request('POST', resourcePath, queryParameters, payload);
   };
@@ -229,7 +229,7 @@ module.exports = function (config) {
       queryParameters.updateType = updateType;
     }
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
+    var resourcePath = `identity/v2/manage/account/${uid}/customobject/${objectRecordId}`;
 
     return config.request('PUT', resourcePath, queryParameters, payload);
   };
@@ -255,7 +255,7 @@ module.exports = function (config) {
     queryParameters.apiSecret = config.apiSecret;
     queryParameters.objectName = objectName;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject';
+    var resourcePath = `identity/v2/manage/account/${uid}/customobject`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -286,7 +286,7 @@ module.exports = function (config) {
     queryParameters.apiSecret = config.apiSecret;
     queryParameters.objectName = objectName;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
+    var resourcePath = `identity/v2/manage/account/${uid}/customobject/${objectRecordId}`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -317,7 +317,7 @@ module.exports = function (config) {
     queryParameters.apiSecret = config.apiSecret;
     queryParameters.objectName = objectName;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
+    var resourcePath = `identity/v2/manage/account/${uid}/customobject/${objectRecordId}`;
 
     return config.request('DELETE', resourcePath, queryParameters, null);
   };

@@ -161,7 +161,7 @@ function handleMFALogin() {
                     var qrHtml = '';
                     var qrCode = res.data.SecondFactorAuthentication.QRCode;
                     if (!res.data.SecondFactorAuthentication.IsGoogleAuthenticatorVerified) {
-                        qrHtml = '<img src=' + qrCode + '><br/>';
+                        qrHtml = `<img src=${qrCode}><br/>`;
                     } else {
                         qrHtml = '';
                     }

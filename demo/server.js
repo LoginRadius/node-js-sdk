@@ -571,4 +571,4 @@ app.post('/ajax_handler/profile', function (req, res) {
     });
   }
 });
-app.listen(PORT, () => console.log('Demo app can be accessed at localhost:' + PORT + '/demo'));
+app.listen(PORT, () => console.log(`Demo app can be accessed at localhost:${PORT}/demo`));

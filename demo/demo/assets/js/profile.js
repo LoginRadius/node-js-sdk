@@ -173,7 +173,7 @@ function getCustomObjects() {
                     for (var i = 0; i < res.result.data.length; i++) {
                         var id = res.result.data[i].Id;
                         var custobj = res.result.data[i].CustomObject;
-                        $('#customobj-table').append('<tr><td>' + id + '</td><td>' + JSON.stringify(custobj) + '</td></tr>');
+                        $('#customobj-table').append(`<tr><td>${id}</td><td>${JSON.stringify(custobj)}</td></tr>`);
                     }
                 }
             },
@@ -443,7 +443,7 @@ function getAllRoles() {
                     return;
                 for (var i = 0; i < res.result.data.length; i++) {
                     var name = res.result.data[i].Name;
-                    $('#table-allroles').append('<tr><td>' + name + '</td></tr>');
+                    $('#table-allroles').append(`<tr><td>${name}</td></tr>`);
                 }
             } else if (res.status == 'rolesempty') {
                 $('#table-allroles').html('');
@@ -475,7 +475,7 @@ function getUserRoles() {
                     return;
                 for (var i = 0; i < res.data.Roles.length; i++) {
                     var name = res.data.Roles[i];
-                    $('#table-userroles').append('<tr><td>' + name + '</td></tr>');
+                    $('#table-userroles').append(`<tr><td>${name}</td></tr>`);
                 }
             } else if (res.status == 'userrolesempty') {
                 $('#table-userroles').html('');

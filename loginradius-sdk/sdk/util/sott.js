@@ -14,7 +14,7 @@ module.exports = function (secret, key, startDate, endDate) {
 
         tempToken += date.getUTCFullYear() + '/' + nextMonth + '/' + date.getUTCDate() + ' ' + date.getUTCHours() + ':' + (date.getUTCMinutes() < 10 ? '0' + date.getUTCMinutes() : date.getUTCMinutes()) + ':' + (date.getUTCSeconds() < 10 ? '0' + date.getUTCSeconds() : date.getUTCSeconds());
       } else {
-        tempToken = startDate + '#' + key + '#' + endDate;
+        tempToken = `${startDate}#${key}#${endDate}`;
       }
       encrypt(tempToken, resolve, reject);
     }

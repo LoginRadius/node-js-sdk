@@ -156,7 +156,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/reauth/2fa';
+    var resourcePath = `identity/v2/manage/account/${uid}/reauth/2fa`;
 
     return config.request('POST', resourcePath, queryParameters, eventBasedMultiFactorToken);
   };
@@ -181,7 +181,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/reauth/password';
+    var resourcePath = `identity/v2/manage/account/${uid}/reauth/password`;
 
     return config.request('POST', resourcePath, queryParameters, eventBasedMultiFactorToken);
   };
@@ -206,7 +206,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/reauth/pin';
+    var resourcePath = `identity/v2/manage/account/${uid}/reauth/pin`;
 
     return config.request('POST', resourcePath, queryParameters, eventBasedMultiFactorToken);
   };
