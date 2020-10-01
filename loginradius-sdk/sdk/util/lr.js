@@ -69,7 +69,7 @@ module.exports = function (config = {}) {
         fieldsList = config.fieldsParam +
           encodeURIComponent(config.fieldsValue);
       } else {
-        fieldsList = '?fields=' + encodeURIComponent(config.fieldsValue);
+        fieldsList = `?fields=${encodeURIComponent(config.fieldsValue)}`;
       }
       options.path += fieldsList;
     }

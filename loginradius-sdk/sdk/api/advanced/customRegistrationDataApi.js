@@ -34,7 +34,7 @@ module.exports = function (config) {
       queryParameters.skip = skip;
     }
 
-    var resourcePath = 'identity/v2/auth/registrationdata/' + type;
+    var resourcePath = `identity/v2/auth/registrationdata/${type}`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -96,7 +96,7 @@ module.exports = function (config) {
       queryParameters.skip = skip;
     }
 
-    var resourcePath = 'identity/v2/manage/registrationdata/' + type;
+    var resourcePath = `identity/v2/manage/registrationdata/${type}`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -142,7 +142,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/registrationdata/' + recordId;
+    var resourcePath = `identity/v2/manage/registrationdata/${recordId}`;
 
     return config.request('PUT', resourcePath, queryParameters, registrationDataUpdateModel);
   };
@@ -163,7 +163,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/registrationdata/' + recordId;
+    var resourcePath = `identity/v2/manage/registrationdata/${recordId}`;
 
     return config.request('DELETE', resourcePath, queryParameters, null);
   };
@@ -184,7 +184,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/registrationdata/type/' + type;
+    var resourcePath = `identity/v2/manage/registrationdata/type/${type}`;
 
     return config.request('DELETE', resourcePath, queryParameters, null);
   };

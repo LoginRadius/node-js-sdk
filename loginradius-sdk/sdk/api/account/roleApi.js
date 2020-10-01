@@ -114,7 +114,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/rolecontext/' + contextName;
+    var resourcePath = `identity/v2/manage/account/rolecontext/${contextName}`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -283,7 +283,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/role/' + role;
+    var resourcePath = `identity/v2/manage/role/${role}`;
 
     return config.request('DELETE', resourcePath, queryParameters, null);
   };

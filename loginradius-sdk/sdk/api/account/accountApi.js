@@ -150,7 +150,7 @@ module.exports = function (config) {
       queryParameters.fields = fields;
     }
 
-    var resourcePath = 'identity/v2/manage/account/' + uid;
+    var resourcePath = `identity/v2/manage/account/${uid}`;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
@@ -184,7 +184,7 @@ module.exports = function (config) {
       queryParameters.nullSupport = nullSupport;
     }
 
-    var resourcePath = 'identity/v2/manage/account/' + uid;
+    var resourcePath = `identity/v2/manage/account/${uid}`;
 
     return config.request('PUT', resourcePath, queryParameters, accountUserProfileUpdateModel);
   };
@@ -287,7 +287,7 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     queryParameters.apiSecret = config.apiSecret;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid;
+    var resourcePath = `identity/v2/manage/account/${uid}`;
 
     return config.request('DELETE', resourcePath, queryParameters, null);
   };
