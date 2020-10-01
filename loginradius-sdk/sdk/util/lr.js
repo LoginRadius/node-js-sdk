@@ -7,7 +7,7 @@ var path = require('path');
 
 module.exports = function (config = {}) {
   if (config.apiKey === undefined || config.apiSecret === undefined) {
-    console.error('Please set apiKey API & apiSecret');
+    console.error('Please set apiKey & apiSecret');
     return;
   }
   config.HELPER_PATH = path.join(__dirname, 'helper.js');

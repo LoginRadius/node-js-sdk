@@ -3,7 +3,6 @@ var config = {
   apiDomain: 'api.loginradius.com',
   apiKey: '',
   apiSecret: '',
-  siteName: '',
   serverRegion: '',
   apiRequestSigning: false,
   proxy: {
@@ -571,4 +570,4 @@ app.post('/ajax_handler/profile', function (req, res) {
     });
   }
 });
-app.listen(PORT, () => console.log('Demo app can be accessed at localhost:' + PORT + '/demo'));
+app.listen(PORT, () => console.log('Demo app can be accessed at http://localhost:' + PORT + '/demo/'));

@@ -45,7 +45,6 @@ Create `var config` in project
       apiDomain: 'api.loginradius.com',
       apiKey: '{{ Your API KEY }}',
       apiSecret: '{{ Your API Secret }}',
-      siteName: '{{ Your Sitename }}',
 	  apiRequestSigning: false,
       proxy:{
         host:'',

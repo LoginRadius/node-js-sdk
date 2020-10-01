@@ -6,6 +6,10 @@ module.exports = function (config) {
   var module = {};
   var helper = require(config.HELPER_PATH);
 
+  var queryParameters = {};
+
+  queryParameters.apiKey = config.apiKey;
+
   /**
   * This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.
   * @param {email} Email of the user
@@ -17,9 +21,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(email)) {
       return Promise.reject(helper.getValidationMessage('email'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.email = email;
 
     var resourcePath = 'identity/v2/auth/securityquestion/email';
@@ -38,9 +40,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(userName)) {
       return Promise.reject(helper.getValidationMessage('userName'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.userName = userName;
 
     var resourcePath = 'identity/v2/auth/securityquestion/username';
@@ -59,9 +59,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(phone)) {
       return Promise.reject(helper.getValidationMessage('phone'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.phone = phone;
 
     var resourcePath = 'identity/v2/auth/securityquestion/phone';
@@ -80,10 +78,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/securityquestion/accesstoken';
 
@@ -101,10 +97,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/access_token/validate';
 
@@ -123,10 +117,9 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+
     if (preventRefresh !== null) {
       queryParameters.preventRefresh = preventRefresh;
     }
@@ -147,10 +140,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/access_token';
 
@@ -169,10 +160,9 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+
     if (!helper.isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
@@ -194,10 +184,9 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+
     if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
@@ -228,10 +217,9 @@ module.exports = function (config) {
     if (helper.checkJson(userProfileUpdateModel)) {
       return Promise.reject(helper.getValidationMessage('userProfileUpdateModel'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
@@ -267,10 +255,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(deleteUrl)) {
       queryParameters.deleteUrl = deleteUrl;
     }
@@ -294,9 +280,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(deletetoken)) {
       return Promise.reject(helper.getValidationMessage('deletetoken'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.deletetoken = deletetoken;
 
     var resourcePath = 'identity/v2/auth/account/delete';
@@ -319,10 +303,8 @@ module.exports = function (config) {
     if (helper.checkJson(unlockProfileModel)) {
       return Promise.reject(helper.getValidationMessage('unlockProfileModel'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/account/unlock';
 
@@ -340,9 +322,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(email)) {
       return Promise.reject(helper.getValidationMessage('email'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.email = email;
 
     var resourcePath = 'identity/v2/auth/email';
@@ -365,9 +345,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(verificationToken)) {
       return Promise.reject(helper.getValidationMessage('verificationToken'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.verificationToken = verificationToken;
     if (!helper.isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
@@ -399,9 +377,7 @@ module.exports = function (config) {
     if (helper.checkJson(emailVerificationByOtpModel)) {
       return Promise.reject(helper.getValidationMessage('emailVerificationByOtpModel'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
@@ -439,10 +415,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(type)) {
       return Promise.reject(helper.getValidationMessage('type'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
@@ -474,10 +448,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(email)) {
       return Promise.reject(helper.getValidationMessage('email'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var bodyParameters = {};
     bodyParameters.email = email;
@@ -503,9 +475,7 @@ module.exports = function (config) {
     if (helper.checkJson(emailAuthenticationModel)) {
       return Promise.reject(helper.getValidationMessage('emailAuthenticationModel'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
@@ -540,9 +510,7 @@ module.exports = function (config) {
     if (helper.checkJson(userNameAuthenticationModel)) {
       return Promise.reject(helper.getValidationMessage('userNameAuthenticationModel'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
@@ -578,9 +546,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(resetPasswordUrl)) {
       return Promise.reject(helper.getValidationMessage('resetPasswordUrl'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.resetPasswordUrl = resetPasswordUrl;
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
@@ -605,9 +571,7 @@ module.exports = function (config) {
     if (helper.checkJson(resetPasswordBySecurityAnswerAndEmailModel)) {
       return Promise.reject(helper.getValidationMessage('resetPasswordBySecurityAnswerAndEmailModel'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/securityanswer';
 
@@ -625,9 +589,7 @@ module.exports = function (config) {
     if (helper.checkJson(resetPasswordBySecurityAnswerAndPhoneModel)) {
       return Promise.reject(helper.getValidationMessage('resetPasswordBySecurityAnswerAndPhoneModel'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/securityanswer';
 
@@ -645,9 +607,6 @@ module.exports = function (config) {
     if (helper.checkJson(resetPasswordBySecurityAnswerAndUserNameModel)) {
       return Promise.reject(helper.getValidationMessage('resetPasswordBySecurityAnswerAndUserNameModel'));
     }
-    var queryParameters = {};
-
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/securityanswer';
 
@@ -665,9 +624,7 @@ module.exports = function (config) {
     if (helper.checkJson(resetPasswordByResetTokenModel)) {
       return Promise.reject(helper.getValidationMessage('resetPasswordByResetTokenModel'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/reset';
 
@@ -685,9 +642,6 @@ module.exports = function (config) {
     if (helper.checkJson(resetPasswordByEmailAndOtpModel)) {
       return Promise.reject(helper.getValidationMessage('resetPasswordByEmailAndOtpModel'));
     }
-    var queryParameters = {};
-
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/reset';
 
@@ -705,9 +659,6 @@ module.exports = function (config) {
     if (helper.checkJson(resetPasswordByUserNameModel)) {
       return Promise.reject(helper.getValidationMessage('resetPasswordByUserNameModel'));
     }
-    var queryParameters = {};
-
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/reset';
 
@@ -734,10 +685,9 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(oldPassword)) {
       return Promise.reject(helper.getValidationMessage('oldPassword'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+
 
     var bodyParameters = {};
     bodyParameters.newPassword = newPassword;
@@ -768,10 +718,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(providerId)) {
       return Promise.reject(helper.getValidationMessage('providerId'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var bodyParameters = {};
     bodyParameters.provider = provider;
@@ -797,10 +745,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(candidateToken)) {
       return Promise.reject(helper.getValidationMessage('candidateToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var bodyParameters = {};
     bodyParameters.candidateToken = candidateToken;
@@ -825,10 +771,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(clientGuid)) {
       return Promise.reject(helper.getValidationMessage('clientGuid'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var bodyParameters = {};
     bodyParameters.clientGuid = clientGuid;
@@ -853,10 +797,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(username)) {
       return Promise.reject(helper.getValidationMessage('username'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var bodyParameters = {};
     bodyParameters.username = username;
@@ -877,9 +819,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(username)) {
       return Promise.reject(helper.getValidationMessage('username'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.username = username;
 
     var resourcePath = 'identity/v2/auth/username';
@@ -899,10 +839,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
@@ -923,10 +861,8 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
 
     var resourcePath = 'identity/v2/auth/privacypolicy/history';
 
@@ -948,15 +884,14 @@ module.exports = function (config) {
 
   module.userRegistrationByEmail = function (authUserRegistrationModel, sott,
     emailTemplate, fields, options, verificationUrl, welcomeEmailTemplate) {
+      
     if (helper.checkJson(authUserRegistrationModel)) {
       return Promise.reject(helper.getValidationMessage('authUserRegistrationModel'));
     }
     if (helper.isNullOrWhiteSpace(sott)) {
       return Promise.reject(helper.getValidationMessage('sott'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     queryParameters.sott = sott;
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
@@ -997,9 +932,7 @@ module.exports = function (config) {
     if (helper.checkJson(authUserRegistrationModelWithCaptcha)) {
       return Promise.reject(helper.getValidationMessage('authUserRegistrationModelWithCaptcha'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
@@ -1038,9 +971,7 @@ module.exports = function (config) {
     if (helper.isNullOrWhiteSpace(email)) {
       return Promise.reject(helper.getValidationMessage('email'));
     }
-    var queryParameters = {};
 
-    queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
