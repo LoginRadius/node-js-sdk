@@ -1,6 +1,6 @@
 # Node-js-sdk-v2
 
-Customer Identity public repo for Node.js V2 SDK, based on LoginRadius V2 APIs.
+Customer Identity public repository for Node.js V2 SDK, based on LoginRadius V2 APIs.
 
 ![Home Image](http://docs.lrcontent.com/resources/github/banner-1544x500.png)
 
