@@ -1,6 +1,27 @@
 {
   "name": "nodeJsDemo",
   "version": "11.0.0-demo",
+  "description": "LoginRadius NodeJS SDK Demo",
+  "homepage": "https://www.loginradius.com",
+  "author": "LoginRadius",
+  "contributors": [
+    {
+      "name": "LoginRadius Team",
+      "email": "support@loginradius.com"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "developers-loginradius",
+      "email": "developers@loginradius.com"
+    }
+  ],
+	"license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoginRadius/node-js-sdk.git",
+    "author": "LoginRadius"
+  },
   "keywords": [
     "util",
     "functional",
@@ -8,8 +29,6 @@
     "client",
     "browser"
   ],
-  "description": "LoginRadius NodeJS SDK Demo",
-  "author": "LoginRadius",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
