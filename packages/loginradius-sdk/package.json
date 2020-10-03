@@ -1,15 +1,12 @@
 {
   "name": "loginradius-sdk",
-  "readme": "",
-  "scripts": {},
   "version": "11.0.0",
   "description": "A LoginRadius SDK for node.js",
   "homepage": "https://www.loginradius.com",
   "main": "./sdk/util/lr.js",
   "repository": {
     "type": "git",
-    "url": "",
-    "keywords": [],
+    "url": "git+https://github.com/LoginRadius/node-js-sdk.git",
     "author": "LoginRadius"
   },
   "contributors": [
