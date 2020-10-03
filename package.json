@@ -1,7 +1,13 @@
 {
   "name": "root",
   "private": true,
+	"dependencies": {},
+	"peerDependencies": {},
   "devDependencies": {
     "lerna": "^3.22.1"
-  }
+  },
+  "repository": {
+		"type": "git",
+		"url": "git+https://github.com/LoginRadius/node-js-sdk.git"
+	}
 }
