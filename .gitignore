@@ -16,8 +16,8 @@ prepros.cfg
 .DS_Store
 .idea/
 
-/demo/node_modules
-demo/node_modules
+node_modules/
+package-lock.json
 /nbproject/private/
 nbproject/project.properties
 nbproject/project.xml
