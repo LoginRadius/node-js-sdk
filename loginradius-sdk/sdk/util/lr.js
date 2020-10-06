@@ -33,29 +33,37 @@ module.exports = function (config = {}) {
     var queryString = helper.getQueryString(queryParameters);
 
     if (queryParameters.access_token) {
-      Object.assign(
-        headers,
-        { 'authorization': 'Bearer ' + queryParameters.access_token }
-      );
+      Object.assign(headers, {
+        authorization: 'Bearer ' + queryParameters.access_token
+      });
       delete queryParameters.access_token;
     }
     var options = {
       method: type,
-      hostname: ((resourcePath === 'ciam/appinfo') ? 'config.lrcontent.com' : config.apiDomain),
-      path: '/' + resourcePath + ((queryString) ? '?' + queryString : ''),
+      hostname:
+        resourcePath === 'ciam/appinfo'
+          ? 'config.lrcontent.com'
+          : config.apiDomain,
+      path: '/' + resourcePath + (queryString ? '?' + queryString : ''),
       headers: headers
     };
 
     if (formData !== '' && formData !== null) {
       var out_text = JSON.stringify(formData);
-      Object.assign(
-        headers,
-        { 'Content-Length': out_text.length }
-      );
+      Object.assign(headers, { 'Content-Length': out_text.length });
     }
 
     if (config.proxy && config.proxy.host && config.proxy.port) {
-      options.proxy = (config.proxy.protocol ? config.proxy.protocol : 'http') + '://' + config.proxy.user + ':' + config.proxy.password + '@' + config.proxy.host + ':' + config.proxy.port;
+      options.proxy =
+        (config.proxy.protocol ? config.proxy.protocol : 'http') +
+        '://' +
+        config.proxy.user +
+        ':' +
+        config.proxy.password +
+        '@' +
+        config.proxy.host +
+        ':' +
+        config.proxy.port;
     }
 
     var customHeader = {
@@ -66,8 +74,8 @@ module.exports = function (config = {}) {
     if (config.fieldsParam && config.fieldsValue) {
       var fieldsList;
       if (options.path.match(/\?./)) {
-        fieldsList = config.fieldsParam +
-          encodeURIComponent(config.fieldsValue);
+        fieldsList =
+          config.fieldsParam + encodeURIComponent(config.fieldsValue);
       } else {
         fieldsList = '?fields=' + encodeURIComponent(config.fieldsValue);
       }
@@ -79,7 +87,10 @@ module.exports = function (config = {}) {
         if (!options.path.match('apiKey')) {
           options.path += '&apiKey=' + encodeURIComponent(config.apiKey);
         }
-        var signingHeader = helper.generateSigningHeader(options, config.apiSecret);
+        var signingHeader = helper.generateSigningHeader(
+          options,
+          config.apiSecret
+        );
 
         Object.assign(options.headers, signingHeader);
       } else {
@@ -87,24 +98,25 @@ module.exports = function (config = {}) {
       }
     }
     return new Promise(function (resolve, reject) {
+      const req = https
+        .request(options, (resp) => {
+          var data = '';
+          resp.on('data', (chunk) => {
+            data += chunk;
+          });
 
-      const req = https.request(options, (resp) => {
-        var data = '';
-        resp.on('data', (chunk) => {
-          data += chunk;
+          resp.on('end', () => {
+            try {
+              var response = JSON.parse(data);
+              helper.manageRequestResponse('', response, resolve, reject);
+            } catch (err) {
+              helper.manageRequestResponse('serverError', '', resolve, reject);
+            }
+          });
+        })
+        .on('error', (error) => {
+          helper.manageRequestResponse('serverError', error, resolve, reject);
         });
-
-        resp.on('end', () => {
-          try {
-            var response = JSON.parse(data);
-            helper.manageRequestResponse('', response, resolve, reject);
-          } catch (err) {
-            helper.manageRequestResponse('serverError', '', resolve, reject);
-          }
-        });
-      }).on('error', (error) => {
-        helper.manageRequestResponse('serverError', error, resolve, reject);
-      });
 
       if (out_text) {
         req.write(out_text);
@@ -114,27 +126,136 @@ module.exports = function (config = {}) {
     });
   };
 
-  config.apiDomain = ((config.apiDomain) && (config.apiDomain !== '')) ? config.apiDomain : 'api.loginradius.com';
+  config.apiDomain =
+    config.apiDomain && config.apiDomain !== ''
+      ? config.apiDomain
+      : 'api.loginradius.com';
   return {
     helper,
-    accountApi: require(path.join(__dirname, '..', 'api', 'account', 'accountApi'))(config),
-    roleApi: require(path.join(__dirname, '..', 'api', 'account', 'roleApi'))(config),
-    sottApi: require(path.join(__dirname, '..', 'api', 'account', 'sottApi'))(config),
-    configurationApi: require(path.join(__dirname, '..', 'api', 'advanced', 'configurationApi'))(config),
-    customObjectApi: require(path.join(__dirname, '..', 'api', 'advanced', 'customObjectApi'))(config),
-    customRegistrationDataApi: require(path.join(__dirname, '..', 'api', 'advanced', 'customRegistrationDataApi'))(config),
-    multiFactorAuthenticationApi: require(path.join(__dirname, '..', 'api', 'advanced', 'multiFactorAuthenticationApi'))(config),
-    webHookApi: require(path.join(__dirname, '..', 'api', 'advanced', 'webHookApi'))(config),
-    consentManagementApi: require(path.join(__dirname, '..', 'api', 'advanced', 'consentManagementApi'))(config),
-    reAuthenticationApi: require(path.join(__dirname, '..', 'api', 'advanced', 'reAuthenticationApi'))(config),
-    authenticationApi: require(path.join(__dirname, '..', 'api', 'authentication', 'authenticationApi'))(config),
-    oneTouchLoginApi: require(path.join(__dirname, '..', 'api', 'authentication', 'oneTouchLoginApi'))(config),
-    passwordLessLoginApi: require(path.join(__dirname, '..', 'api', 'authentication', 'passwordLessLoginApi'))(config),
-    phoneAuthenticationApi: require(path.join(__dirname, '..', 'api', 'authentication', 'phoneAuthenticationApi'))(config),
-    riskBasedAuthenticationApi: require(path.join(__dirname, '..', 'api', 'authentication', 'riskBasedAuthenticationApi'))(config),
-    pinAuthenticationApi: require(path.join(__dirname, '..', 'api', 'authentication', 'pinAuthenticationApi'))(config),
-    smartLoginApi: require(path.join(__dirname, '..', 'api', 'authentication', 'smartLoginApi'))(config),
-    nativeSocialApi: require(path.join(__dirname, '..', 'api', 'social', 'nativeSocialApi'))(config),
-    socialApi: require(path.join(__dirname, '..', 'api', 'social', 'socialApi'))(config)
+    accountApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'account',
+      'accountApi'
+    ))(config),
+    roleApi: require(path.join(__dirname, '..', 'api', 'account', 'roleApi'))(
+      config
+    ),
+    sottApi: require(path.join(__dirname, '..', 'api', 'account', 'sottApi'))(
+      config
+    ),
+    configurationApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'advanced',
+      'configurationApi'
+    ))(config),
+    customObjectApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'advanced',
+      'customObjectApi'
+    ))(config),
+    customRegistrationDataApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'advanced',
+      'customRegistrationDataApi'
+    ))(config),
+    multiFactorAuthenticationApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'advanced',
+      'multiFactorAuthenticationApi'
+    ))(config),
+    webHookApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'advanced',
+      'webHookApi'
+    ))(config),
+    consentManagementApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'advanced',
+      'consentManagementApi'
+    ))(config),
+    reAuthenticationApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'advanced',
+      'reAuthenticationApi'
+    ))(config),
+    authenticationApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'authentication',
+      'authenticationApi'
+    ))(config),
+    oneTouchLoginApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'authentication',
+      'oneTouchLoginApi'
+    ))(config),
+    passwordLessLoginApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'authentication',
+      'passwordLessLoginApi'
+    ))(config),
+    phoneAuthenticationApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'authentication',
+      'phoneAuthenticationApi'
+    ))(config),
+    riskBasedAuthenticationApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'authentication',
+      'riskBasedAuthenticationApi'
+    ))(config),
+    pinAuthenticationApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'authentication',
+      'pinAuthenticationApi'
+    ))(config),
+    smartLoginApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'authentication',
+      'smartLoginApi'
+    ))(config),
+    nativeSocialApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'social',
+      'nativeSocialApi'
+    ))(config),
+    socialApi: require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'social',
+      'socialApi'
+    ))(config)
   };
 };

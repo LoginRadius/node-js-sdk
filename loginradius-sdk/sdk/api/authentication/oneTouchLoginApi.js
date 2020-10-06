@@ -7,19 +7,25 @@ module.exports = function (config) {
   var helper = require(config.HELPER_PATH);
 
   /**
-  * This API is used to send a link to a specified email for a frictionless login/registration
-  * @param {oneTouchLoginByEmailModel} Model Class containing Definition of payload for OneTouchLogin By EmailModel API
-  * @param {oneTouchLoginEmailTemplate} Name of the One Touch Login Email Template
-  * @param {redirecturl} Url where the user will redirect after success authentication
-  * @param {welcomeemailtemplate} Name of the welcome email template
-  * @return Response containing Definition of Complete Validation data
-  *1.2
-  */
+   * This API is used to send a link to a specified email for a frictionless login/registration
+   * @param {oneTouchLoginByEmailModel} Model Class containing Definition of payload for OneTouchLogin By EmailModel API
+   * @param {oneTouchLoginEmailTemplate} Name of the One Touch Login Email Template
+   * @param {redirecturl} Url where the user will redirect after success authentication
+   * @param {welcomeemailtemplate} Name of the welcome email template
+   * @return Response containing Definition of Complete Validation data
+   *1.2
+   */
 
-  module.oneTouchLoginByEmail = function (oneTouchLoginByEmailModel, oneTouchLoginEmailTemplate,
-    redirecturl, welcomeemailtemplate) {
+  module.oneTouchLoginByEmail = function (
+    oneTouchLoginByEmailModel,
+    oneTouchLoginEmailTemplate,
+    redirecturl,
+    welcomeemailtemplate
+  ) {
     if (helper.checkJson(oneTouchLoginByEmailModel)) {
-      return Promise.reject(helper.getValidationMessage('oneTouchLoginByEmailModel'));
+      return Promise.reject(
+        helper.getValidationMessage('oneTouchLoginByEmailModel')
+      );
     }
     var queryParameters = {};
 
@@ -36,20 +42,30 @@ module.exports = function (config) {
 
     var resourcePath = 'identity/v2/auth/onetouchlogin/email';
 
-    return config.request('POST', resourcePath, queryParameters, oneTouchLoginByEmailModel);
+    return config.request(
+      'POST',
+      resourcePath,
+      queryParameters,
+      oneTouchLoginByEmailModel
+    );
   };
 
   /**
-  * This API is used to send one time password to a given phone number for a frictionless login/registration.
-  * @param {oneTouchLoginByPhoneModel} Model Class containing Definition of payload for OneTouchLogin By PhoneModel API
-  * @param {smsTemplate} SMS Template name
-  * @return Response containing Definition of Complete Validation data
-  *1.4
-  */
+   * This API is used to send one time password to a given phone number for a frictionless login/registration.
+   * @param {oneTouchLoginByPhoneModel} Model Class containing Definition of payload for OneTouchLogin By PhoneModel API
+   * @param {smsTemplate} SMS Template name
+   * @return Response containing Definition of Complete Validation data
+   *1.4
+   */
 
-  module.oneTouchLoginByPhone = function (oneTouchLoginByPhoneModel, smsTemplate) {
+  module.oneTouchLoginByPhone = function (
+    oneTouchLoginByPhoneModel,
+    smsTemplate
+  ) {
     if (helper.checkJson(oneTouchLoginByPhoneModel)) {
-      return Promise.reject(helper.getValidationMessage('oneTouchLoginByPhoneModel'));
+      return Promise.reject(
+        helper.getValidationMessage('oneTouchLoginByPhoneModel')
+      );
     }
     var queryParameters = {};
 
@@ -60,21 +76,30 @@ module.exports = function (config) {
 
     var resourcePath = 'identity/v2/auth/onetouchlogin/phone';
 
-    return config.request('POST', resourcePath, queryParameters, oneTouchLoginByPhoneModel);
+    return config.request(
+      'POST',
+      resourcePath,
+      queryParameters,
+      oneTouchLoginByPhoneModel
+    );
   };
 
   /**
-  * This API is used to verify the otp for One Touch Login.
-  * @param {otp} The Verification Code
-  * @param {phone} New Phone Number
-  * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-  * @param {smsTemplate} SMS Template name
-  * @return Response Containing Access Token and Complete Profile Data
-  *1.5
-  */
+   * This API is used to verify the otp for One Touch Login.
+   * @param {otp} The Verification Code
+   * @param {phone} New Phone Number
+   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param {smsTemplate} SMS Template name
+   * @return Response Containing Access Token and Complete Profile Data
+   *1.5
+   */
 
-  module.oneTouchLoginOTPVerification = function (otp, phone,
-    fields, smsTemplate) {
+  module.oneTouchLoginOTPVerification = function (
+    otp,
+    phone,
+    fields,
+    smsTemplate
+  ) {
     if (helper.isNullOrWhiteSpace(otp)) {
       return Promise.reject(helper.getValidationMessage('otp'));
     }
@@ -101,14 +126,17 @@ module.exports = function (config) {
   };
 
   /**
-  * This API verifies the provided token for One Touch Login
-  * @param {verificationToken} Verification token received in the email
-  * @param {welcomeEmailTemplate} Name of the welcome email template
-  * @return Complete verified response data
-  *8.4.2
-  */
+   * This API verifies the provided token for One Touch Login
+   * @param {verificationToken} Verification token received in the email
+   * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @return Complete verified response data
+   *8.4.2
+   */
 
-  module.oneTouchEmailVerification = function (verificationToken, welcomeEmailTemplate) {
+  module.oneTouchEmailVerification = function (
+    verificationToken,
+    welcomeEmailTemplate
+  ) {
     if (helper.isNullOrWhiteSpace(verificationToken)) {
       return Promise.reject(helper.getValidationMessage('verificationToken'));
     }
@@ -126,12 +154,12 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to check if the One Touch Login link has been clicked or not.
-  * @param {clientGuid} Unique string used in the Smart Login request
-  * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-  * @return Response containing User Profile Data and access token
-  *9.21.2
-  */
+   * This API is used to check if the One Touch Login link has been clicked or not.
+   * @param {clientGuid} Unique string used in the Smart Login request
+   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @return Response containing User Profile Data and access token
+   *9.21.2
+   */
 
   module.oneTouchLoginPing = function (clientGuid, fields) {
     if (helper.isNullOrWhiteSpace(clientGuid)) {
