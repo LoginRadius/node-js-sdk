@@ -1,5 +1,5 @@
 
-> **LoginRadius Node JS SDK Change Log** provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
+> **LoginRadius Node JS SDK Change Log** provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documentation](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
 
 # Version 11.0.0
 Release on Aug 04, 2020
@@ -188,7 +188,7 @@ Released on **Dec 5, 2018**
 
 Released on **Aug 9, 2018**
 
- - Capitalised calling METHOD names.
+ - Capitalized calling METHOD names.
 
 
 
@@ -209,15 +209,15 @@ Released on **August 31, 2017**
  - Added No Registration by phone and email APIs.
  - Added Invalidate Phone number APIs.
  - Added create, retrieve, update and delete Custom Registration Data APIs.
- - Added retrive Security Question APIs.
+ - Added retrieve Security Question APIs.
  - Added server side API to generate SOTT.
  - Added Auto Login by Phone and Username.
  - Added email verify Auto Login API.
  - Allows you to set proxy configurations, if you want to setup Http Server Proxy Configuration through your NodeJs SDK.
- - Enhanced Reset password APIs by adding an parater ResetPasswordEmailTemplate to Send Email or SMS on password reset.
+ - Enhanced Reset password APIs by adding an parameter ResetPasswordEmailTemplate to Send Email or SMS on password reset.
  - Enhanced all APIs with projection of fields which allows to select fields that you require as an API response.
- - Enhanced Custom Object Update API by adding an extra parater isAllowedReplace.
- - Enhanced Account profile Update API by adding an extra parater nullSupport.
+ - Enhanced Custom Object Update API by adding an extra parameter isAllowedReplace.
+ - Enhanced Account profile Update API by adding an extra parameter nullSupport.
  - Enhanced Login APIs by adding and extra parameter securityanswer.
 
 See the documentation [here](https://docs.loginradius.com/api/v2/sdk-libraries/nodejs)
@@ -257,7 +257,7 @@ Updated with V2 APIs
  - Improved structure and naming convention
  - Improved security feature
  - Added Phone Authentication APIs to handle phone login,registration and verification etc.
- - Added APIs for two factore authentication
+ - Added APIs for two factor authentication
  - Added Rest hook APIs
  - Added web hook APIs
 <br>
