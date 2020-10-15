@@ -24,41 +24,37 @@ module.exports = function (config = {}) {
       queryParameters.region = config.serverRegion;
     }
 
-    var headers = { 'Content-Type': 'application/json' };
+    const headers = { 'Content-Type': 'application/json' };
 
     if (queryParameters.sott) {
-      Object.assign(headers, { 'X-LoginRadius-Sott': queryParameters.sott });
+      headers['X-LoginRadius-Sott'] = queryParameters.sott;
       delete queryParameters.sott;
     }
-    var queryString = helper.getQueryString(queryParameters);
 
     if (queryParameters.access_token) {
-      Object.assign(
-        headers,
-        { 'authorization': 'Bearer ' + queryParameters.access_token }
-      );
+      headers['authorization'] = 'Bearer ' + queryParameters.access_token;
       delete queryParameters.access_token;
     }
-    var options = {
+
+    if (formData !== '' && formData !== null) {
+      const out_text = JSON.stringify(formData);
+      headers['Content-Length'] = Buffer.byteLength(out_text);
+    }
+
+    var queryString = helper.getQueryString(queryParameters);
+
+    const options = {
       method: type,
       hostname: ((resourcePath === 'ciam/appinfo') ? 'config.lrcontent.com' : config.apiDomain),
       path: '/' + resourcePath + ((queryString) ? '?' + queryString : ''),
       headers: headers
     };
 
-    if (formData !== '' && formData !== null) {
-      var out_text = JSON.stringify(formData);
-      Object.assign(
-        headers,
-        { 'Content-Length': out_text.length }
-      );
-    }
-
     if (config.proxy && config.proxy.host && config.proxy.port) {
       options.proxy = (config.proxy.protocol ? config.proxy.protocol : 'http') + '://' + config.proxy.user + ':' + config.proxy.password + '@' + config.proxy.host + ':' + config.proxy.port;
     }
 
-    var customHeader = {
+    const customHeader = {
       'X-LoginRadius-apiKey': config.apiKey,
       'X-LoginRadius-apiSecret': config.apiSecret
     };
