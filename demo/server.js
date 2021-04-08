@@ -1,9 +1,9 @@
 /*  Config variable  */
 var config = {
   apiDomain: 'api.loginradius.com',
-  apiKey: '',
-  apiSecret: '',
-  siteName: '',
+  apiKey: '{{ Your API KEY }}',
+  apiSecret: '{{ Your API Secret }}',
+  siteName: '{{ Your Sitename }}',
   serverRegion: '',
   apiRequestSigning: false,
   proxy: {

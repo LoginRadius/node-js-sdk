@@ -330,6 +330,44 @@ module.exports = function (config) {
   };
 
   /**
+  * 
+  * @param {clientGuid} 
+  * @param {emailTemplate} 
+  * @param {fields} 
+  * @param {verificationUrl} 
+  * @param {welcomeEmailTemplate} 
+  * @return Response containing User Profile Data and access token
+  *5.16
+  */
+
+  module.getProfileByPing = function (clientGuid, emailTemplate,
+    fields, verificationUrl, welcomeEmailTemplate) {
+    if (helper.isNullOrWhiteSpace(clientGuid)) {
+      return Promise.reject(helper.getValidationMessage('clientGuid'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.clientGuid = clientGuid;
+    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+      queryParameters.emailTemplate = emailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(fields)) {
+      queryParameters.fields = fields;
+    }
+    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+      queryParameters.verificationUrl = verificationUrl;
+    }
+    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+      queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
+    }
+
+    var resourcePath = 'identity/v2/auth/account/ping';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
   * This API is used to check the email exists or not on your site.
   * @param {email} Email of the user
   * @return Response containing Definition Complete ExistResponse data

@@ -86,7 +86,10 @@ var getValidationMessage = function (type) {
  */
 var manageRequestResponse = function (status, data, resolve, reject) {
   if (checkError(status, data)) {
-    reject(data);
+    if(!data){
+      data=checkError(status, data)
+     }
+     reject(data);
   } else {
     resolve(data);
   }

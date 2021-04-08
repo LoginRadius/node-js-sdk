@@ -30,6 +30,9 @@ module.exports = function (config = {}) {
       Object.assign(headers, { 'X-LoginRadius-Sott': queryParameters.sott });
       delete queryParameters.sott;
     }
+    if (!helper.isNullOrWhiteSpace(config.originIp)) {
+      Object.assign(headers, { 'X-Origin-IP':config.originIp});
+    }
     var queryString = helper.getQueryString(queryParameters);
 
     if (queryParameters.access_token) {
@@ -90,6 +93,16 @@ module.exports = function (config = {}) {
 
       const req = https.request(options, (resp) => {
         var data = '';
+        if(resp.hasOwnProperty("statusCode") && resp.statusCode==429){       
+          var jsondata = {
+            'Description': 'Too many request in particular time frame',
+            'ErrorCode': 429,
+            'Message': 'Too many request in particular time frame',
+            'IsProviderError': false,
+            'ProviderErrorResponse': null
+          };
+          helper.manageRequestResponse('serverError', jsondata, resolve, reject);
+        }else{
         resp.on('data', (chunk) => {
           data += chunk;
         });
@@ -102,6 +115,7 @@ module.exports = function (config = {}) {
             helper.manageRequestResponse('serverError', '', resolve, reject);
           }
         });
+      }
       }).on('error', (error) => {
         helper.manageRequestResponse('serverError', error, resolve, reject);
       });

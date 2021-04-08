@@ -34,7 +34,7 @@ LoginRadius Combined Node SDK features a combined SDK set to encompass Social Lo
 This document contains information and examples regarding the LoginRadius Node.js SDK. It provides guidance for working with social authentication, user profile data, and sending messages with a variety of social networks such as Facebook, Google, Twitter, Yahoo, LinkedIn, and more. 
 You can get the SDK from [here](http://github.com/LoginRadius/node-js-sdk) 
 
-Note: The latest version(11.0.0) of Node js SDK works with LoginRadius V2 APIs.
+Note: The latest version(11.1.0) of Node js SDK works with LoginRadius V2 APIs.
 
 Installation <br/>
 run `npm install loginradius-sdk` <br/>
@@ -47,6 +47,7 @@ Create `var config` in project
       apiSecret: '{{ Your API Secret }}',
       siteName: '{{ Your Sitename }}',
 	  apiRequestSigning: false,
+      originIp:"{{ Client Ip }}",
       proxy:{
         host:'',
         port:'',
@@ -58,6 +59,16 @@ Create `var config` in project
 Replace the placeholders in the config object with your LoginRadius credentials apikey, apisecret, sitename. These can be obtained from [here](https://www.loginradius.com/docs/api/v2/admin-console/platform-security/api-key-and-secret) 
 
 Pass the proxy configurations if you want to set Http Server Proxy Configuration through your NodeJs SDK. Host and port are required to set Http Server Proxy configuration (username and password are optional).
+
+### X-Origin-IP
+
+LoginRadius allows you to add X-Origin-IP in your headers and it determines the IP address of the client's request,this can also be useful to overcome analytics discrepancies where the analytics depend on header data.
+
+```
+ originIp:"{{ Client Ip }}"
+
+```
+The originIp will be added in `var config`
 
 Require the loginradius-sdk package and pass the config object
 ```
@@ -100,6 +111,7 @@ List of APIs in this Section:<br>
 * GET : [Auth Read all Profiles by Token](#GetProfileByAccessToken-get-)<br>
 * GET : [Auth Send Welcome Email](#SendWelcomeEmail-get-)<br>
 * GET : [Auth Delete Account](#DeleteAccountByDeleteToken-get-)<br>
+* GET : [Get Profile By Ping](#GetProfileByPing-get-)<br>
 * GET : [Auth Check Email Availability](#CheckEmailAvailability-get-)<br>
 * GET : [Auth Verify Email](#VerifyEmail-get-)<br>
 * GET : [Auth Check UserName Availability](#CheckUserNameAvailability-get-)<br>
@@ -851,7 +863,26 @@ lrv2.authenticationApi.deleteAccountByDeleteToken(deletetoken).then((response) =
 
  ```
  
-  
+ <h6 id="GetProfileByPing-get-">Get Profile By Ping (GET)</h6>
+This API is used to get a user's profile using the clientGuid parameter if no callback feature enabled. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/social-login-by-ping/)
+
+ 
+
+ ```
+
+var clientGuid = "<clientGuid>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var verificationUrl = "<verificationUrl>"; //Optional
+var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
+
+lrv2.authenticationApi.getProfileByPing(clientGuid, emailTemplate, fields, verificationUrl, welcomeEmailTemplate).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ``` 
   
  
 <h6 id="CheckEmailAvailability-get-"> Auth Check Email Availability (GET)</h6>
@@ -1044,6 +1075,7 @@ List of APIs in this Section:<br>
 * PUT : [Account Invalidate Verification Email](#InvalidateAccountEmailVerification-put-)<br>
 * PUT : [Reset phone ID verification](#ResetPhoneIDVerificationByUid-put-)<br>
 * PUT : [Upsert Email](#UpsertEmail-put-)<br>
+* PUT : [Update UID](#AccountUpdateUid-put-)<br>
 * POST : [Account Create](#CreateAccount-post-)<br>
 * POST : [Forgot Password token](#GetForgotPasswordToken-post-)<br>
 * POST : [Email Verification token](#GetEmailVerificationToken-post-)<br>
@@ -1207,7 +1239,27 @@ lrv2.accountApi.upsertEmail(upsertEmailModel, uid, fields).then((response) => {
 
  ```
  
-  
+<h6 id="AccountUpdateUid-put-"> Update UID (PUT)</h6>
+ This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/account-update/)
+
+ 
+ 
+
+ ```
+
+
+var updateUidModel ={ 
+"newUid" : "<newUid>"
+};  //Required
+var uid = "<uid>"; //Required
+
+lrv2.accountApi.accountUpdateUid(updateUidModel, uid).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
  
 <h6 id="CreateAccount-post-"> Account Create (POST)</h6>
@@ -4462,6 +4514,8 @@ lrv2.oneTouchLoginApi.oneTouchLoginPing(clientGuid, fields).then((response) => {
 List of APIs in this Section:<br>
 
 * PUT : [Passwordless Login Phone Verification](#PasswordlessLoginPhoneVerification-put-)<br>
+* POST : [Passwordless Login Verification By Email And OTP](#PasswordlessLoginVerificationByEmailAndOTP-post-)<br>
+* POST : [Passwordless Login Verification By User Name And OTP](#PasswordlessLoginVerificationByUserNameAndOTP-post-)<br>
 * GET : [Passwordless Login by Phone](#PasswordlessLoginByPhone-get-)<br>
 * GET : [Passwordless Login By Email](#PasswordlessLoginByEmail-get-)<br>
 * GET : [Passwordless Login By UserName](#PasswordlessLoginByUserName-get-)<br>
@@ -4493,7 +4547,55 @@ lrv2.passwordLessLoginApi.passwordlessLoginPhoneVerification(passwordLessLoginOt
 
  ```
  
+
+ 
+<h6 id="PasswordlessLoginVerificationByEmailAndOTP-post-">Passwordless Login Verification By Email And OTP (POST)</h6>
+This API is used to verify the otp sent to the email when doing a passwordless login. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/passwordless-login/passwordless-login-verify-by-email-and-otp/)
+
+ 
+ 
+
+ ```
+
+
+var passwordLessLoginByEmailAndOtpModel ={
+"email": "<email>",
+"otp": "<otp>",
+"welcomeemailtemplate": "<welcome_email_template>"
+};  //Required
+var fields = null; //Optional
+
+lrv2.passwordLessLoginApi.passwordlessLoginVerificationByEmailAndOTP(passwordLessLoginByEmailAndOtpModel, fields).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
   
+<h6 id="PasswordlessLoginVerificationByUserNameAndOTP-post-">Passwordless Login Verification By User Name And OTP (POST)</h6>
+This API is used to verify the otp sent to the email when doing a passwordless login. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/passwordless-login/passwordless-login-verify-by-username-and-otp/)
+
+ 
+ 
+
+ ```
+
+
+var passwordLessLoginByUserNameAndOtpModel ={
+"username": "<User name>",
+"otp": "<otp>",
+"welcomeemailtemplate": "<welcome_email_template>"
+};  //Required
+var fields = null; //Optional
+
+lrv2.passwordLessLoginApi.passwordlessLoginVerificationByUserNameAndOTP(passwordLessLoginByUserNameAndOtpModel, fields).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```   
   
  
 <h6 id="PasswordlessLoginByPhone-get-"> Passwordless Login by Phone (GET)</h6>

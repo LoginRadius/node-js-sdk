@@ -149,5 +149,53 @@ module.exports = function (config) {
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
+
+  /**
+  * 
+  * @param {passwordLessLoginByEmailAndOtpModel} 
+  * @param {fields} 
+  * @return Response containing User Profile Data and access token
+  *9.23
+  */
+
+  module.passwordlessLoginVerificationByEmailAndOTP = function (passwordLessLoginByEmailAndOtpModel, fields) {
+    if (helper.checkJson(passwordLessLoginByEmailAndOtpModel)) {
+      return Promise.reject(helper.getValidationMessage('passwordLessLoginByEmailAndOtpModel'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    if (!helper.isNullOrWhiteSpace(fields)) {
+      queryParameters.fields = fields;
+    }
+
+    var resourcePath = 'identity/v2/auth/login/passwordlesslogin/email/verifyotp';
+
+    return config.request('POST', resourcePath, queryParameters, passwordLessLoginByEmailAndOtpModel);
+  };
+
+  /**
+  * 
+  * @param {passwordLessLoginByUserNameAndOtpModel} 
+  * @param {fields} 
+  * @return Response containing User Profile Data and access token
+  *9.24
+  */
+
+  module.passwordlessLoginVerificationByUserNameAndOTP = function (passwordLessLoginByUserNameAndOtpModel, fields) {
+    if (helper.checkJson(passwordLessLoginByUserNameAndOtpModel)) {
+      return Promise.reject(helper.getValidationMessage('passwordLessLoginByUserNameAndOtpModel'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    if (!helper.isNullOrWhiteSpace(fields)) {
+      queryParameters.fields = fields;
+    }
+
+    var resourcePath = 'identity/v2/auth/login/passwordlesslogin/username/verifyotp';
+
+    return config.request('POST', resourcePath, queryParameters, passwordLessLoginByUserNameAndOtpModel);
+  };
   return module;
 };
