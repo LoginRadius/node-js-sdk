@@ -27,6 +27,9 @@ Release on September 6, 2021
 - ReAuthSendEmailOtp
 - ReAuthBySecurityQuestion
 
+## Removed (Deprecated) API:
+- GetSocialUserProfile
+
 Added `EmailTemplate2FA` parameter in the following API
 
 - MFALoginByEmail
