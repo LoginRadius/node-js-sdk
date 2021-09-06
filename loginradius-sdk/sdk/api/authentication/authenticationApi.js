@@ -161,11 +161,15 @@ module.exports = function (config) {
   * This API retrieves a copy of the user data based on the access token.
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+  * @param {emailTemplate}
+  *  @param {verificationUrl} 
+  * @param {welcomeEmailTemplate} 
   * @return Response containing Definition for Complete profile data
   *5.2
   */
 
-  module.getProfileByAccessToken = function (accessToken, fields) {
+  module.getProfileByAccessToken = function (accessToken,
+    fields, emailTemplate, verificationUrl, welcomeEmailTemplate) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
@@ -175,6 +179,15 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
+    }
+    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+      queryParameters.emailTemplate = emailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+      queryParameters.verificationUrl = verificationUrl;
+    }
+    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+      queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/account';
@@ -330,12 +343,12 @@ module.exports = function (config) {
   };
 
   /**
-  * 
-  * @param {clientGuid} 
-  * @param {emailTemplate} 
-  * @param {fields} 
-  * @param {verificationUrl} 
-  * @param {welcomeEmailTemplate} 
+  * This API is used to get a user's profile using the clientGuid parameter if no callback feature enabled
+  * @param {clientGuid} ClientGuid
+  * @param {emailTemplate} EmailTemplate
+  * @param {fields} Fields
+  * @param {verificationUrl} VerificationUrl
+  * @param {welcomeEmailTemplate} WelcomeEmailTemplate
   * @return Response containing User Profile Data and access token
   *5.16
   */

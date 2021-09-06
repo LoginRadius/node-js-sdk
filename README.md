@@ -47,7 +47,6 @@ Create `var config` in project
       apiSecret: '{{ Your API Secret }}',
       siteName: '{{ Your Sitename }}',
 	  apiRequestSigning: false,
-      originIp:"{{ Client Ip }}",
       proxy:{
         host:'',
         port:'',
@@ -810,9 +809,12 @@ lrv2.authenticationApi.getAccessTokenInfo(accessToken).then((response) => {
  ```
 
 var accessToken = "<accessToken>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
 var fields = null; //Optional
+var verificationUrl = "<verificationUrl>"; //Optional
+var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
 
-lrv2.authenticationApi.getProfileByAccessToken(accessToken, fields).then((response) => {
+lrv2.authenticationApi.getProfileByAccessToken(accessToken, emailTemplate, fields, verificationUrl, welcomeEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -1656,7 +1658,6 @@ List of APIs in this Section:<br>
 * GET : [Get Post](#GetPosts-get-)<br>
 * GET : [Get Trackable Status Stats](#GetTrackableStatusStats-get-)<br>
 * GET : [Trackable Status Fetching](#TrackableStatusFetching-get-)<br>
-* GET : [User Profile](#GetSocialUserProfile-get-)<br>
 * GET : [Refresh User Profile](#GetRefreshedSocialUserProfile-get-)<br>
 * GET : [Video](#GetVideos-get-)<br>
 
@@ -2347,30 +2348,6 @@ lrv2.socialApi.trackableStatusFetching(postId).then((response) => {
 
  ```
  
-  
-  
- 
-<h6 id="GetSocialUserProfile-get-"> User Profile (GET)</h6>
- The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/user-profile)
-
- 
- 
-
- ```
-
-var accessToken = "<accessToken>"; //Required
-var fields = null; //Optional
-
-lrv2.socialApi.getSocialUserProfile(accessToken, fields).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
- 
-  
-  
  
 <h6 id="GetRefreshedSocialUserProfile-get-"> Refresh User Profile (GET)</h6>
  The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/refresh-user-profile)
@@ -2969,23 +2946,34 @@ List of APIs in this Section:<br>
 * PUT : [Update MFA Setting](#MFAUpdateSetting-put-)<br>
 * PUT : [Update MFA by Access Token](#MFAUpdateByAccessToken-put-)<br>
 * PUT : [MFA Update Phone Number by Token](#MFAUpdatePhoneNumberByToken-put-)<br>
+* PUT : [Verify MFA Email OTP by Access Token](#MFAValidateEmailOtpByAccessToken-put-)<br>
+* PUT : [Update MFA Security Question by Access Token](#MFASecurityQuestionAnswerByAccessToken-put-)<br>
 * PUT : [MFA Validate OTP](#MFAValidateOTPByPhone-put-)<br>
 * PUT : [MFA Validate Google Auth Code](#MFAValidateGoogleAuthCode-put-)<br>
 * PUT : [MFA Validate Backup code](#MFAValidateBackupCode-put-)<br>
 * PUT : [MFA Update Phone Number](#MFAUpdatePhoneNumber-put-)<br>
+* PUT : [Verify MFA Email OTP by MFA Token](#MFAValidateEmailOtp-put-)<br>
+* PUT : [Update MFA Security Question by MFA Token](#MFASecurityQuestionAnswer-put-)<br>
 * POST : [MFA Email Login](#MFALoginByEmail-post-)<br>
 * POST : [MFA UserName Login](#MFALoginByUserName-post-)<br>
 * POST : [MFA Phone Login](#MFALoginByPhone-post-)<br>
+* POST : [Send MFA Email OTP by MFA Token](#MFAEmailOTP-post-)<br>
+* POST : [Verify MFA Security Question by MFA Token](#MFASecurityQuestionAnswerVerification-post-)<br>
 * GET : [MFA Validate Access Token](#MFAConfigureByAccessToken-get-)<br>
 * GET : [MFA Backup Code by Access Token](#MFABackupCodeByAccessToken-get-)<br>
 * GET : [Reset Backup Code by Access Token](#MFAResetBackupCodeByAccessToken-get-)<br>
+* GET : [Send MFA Email OTP by Access Token](#MFAEmailOtpByAccessToken-get-)<br>
 * GET : [MFA Resend Otp](#MFAResendOTP-get-)<br>
 * GET : [MFA Backup Code by UID](#MFABackupCodeByUid-get-)<br>
 * GET : [MFA Reset Backup Code by UID](#MFAResetBackupCodeByUid-get-)<br>
 * DELETE : [MFA Reset Google Authenticator by Token](#MFAResetGoogleAuthByToken-delete-)<br>
 * DELETE : [MFA Reset SMS Authenticator by Token](#MFAResetSMSAuthByToken-delete-)<br>
+* DELETE : [Reset MFA Email OTP Authenticator By Access Token](#MFAResetEmailOtpAuthenticatorByAccessToken-delete-)<br>
+* DELETE : [MFA Reset Security Question Authenticator By Access Token](#MFAResetSecurityQuestionAuthenticatorByAccessToken-delete-)<br>
 * DELETE : [MFA Reset SMS Authenticator By UID](#MFAResetSMSAuthenticatorByUid-delete-)<br>
 * DELETE : [MFA Reset Google Authenticator By UID](#MFAResetGoogleAuthenticatorByUid-delete-)<br>
+* DELETE : [Reset MFA Email OTP Authenticator Settings by Uid](#MFAResetEmailOtpAuthenticatorByUid-delete-)<br>
+* DELETE : [Reset MFA Security Question Authenticator Settings by Uid](#MFAResetSecurityQuestionAuthenticatorByUid-delete-)<br>
 
 
 
@@ -3065,6 +3053,63 @@ lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumberByToken(accessToken, phone
   
   
  
+<h6 id="MFAValidateEmailOtpByAccessToken-put-"> Verify MFA Email OTP by Access Token (PUT)</h6>
+ This API is used to set up MFA Email OTP authenticator on profile after login.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/verify-mfa-otp-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var multiFactorAuthModelByEmailOtpWithLockout ={ 
+"EmailId":"emailId",
+"Otp":"otp"
+  };  //Required
+
+lrv2.multiFactorAuthenticationApi.mfaValidateEmailOtpByAccessToken(accessToken, multiFactorAuthModelByEmailOtpWithLockout).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFASecurityQuestionAnswerByAccessToken-put-"> Update MFA Security Question by Access Token (PUT)</h6>
+ This API is used to set up MFA Security Question authenticator on profile after login.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/update-mfa-security-question-by-access-token)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var securityQuestionAnswerModelByAccessToken ={  
+     "securityquestionanswer": [
+        {
+            "QuestionId": "db7****8a73e4******bd9****8c20",
+            "Answer": "<answer>"
+        }
+    ],
+     "ReplaceSecurityQuestionAnswer":false // required
+ };  //Required
+
+lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswerByAccessToken(accessToken, securityQuestionAnswerModelByAccessToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
 <h6 id="MFAValidateOTPByPhone-put-"> MFA Validate OTP (PUT)</h6>
  This API is used to login via Multi-factor authentication by passing the One Time Password received via SMS  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-validate-otp/)
 
@@ -3080,8 +3125,12 @@ var multiFactorAuthModelWithLockout ={
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var fields = null; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
+var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
+var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
+var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaValidateOTPByPhone(multiFactorAuthModelWithLockout, secondFactorAuthenticationToken, fields, smsTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaValidateOTPByPhone(multiFactorAuthModelWithLockout, secondFactorAuthenticationToken, fields,smsTemplate2FA, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3103,9 +3152,12 @@ lrv2.multiFactorAuthenticationApi.mfaValidateOTPByPhone(multiFactorAuthModelWith
 var googleAuthenticatorCode = "<googleAuthenticatorCode>"; //Required
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var fields = null; //Optional
-var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
+var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
+var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
+var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthenticatorCode, secondFactorAuthenticationToken, fields, smsTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthenticatorCode, secondFactorAuthenticationToken, fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3130,8 +3182,12 @@ var multiFactorAuthModelByBackupCode ={
 };  //Required
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var fields = null; //Optional
+var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
+var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
+var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
+var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaValidateBackupCode(multiFactorAuthModelByBackupCode, secondFactorAuthenticationToken, fields).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaValidateBackupCode(multiFactorAuthModelByBackupCode, secondFactorAuthenticationToken, fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3165,6 +3221,66 @@ lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumber(phoneNo2FA, secondFactorA
   
   
  
+<h6 id="MFAValidateEmailOtp-put-"> Verify MFA Email OTP by MFA Token (PUT)</h6>
+ This API is used to Verify MFA Email OTP by MFA Token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/verify-mfa-email-otp-by-mfa-token/)
+
+ 
+ 
+
+ ```
+
+
+var multiFactorAuthModelByEmailOtp ={ 
+    "EmailId":"email",
+    "Otp":"otp"
+  };  //Required
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
+var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
+var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
+var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
+var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
+
+lrv2.multiFactorAuthenticationApi.mfaValidateEmailOtp(multiFactorAuthModelByEmailOtp, secondFactorAuthenticationToken, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFASecurityQuestionAnswer-put-"> Update MFA Security Question by MFA Token (PUT)</h6>
+ This API is used to set the security questions on the profile with the MFA token when MFA flow is required.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/update-mfa-security-question-by-mfa-token/)
+
+ 
+ 
+
+ ```
+
+
+var securityQuestionAnswerUpdateModel ={  
+    "securityquestionanswer": [
+        {
+            "QuestionId": "db7****8a73e4******bd9****8c20",
+            "Answer": "<answer>"
+        }
+    ]
+ };  //Required
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
+
+lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswer(securityQuestionAnswerUpdateModel, secondFactorAuthenticationToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
 <h6 id="MFALoginByEmail-post-"> MFA Email Login (POST)</h6>
  This API can be used to login by emailid on a Multi-factor authentication enabled LoginRadius site.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/mfa-email-login)
 
@@ -3181,8 +3297,9 @@ var loginUrl = "<loginUrl>"; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
+var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl,emailTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3209,8 +3326,9 @@ var loginUrl = "<loginUrl>"; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
+var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaLoginByUserName(password, username, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaLoginByUserName(password, username, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl, emailTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3237,8 +3355,69 @@ var loginUrl = "<loginUrl>"; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
+var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaLoginByPhone(password, phone, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaLoginByPhone(password, phone, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl, emailTemplate2FA).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAEmailOTP-post-"> Send MFA Email OTP by MFA Token (POST)</h6>
+ An API designed to send the MFA Email OTP to the email.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/send-mfa-email-otp-by-mfa-token/)
+
+ 
+ 
+
+ ```
+
+
+var emailIdModel ={  
+"EmailId":"email"
+ };  //Required
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
+var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
+
+lrv2.multiFactorAuthenticationApi.mfaEmailOTP(emailIdModel, secondFactorAuthenticationToken, emailTemplate2FA).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFASecurityQuestionAnswerVerification-post-"> Verify MFA Security Question by MFA Token (POST)</h6>
+ This API is used to resending the verification OTP to the provided phone number  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/verify-mfa-security-question-by-mfa-token/)
+
+ 
+ 
+
+ ```
+
+
+var securityQuestionAnswerUpdateModel ={ 
+      "securityquestionanswer": [
+        {
+            "QuestionId": "db7****8a73e4******bd9****8c20",
+            "Answer": "<answer>"
+        }
+    ]
+  };  //Required
+var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
+var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
+var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
+var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
+var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
+
+lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswerVerification(securityQuestionAnswerUpdateModel, secondFactorAuthenticationToken, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3303,6 +3482,29 @@ lrv2.multiFactorAuthenticationApi.mfaBackupCodeByAccessToken(accessToken).then((
 var accessToken = "<accessToken>"; //Required
 
 lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByAccessToken(accessToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAEmailOtpByAccessToken-get-"> Send MFA Email OTP by Access Token (GET)</h6>
+ This API is created to send the OTP to the email if email OTP authenticator is enabled in app's MFA configuration.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/send-mfa-email-otp-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+var emailId = "<emailId>"; //Required
+var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
+
+lrv2.multiFactorAuthenticationApi.mfaEmailOtpByAccessToken(accessToken, emailId, emailTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3421,6 +3623,48 @@ lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthByToken(accessToken, otpauthent
   
   
  
+<h6 id="MFAResetEmailOtpAuthenticatorByAccessToken-delete-"> Reset MFA Email OTP Authenticator By Access Token (DELETE)</h6>
+ This API is used to reset the Email OTP Authenticator settings for an MFA-enabled user  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/reset-mfa-email-otp-authenticator-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+lrv2.multiFactorAuthenticationApi.mfaResetEmailOtpAuthenticatorByAccessToken(accessToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAResetSecurityQuestionAuthenticatorByAccessToken-delete-"> MFA Reset Security Question Authenticator By Access Token (DELETE)</h6>
+ This API is used to Reset MFA Security Question Authenticator By Access Token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/reset-mfa-security-question-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+lrv2.multiFactorAuthenticationApi.mfaResetSecurityQuestionAuthenticatorByAccessToken(accessToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
 <h6 id="MFAResetSMSAuthenticatorByUid-delete-"> MFA Reset SMS Authenticator By UID (DELETE)</h6>
  This API resets the SMS Authenticator configurations on a given account via the UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/sms-authenticator/mfa-reset-sms-authenticator-by-uid/)
 
@@ -3455,6 +3699,48 @@ var googleauthenticator = true; //Required
 var uid = "<uid>"; //Required
 
 lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthenticatorByUid(googleauthenticator, uid).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAResetEmailOtpAuthenticatorByUid-delete-"> Reset MFA Email OTP Authenticator Settings by Uid (DELETE)</h6>
+ This API is used to reset the Email OTP Authenticator settings for an MFA-enabled user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/reset-mfa-email-otp-authenticator-settings-by-uid/)
+
+ 
+ 
+
+ ```
+
+var uid = "<uid>"; //Required
+
+lrv2.multiFactorAuthenticationApi.mfaResetEmailOtpAuthenticatorByUid(uid).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAResetSecurityQuestionAuthenticatorByUid-delete-"> Reset MFA Security Question Authenticator Settings by Uid (DELETE)</h6>
+ This API is used to reset the Security Question Authenticator settings for an MFA-enabled user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/backup-codes/reset-mfa-security-question-authenticator-settings-by-uid/)
+
+ 
+ 
+
+ ```
+
+var uid = "<uid>"; //Required
+
+lrv2.multiFactorAuthenticationApi.mfaResetSecurityQuestionAuthenticatorByUid(uid).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3856,10 +4142,13 @@ List of APIs in this Section:<br>
 * PUT : [Validate MFA by Google Authenticator Code](#MFAReAuthenticateByGoogleAuth-put-)<br>
 * PUT : [Validate MFA by Password](#MFAReAuthenticateByPassword-put-)<br>
 * PUT : [MFA Re-authentication by PIN](#VerifyPINAuthentication-put-)<br>
+* PUT : [MFA Re-authentication by Email OTP](#ReAuthValidateEmailOtp-put-)<br>
 * POST : [Verify Multifactor OTP Authentication](#VerifyMultiFactorOtpReauthentication-post-)<br>
 * POST : [Verify Multifactor Password Authentication](#VerifyMultiFactorPasswordReauthentication-post-)<br>
 * POST : [Verify Multifactor PIN Authentication](#VerifyMultiFactorPINReauthentication-post-)<br>
+* POST : [MFA Re-authentication by Security Question](#ReAuthBySecurityQuestion-post-)<br>
 * GET : [Multi Factor Re-Authenticate](#MFAReAuthenticate-get-)<br>
+* GET : [Send MFA Re-auth Email OTP by Access Token](#ReAuthSendEmailOtp-get-)<br>
 
 
 
@@ -3990,6 +4279,32 @@ lrv2.reAuthenticationApi.verifyPINAuthentication(accessToken, pinAuthEventBasedA
   
   
  
+<h6 id="ReAuthValidateEmailOtp-put-"> MFA Re-authentication by Email OTP (PUT)</h6>
+ This API is used to validate the triggered MFA authentication flow with an Email OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/mfa-re-auth-by-email-otp/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var reauthByEmailOtpModel ={  
+  "EmailId":"email",
+  "otp": "otp"
+ };  //Required
+
+lrv2.reAuthenticationApi.reAuthValidateEmailOtp(accessToken, reauthByEmailOtpModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
 <h6 id="VerifyMultiFactorOtpReauthentication-post-"> Verify Multifactor OTP Authentication (POST)</h6>
  This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by OTP.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-validate-mfa/)
 
@@ -4065,6 +4380,36 @@ lrv2.reAuthenticationApi.verifyMultiFactorPINReauthentication(eventBasedMultiFac
   
   
  
+<h6 id="ReAuthBySecurityQuestion-post-"> MFA Re-authentication by Security Question (POST)</h6>
+ This API is used to validate the triggered MFA re-authentication flow with security questions answers.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/mfa-re-authentication-by-security-question/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+
+var securityQuestionAnswerUpdateModel ={  
+    "securityquestionanswer": [
+        {
+            "QuestionId": "db7****8a73e4******bd9****8c20",
+            "Answer": "<answer>"
+        }
+    ]
+ };  //Required
+
+lrv2.reAuthenticationApi.reAuthBySecurityQuestion(accessToken, securityQuestionAnswerUpdateModel).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
 <h6 id="MFAReAuthenticate-get-"> Multi Factor Re-Authenticate (GET)</h6>
  This API is used to trigger the Multi-Factor Autentication workflow for the provided access token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-trigger/)
 
@@ -4077,6 +4422,29 @@ var accessToken = "<accessToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 
 lrv2.reAuthenticationApi.mfaReAuthenticate(accessToken, smsTemplate2FA).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="ReAuthSendEmailOtp-get-"> Send MFA Re-auth Email OTP by Access Token (GET)</h6>
+ This API is used to send the MFA Email OTP to the email for Re-authentication  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/send-mfa-re-auth-email-otp-by-access-token/)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+var emailId = "<emailId>"; //Required
+var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
+
+lrv2.reAuthenticationApi.reAuthSendEmailOtp(accessToken, emailId, emailTemplate2FA).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);

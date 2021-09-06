@@ -151,9 +151,9 @@ module.exports = function (config) {
   };
 
   /**
-  * 
-  * @param {passwordLessLoginByEmailAndOtpModel} 
-  * @param {fields} 
+  * This API is used to verify the otp sent to the email when doing a passwordless login. 
+  * @param {passwordLessLoginByEmailAndOtpModel} payload
+  * @param {fields} Fields
   * @return Response containing User Profile Data and access token
   *9.23
   */
@@ -175,9 +175,9 @@ module.exports = function (config) {
   };
 
   /**
-  * 
-  * @param {passwordLessLoginByUserNameAndOtpModel} 
-  * @param {fields} 
+  * This API is used to verify the otp sent to the email when doing a passwordless login.
+  * @param {passwordLessLoginByUserNameAndOtpModel} payload
+  * @param {fields} Fields
   * @return Response containing User Profile Data and access token
   *9.24
   */

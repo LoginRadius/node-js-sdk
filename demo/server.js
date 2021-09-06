@@ -63,7 +63,10 @@ app.post('/ajax_handler/login', function (req, res) {
       output.message = 'Token is required';
     } else {
       var fields = '';
-      lrv2.authenticationApi.getProfileByAccessToken(token, fields).then(function (response) {
+      var emailTemplate = '';
+      var verificationUrl = '';
+      var welcomeEmailTemplate = '';
+      lrv2.authenticationApi.getProfileByAccessToken(token, fields, emailTemplate, verificationUrl, welcomeEmailTemplate).then(function (response) {
         if ((response.EmailVerified)) {
           output.data = response;
           output.message = 'Profile fetched';
@@ -226,13 +229,14 @@ app.post('/ajax_handler/login', function (req, res) {
       output.message = 'password is required';
     } else {
       var emailTemplate = '';
+      var emailTemplate2FA = '';
       var fields = '';
       var loginUrl = '';
       var smsTemplate = '';
       var smsTemplate2FA = '';
       var verificationUrl = 'http://localhost:3000/demo';
 
-      lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl).then(function (response) {
+      lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl, emailTemplate2FA).then(function (response) {
         if ((response.access_token) && (response.access_token !== '')) {
           output.data = response;
           output.message = 'Logged in successfully';
@@ -253,9 +257,11 @@ app.post('/ajax_handler/login', function (req, res) {
       output.message = 'Google Auth Code is required';
     } else {
       var fields = '';
-      var smsTemplate2FA = '';
-
-      lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthCode, secondFactorAuthenticationToken, fields, smsTemplate2FA).then(function (response) {
+      var rbaBrowserEmailTemplate='';
+      var rbaCityEmailTemplate='';
+      var rbaCountryEmailTemplate='';
+      var rbaIpEmailTemplate='';
+      lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthCode, secondFactorAuthenticationToken, fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate).then(function (response) {
         if ((response.access_token) && (response.access_token !== '')) {
           output.data = response;
           output.message = 'Mfa validate google auth code.';

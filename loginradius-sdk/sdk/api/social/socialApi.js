@@ -785,30 +785,6 @@ module.exports = function (config) {
   };
 
   /**
-  * The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All
-  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-  * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-  * @return Response containing Definition for Complete UserProfile data
-  *38.1
-  */
-
-  module.getSocialUserProfile = function (accessToken, fields) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
-    }
-    var queryParameters = {};
-
-    queryParameters.access_token = accessToken;
-    if (!helper.isNullOrWhiteSpace(fields)) {
-      queryParameters.fields = fields;
-    }
-
-    var resourcePath = 'api/v2/userprofile';
-
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
-
-  /**
   * The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.
   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields

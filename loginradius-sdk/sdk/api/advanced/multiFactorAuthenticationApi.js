@@ -221,6 +221,129 @@ module.exports = function (config) {
   };
 
   /**
+  * This API is created to send the OTP to the email if email OTP authenticator is enabled in app's MFA configuration.
+  * @param {accessToken} access_token
+  * @param {emailId} EmailId
+  * @param {emailTemplate2FA} EmailTemplate2FA
+  * @return Response containing Definition of Complete Validation data
+  *5.17
+  */
+
+  module.mfaEmailOtpByAccessToken = function (accessToken, emailId,
+    emailTemplate2FA) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(emailId)) {
+      return Promise.reject(helper.getValidationMessage('emailId'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.emailId = emailId;
+    if (!helper.isNullOrWhiteSpace(emailTemplate2FA)) {
+      queryParameters.emailTemplate2FA = emailTemplate2FA;
+    }
+
+    var resourcePath = 'identity/v2/auth/account/2fa/otp/email';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * This API is used to set up MFA Email OTP authenticator on profile after login.
+  * @param {accessToken} access_token
+  * @param {multiFactorAuthModelByEmailOtpWithLockout} payload
+  * @return Response containing Definition for Complete profile data
+  *5.18
+  */
+
+  module.mfaValidateEmailOtpByAccessToken = function (accessToken, multiFactorAuthModelByEmailOtpWithLockout) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.checkJson(multiFactorAuthModelByEmailOtpWithLockout)) {
+      return Promise.reject(helper.getValidationMessage('multiFactorAuthModelByEmailOtpWithLockout'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+
+    var resourcePath = 'identity/v2/auth/account/2fa/verification/otp/email';
+
+    return config.request('PUT', resourcePath, queryParameters, multiFactorAuthModelByEmailOtpWithLockout);
+  };
+
+  /**
+  * This API is used to reset the Email OTP Authenticator settings for an MFA-enabled user
+  * @param {accessToken} access_token
+  * @return Response containing Definition of Delete Request
+  *5.19
+  */
+
+  module.mfaResetEmailOtpAuthenticatorByAccessToken = function (accessToken) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+
+    var resourcePath = 'identity/v2/auth/account/2fa/authenticator/otp/email';
+
+    return config.request('DELETE', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * This API is used to set up MFA Security Question authenticator on profile after login.
+  * @param {accessToken} access_token
+  * @param {securityQuestionAnswerModelByAccessToken} payload
+  * @return Response containing Definition of Complete Validation data
+  *5.20
+  */
+
+  module.mfaSecurityQuestionAnswerByAccessToken = function (accessToken, securityQuestionAnswerModelByAccessToken) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.checkJson(securityQuestionAnswerModelByAccessToken)) {
+      return Promise.reject(helper.getValidationMessage('securityQuestionAnswerModelByAccessToken'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+
+    var resourcePath = 'identity/v2/auth/account/2fa/securityquestionanswer';
+
+    return config.request('PUT', resourcePath, queryParameters, securityQuestionAnswerModelByAccessToken);
+  };
+
+  /**
+  * This API is used to Reset MFA Security Question Authenticator By Access Token
+  * @param {accessToken} access_token
+  * @return Response containing Definition of Delete Request
+  *5.21
+  */
+
+  module.mfaResetSecurityQuestionAuthenticatorByAccessToken = function (accessToken) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+
+    var resourcePath = 'identity/v2/auth/account/2fa/authenticator/securityquestionanswer';
+
+    return config.request('DELETE', resourcePath, queryParameters, null);
+  };
+
+  /**
   * This API can be used to login by emailid on a Multi-factor authentication enabled LoginRadius site.
   * @param {email} user's email
   * @param {password} Password for the email
@@ -230,13 +353,15 @@ module.exports = function (config) {
   * @param {smsTemplate} SMS Template name
   * @param {smsTemplate2FA} SMS Template Name
   * @param {verificationUrl} Email verification url
+  * @param {emailTemplate2FA} 2FA Email Template name
   * @return Complete user UserProfile data
+
   *9.8.1
   */
 
   module.mfaLoginByEmail = function (email, password,
-    emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA,
-    verificationUrl) {
+    emailTemplate, fields, loginUrl, smsTemplate,
+    smsTemplate2FA, verificationUrl, emailTemplate2FA) {
     if (helper.isNullOrWhiteSpace(email)) {
       return Promise.reject(helper.getValidationMessage('email'));
     }
@@ -264,6 +389,9 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
+    if (!helper.isNullOrWhiteSpace(emailTemplate2FA)) {
+      queryParameters.emailTemplate2FA = emailTemplate2FA;
+    }
 
     var bodyParameters = {};
     bodyParameters.email = email;
@@ -284,13 +412,14 @@ module.exports = function (config) {
   * @param {smsTemplate} SMS Template name
   * @param {smsTemplate2FA} SMS Template Name
   * @param {verificationUrl} Email verification url
+  * @param {emailTemplate2FA} 2FA Email Template name
   * @return Complete user UserProfile data
   *9.8.2
   */
 
   module.mfaLoginByUserName = function (password, username,
-    emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA,
-    verificationUrl) {
+    emailTemplate, fields, loginUrl, smsTemplate,
+    smsTemplate2FA, verificationUrl, emailTemplate2FA) {
     if (helper.isNullOrWhiteSpace(password)) {
       return Promise.reject(helper.getValidationMessage('password'));
     }
@@ -318,6 +447,9 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
+    if (!helper.isNullOrWhiteSpace(emailTemplate2FA)) {
+      queryParameters.emailTemplate2FA = emailTemplate2FA;
+    }
 
     var bodyParameters = {};
     bodyParameters.password = password;
@@ -338,13 +470,14 @@ module.exports = function (config) {
   * @param {smsTemplate} SMS Template name
   * @param {smsTemplate2FA} SMS Template Name
   * @param {verificationUrl} Email verification url
+  * @param {emailTemplate2FA} 2FA Email Template name
   * @return Complete user UserProfile data
   *9.8.3
   */
 
   module.mfaLoginByPhone = function (password, phone,
-    emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA,
-    verificationUrl) {
+    emailTemplate, fields, loginUrl, smsTemplate,
+    smsTemplate2FA, verificationUrl, emailTemplate2FA) {
     if (helper.isNullOrWhiteSpace(password)) {
       return Promise.reject(helper.getValidationMessage('password'));
     }
@@ -372,7 +505,9 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
-
+    if (!helper.isNullOrWhiteSpace(emailTemplate2FA)) {
+      queryParameters.emailTemplate2FA = emailTemplate2FA;
+    }
     var bodyParameters = {};
     bodyParameters.password = password;
     bodyParameters.phone = phone;
@@ -388,12 +523,17 @@ module.exports = function (config) {
   * @param {secondFactorAuthenticationToken} A Uniquely generated MFA identifier token after successful authentication
   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
   * @param {smsTemplate2FA} SMS Template Name
+  * @param {rbaBrowserEmailTemplate} 
+  * @param {rbaCityEmailTemplate} 
+  * @param {rbaCountryEmailTemplate} 
+  * @param {rbaIpEmailTemplate} 
   * @return Complete user UserProfile data
   *9.12
   */
 
   module.mfaValidateOTPByPhone = function (multiFactorAuthModelWithLockout, secondFactorAuthenticationToken,
-    fields, smsTemplate2FA) {
+    fields, smsTemplate2FA, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate,
+    ) {
     if (helper.checkJson(multiFactorAuthModelWithLockout)) {
       return Promise.reject(helper.getValidationMessage('multiFactorAuthModelWithLockout'));
     }
@@ -410,6 +550,18 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(smsTemplate2FA)) {
       queryParameters.smsTemplate2FA = smsTemplate2FA;
     }
+    if (!helper.isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
+      queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCityEmailTemplate)) {
+      queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
+      queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaIpEmailTemplate)) {
+      queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
+    }
 
     var resourcePath = 'identity/v2/auth/login/2fa/verification/otp';
 
@@ -419,15 +571,18 @@ module.exports = function (config) {
   /**
   * This API is used to login via Multi-factor-authentication by passing the google authenticator code.
   * @param {googleAuthenticatorCode} The code generated by google authenticator app after scanning QR code
-  * @param {secondFactorAuthenticationToken} A Uniquely generated MFA identifier token after successful authentication
+  * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-  * @param {smsTemplate2FA} SMS Template Name
+  * @param {rbaBrowserEmailTemplate} RbaBrowserEmailTemplate
+  * @param {rbaCityEmailTemplate} RbaCityEmailTemplate
+  * @param {rbaCountryEmailTemplate} RbaCountryEmailTemplate
+  * @param {rbaIpEmailTemplate} RbaIpEmailTemplate
   * @return Complete user UserProfile data
   *9.13
   */
 
   module.mfaValidateGoogleAuthCode = function (googleAuthenticatorCode, secondFactorAuthenticationToken,
-    fields, smsTemplate2FA) {
+    fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate) {
     if (helper.isNullOrWhiteSpace(googleAuthenticatorCode)) {
       return Promise.reject(helper.getValidationMessage('googleAuthenticatorCode'));
     }
@@ -441,8 +596,17 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(smsTemplate2FA)) {
-      queryParameters.smsTemplate2FA = smsTemplate2FA;
+    if (!helper.isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
+      queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCityEmailTemplate)) {
+      queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
+      queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaIpEmailTemplate)) {
+      queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
     }
 
     var bodyParameters = {};
@@ -458,12 +622,16 @@ module.exports = function (config) {
   * @param {multiFactorAuthModelByBackupCode} Model Class containing Definition of payload for MultiFactorAuth By BackupCode API
   * @param {secondFactorAuthenticationToken} A Uniquely generated MFA identifier token after successful authentication
   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+  * @param {rbaBrowserEmailTemplate} 
+  * @param {rbaCityEmailTemplate} 
+  * @param {rbaCountryEmailTemplate} 
+  * @param {rbaIpEmailTemplate} 
   * @return Complete user UserProfile data
   *9.14
   */
 
   module.mfaValidateBackupCode = function (multiFactorAuthModelByBackupCode, secondFactorAuthenticationToken,
-    fields) {
+    fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate) {
     if (helper.checkJson(multiFactorAuthModelByBackupCode)) {
       return Promise.reject(helper.getValidationMessage('multiFactorAuthModelByBackupCode'));
     }
@@ -476,6 +644,18 @@ module.exports = function (config) {
     queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
     if (!helper.isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
+      queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCityEmailTemplate)) {
+      queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
+      queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaIpEmailTemplate)) {
+      queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/login/2fa/verification/backupcode';
@@ -539,6 +719,145 @@ module.exports = function (config) {
     var resourcePath = 'identity/v2/auth/login/2fa/resend';
 
     return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * An API designed to send the MFA Email OTP to the email.
+  * @param {emailIdModel} payload
+  * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
+  * @param {emailTemplate2FA} EmailTemplate2FA
+  * @return Response containing Definition of Complete Validation data
+  *9.18
+  */
+
+  module.mfaEmailOTP = function (emailIdModel, secondFactorAuthenticationToken,
+    emailTemplate2FA) {
+    if (helper.checkJson(emailIdModel)) {
+      return Promise.reject(helper.getValidationMessage('emailIdModel'));
+    }
+    if (helper.isNullOrWhiteSpace(secondFactorAuthenticationToken)) {
+      return Promise.reject(helper.getValidationMessage('secondFactorAuthenticationToken'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
+    if (!helper.isNullOrWhiteSpace(emailTemplate2FA)) {
+      queryParameters.emailTemplate2FA = emailTemplate2FA;
+    }
+
+    var resourcePath = 'identity/v2/auth/login/2fa/otp/email';
+
+    return config.request('POST', resourcePath, queryParameters, emailIdModel);
+  };
+
+  /**
+  * This API is used to Verify MFA Email OTP by MFA Token
+  * @param {multiFactorAuthModelByEmailOtp} payload
+  * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
+  * @param {rbaBrowserEmailTemplate} RbaBrowserEmailTemplate
+  * @param {rbaCityEmailTemplate} RbaCityEmailTemplate
+  * @param {rbaCountryEmailTemplate} RbaCountryEmailTemplate
+  * @param {rbaIpEmailTemplate} RbaIpEmailTemplate
+  * @return Response Containing Access Token and Complete Profile Data
+  *9.25
+  */
+
+  module.mfaValidateEmailOtp = function (multiFactorAuthModelByEmailOtp, secondFactorAuthenticationToken,
+    rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate) {
+    if (helper.checkJson(multiFactorAuthModelByEmailOtp)) {
+      return Promise.reject(helper.getValidationMessage('multiFactorAuthModelByEmailOtp'));
+    }
+    if (helper.isNullOrWhiteSpace(secondFactorAuthenticationToken)) {
+      return Promise.reject(helper.getValidationMessage('secondFactorAuthenticationToken'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
+    if (!helper.isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
+      queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCityEmailTemplate)) {
+      queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
+      queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaIpEmailTemplate)) {
+      queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
+    }
+
+    var resourcePath = 'identity/v2/auth/login/2fa/verification/otp/email';
+
+    return config.request('PUT', resourcePath, queryParameters, multiFactorAuthModelByEmailOtp);
+  };
+
+  /**
+  * This API is used to set the security questions on the profile with the MFA token when MFA flow is required.
+  * @param {securityQuestionAnswerUpdateModel} payload
+  * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
+  * @return Response Containing Access Token and Complete Profile Data
+  *9.26
+  */
+
+  module.mfaSecurityQuestionAnswer = function (securityQuestionAnswerUpdateModel, secondFactorAuthenticationToken) {
+    if (helper.checkJson(securityQuestionAnswerUpdateModel)) {
+      return Promise.reject(helper.getValidationMessage('securityQuestionAnswerUpdateModel'));
+    }
+    if (helper.isNullOrWhiteSpace(secondFactorAuthenticationToken)) {
+      return Promise.reject(helper.getValidationMessage('secondFactorAuthenticationToken'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
+
+    var resourcePath = 'identity/v2/auth/login/2fa/securityquestionanswer';
+
+    return config.request('PUT', resourcePath, queryParameters, securityQuestionAnswerUpdateModel);
+  };
+
+  /**
+  * This API is used to resending the verification OTP to the provided phone number
+  * @param {securityQuestionAnswerUpdateModel} payload
+  * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
+  * @param {rbaBrowserEmailTemplate} RbaBrowserEmailTemplate
+  * @param {rbaCityEmailTemplate} RbaCityEmailTemplate
+  * @param {rbaCountryEmailTemplate} RbaCountryEmailTemplate
+  * @param {rbaIpEmailTemplate} RbaIpEmailTemplate
+  * @return Response Containing Access Token and Complete Profile Data
+  *9.27
+  */
+
+  module.mfaSecurityQuestionAnswerVerification = function (securityQuestionAnswerUpdateModel, secondFactorAuthenticationToken,
+    rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate) {
+    if (helper.checkJson(securityQuestionAnswerUpdateModel)) {
+      return Promise.reject(helper.getValidationMessage('securityQuestionAnswerUpdateModel'));
+    }
+    if (helper.isNullOrWhiteSpace(secondFactorAuthenticationToken)) {
+      return Promise.reject(helper.getValidationMessage('secondFactorAuthenticationToken'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
+    if (!helper.isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
+      queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCityEmailTemplate)) {
+      queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
+      queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(rbaIpEmailTemplate)) {
+      queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
+    }
+
+    var resourcePath = 'identity/v2/auth/login/2fa/verification/securityquestionanswer';
+
+    return config.request('POST', resourcePath, queryParameters, securityQuestionAnswerUpdateModel);
   };
 
   /**
@@ -635,6 +954,50 @@ module.exports = function (config) {
     var resourcePath = 'identity/v2/manage/account/2fa/backupcode/reset';
 
     return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * This API is used to reset the Email OTP Authenticator settings for an MFA-enabled user.
+  * @param {uid} UID, the unified identifier for each user account
+  * @return Response containing Definition of Delete Request
+  *18.42
+  */
+
+  module.mfaResetEmailOtpAuthenticatorByUid = function (uid) {
+    if (helper.isNullOrWhiteSpace(uid)) {
+      return Promise.reject(helper.getValidationMessage('uid'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.uid = uid;
+
+    var resourcePath = 'identity/v2/manage/account/2fa/authenticator/otp/email';
+
+    return config.request('DELETE', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * This API is used to reset the Security Question Authenticator settings for an MFA-enabled user.
+  * @param {uid} UID, the unified identifier for each user account
+  * @return Response containing Definition of Delete Request
+  *18.43
+  */
+
+  module.mfaResetSecurityQuestionAuthenticatorByUid = function (uid) {
+    if (helper.isNullOrWhiteSpace(uid)) {
+      return Promise.reject(helper.getValidationMessage('uid'));
+    }
+    var queryParameters = {};
+
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.uid = uid;
+
+    var resourcePath = 'identity/v2/manage/account/2fa/authenticator/securityquestionanswer';
+
+    return config.request('DELETE', resourcePath, queryParameters, null);
   };
   return module;
 };

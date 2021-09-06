@@ -240,5 +240,86 @@ module.exports = function (config) {
 
     return config.request('PUT', resourcePath, queryParameters, pINAuthEventBasedAuthModelWithLockout);
   };
+
+  /**
+  * This API is used to validate the triggered MFA authentication flow with an Email OTP.
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {reauthByEmailOtpModel} payload
+  * @return Response containing Definition response of MFA reauthentication
+  *42.14
+  */
+
+  module.reAuthValidateEmailOtp = function (accessToken, reauthByEmailOtpModel) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.checkJson(reauthByEmailOtpModel)) {
+      return Promise.reject(helper.getValidationMessage('reauthByEmailOtpModel'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+
+    var resourcePath = 'identity/v2/auth/account/reauth/2fa/otp/email/verify';
+
+    return config.request('PUT', resourcePath, queryParameters, reauthByEmailOtpModel);
+  };
+
+  /**
+  * This API is used to send the MFA Email OTP to the email for Re-authentication
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {emailId} EmailId
+  * @param {emailTemplate2FA} EmailTemplate2FA
+  * @return Response containing Definition of Complete Validation data
+  *42.15
+  */
+
+  module.reAuthSendEmailOtp = function (accessToken, emailId,
+    emailTemplate2FA) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(emailId)) {
+      return Promise.reject(helper.getValidationMessage('emailId'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.emailId = emailId;
+    if (!helper.isNullOrWhiteSpace(emailTemplate2FA)) {
+      queryParameters.emailTemplate2FA = emailTemplate2FA;
+    }
+
+    var resourcePath = 'identity/v2/auth/account/reauth/2fa/otp/email';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+  * This API is used to validate the triggered MFA re-authentication flow with security questions answers.
+  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+  * @param {securityQuestionAnswerUpdateModel} payload
+  * @return Response containing Definition response of MFA reauthentication
+  *42.16
+  */
+
+  module.reAuthBySecurityQuestion = function (accessToken, securityQuestionAnswerUpdateModel) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.checkJson(securityQuestionAnswerUpdateModel)) {
+      return Promise.reject(helper.getValidationMessage('securityQuestionAnswerUpdateModel'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+
+    var resourcePath = 'identity/v2/auth/account/reauth/2fa/securityquestionanswer/verify';
+
+    return config.request('POST', resourcePath, queryParameters, securityQuestionAnswerUpdateModel);
+  };
   return module;
 };
