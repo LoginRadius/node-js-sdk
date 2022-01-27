@@ -7,18 +7,23 @@ module.exports = function (config) {
   var helper = require(config.HELPER_PATH);
 
   /**
-  * This API verifies an account by OTP and allows the customer to login.
-  * @param {passwordLessLoginOtpModel} Model Class containing Definition of payload for PasswordLessLoginOtpModel API
-  * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-  * @param {smsTemplate} SMS Template name
-  * @return Response containing User Profile Data and access token
-  *9.6
-  */
+   * This API verifies an account by OTP and allows the customer to login.
+   * @param {passwordLessLoginOtpModel} Model Class containing Definition of payload for PasswordLessLoginOtpModel API
+   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param {smsTemplate} SMS Template name
+   * @return Response containing User Profile Data and access token
+   *9.6
+   */
 
-  module.passwordlessLoginPhoneVerification = function (passwordLessLoginOtpModel, fields,
-    smsTemplate) {
+  module.passwordlessLoginPhoneVerification = function (
+    passwordLessLoginOtpModel,
+    fields,
+    smsTemplate
+  ) {
     if (helper.checkJson(passwordLessLoginOtpModel)) {
-      return Promise.reject(helper.getValidationMessage('passwordLessLoginOtpModel'));
+      return Promise.reject(
+        helper.getValidationMessage('passwordLessLoginOtpModel')
+      );
     }
     var queryParameters = {};
 
@@ -32,16 +37,21 @@ module.exports = function (config) {
 
     var resourcePath = 'identity/v2/auth/login/passwordlesslogin/otp/verify';
 
-    return config.request('PUT', resourcePath, queryParameters, passwordLessLoginOtpModel);
+    return config.request(
+      'PUT',
+      resourcePath,
+      queryParameters,
+      passwordLessLoginOtpModel
+    );
   };
 
   /**
-  * API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID
-  * @param {phone} The Registered Phone Number
-  * @param {smsTemplate} SMS Template name
-  * @return Response Containing Definition of SMS Data
-  *9.15
-  */
+   * API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID
+   * @param {phone} The Registered Phone Number
+   * @param {smsTemplate} SMS Template name
+   * @return Response Containing Definition of SMS Data
+   *9.15
+   */
 
   module.passwordlessLoginByPhone = function (phone, smsTemplate) {
     if (helper.isNullOrWhiteSpace(phone)) {
@@ -61,16 +71,19 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to send a Passwordless Login verification link to the provided Email ID
-  * @param {email} Email of the user
-  * @param {passwordLessLoginTemplate} Passwordless Login Template Name
-  * @param {verificationUrl} Email verification url
-  * @return Response containing Definition of Complete Validation data
-  *9.18.1
-  */
+   * This API is used to send a Passwordless Login verification link to the provided Email ID
+   * @param {email} Email of the user
+   * @param {passwordLessLoginTemplate} Passwordless Login Template Name
+   * @param {verificationUrl} Email verification url
+   * @return Response containing Definition of Complete Validation data
+   *9.18.1
+   */
 
-  module.passwordlessLoginByEmail = function (email, passwordLessLoginTemplate,
-    verificationUrl) {
+  module.passwordlessLoginByEmail = function (
+    email,
+    passwordLessLoginTemplate,
+    verificationUrl
+  ) {
     if (helper.isNullOrWhiteSpace(email)) {
       return Promise.reject(helper.getValidationMessage('email'));
     }
@@ -91,16 +104,19 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to send a Passwordless Login Verification Link to a customer by providing their UserName
-  * @param {username} UserName of the user
-  * @param {passwordLessLoginTemplate} Passwordless Login Template Name
-  * @param {verificationUrl} Email verification url
-  * @return Response containing Definition of Complete Validation data
-  *9.18.2
-  */
+   * This API is used to send a Passwordless Login Verification Link to a customer by providing their UserName
+   * @param {username} UserName of the user
+   * @param {passwordLessLoginTemplate} Passwordless Login Template Name
+   * @param {verificationUrl} Email verification url
+   * @return Response containing Definition of Complete Validation data
+   *9.18.2
+   */
 
-  module.passwordlessLoginByUserName = function (username, passwordLessLoginTemplate,
-    verificationUrl) {
+  module.passwordlessLoginByUserName = function (
+    username,
+    passwordLessLoginTemplate,
+    verificationUrl
+  ) {
     if (helper.isNullOrWhiteSpace(username)) {
       return Promise.reject(helper.getValidationMessage('username'));
     }
@@ -121,16 +137,19 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to verify the Passwordless Login verification link. Note: If you are using Passwordless Login by Phone you will need to use the Passwordless Login Phone Verification API
-  * @param {verificationToken} Verification token received in the email
-  * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-  * @param {welcomeEmailTemplate} Name of the welcome email template
-  * @return Response containing User Profile Data and access token
-  *9.19
-  */
+   * This API is used to verify the Passwordless Login verification link. Note: If you are using Passwordless Login by Phone you will need to use the Passwordless Login Phone Verification API
+   * @param {verificationToken} Verification token received in the email
+   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @return Response containing User Profile Data and access token
+   *9.19
+   */
 
-  module.passwordlessLoginVerification = function (verificationToken, fields,
-    welcomeEmailTemplate) {
+  module.passwordlessLoginVerification = function (
+    verificationToken,
+    fields,
+    welcomeEmailTemplate
+  ) {
     if (helper.isNullOrWhiteSpace(verificationToken)) {
       return Promise.reject(helper.getValidationMessage('verificationToken'));
     }
@@ -151,16 +170,21 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to verify the otp sent to the email when doing a passwordless login. 
-  * @param {passwordLessLoginByEmailAndOtpModel} payload
-  * @param {fields} Fields
-  * @return Response containing User Profile Data and access token
-  *9.23
-  */
+   * This API is used to verify the otp sent to the email when doing a passwordless login.
+   * @param {passwordLessLoginByEmailAndOtpModel} payload
+   * @param {fields} Fields
+   * @return Response containing User Profile Data and access token
+   *9.23
+   */
 
-  module.passwordlessLoginVerificationByEmailAndOTP = function (passwordLessLoginByEmailAndOtpModel, fields) {
+  module.passwordlessLoginVerificationByEmailAndOTP = function (
+    passwordLessLoginByEmailAndOtpModel,
+    fields
+  ) {
     if (helper.checkJson(passwordLessLoginByEmailAndOtpModel)) {
-      return Promise.reject(helper.getValidationMessage('passwordLessLoginByEmailAndOtpModel'));
+      return Promise.reject(
+        helper.getValidationMessage('passwordLessLoginByEmailAndOtpModel')
+      );
     }
     var queryParameters = {};
 
@@ -169,22 +193,33 @@ module.exports = function (config) {
       queryParameters.fields = fields;
     }
 
-    var resourcePath = 'identity/v2/auth/login/passwordlesslogin/email/verifyotp';
+    var resourcePath =
+      'identity/v2/auth/login/passwordlesslogin/email/verifyotp';
 
-    return config.request('POST', resourcePath, queryParameters, passwordLessLoginByEmailAndOtpModel);
+    return config.request(
+      'POST',
+      resourcePath,
+      queryParameters,
+      passwordLessLoginByEmailAndOtpModel
+    );
   };
 
   /**
-  * This API is used to verify the otp sent to the email when doing a passwordless login.
-  * @param {passwordLessLoginByUserNameAndOtpModel} payload
-  * @param {fields} Fields
-  * @return Response containing User Profile Data and access token
-  *9.24
-  */
+   * This API is used to verify the otp sent to the email when doing a passwordless login.
+   * @param {passwordLessLoginByUserNameAndOtpModel} payload
+   * @param {fields} Fields
+   * @return Response containing User Profile Data and access token
+   *9.24
+   */
 
-  module.passwordlessLoginVerificationByUserNameAndOTP = function (passwordLessLoginByUserNameAndOtpModel, fields) {
+  module.passwordlessLoginVerificationByUserNameAndOTP = function (
+    passwordLessLoginByUserNameAndOtpModel,
+    fields
+  ) {
     if (helper.checkJson(passwordLessLoginByUserNameAndOtpModel)) {
-      return Promise.reject(helper.getValidationMessage('passwordLessLoginByUserNameAndOtpModel'));
+      return Promise.reject(
+        helper.getValidationMessage('passwordLessLoginByUserNameAndOtpModel')
+      );
     }
     var queryParameters = {};
 
@@ -193,9 +228,15 @@ module.exports = function (config) {
       queryParameters.fields = fields;
     }
 
-    var resourcePath = 'identity/v2/auth/login/passwordlesslogin/username/verifyotp';
+    var resourcePath =
+      'identity/v2/auth/login/passwordlesslogin/username/verifyotp';
 
-    return config.request('POST', resourcePath, queryParameters, passwordLessLoginByUserNameAndOtpModel);
+    return config.request(
+      'POST',
+      resourcePath,
+      queryParameters,
+      passwordLessLoginByUserNameAndOtpModel
+    );
   };
   return module;
 };

@@ -59,6 +59,7 @@ Replace the placeholders in the config object with your LoginRadius credentials 
 
 Pass the proxy configurations if you want to set Http Server Proxy Configuration through your NodeJs SDK. Host and port are required to set Http Server Proxy configuration (username and password are optional).
 
+
 ### X-Origin-IP
 
 LoginRadius allows you to add X-Origin-IP in your headers and it determines the IP address of the client's request,this can also be useful to overcome analytics discrepancies where the analytics depend on header data.
@@ -72,7 +73,7 @@ The originIp will be added in `var config`
 Require the loginradius-sdk package and pass the config object
 ```
   var lrv2 = require('loginradius-sdk')(config);
- ```
+```
 
 
   ### Authentication API
@@ -5803,6 +5804,8 @@ List of APIs in this Section:<br>
 
 var timeDifference = 0; //Optional
 
+
+
 lrv2.sottApi.generateSott(timeDifference).then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -6156,9 +6159,32 @@ lrv2.webHookApi.webHookUnsubscribe(webHookSubscribeModel).then((response) => {
  ```
  
   
-  
+
  
- 
+
+### Generate SOTT Manually
+
+SOTT is a secure one-time token that can be created using the API key, API secret, and a timestamp ( start time and end time ). You can manually create a SOTT using the following util function.
+
+```
+var sottConfig={
+     apiKey: '{{ Your API KEY }}', //(Optional) LoginRadius Api Key.
+     apiSecret: '{{ Your Primary API Secret }}', //(Optional) LoginRadius Api Secret (Only Primary Api Secret is used to generate the SOTT manually).	
+};
+
+
+// You can pass the start and end time interval and the SOTT will be valid for this time duration. 
+
+var startDate="2017-05-15 07:10:42"; // (Optional) Valid Start Date with Date and time
+
+var endDate="2017-05-15 07:20:42"; // (Optional) Valid End Date with Date and time
+
+
+lrv2.helper.getSott(sottConfig,startDate, endDate).then(function (sott) {
+       console.log(sott)
+});
+
+```
 
 
 ### Demo <br/>

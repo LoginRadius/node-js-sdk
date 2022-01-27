@@ -7,16 +7,19 @@ module.exports = function (config) {
   var helper = require(config.HELPER_PATH);
 
   /**
-  * This API is used to write information in JSON format to the custom object for the specified account.
-  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {payload} LoginRadius Custom Object Name
-  * @return Response containing Definition for Complete user custom object data
-  *6.1
-  */
+   * This API is used to write information in JSON format to the custom object for the specified account.
+   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {payload} LoginRadius Custom Object Name
+   * @return Response containing Definition for Complete user custom object data
+   *6.1
+   */
 
-  module.createCustomObjectByToken = function (accessToken, objectName,
-    payload) {
+  module.createCustomObjectByToken = function (
+    accessToken,
+    objectName,
+    payload
+  ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
@@ -38,18 +41,23 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to update the specified custom object data of the specified account. If the value of updatetype is 'replace' then it will fully replace custom object with the new custom object and if the value of updatetype is 'partialreplace' then it will perform an upsert type operation
-  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {objectRecordId} Unique identifier of the user's record in Custom Object
-  * @param {payload} LoginRadius Custom Object Name
-  * @param {updateType} Possible values: replace, partialreplace.
-  * @return Response containing Definition for Complete user custom object data
-  *6.2
-  */
+   * This API is used to update the specified custom object data of the specified account. If the value of updatetype is 'replace' then it will fully replace custom object with the new custom object and if the value of updatetype is 'partialreplace' then it will perform an upsert type operation
+   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {objectRecordId} Unique identifier of the user's record in Custom Object
+   * @param {payload} LoginRadius Custom Object Name
+   * @param {updateType} Possible values: replace, partialreplace.
+   * @return Response containing Definition for Complete user custom object data
+   *6.2
+   */
 
-  module.updateCustomObjectByToken = function (accessToken, objectName,
-    objectRecordId, payload, updateType) {
+  module.updateCustomObjectByToken = function (
+    accessToken,
+    objectName,
+    objectRecordId,
+    payload,
+    updateType
+  ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
@@ -77,12 +85,12 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to retrieve the specified Custom Object data for the specified account.
-  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @return Complete user CustomObject data
-  *6.3
-  */
+   * This API is used to retrieve the specified Custom Object data for the specified account.
+   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @return Complete user CustomObject data
+   *6.3
+   */
 
   module.getCustomObjectByToken = function (accessToken, objectName) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
@@ -103,16 +111,19 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to retrieve the Custom Object data for the specified account.
-  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {objectRecordId} Unique identifier of the user's record in Custom Object
-  * @return Response containing Definition for Complete user custom object data
-  *6.4
-  */
+   * This API is used to retrieve the Custom Object data for the specified account.
+   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {objectRecordId} Unique identifier of the user's record in Custom Object
+   * @return Response containing Definition for Complete user custom object data
+   *6.4
+   */
 
-  module.getCustomObjectByRecordIDAndToken = function (accessToken, objectName,
-    objectRecordId) {
+  module.getCustomObjectByRecordIDAndToken = function (
+    accessToken,
+    objectName,
+    objectRecordId
+  ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
@@ -134,16 +145,19 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to remove the specified Custom Object data using ObjectRecordId of a specified account.
-  * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {objectRecordId} Unique identifier of the user's record in Custom Object
-  * @return Response containing Definition of Delete Request
-  *6.5
-  */
+   * This API is used to remove the specified Custom Object data using ObjectRecordId of a specified account.
+   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {objectRecordId} Unique identifier of the user's record in Custom Object
+   * @return Response containing Definition of Delete Request
+   *6.5
+   */
 
-  module.deleteCustomObjectByToken = function (accessToken, objectName,
-    objectRecordId) {
+  module.deleteCustomObjectByToken = function (
+    accessToken,
+    objectName,
+    objectRecordId
+  ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
@@ -165,16 +179,15 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to write information in JSON format to the custom object for the specified account.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {payload} LoginRadius Custom Object Name
-  * @param {uid} UID, the unified identifier for each user account
-  * @return Response containing Definition for Complete user custom object data
-  *19.1
-  */
+   * This API is used to write information in JSON format to the custom object for the specified account.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {payload} LoginRadius Custom Object Name
+   * @param {uid} UID, the unified identifier for each user account
+   * @return Response containing Definition for Complete user custom object data
+   *19.1
+   */
 
-  module.createCustomObjectByUid = function (objectName, payload,
-    uid) {
+  module.createCustomObjectByUid = function (objectName, payload, uid) {
     if (helper.isNullOrWhiteSpace(objectName)) {
       return Promise.reject(helper.getValidationMessage('objectName'));
     }
@@ -196,18 +209,23 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to update the specified custom object data of a specified account. If the value of updatetype is 'replace' then it will fully replace custom object with new custom object and if the value of updatetype is partialreplace then it will perform an upsert type operation.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {objectRecordId} Unique identifier of the user's record in Custom Object
-  * @param {payload} LoginRadius Custom Object Name
-  * @param {uid} UID, the unified identifier for each user account
-  * @param {updateType} Possible values: replace, partialreplace.
-  * @return Response containing Definition for Complete user custom object data
-  *19.2
-  */
+   * This API is used to update the specified custom object data of a specified account. If the value of updatetype is 'replace' then it will fully replace custom object with new custom object and if the value of updatetype is partialreplace then it will perform an upsert type operation.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {objectRecordId} Unique identifier of the user's record in Custom Object
+   * @param {payload} LoginRadius Custom Object Name
+   * @param {uid} UID, the unified identifier for each user account
+   * @param {updateType} Possible values: replace, partialreplace.
+   * @return Response containing Definition for Complete user custom object data
+   *19.2
+   */
 
-  module.updateCustomObjectByUid = function (objectName, objectRecordId,
-    payload, uid, updateType) {
+  module.updateCustomObjectByUid = function (
+    objectName,
+    objectRecordId,
+    payload,
+    uid,
+    updateType
+  ) {
     if (helper.isNullOrWhiteSpace(objectName)) {
       return Promise.reject(helper.getValidationMessage('objectName'));
     }
@@ -229,18 +247,19 @@ module.exports = function (config) {
       queryParameters.updateType = updateType;
     }
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
+    var resourcePath =
+      'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
 
     return config.request('PUT', resourcePath, queryParameters, payload);
   };
 
   /**
-  * This API is used to retrieve all the custom objects by UID from cloud storage.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {uid} UID, the unified identifier for each user account
-  * @return Complete user CustomObject data
-  *19.3
-  */
+   * This API is used to retrieve all the custom objects by UID from cloud storage.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {uid} UID, the unified identifier for each user account
+   * @return Complete user CustomObject data
+   *19.3
+   */
 
   module.getCustomObjectByUid = function (objectName, uid) {
     if (helper.isNullOrWhiteSpace(objectName)) {
@@ -261,16 +280,19 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to retrieve the Custom Object data for the specified account.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {objectRecordId} Unique identifier of the user's record in Custom Object
-  * @param {uid} UID, the unified identifier for each user account
-  * @return Response containing Definition for Complete user custom object data
-  *19.4
-  */
+   * This API is used to retrieve the Custom Object data for the specified account.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {objectRecordId} Unique identifier of the user's record in Custom Object
+   * @param {uid} UID, the unified identifier for each user account
+   * @return Response containing Definition for Complete user custom object data
+   *19.4
+   */
 
-  module.getCustomObjectByRecordID = function (objectName, objectRecordId,
-    uid) {
+  module.getCustomObjectByRecordID = function (
+    objectName,
+    objectRecordId,
+    uid
+  ) {
     if (helper.isNullOrWhiteSpace(objectName)) {
       return Promise.reject(helper.getValidationMessage('objectName'));
     }
@@ -286,22 +308,26 @@ module.exports = function (config) {
     queryParameters.apiSecret = config.apiSecret;
     queryParameters.objectName = objectName;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
+    var resourcePath =
+      'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
 
     return config.request('GET', resourcePath, queryParameters, null);
   };
 
   /**
-  * This API is used to remove the specified Custom Object data using ObjectRecordId of specified account.
-  * @param {objectName} LoginRadius Custom Object Name
-  * @param {objectRecordId} Unique identifier of the user's record in Custom Object
-  * @param {uid} UID, the unified identifier for each user account
-  * @return Response containing Definition of Delete Request
-  *19.5
-  */
+   * This API is used to remove the specified Custom Object data using ObjectRecordId of specified account.
+   * @param {objectName} LoginRadius Custom Object Name
+   * @param {objectRecordId} Unique identifier of the user's record in Custom Object
+   * @param {uid} UID, the unified identifier for each user account
+   * @return Response containing Definition of Delete Request
+   *19.5
+   */
 
-  module.deleteCustomObjectByRecordID = function (objectName, objectRecordId,
-    uid) {
+  module.deleteCustomObjectByRecordID = function (
+    objectName,
+    objectRecordId,
+    uid
+  ) {
     if (helper.isNullOrWhiteSpace(objectName)) {
       return Promise.reject(helper.getValidationMessage('objectName'));
     }
@@ -317,7 +343,8 @@ module.exports = function (config) {
     queryParameters.apiSecret = config.apiSecret;
     queryParameters.objectName = objectName;
 
-    var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
+    var resourcePath =
+      'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
 
     return config.request('DELETE', resourcePath, queryParameters, null);
   };

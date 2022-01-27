@@ -2,6 +2,18 @@
 > **LoginRadius Node JS SDK Change Log** provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
 
 
+
+# Version 11.3.0
+Release on January 27, 2022
+
+## Enhancements
+
+- Added linting and formatting toolchains
+- Added Licence and Contribution Guideline files
+
+
+
+
 # Version 11.2.0
 Release on September 6, 2021
 
@@ -26,9 +38,6 @@ Release on September 6, 2021
 - ReAuthValidateEmailOtp
 - ReAuthSendEmailOtp
 - ReAuthBySecurityQuestion
-
-## Removed (Deprecated) API:
-- GetSocialUserProfile
 
 Added `EmailTemplate2FA` parameter in the following API
 

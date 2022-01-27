@@ -7,14 +7,17 @@ module.exports = function (config) {
   var helper = require(config.HELPER_PATH);
 
   /**
-  * The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.
-  * @param {fbAccessToken} Facebook Access Token
-  * @param {socialAppName} Name of Social provider APP
-  * @return Response containing Definition of Complete Token data
-  *20.3
-  */
+   * The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.
+   * @param {fbAccessToken} Facebook Access Token
+   * @param {socialAppName} Name of Social provider APP
+   * @return Response containing Definition of Complete Token data
+   *20.3
+   */
 
-  module.getAccessTokenByFacebookAccessToken = function (fbAccessToken, socialAppName) {
+  module.getAccessTokenByFacebookAccessToken = function (
+    fbAccessToken,
+    socialAppName
+  ) {
     if (helper.isNullOrWhiteSpace(fbAccessToken)) {
       return Promise.reject(helper.getValidationMessage('fbAccessToken'));
     }
@@ -32,16 +35,19 @@ module.exports = function (config) {
   };
 
   /**
-  * The API is used to get LoginRadius access token by sending Twitter's access token. It will be valid for the specific duration of time specified in the response.
-  * @param {twAccessToken} Twitter Access Token
-  * @param {twTokenSecret} Twitter Token Secret
-  * @param {socialAppName} Name of Social provider APP
-  * @return Response containing Definition of Complete Token data
-  *20.4
-  */
+   * The API is used to get LoginRadius access token by sending Twitter's access token. It will be valid for the specific duration of time specified in the response.
+   * @param {twAccessToken} Twitter Access Token
+   * @param {twTokenSecret} Twitter Token Secret
+   * @param {socialAppName} Name of Social provider APP
+   * @return Response containing Definition of Complete Token data
+   *20.4
+   */
 
-  module.getAccessTokenByTwitterAccessToken = function (twAccessToken, twTokenSecret,
-    socialAppName) {
+  module.getAccessTokenByTwitterAccessToken = function (
+    twAccessToken,
+    twTokenSecret,
+    socialAppName
+  ) {
     if (helper.isNullOrWhiteSpace(twAccessToken)) {
       return Promise.reject(helper.getValidationMessage('twAccessToken'));
     }
@@ -63,17 +69,21 @@ module.exports = function (config) {
   };
 
   /**
-  * The API is used to get LoginRadius access token by sending Google's access token. It will be valid for the specific duration of time specified in the response.
-  * @param {googleAccessToken} Google Access Token
-  * @param {clientId} Google Client ID
-  * @param {refreshToken} LoginRadius refresh token
-  * @param {socialAppName} Name of Social provider APP
-  * @return Response containing Definition of Complete Token data
-  *20.5
-  */
+   * The API is used to get LoginRadius access token by sending Google's access token. It will be valid for the specific duration of time specified in the response.
+   * @param {googleAccessToken} Google Access Token
+   * @param {clientId} Google Client ID
+   * @param {refreshToken} LoginRadius refresh token
+   * @param {socialAppName} Name of Social provider APP
+   * @return Response containing Definition of Complete Token data
+   *20.5
+   */
 
-  module.getAccessTokenByGoogleAccessToken = function (googleAccessToken, clientId,
-    refreshToken, socialAppName) {
+  module.getAccessTokenByGoogleAccessToken = function (
+    googleAccessToken,
+    clientId,
+    refreshToken,
+    socialAppName
+  ) {
     if (helper.isNullOrWhiteSpace(googleAccessToken)) {
       return Promise.reject(helper.getValidationMessage('googleAccessToken'));
     }
@@ -97,11 +107,11 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to Get LoginRadius Access Token using google jwt id token for google native mobile login/registration.
-  * @param {idToken} Google JWT id_token
-  * @return Response containing Definition of Complete Token data
-  *20.6
-  */
+   * This API is used to Get LoginRadius Access Token using google jwt id token for google native mobile login/registration.
+   * @param {idToken} Google JWT id_token
+   * @return Response containing Definition of Complete Token data
+   *20.6
+   */
 
   module.getAccessTokenByGoogleJWTAccessToken = function (idToken) {
     if (helper.isNullOrWhiteSpace(idToken)) {
@@ -118,14 +128,17 @@ module.exports = function (config) {
   };
 
   /**
-  * The API is used to get LoginRadius access token by sending Linkedin's access token. It will be valid for the specific duration of time specified in the response.
-  * @param {lnAccessToken} Linkedin Access Token
-  * @param {socialAppName} Name of Social provider APP
-  * @return Response containing Definition of Complete Token data
-  *20.7
-  */
+   * The API is used to get LoginRadius access token by sending Linkedin's access token. It will be valid for the specific duration of time specified in the response.
+   * @param {lnAccessToken} Linkedin Access Token
+   * @param {socialAppName} Name of Social provider APP
+   * @return Response containing Definition of Complete Token data
+   *20.7
+   */
 
-  module.getAccessTokenByLinkedinAccessToken = function (lnAccessToken, socialAppName) {
+  module.getAccessTokenByLinkedinAccessToken = function (
+    lnAccessToken,
+    socialAppName
+  ) {
     if (helper.isNullOrWhiteSpace(lnAccessToken)) {
       return Promise.reject(helper.getValidationMessage('lnAccessToken'));
     }
@@ -143,11 +156,11 @@ module.exports = function (config) {
   };
 
   /**
-  * The API is used to get LoginRadius access token by sending Foursquare's access token. It will be valid for the specific duration of time specified in the response.
-  * @param {fsAccessToken} Foursquare Access Token
-  * @return Response containing Definition of Complete Token data
-  *20.8
-  */
+   * The API is used to get LoginRadius access token by sending Foursquare's access token. It will be valid for the specific duration of time specified in the response.
+   * @param {fsAccessToken} Foursquare Access Token
+   * @return Response containing Definition of Complete Token data
+   *20.8
+   */
 
   module.getAccessTokenByFoursquareAccessToken = function (fsAccessToken) {
     if (helper.isNullOrWhiteSpace(fsAccessToken)) {
@@ -164,12 +177,12 @@ module.exports = function (config) {
   };
 
   /**
-  * The API is used to get LoginRadius access token by sending a valid Apple ID OAuth Code. It will be valid for the specific duration of time specified in the response.
-  * @param {code} Apple Code
-  * @param {socialAppName} Name of Social provider APP
-  * @return Response containing Definition of Complete Token data
-  *20.12
-  */
+   * The API is used to get LoginRadius access token by sending a valid Apple ID OAuth Code. It will be valid for the specific duration of time specified in the response.
+   * @param {code} Apple Code
+   * @param {socialAppName} Name of Social provider APP
+   * @return Response containing Definition of Complete Token data
+   *20.12
+   */
 
   module.getAccessTokenByAppleIdCode = function (code, socialAppName) {
     if (helper.isNullOrWhiteSpace(code)) {
@@ -189,11 +202,11 @@ module.exports = function (config) {
   };
 
   /**
-  * This API is used to retrieve a LoginRadius access token by passing in a valid WeChat OAuth Code.
-  * @param {code} WeChat Code
-  * @return Response containing Definition of Complete Token data
-  *20.13
-  */
+   * This API is used to retrieve a LoginRadius access token by passing in a valid WeChat OAuth Code.
+   * @param {code} WeChat Code
+   * @return Response containing Definition of Complete Token data
+   *20.13
+   */
 
   module.getAccessTokenByWeChatCode = function (code) {
     if (helper.isNullOrWhiteSpace(code)) {
@@ -210,11 +223,11 @@ module.exports = function (config) {
   };
 
   /**
-  * The API is used to get LoginRadius access token by sending Vkontakte's access token. It will be valid for the specific duration of time specified in the response.
-  * @param {vkAccessToken} Vkontakte Access Token
-  * @return Response containing Definition of Complete Token data
-  *20.15
-  */
+   * The API is used to get LoginRadius access token by sending Vkontakte's access token. It will be valid for the specific duration of time specified in the response.
+   * @param {vkAccessToken} Vkontakte Access Token
+   * @return Response containing Definition of Complete Token data
+   *20.15
+   */
 
   module.getAccessTokenByVkontakteAccessToken = function (vkAccessToken) {
     if (helper.isNullOrWhiteSpace(vkAccessToken)) {
@@ -231,14 +244,17 @@ module.exports = function (config) {
   };
 
   /**
-  * The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.
-  * @param {googleAuthcode} Google AuthCode
-  * @param {socialAppName} Name of Social provider APP
-  * @return Response containing Definition of Complete Token data
-  *20.16
-  */
+   * The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.
+   * @param {googleAuthcode} Google AuthCode
+   * @param {socialAppName} Name of Social provider APP
+   * @return Response containing Definition of Complete Token data
+   *20.16
+   */
 
-  module.getAccessTokenByGoogleAuthCode = function (googleAuthcode, socialAppName) {
+  module.getAccessTokenByGoogleAuthCode = function (
+    googleAuthcode,
+    socialAppName
+  ) {
     if (helper.isNullOrWhiteSpace(googleAuthcode)) {
       return Promise.reject(helper.getValidationMessage('googleAuthcode'));
     }

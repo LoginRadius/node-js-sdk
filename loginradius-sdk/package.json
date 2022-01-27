@@ -1,8 +1,11 @@
 {
   "name": "loginradius-sdk",
   "readme": "",
-  "scripts": {},
-  "version": "11.2.0",
+  "scripts": {
+    "lint": "prettier --check sdk/**/*.js && eslint sdk/**/*.js",
+    "lint:fix": "prettier --write sdk/**/*.js  && eslint sdk/**/*.js --fix"
+  },
+  "version": "11.3.0",
   "description": "A LoginRadius SDK for node.js",
   "homepage": "https://www.loginradius.com",
   "main": "./sdk/util/lr.js",
@@ -23,5 +26,9 @@
       "name": "developers-loginradius",
       "email": "developers@loginradius.com"
     }
-  ]
+  ],
+  "dependencies": {
+    "eslint": "^8.5.0",
+    "prettier": "^2.5.1"
+  }
 }
