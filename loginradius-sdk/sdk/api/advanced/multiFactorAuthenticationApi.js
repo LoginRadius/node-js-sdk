@@ -4,7 +4,7 @@
 */
 module.exports = function (config) {
   var module = {};
-  var helper = require(config.HELPER_PATH);
+  var helper = require(config.HELPER_PATH)();
 
   /**
    * This API is used to configure the Multi-factor authentication after login by using the access token when MFA is set as optional on the LoginRadius site.

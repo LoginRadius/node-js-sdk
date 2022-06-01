@@ -1,6 +1,13 @@
 
 > **LoginRadius Node JS SDK Change Log** provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
 
+# Version 11.4.0
+Release on June 01, 2022
+
+## Enhancements
+
+- We have standardized the`getSott()` function  and added additional parameter `timeDifference`in the `getSott()` function to get the SOTT using the time difference. 
+- Enhancement in `README.md` file.
 
 
 # Version 11.3.0

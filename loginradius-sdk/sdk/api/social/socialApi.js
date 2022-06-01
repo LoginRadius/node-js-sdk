@@ -4,7 +4,7 @@
 */
 module.exports = function (config) {
   var module = {};
-  var helper = require(config.HELPER_PATH);
+  var helper = require(config.HELPER_PATH)();
 
   /**
    * This API Is used to translate the Request Token returned during authentication into an Access Token that can be used with other API calls.

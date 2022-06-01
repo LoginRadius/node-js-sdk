@@ -1,11 +1,21 @@
 'use strict';
 
-module.exports = function (secret, key, startDate, endDate) {
-  var crypto = require('crypto');
+module.exports = function (config, sottconfig, startDate, endDate, timeDifference) {
+  var helper = require(config.HELPER_PATH)();
+ 
+  var key = !helper.isNullOrWhiteSpace(sottconfig.apiKey) ? sottconfig.apiKey : config.apiKey;
+  var secret = !helper.isNullOrWhiteSpace(sottconfig.apiSecret) ? sottconfig.apiSecret : config.apiSecret;
+  var time = !helper.isNullOrWhiteSpace(timeDifference) ? parseInt(timeDifference) : 10;
 
+
+  var crypto = require('crypto');
   return new Promise(function (resolve, reject) {
     var tempToken = '';
-    if (!startDate) {
+
+
+    if (startDate && endDate) {
+      tempToken = startDate + '#' + key + '#' + endDate;
+    } else {
       var date = new Date();
       var nextMonth = date.getUTCMonth() + 1;
       tempToken =
@@ -27,8 +37,7 @@ module.exports = function (secret, key, startDate, endDate) {
         '#' +
         key +
         '#';
-      date.setUTCMinutes(date.getUTCMinutes() + 10);
-
+      date.setUTCMinutes(date.getUTCMinutes() + time);
       tempToken +=
         date.getUTCFullYear() +
         '/' +
@@ -45,13 +54,11 @@ module.exports = function (secret, key, startDate, endDate) {
         (date.getUTCSeconds() < 10
           ? '0' + date.getUTCSeconds()
           : date.getUTCSeconds());
-    } else {
-      tempToken = startDate + '#' + key + '#' + endDate;
     }
     encrypt(tempToken, resolve, reject);
   });
 
-  function encrypt (plainText, resolve, reject) {
+  function encrypt(plainText, resolve, reject) {
     var initVector = 'tu89geji340t89u2';
     var keySize = 256;
     var iterations = 10000;

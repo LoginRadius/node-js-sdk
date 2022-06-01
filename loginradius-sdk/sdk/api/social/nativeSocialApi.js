@@ -4,7 +4,7 @@
 */
 module.exports = function (config) {
   var module = {};
-  var helper = require(config.HELPER_PATH);
+  var helper = require(config.HELPER_PATH)();
 
   /**
    * The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.

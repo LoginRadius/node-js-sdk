@@ -4,7 +4,7 @@
 */
 module.exports = function (config) {
   var module = {};
-  var helper = require(config.HELPER_PATH);
+  var helper = require(config.HELPER_PATH)();
 
   /**
    * This API is used to get the Consent logs of the user.

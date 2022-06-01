@@ -4,7 +4,7 @@
 */
 module.exports = function (config) {
   var module = {};
-  var helper = require(config.HELPER_PATH);
+  var helper = require(config.HELPER_PATH)();
 
   /**
    * This API is used to write information in JSON format to the custom object for the specified account.
