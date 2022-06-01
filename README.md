@@ -40,7 +40,7 @@ Installation <br/>
 run `npm install loginradius-sdk` <br/>
 Configuration <br/>
 Create `var config` in project
-```
+```js
   var config = {
       apiDomain: 'api.loginradius.com',
       apiKey: '{{ Your API KEY }}',
@@ -64,17 +64,19 @@ Pass the proxy configurations if you want to set Http Server Proxy Configuration
 
 LoginRadius allows you to add X-Origin-IP in your headers and it determines the IP address of the client's request,this can also be useful to overcome analytics discrepancies where the analytics depend on header data.
 
-```
+```js
  originIp:"{{ Client Ip }}"
 
 ```
 The originIp will be added in `var config`
 
-Require the loginradius-sdk package and pass the config object
-```
+### Implementation
+
+Require the loginradius-sdk package and pass the config object.
+```js
   var lrv2 = require('loginradius-sdk')(config);
 ```
-
+The below APIs will be used to implement the loginradius functionalities.
 
   ### Authentication API
 
@@ -129,7 +131,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -160,7 +162,7 @@ lrv2.authenticationApi.updateProfileByAccessToken(accessToken, userProfileUpdate
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -185,7 +187,7 @@ lrv2.authenticationApi.unlockAccountByToken(accessToken, unlockProfileModel).the
  
  
 
- ```
+ ```js
 
 
 var emailVerificationByOtpModel ={ 
@@ -213,8 +215,7 @@ lrv2.authenticationApi.verifyEmailByOTP(emailVerificationByOtpModel, fields, url
  
  
 
- ```
-
+ ```js
 
 var resetPasswordBySecurityAnswerAndEmailModel ={ 
 "email" : "<email>",
@@ -239,7 +240,7 @@ lrv2.authenticationApi.resetPasswordBySecurityAnswerAndEmail(resetPasswordBySecu
  
  
 
- ```
+ ```js
 
 
 var resetPasswordBySecurityAnswerAndPhoneModel ={ 
@@ -265,7 +266,7 @@ lrv2.authenticationApi.resetPasswordBySecurityAnswerAndPhone(resetPasswordBySecu
  
  
 
- ```
+ ```js
 
 
 var resetPasswordBySecurityAnswerAndUserNameModel ={ 
@@ -291,7 +292,7 @@ lrv2.authenticationApi.resetPasswordBySecurityAnswerAndUserName(resetPasswordByS
  
  
 
- ```
+ ```js
 
 
 var resetPasswordByResetTokenModel ={ 
@@ -316,7 +317,7 @@ lrv2.authenticationApi.resetPasswordByResetToken(resetPasswordByResetTokenModel)
  
  
 
- ```
+ ```js
 
 
 var resetPasswordByEmailAndOtpModel ={ 
@@ -342,7 +343,7 @@ lrv2.authenticationApi.resetPasswordByEmailOTP(resetPasswordByEmailAndOtpModel).
  
  
 
- ```
+ ```js
 
 
 var resetPasswordByUserNameModel ={ 
@@ -368,7 +369,7 @@ lrv2.authenticationApi.resetPasswordByOTPAndUserName(resetPasswordByUserNameMode
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var newPassword = "<newPassword>"; //Required
@@ -391,7 +392,7 @@ lrv2.authenticationApi.changePassword(accessToken, newPassword, oldPassword).the
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var username = "<username>"; //Required
@@ -413,7 +414,7 @@ lrv2.authenticationApi.setOrChangeUserName(accessToken, username).then((response
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
@@ -436,7 +437,7 @@ lrv2.authenticationApi.authResendEmailVerification(email, emailTemplate, verific
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var email = "<email>"; //Required
@@ -461,7 +462,7 @@ lrv2.authenticationApi.addEmail(accessToken, email, type, emailTemplate, verific
  
  
 
- ```
+ ```js
 
 
 var emailAuthenticationModel ={ 
@@ -490,7 +491,7 @@ lrv2.authenticationApi.loginByEmail(emailAuthenticationModel, emailTemplate, fie
  
  
 
- ```
+ ```js
 
 
 var userNameAuthenticationModel ={ 
@@ -519,7 +520,7 @@ lrv2.authenticationApi.loginByUserName(userNameAuthenticationModel, emailTemplat
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var resetPasswordUrl = "<resetPasswordUrl>"; //Required
@@ -542,7 +543,7 @@ lrv2.authenticationApi.forgotPassword(email, resetPasswordUrl, emailTemplate).th
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var candidateToken = "<candidateToken>"; //Required
@@ -564,7 +565,7 @@ lrv2.authenticationApi.linkSocialIdentities(accessToken, candidateToken).then((r
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var clientGuid = "<clientGuid>"; //Required
@@ -586,7 +587,7 @@ lrv2.authenticationApi.linkSocialIdentitiesByPing(accessToken, clientGuid).then(
  
  
 
- ```
+ ```js
 
 
 var authUserRegistrationModel ={ 
@@ -622,7 +623,7 @@ lrv2.authenticationApi.userRegistrationByEmail(authUserRegistrationModel, sott, 
  
  
 
- ```
+ ```js
 
 
 var authUserRegistrationModelWithCaptcha ={ 
@@ -659,7 +660,7 @@ lrv2.authenticationApi.userRegistrationByCaptcha(authUserRegistrationModelWithCa
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 
@@ -680,7 +681,7 @@ lrv2.authenticationApi.getSecurityQuestionsByEmail(email).then((response) => {
  
  
 
- ```
+ ```js
 
 var userName = "<userName>"; //Required
 
@@ -701,7 +702,7 @@ lrv2.authenticationApi.getSecurityQuestionsByUserName(userName).then((response) 
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 
@@ -722,7 +723,7 @@ lrv2.authenticationApi.getSecurityQuestionsByPhone(phone).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -743,7 +744,7 @@ lrv2.authenticationApi.getSecurityQuestionsByAccessToken(accessToken).then((resp
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -764,7 +765,7 @@ lrv2.authenticationApi.authValidateAccessToken(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var preventRefresh = true; //Optional
@@ -786,7 +787,7 @@ lrv2.authenticationApi.authInValidateAccessToken(accessToken, preventRefresh).th
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -807,7 +808,7 @@ lrv2.authenticationApi.getAccessTokenInfo(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
@@ -832,7 +833,7 @@ lrv2.authenticationApi.getProfileByAccessToken(accessToken, emailTemplate, field
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
@@ -854,7 +855,7 @@ lrv2.authenticationApi.sendWelcomeEmail(accessToken, welcomeEmailTemplate).then(
  
  
 
- ```
+ ```js
 
 var deletetoken = "<deletetoken>"; //Required
 
@@ -871,7 +872,7 @@ This API is used to get a user's profile using the clientGuid parameter if no ca
 
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
@@ -894,7 +895,7 @@ lrv2.authenticationApi.getProfileByPing(clientGuid, emailTemplate, fields, verif
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 
@@ -915,7 +916,7 @@ lrv2.authenticationApi.checkEmailAvailability(email).then((response) => {
  
  
 
- ```
+ ```js
 
 var verificationToken = "<verificationToken>"; //Required
 var fields = null; //Optional
@@ -939,7 +940,7 @@ lrv2.authenticationApi.verifyEmail(verificationToken, fields, url, welcomeEmailT
  
  
 
- ```
+ ```js
 
 var username = "<username>"; //Required
 
@@ -960,7 +961,7 @@ lrv2.authenticationApi.checkUserNameAvailability(username).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
@@ -982,7 +983,7 @@ lrv2.authenticationApi.acceptPrivacyPolicy(accessToken, fields).then((response) 
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1003,7 +1004,7 @@ lrv2.authenticationApi.getPrivacyPolicyHistoryByAccessToken(accessToken).then((r
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var deleteUrl = "<deleteUrl>"; //Optional
@@ -1026,7 +1027,7 @@ lrv2.authenticationApi.deleteAccountWithEmailConfirmation(accessToken, deleteUrl
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var email = "<email>"; //Required
@@ -1048,7 +1049,7 @@ lrv2.authenticationApi.removeEmail(accessToken, email).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var provider = "<provider>"; //Required
@@ -1104,8 +1105,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
-
+ ```js
 
 var accountUserProfileUpdateModel ={ 
 "firstName" : "<firstName>",
@@ -1132,7 +1132,7 @@ lrv2.accountApi.updateAccountByUid(accountUserProfileUpdateModel, uid, fields, n
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 var uid = "<uid>"; //Required
@@ -1155,7 +1155,7 @@ lrv2.accountApi.updatePhoneIDByUid(phone, uid, fields).then((response) => {
  
  
 
- ```
+ ```js
 
 var password = "<password>"; //Required
 var uid = "<uid>"; //Required
@@ -1177,7 +1177,7 @@ lrv2.accountApi.setAccountPasswordByUid(password, uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
@@ -1200,7 +1200,7 @@ lrv2.accountApi.invalidateAccountEmailVerification(uid, emailTemplate, verificat
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
@@ -1222,9 +1222,7 @@ lrv2.accountApi.resetPhoneIDVerificationByUid(uid, smsTemplate).then((response) 
  
  
 
- ```
-
-
+ ```js
 var upsertEmailModel ={ 
 "email" : [   { 
  "type" : "<type>"  ,
@@ -1248,9 +1246,7 @@ lrv2.accountApi.upsertEmail(upsertEmailModel, uid, fields).then((response) => {
  
  
 
- ```
-
-
+ ```js
 var updateUidModel ={ 
 "newUid" : "<newUid>"
 };  //Required
@@ -1271,9 +1267,7 @@ lrv2.accountApi.accountUpdateUid(updateUidModel, uid).then((response) => {
  
  
 
- ```
-
-
+ ```js
 var accountCreateModel ={ 
 "email" : [   { 
  "type" : "<type>"  ,
@@ -1302,7 +1296,7 @@ lrv2.accountApi.createAccount(accountCreateModel, fields).then((response) => {
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
@@ -1326,7 +1320,7 @@ lrv2.accountApi.getForgotPasswordToken(email, emailTemplate, resetPasswordUrl, s
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 
@@ -1347,7 +1341,7 @@ lrv2.accountApi.getEmailVerificationToken(email).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -1368,7 +1362,7 @@ lrv2.accountApi.getPrivacyPolicyHistoryByUid(uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var fields = null; //Optional
@@ -1390,7 +1384,7 @@ lrv2.accountApi.getAccountProfileByEmail(email, fields).then((response) => {
  
  
 
- ```
+ ```js
 
 var userName = "<userName>"; //Required
 var fields = null; //Optional
@@ -1412,7 +1406,7 @@ lrv2.accountApi.getAccountProfileByUserName(userName, fields).then((response) =>
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 var fields = null; //Optional
@@ -1434,7 +1428,7 @@ lrv2.accountApi.getAccountProfileByPhone(phone, fields).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 var fields = null; //Optional
@@ -1456,7 +1450,7 @@ lrv2.accountApi.getAccountProfileByUid(uid, fields).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -1477,7 +1471,7 @@ lrv2.accountApi.getAccountPasswordHashByUid(uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -1498,7 +1492,7 @@ lrv2.accountApi.getAccessTokenByUid(uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var refreshToken = "<refreshToken>"; //Required
 
@@ -1519,7 +1513,7 @@ lrv2.accountApi.refreshAccessTokenByRefreshToken(refreshToken).then((response) =
  
  
 
- ```
+ ```js
 
 var refreshToken = "<refreshToken>"; //Required
 
@@ -1540,7 +1534,7 @@ lrv2.accountApi.revokeRefreshToken(refreshToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var fields = null; //Optional
@@ -1562,7 +1556,7 @@ lrv2.accountApi.getAccountIdentitiesByEmail(email, fields).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -1583,7 +1577,7 @@ lrv2.accountApi.deleteAccountByUid(uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var uid = "<uid>"; //Required
@@ -1606,7 +1600,7 @@ lrv2.accountApi.removeEmail(email, uid, fields).then((response) => {
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 
@@ -1670,7 +1664,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var message = "<message>"; //Required
@@ -1694,7 +1688,7 @@ lrv2.socialApi.postMessage(accessToken, message, subject, to).then((response) =>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var caption = "<caption>"; //Required
@@ -1722,7 +1716,7 @@ lrv2.socialApi.statusPosting(accessToken, caption, description, imageurl, status
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1752,7 +1746,7 @@ lrv2.socialApi.trackableStatusPosting(accessToken, statusModel).then((response) 
  
  
 
- ```
+ ```js
 
 var token = "<token>"; //Required
 
@@ -1773,7 +1767,7 @@ lrv2.socialApi.exchangeAccessToken(token).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var expiresIn = 0; //Optional
@@ -1796,7 +1790,7 @@ lrv2.socialApi.refreshAccessToken(accessToken, expiresIn, isWeb).then((response)
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1817,7 +1811,7 @@ lrv2.socialApi.validateAccessToken(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1838,7 +1832,7 @@ lrv2.socialApi.inValidateAccessToken(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var token = "<token>"; //Required
 
@@ -1859,7 +1853,7 @@ lrv2.socialApi.getActiveSession(token).then((response) => {
  
  
 
- ```
+ ```js
 
 var accountId = "<accountId>"; //Required
 
@@ -1880,7 +1874,7 @@ lrv2.socialApi.getActiveSessionByAccountID(accountId).then((response) => {
  
  
 
- ```
+ ```js
 
 var profileId = "<profileId>"; //Required
 
@@ -1901,7 +1895,7 @@ lrv2.socialApi.getActiveSessionByProfileID(profileId).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1922,7 +1916,7 @@ lrv2.socialApi.getAlbums(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1944,7 +1938,7 @@ lrv2.socialApi.getAlbumsWithCursor(accessToken, nextCursor).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1965,7 +1959,7 @@ lrv2.socialApi.getAudios(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1987,7 +1981,7 @@ lrv2.socialApi.getAudiosWithCursor(accessToken, nextCursor).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2008,7 +2002,7 @@ lrv2.socialApi.getCheckIns(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -2030,7 +2024,7 @@ lrv2.socialApi.getCheckInsWithCursor(accessToken, nextCursor).then((response) =>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Optional
@@ -2052,7 +2046,7 @@ lrv2.socialApi.getContacts(accessToken, nextCursor).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2073,7 +2067,7 @@ lrv2.socialApi.getEvents(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -2095,7 +2089,7 @@ lrv2.socialApi.getEventsWithCursor(accessToken, nextCursor).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2116,7 +2110,7 @@ lrv2.socialApi.getFollowings(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -2138,7 +2132,7 @@ lrv2.socialApi.getFollowingsWithCursor(accessToken, nextCursor).then((response) 
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2159,7 +2153,7 @@ lrv2.socialApi.getGroups(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -2181,7 +2175,7 @@ lrv2.socialApi.getGroupsWithCursor(accessToken, nextCursor).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2202,7 +2196,7 @@ lrv2.socialApi.getLikes(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -2224,7 +2218,7 @@ lrv2.socialApi.getLikesWithCursor(accessToken, nextCursor).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2245,7 +2239,7 @@ lrv2.socialApi.getMentions(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var pageName = "<pageName>"; //Required
@@ -2267,7 +2261,7 @@ lrv2.socialApi.getPage(accessToken, pageName).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var albumId = "<albumId>"; //Required
@@ -2289,7 +2283,7 @@ lrv2.socialApi.getPhotos(accessToken, albumId).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2310,7 +2304,7 @@ lrv2.socialApi.getPosts(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var caption = "<caption>"; //Required
@@ -2337,7 +2331,7 @@ lrv2.socialApi.getTrackableStatusStats(accessToken, caption, description, imageu
  
  
 
- ```
+ ```js
 
 var postId = "<postId>"; //Required
 
@@ -2356,7 +2350,7 @@ lrv2.socialApi.trackableStatusFetching(postId).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
@@ -2378,7 +2372,7 @@ lrv2.socialApi.getRefreshedSocialUserProfile(accessToken, fields).then((response
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -2420,7 +2414,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -2446,7 +2440,7 @@ lrv2.customObjectApi.updateCustomObjectByToken(accessToken, objectName, objectRe
  
  
 
- ```
+ ```js
 
 var objectName = "<objectName>"; //Required
 var objectRecordId = "<objectRecordId>"; //Required
@@ -2472,7 +2466,7 @@ lrv2.customObjectApi.updateCustomObjectByUid(objectName, objectRecordId, object,
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -2496,7 +2490,7 @@ lrv2.customObjectApi.createCustomObjectByToken(accessToken, objectName, object).
  
  
 
- ```
+ ```js
 
 var objectName = "<objectName>"; //Required
 
@@ -2520,7 +2514,7 @@ lrv2.customObjectApi.createCustomObjectByUid(objectName, object, uid).then((resp
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -2542,7 +2536,7 @@ lrv2.customObjectApi.getCustomObjectByToken(accessToken, objectName).then((respo
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -2565,7 +2559,7 @@ lrv2.customObjectApi.getCustomObjectByRecordIDAndToken(accessToken, objectName, 
  
  
 
- ```
+ ```js
 
 var objectName = "<objectName>"; //Required
 var uid = "<uid>"; //Required
@@ -2587,7 +2581,7 @@ lrv2.customObjectApi.getCustomObjectByUid(objectName, uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var objectName = "<objectName>"; //Required
 var objectRecordId = "<objectRecordId>"; //Required
@@ -2610,7 +2604,7 @@ lrv2.customObjectApi.getCustomObjectByRecordID(objectName, objectRecordId, uid).
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -2633,7 +2627,7 @@ lrv2.customObjectApi.deleteCustomObjectByToken(accessToken, objectName, objectRe
  
  
 
- ```
+ ```js
 
 var objectName = "<objectName>"; //Required
 var objectRecordId = "<objectRecordId>"; //Required
@@ -2677,8 +2671,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
-
+ ```js
 
 var resetPasswordByOTPModel ={ 
 "otp" : "<otp>",
@@ -2703,7 +2696,7 @@ lrv2.phoneAuthenticationApi.resetPasswordByPhoneOTP(resetPasswordByOTPModel).the
  
  
 
- ```
+ ```js
 
 var otp = "<otp>"; //Required
 var phone = "<phone>"; //Required
@@ -2727,7 +2720,7 @@ lrv2.phoneAuthenticationApi.phoneVerificationByOTP(otp, phone, fields, smsTempla
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var otp = "<otp>"; //Required
@@ -2750,7 +2743,7 @@ lrv2.phoneAuthenticationApi.phoneVerificationOTPByAccessToken(accessToken, otp, 
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var phone = "<phone>"; //Required
@@ -2773,8 +2766,7 @@ lrv2.phoneAuthenticationApi.updatePhoneNumber(accessToken, phone, smsTemplate).t
  
  
 
- ```
-
+ ```js
 
 var phoneAuthenticationModel ={ 
 "password" : "<password>",
@@ -2801,7 +2793,7 @@ lrv2.phoneAuthenticationApi.loginByPhone(phoneAuthenticationModel, fields, login
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
@@ -2823,7 +2815,7 @@ lrv2.phoneAuthenticationApi.forgotPasswordByPhoneOTP(phone, smsTemplate).then((r
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
@@ -2845,7 +2837,7 @@ lrv2.phoneAuthenticationApi.phoneResendVerificationOTP(phone, smsTemplate).then(
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var phone = "<phone>"; //Required
@@ -2868,8 +2860,7 @@ lrv2.phoneAuthenticationApi.phoneResendVerificationOTPByToken(accessToken, phone
  
  
 
- ```
-
+ ```js
 
 var authUserRegistrationModel ={ 
 "firstName" : "<firstName>",
@@ -2901,7 +2892,7 @@ lrv2.phoneAuthenticationApi.userRegistrationByPhone(authUserRegistrationModel, s
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 
@@ -2922,7 +2913,7 @@ lrv2.phoneAuthenticationApi.checkPhoneNumberAvailability(phone).then((response) 
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2984,7 +2975,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3010,7 +3001,7 @@ lrv2.multiFactorAuthenticationApi.mfaUpdateSetting(accessToken, multiFactorAuthM
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3037,7 +3028,7 @@ lrv2.multiFactorAuthenticationApi.mfaUpdateByAccessToken(accessToken, multiFacto
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var phoneNo2FA = "<phoneNo2FA>"; //Required
@@ -3060,7 +3051,7 @@ lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumberByToken(accessToken, phone
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3086,7 +3077,7 @@ lrv2.multiFactorAuthenticationApi.mfaValidateEmailOtpByAccessToken(accessToken, 
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3117,8 +3108,7 @@ lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswerByAccessToken(accessT
  
  
 
- ```
-
+ ```js
 
 var multiFactorAuthModelWithLockout ={ 
 "otp" : "<otp>"
@@ -3148,7 +3138,7 @@ lrv2.multiFactorAuthenticationApi.mfaValidateOTPByPhone(multiFactorAuthModelWith
  
  
 
- ```
+ ```js
 
 var googleAuthenticatorCode = "<googleAuthenticatorCode>"; //Required
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
@@ -3175,8 +3165,7 @@ lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthenticatorC
  
  
 
- ```
-
+ ```js
 
 var multiFactorAuthModelByBackupCode ={ 
 "backupCode" : "<backupCode>"
@@ -3205,7 +3194,7 @@ lrv2.multiFactorAuthenticationApi.mfaValidateBackupCode(multiFactorAuthModelByBa
  
  
 
- ```
+ ```js
 
 var phoneNo2FA = "<phoneNo2FA>"; //Required
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
@@ -3228,8 +3217,7 @@ lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumber(phoneNo2FA, secondFactorA
  
  
 
- ```
-
+ ```js
 
 var multiFactorAuthModelByEmailOtp ={ 
     "EmailId":"email",
@@ -3258,8 +3246,7 @@ lrv2.multiFactorAuthenticationApi.mfaValidateEmailOtp(multiFactorAuthModelByEmai
  
  
 
- ```
-
+ ```js
 
 var securityQuestionAnswerUpdateModel ={  
     "securityquestionanswer": [
@@ -3288,7 +3275,7 @@ lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswer(securityQuestionAnsw
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var password = "<password>"; //Required
@@ -3317,7 +3304,7 @@ lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate
  
  
 
- ```
+ ```js
 
 var password = "<password>"; //Required
 var username = "<username>"; //Required
@@ -3346,7 +3333,7 @@ lrv2.multiFactorAuthenticationApi.mfaLoginByUserName(password, username, emailTe
  
  
 
- ```
+ ```js
 
 var password = "<password>"; //Required
 var phone = "<phone>"; //Required
@@ -3375,8 +3362,7 @@ lrv2.multiFactorAuthenticationApi.mfaLoginByPhone(password, phone, emailTemplate
  
  
 
- ```
-
+ ```js
 
 var emailIdModel ={  
 "EmailId":"email"
@@ -3401,8 +3387,7 @@ lrv2.multiFactorAuthenticationApi.mfaEmailOTP(emailIdModel, secondFactorAuthenti
  
  
 
- ```
-
+ ```js
 
 var securityQuestionAnswerUpdateModel ={ 
       "securityquestionanswer": [
@@ -3435,7 +3420,7 @@ lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswerVerification(security
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
@@ -3457,7 +3442,7 @@ lrv2.multiFactorAuthenticationApi.mfaConfigureByAccessToken(accessToken, smsTemp
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3478,7 +3463,7 @@ lrv2.multiFactorAuthenticationApi.mfaBackupCodeByAccessToken(accessToken).then((
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3499,7 +3484,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByAccessToken(accessToken).t
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var emailId = "<emailId>"; //Required
@@ -3522,7 +3507,7 @@ lrv2.multiFactorAuthenticationApi.mfaEmailOtpByAccessToken(accessToken, emailId,
  
  
 
- ```
+ ```js
 
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
@@ -3544,7 +3529,7 @@ lrv2.multiFactorAuthenticationApi.mfaResendOTP(secondFactorAuthenticationToken, 
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -3565,7 +3550,7 @@ lrv2.multiFactorAuthenticationApi.mfaBackupCodeByUid(uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -3586,7 +3571,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByUid(uid).then((response) =
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var googleauthenticator = true; //Required
@@ -3608,7 +3593,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthByToken(accessToken, googlea
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var otpauthenticator = true; //Required
@@ -3630,7 +3615,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthByToken(accessToken, otpauthent
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3651,7 +3636,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetEmailOtpAuthenticatorByAccessToken(acc
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3672,7 +3657,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetSecurityQuestionAuthenticatorByAccessT
  
  
 
- ```
+ ```js
 
 var otpauthenticator = true; //Required
 var uid = "<uid>"; //Required
@@ -3694,7 +3679,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthenticatorByUid(otpauthenticator
  
  
 
- ```
+ ```js
 
 var googleauthenticator = true; //Required
 var uid = "<uid>"; //Required
@@ -3716,7 +3701,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthenticatorByUid(googleauthent
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -3737,7 +3722,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetEmailOtpAuthenticatorByUid(uid).then((
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -3782,8 +3767,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
-
+ ```js
 
 var resetPINByResetToken ={ 
 "pin" : "<pin>",
@@ -3807,8 +3791,7 @@ lrv2.pinAuthenticationApi.resetPINByResetToken(resetPINByResetToken).then((respo
  
  
 
- ```
-
+ ```js
 
 var resetPINBySecurityQuestionAnswerAndEmailModel ={ 
 "email" : "<email>",
@@ -3833,8 +3816,7 @@ lrv2.pinAuthenticationApi.resetPINByEmailAndSecurityAnswer(resetPINBySecurityQue
  
  
 
- ```
-
+ ```js
 
 var resetPINBySecurityQuestionAnswerAndUsernameModel ={ 
 "pin" : "<pin>",
@@ -3859,8 +3841,7 @@ lrv2.pinAuthenticationApi.resetPINByUsernameAndSecurityAnswer(resetPINBySecurity
  
  
 
- ```
-
+ ```js
 
 var resetPINBySecurityQuestionAnswerAndPhoneModel ={ 
 "phone" : "<phone>",
@@ -3885,7 +3866,7 @@ lrv2.pinAuthenticationApi.resetPINByPhoneAndSecurityAnswer(resetPINBySecurityQue
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3911,8 +3892,7 @@ lrv2.pinAuthenticationApi.changePINByAccessToken(accessToken, changePINModel).th
  
  
 
- ```
-
+ ```js
 
 var resetPINByPhoneAndOTPModel ={ 
 "otp" : "<otp>",
@@ -3937,8 +3917,7 @@ lrv2.pinAuthenticationApi.resetPINByPhoneAndOtp(resetPINByPhoneAndOTPModel).then
  
  
 
- ```
-
+ ```js
 
 var resetPINByEmailAndOtpModel ={ 
 "email" : "<email>",
@@ -3963,8 +3942,7 @@ lrv2.pinAuthenticationApi.resetPINByEmailAndOtp(resetPINByEmailAndOtpModel).then
  
  
 
- ```
-
+ ```js
 
 var resetPINByUsernameAndOtpModel ={ 
 "otp" : "<otp>",
@@ -3989,8 +3967,7 @@ lrv2.pinAuthenticationApi.resetPINByUsernameAndOtp(resetPINByUsernameAndOtpModel
  
  
 
- ```
-
+ ```js
 
 var loginByPINModel ={ 
 "pin" : "<pin>"
@@ -4014,8 +3991,7 @@ lrv2.pinAuthenticationApi.pinLogin(loginByPINModel, sessionToken).then((response
  
  
 
- ```
-
+ ```js
 
 var forgotPINLinkByEmailModel ={ 
 "email" : "<email>"
@@ -4040,8 +4016,7 @@ lrv2.pinAuthenticationApi.sendForgotPINEmailByEmail(forgotPINLinkByEmailModel, e
  
  
 
- ```
-
+ ```js
 
 var forgotPINLinkByUserNameModel ={ 
 "userName" : "<userName>"
@@ -4066,8 +4041,7 @@ lrv2.pinAuthenticationApi.sendForgotPINEmailByUsername(forgotPINLinkByUserNameMo
  
  
 
- ```
-
+ ```js
 
 var forgotPINOtpByPhoneModel ={ 
 "phone" : "<phone>"
@@ -4091,8 +4065,7 @@ lrv2.pinAuthenticationApi.sendForgotPINSMSByPhone(forgotPINOtpByPhoneModel, smsT
  
  
 
- ```
-
+ ```js
 
 var pinRequiredModel ={ 
 "pin" : "<pin>"
@@ -4116,7 +4089,7 @@ lrv2.pinAuthenticationApi.setPINByPinAuthToken(pinRequiredModel, pinAuthToken).t
  
  
 
- ```
+ ```js
 
 var sessionToken = "<sessionToken>"; //Required
 
@@ -4159,7 +4132,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4184,7 +4157,7 @@ lrv2.reAuthenticationApi.mfaReAuthenticateByOTP(accessToken, reauthByOtpModel).t
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4209,7 +4182,7 @@ lrv2.reAuthenticationApi.mfaReAuthenticateByBackupCode(accessToken, reauthByBack
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4234,7 +4207,7 @@ lrv2.reAuthenticationApi.mfaReAuthenticateByGoogleAuth(accessToken, reauthByGoog
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4260,7 +4233,7 @@ lrv2.reAuthenticationApi.mfaReAuthenticateByPassword(accessToken, passwordEventB
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4286,7 +4259,7 @@ lrv2.reAuthenticationApi.verifyPINAuthentication(accessToken, pinAuthEventBasedA
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4312,8 +4285,7 @@ lrv2.reAuthenticationApi.reAuthValidateEmailOtp(accessToken, reauthByEmailOtpMod
  
  
 
- ```
-
+ ```js
 
 var eventBasedMultiFactorToken ={ 
 "secondFactorValidationToken" : "<secondFactorValidationToken>"
@@ -4337,8 +4309,7 @@ lrv2.reAuthenticationApi.verifyMultiFactorOtpReauthentication(eventBasedMultiFac
  
  
 
- ```
-
+ ```js
 
 var eventBasedMultiFactorToken ={ 
 "secondFactorValidationToken" : "<secondFactorValidationToken>"
@@ -4362,8 +4333,7 @@ lrv2.reAuthenticationApi.verifyMultiFactorPasswordReauthentication(eventBasedMul
  
  
 
- ```
-
+ ```js
 
 var eventBasedMultiFactorToken ={ 
 "secondFactorValidationToken" : "<secondFactorValidationToken>"
@@ -4387,7 +4357,7 @@ lrv2.reAuthenticationApi.verifyMultiFactorPINReauthentication(eventBasedMultiFac
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4417,7 +4387,7 @@ lrv2.reAuthenticationApi.reAuthBySecurityQuestion(accessToken, securityQuestionA
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
@@ -4439,7 +4409,7 @@ lrv2.reAuthenticationApi.mfaReAuthenticate(accessToken, smsTemplate2FA).then((re
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var emailId = "<emailId>"; //Required
@@ -4478,7 +4448,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4506,7 +4476,7 @@ lrv2.consentManagementApi.updateConsentProfileByAccessToken(accessToken, consent
  
  
 
- ```
+ ```js
 
 var consentToken = "<consentToken>"; //Required
 
@@ -4538,7 +4508,7 @@ lrv2.consentManagementApi.submitConsentByConsentToken(consentToken, consentSubmi
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4570,7 +4540,7 @@ lrv2.consentManagementApi.submitConsentByAccessToken(accessToken, consentSubmitM
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -4591,7 +4561,7 @@ lrv2.consentManagementApi.getConsentLogsByUid(uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -4612,7 +4582,7 @@ lrv2.consentManagementApi.getConsentLogs(accessToken).then((response) => {
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var event = "<event>"; //Required
@@ -4649,7 +4619,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var verificationToken = "<verificationToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
@@ -4671,7 +4641,7 @@ lrv2.smartLoginApi.smartLoginTokenVerification(verificationToken, welcomeEmailTe
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var email = "<email>"; //Required
@@ -4696,7 +4666,7 @@ lrv2.smartLoginApi.smartLoginByEmail(clientGuid, email, redirectUrl, smartLoginE
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var username = "<username>"; //Required
@@ -4721,7 +4691,7 @@ lrv2.smartLoginApi.smartLoginByUserName(clientGuid, username, redirectUrl, smart
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var fields = null; //Optional
@@ -4758,7 +4728,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var otp = "<otp>"; //Required
 var phone = "<phone>"; //Required
@@ -4782,8 +4752,7 @@ lrv2.oneTouchLoginApi.oneTouchLoginOTPVerification(otp, phone, fields, smsTempla
  
  
 
- ```
-
+ ```js
 
 var oneTouchLoginByEmailModel ={ 
 "clientguid" : "<clientguid>",
@@ -4811,8 +4780,7 @@ lrv2.oneTouchLoginApi.oneTouchLoginByEmail(oneTouchLoginByEmailModel, oneTouchLo
  
  
 
- ```
-
+ ```js
 
 var oneTouchLoginByPhoneModel ={ 
 "g-recaptcha-response" : "<g-recaptcha-response>",
@@ -4837,7 +4805,7 @@ lrv2.oneTouchLoginApi.oneTouchLoginByPhone(oneTouchLoginByPhoneModel, smsTemplat
  
  
 
- ```
+ ```js
 
 var verificationToken = "<verificationToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
@@ -4859,7 +4827,7 @@ lrv2.oneTouchLoginApi.oneTouchEmailVerification(verificationToken, welcomeEmailT
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var fields = null; //Optional
@@ -4898,8 +4866,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
-
+ ```js
 
 var passwordLessLoginOtpModel ={ 
 "otp" : "<otp>",
@@ -4924,8 +4891,7 @@ This API is used to verify the otp sent to the email when doing a passwordless l
  
  
 
- ```
-
+ ```js
 
 var passwordLessLoginByEmailAndOtpModel ={
 "email": "<email>",
@@ -4948,8 +4914,7 @@ This API is used to verify the otp sent to the email when doing a passwordless l
  
  
 
- ```
-
+ ```js
 
 var passwordLessLoginByUserNameAndOtpModel ={
 "username": "<User name>",
@@ -4973,7 +4938,7 @@ lrv2.passwordLessLoginApi.passwordlessLoginVerificationByUserNameAndOTP(password
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
@@ -4995,7 +4960,7 @@ lrv2.passwordLessLoginApi.passwordlessLoginByPhone(phone, smsTemplate).then((res
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var passwordLessLoginTemplate = "<passwordLessLoginTemplate>"; //Optional
@@ -5018,7 +4983,7 @@ lrv2.passwordLessLoginApi.passwordlessLoginByEmail(email, passwordLessLoginTempl
  
  
 
- ```
+ ```js
 
 var username = "<username>"; //Required
 var passwordLessLoginTemplate = "<passwordLessLoginTemplate>"; //Optional
@@ -5041,7 +5006,7 @@ lrv2.passwordLessLoginApi.passwordlessLoginByUserName(username, passwordLessLogi
  
  
 
- ```
+ ```js
 
 var verificationToken = "<verificationToken>"; //Required
 var fields = null; //Optional
@@ -5075,7 +5040,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var timeDifference = 0; //Optional
 
@@ -5089,7 +5054,7 @@ lrv2.configurationApi.getServerInfo(timeDifference).then((response) => {
  <h6 id="getConfigurations-get-"> Get Configuration (GET)</h6>
  This API is used to get the configurations which are set in the LoginRadius Admin Console for a particular LoginRadius site/environment. [More info](https://www.loginradius.com/docs/api/v2/customer-identity-api/configuration/get-configurations)
   
-  ```
+  ```js
   lrv2.configurationApi.getConfigurations().then((response) => {
     console.log(response);
 }).catch((error) => {
@@ -5127,7 +5092,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 
 var accountRolesModel ={ 
@@ -5152,8 +5117,7 @@ lrv2.roleApi.assignRolesByUid(accountRolesModel, uid).then((response) => {
  
  
 
- ```
-
+ ```js
 
 var accountRoleContextModel ={ 
 "roleContext" : [   { 
@@ -5182,8 +5146,7 @@ lrv2.roleApi.updateRoleContextByUid(accountRoleContextModel, uid).then((response
  
  
 
- ```
-
+ ```js
 
 var permissionsModel ={ 
 "permissions" : [  "permissions" ] 
@@ -5207,8 +5170,7 @@ lrv2.roleApi.addRolePermissions(permissionsModel, role).then((response) => {
  
  
 
- ```
-
+ ```js
 
 var rolesModel ={ 
 "roles" : [   { 
@@ -5234,7 +5196,7 @@ lrv2.roleApi.createRoles(rolesModel).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -5255,7 +5217,7 @@ lrv2.roleApi.getRolesByUid(uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var uid = "<uid>"; //Required
 
@@ -5276,7 +5238,7 @@ lrv2.roleApi.getRoleContextByUid(uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var contextName = "<contextName>"; //Required
 
@@ -5297,8 +5259,7 @@ lrv2.roleApi.getRoleContextByContextName(contextName).then((response) => {
  
  
 
- ```
-
+ ```js
 
 lrv2.roleApi.getRolesList().then((response) => {
     console.log(response);
@@ -5317,8 +5278,7 @@ lrv2.roleApi.getRolesList().then((response) => {
  
  
 
- ```
-
+ ```js
 
 var accountRolesModel ={ 
 "roles" : [  "roles" ] 
@@ -5342,7 +5302,7 @@ lrv2.roleApi.unassignRolesByUid(accountRolesModel, uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var contextName = "<contextName>"; //Required
 var uid = "<uid>"; //Required
@@ -5364,7 +5324,7 @@ lrv2.roleApi.deleteRoleContextByUid(contextName, uid).then((response) => {
  
  
 
- ```
+ ```js
 
 var contextName = "<contextName>"; //Required
 
@@ -5390,7 +5350,7 @@ lrv2.roleApi.deleteRolesFromRoleContextByUid(contextName, roleContextRemoveRoleM
  
  
 
- ```
+ ```js
 
 var contextName = "<contextName>"; //Required
 
@@ -5416,7 +5376,7 @@ lrv2.roleApi.deleteAdditionalPermissionFromRoleContextByUid(contextName, roleCon
  
  
 
- ```
+ ```js
 
 var role = "<role>"; //Required
 
@@ -5437,8 +5397,7 @@ lrv2.roleApi.deleteRole(role).then((response) => {
  
  
 
- ```
-
+ ```js
 
 var permissionsModel ={ 
 "permissions" : [  "permissions" ] 
@@ -5479,8 +5438,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
-
+ ```js
 
 var registrationDataUpdateModel ={ 
 "isActive" : true,
@@ -5507,7 +5465,7 @@ lrv2.customRegistrationDataApi.updateRegistrationData(registrationDataUpdateMode
  
  
 
- ```
+ ```js
 
 var code = "<code>"; //Required
 var recordId = "<recordId>"; //Required
@@ -5529,8 +5487,7 @@ lrv2.customRegistrationDataApi.validateRegistrationDataCode(code, recordId).then
  
  
 
- ```
-
+ ```js
 
 var registrationDataCreateModelList ={ 
 "data" : [   { 
@@ -5560,7 +5517,7 @@ lrv2.customRegistrationDataApi.addRegistrationData(registrationDataCreateModelLi
  
  
 
- ```
+ ```js
 
 var type = "<type>"; //Required
 var limit = 0; //Optional
@@ -5584,7 +5541,7 @@ lrv2.customRegistrationDataApi.authGetRegistrationData(type, limit, parentId, sk
  
  
 
- ```
+ ```js
 
 var type = "<type>"; //Required
 var limit = 0; //Optional
@@ -5608,7 +5565,7 @@ lrv2.customRegistrationDataApi.getRegistrationData(type, limit, parentId, skip).
  
  
 
- ```
+ ```js
 
 var recordId = "<recordId>"; //Required
 
@@ -5629,7 +5586,7 @@ lrv2.customRegistrationDataApi.deleteRegistrationData(recordId).then((response) 
  
  
 
- ```
+ ```js
 
 var type = "<type>"; //Required
 
@@ -5663,8 +5620,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
-
+ ```js
 
 var emailAuthenticationModel ={ 
 "email" : "<email>",
@@ -5705,8 +5661,7 @@ lrv2.riskBasedAuthenticationApi.rbaLoginByEmail(emailAuthenticationModel, emailT
  
  
 
- ```
-
+ ```js
 
 var userNameAuthenticationModel ={ 
 "password" : "<password>",
@@ -5747,8 +5702,7 @@ lrv2.riskBasedAuthenticationApi.rbaLoginByUserName(userNameAuthenticationModel, 
  
  
 
- ```
-
+ ```js
 
 var phoneAuthenticationModel ={ 
 "password" : "<password>",
@@ -5800,7 +5754,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var timeDifference = 0; //Optional
 
@@ -5843,7 +5797,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var fbAccessToken = "<fbAccessToken>"; //Required
 var socialAppName = "<socialAppName>"; //Optional
@@ -5865,7 +5819,7 @@ lrv2.nativeSocialApi.getAccessTokenByFacebookAccessToken(fbAccessToken, socialAp
  
  
 
- ```
+ ```js
 
 var twAccessToken = "<twAccessToken>"; //Required
 var twTokenSecret = "<twTokenSecret>"; //Required
@@ -5888,7 +5842,7 @@ lrv2.nativeSocialApi.getAccessTokenByTwitterAccessToken(twAccessToken, twTokenSe
  
  
 
- ```
+ ```js
 
 var googleAccessToken = "<googleAccessToken>"; //Required
 var clientId = "<clientId>"; //Optional
@@ -5912,7 +5866,7 @@ lrv2.nativeSocialApi.getAccessTokenByGoogleAccessToken(googleAccessToken, client
  
  
 
- ```
+ ```js
 
 var idToken = "<idToken>"; //Required
 
@@ -5933,7 +5887,7 @@ lrv2.nativeSocialApi.getAccessTokenByGoogleJWTAccessToken(idToken).then((respons
  
  
 
- ```
+ ```js
 
 var lnAccessToken = "<lnAccessToken>"; //Required
 var socialAppName = "<socialAppName>"; //Optional
@@ -5955,7 +5909,7 @@ lrv2.nativeSocialApi.getAccessTokenByLinkedinAccessToken(lnAccessToken, socialAp
  
  
 
- ```
+ ```js
 
 var fsAccessToken = "<fsAccessToken>"; //Required
 
@@ -5976,7 +5930,7 @@ lrv2.nativeSocialApi.getAccessTokenByFoursquareAccessToken(fsAccessToken).then((
  
  
 
- ```
+ ```js
 
 var code = "<code>"; //Required
 var socialAppName = "<socialAppName>"; //Optional
@@ -5998,7 +5952,7 @@ lrv2.nativeSocialApi.getAccessTokenByAppleIdCode(code, socialAppName).then((resp
  
  
 
- ```
+ ```js
 
 var code = "<code>"; //Required
 
@@ -6019,7 +5973,7 @@ lrv2.nativeSocialApi.getAccessTokenByWeChatCode(code).then((response) => {
  
  
 
- ```
+ ```js
 
 var vkAccessToken = "<vkAccessToken>"; //Required
 
@@ -6040,7 +5994,7 @@ lrv2.nativeSocialApi.getAccessTokenByVkontakteAccessToken(vkAccessToken).then((r
  
  
 
- ```
+ ```js
 
 var googleAuthcode = "<googleAuthcode>"; //Required
 var socialAppName = "<socialAppName>"; //Optional
@@ -6076,8 +6030,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
-
+ ```js
 
 var webHookSubscribeModel ={ 
 "event" : "<event>",
@@ -6101,7 +6054,7 @@ lrv2.webHookApi.webHookSubscribe(webHookSubscribeModel).then((response) => {
  
  
 
- ```
+ ```js
 
 var event = "<event>"; //Required
 
@@ -6122,8 +6075,7 @@ lrv2.webHookApi.getWebHookSubscribedURLs(event).then((response) => {
  
  
 
- ```
-
+ ```js
 
 lrv2.webHookApi.webhookTest().then((response) => {
     console.log(response);
@@ -6142,8 +6094,7 @@ lrv2.webHookApi.webhookTest().then((response) => {
  
  
 
- ```
-
+ ```js
 
 var webHookSubscribeModel ={ 
 "event" : "<event>",
@@ -6166,21 +6117,25 @@ lrv2.webHookApi.webHookUnsubscribe(webHookSubscribeModel).then((response) => {
 
 SOTT is a secure one-time token that can be created using the API key, API secret, and a timestamp ( start time and end time ). You can manually create a SOTT using the following util function.
 
-```
+```js
 var sottConfig={
-     apiKey: '{{ Your API KEY }}', //(Optional) LoginRadius Api Key.
-     apiSecret: '{{ Your Primary API Secret }}', //(Optional) LoginRadius Api Secret (Only Primary Api Secret is used to generate the SOTT manually).	
+     apiKey: '', //(Optional) LoginRadius Api Key.
+     apiSecret: '', //(Optional) LoginRadius Api Secret (Only Primary Api Secret is used to generate the SOTT manually).	
 };
+
+//do not pass the time difference if you are passing startTime & endTime.
+
+var timeDifference="5"; // (Optional) The time difference will be used to set the expiration time of SOTT, If you do not pass time difference then the default expiration time of SOTT is 10 minutes.
 
 
 // You can pass the start and end time interval and the SOTT will be valid for this time duration. 
 
-var startDate="2017-05-15 07:10:42"; // (Optional) Valid Start Date with Date and time
+var startDate="2022-05-17 07:10:42"; // (Optional) Valid Start Date with Date and time
 
-var endDate="2017-05-15 07:20:42"; // (Optional) Valid End Date with Date and time
+var endDate="2022-05-17 07:20:42"; // (Optional) Valid End Date with Date and time
 
 
-lrv2.helper.getSott(sottConfig,startDate, endDate).then(function (sott) {
+lrv2.helper.getSott(sottConfig,startDate, endDate,timeDifference).then(function (sott) {
        console.log(sott)
 });
 
@@ -6215,6 +6170,9 @@ Terminal/Command Line:
 2. Navigate to the demo directory, and run: `npm install`
 3. Set your LoginRadius credentials on the client and server side:
    * Client side: `demo/demo/assets/js/options.js`
-   * Server side (note: do not set credentials as consts i.e. with quotes): `demo/server.js`
+   * Server side : `demo/server.js`
+   
+   Replace the placeholders with your LoginRadius credentials apikey, apisecret, sitename. These can be obtained from [here](https://www.loginradius.com/docs/api/v2/admin-console/platform-security/api-key-and-secret) 
+
 4. Navigate to the demo directory, and run: node server.js
 5. Demo will appear on http://localhost:3000

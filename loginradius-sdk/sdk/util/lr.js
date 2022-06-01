@@ -10,9 +10,9 @@ module.exports = function (config = {}) {
     console.error('Please set apiKey API & apiSecret');
     return;
   }
-  config.HELPER_PATH = path.join(__dirname, 'helper.js');
-  var helper = require(config.HELPER_PATH);
 
+  config.HELPER_PATH = path.join(__dirname, 'helper.js');
+  var helper = require(config.HELPER_PATH)(config);
   config.request = function (type, resourcePath, queryParameters, formData) {
     var isApiSecret;
     if (queryParameters.apiSecret) {
