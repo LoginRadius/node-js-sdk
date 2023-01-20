@@ -336,6 +336,7 @@ module.exports = function (config) {
    * @param {verificationUrl} Email verification url
    * @param {welcomeEmailTemplate} Name of the welcome email template
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
+   * @param {emailTemplate} Email Template Name
    *17.1.2
    */
 
@@ -346,7 +347,8 @@ module.exports = function (config) {
     options,
     smsTemplate,
     verificationUrl,
-    welcomeEmailTemplate
+    welcomeEmailTemplate,
+    emailTemplate
   ) {
     if (helper.checkJson(authUserRegistrationModel)) {
       return Promise.reject(
@@ -374,6 +376,9 @@ module.exports = function (config) {
     }
     if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+      queryParameters.emailTemplate = emailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/register';

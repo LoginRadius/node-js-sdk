@@ -4,6 +4,7 @@
 */
 module.exports = function (config) {
   var module = {};
+  var helper = require(config.HELPER_PATH)();
 
   /**
    * This API is used to get the configurations which are set in the LoginRadius Dashboard for a particular LoginRadius site/environment

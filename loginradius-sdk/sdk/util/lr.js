@@ -186,13 +186,6 @@ module.exports = function (config = {}) {
       'advanced',
       'customObjectApi'
     ))(config),
-    customRegistrationDataApi: require(path.join(
-      __dirname,
-      '..',
-      'api',
-      'advanced',
-      'customRegistrationDataApi'
-    ))(config),
     multiFactorAuthenticationApi: require(path.join(
       __dirname,
       '..',

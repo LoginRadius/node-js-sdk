@@ -5,7 +5,7 @@
     "lint": "prettier --check sdk/**/*.js && eslint sdk/**/*.js",
     "lint:fix": "prettier --write sdk/**/*.js  && eslint sdk/**/*.js --fix"
   },
-  "version": "11.4.0",
+  "version": "11.5.0",
   "description": "A LoginRadius SDK for node.js",
   "homepage": "https://www.loginradius.com",
   "main": "./sdk/util/lr.js",
@@ -28,7 +28,7 @@
     }
   ],
   "dependencies": {
-    "eslint": "^8.5.0",
-    "prettier": "^2.5.1"
+    "eslint": "^8.29.0",
+    "prettier": "^2.8.1"
   }
 }

@@ -85,7 +85,7 @@ module.exports = function (config = {}) {
    */
   module.getValidationMessage = function (type) {
     jsondata.Description =
-      'The API Request Paramter ' + type + ' is not Correct or WellFormated';
+      'The API Request Parameter ' + type + ' is not Correct or WellFormated';
     return jsondata;
   };
 

@@ -223,27 +223,6 @@ module.exports = function (config) {
   };
 
   /**
-   * The API is used to get LoginRadius access token by sending Vkontakte's access token. It will be valid for the specific duration of time specified in the response.
-   * @param {vkAccessToken} Vkontakte Access Token
-   * @return Response containing Definition of Complete Token data
-   *20.15
-   */
-
-  module.getAccessTokenByVkontakteAccessToken = function (vkAccessToken) {
-    if (helper.isNullOrWhiteSpace(vkAccessToken)) {
-      return Promise.reject(helper.getValidationMessage('vkAccessToken'));
-    }
-    var queryParameters = {};
-
-    queryParameters.key = config.apiKey;
-    queryParameters.vk_access_token = vkAccessToken;
-
-    var resourcePath = 'api/v2/access_token/vkontakte';
-
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
-
-  /**
    * The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.
    * @param {googleAuthcode} Google AuthCode
    * @param {socialAppName} Name of Social provider APP

@@ -1,6 +1,50 @@
 
 > **LoginRadius Node JS SDK Change Log** provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
 
+# Version 11.5.0
+Release on January 20, 2023
+
+## Enhancements
+
+- We have updated some of the dependencies to the latest Version.
+- Added `emailTemplate` parameter in `userRegistrationByPhone` Api
+
+## Removed (Deprecated) APIs:
+- `AuthGetRegistrationData`
+- `ValidateRegistrationDataCode`
+- `GetRegistrationData`
+- `AddRegistrationData`
+- `UpdateRegistrationData`
+- `DeleteRegistrationData`
+- `DeleteAllRecordsByDataSource`
+- `GetAccessTokenByVkontakteAccessToken`
+- `GetAlbum`
+- `GetAlbumsWithCursor`
+- `GetAudios`
+- `GetAudiosWithCursor`
+- `GetCheckIns`
+- `GetCheckInsWithCursor`
+- `GetContacts`
+- `GetEvents`
+- `GetEventsWithCursor`
+- `GetFollowings`
+- `GetFollowingsWithCursor`
+- `GetGroups`
+- `GetGroupsWithCursor`
+- `GetLikes`
+- `GetLikesWithCursor`
+- `GetMentions`
+- `PostMessage`
+- `GetPage`
+- `GetPhotos`
+- `GetPosts`
+- `StatusPosting`
+- `TrackableStatusPosting`
+- `GetTrackableStatusStats`
+- `TrackableStatusFetching`
+- `GetVideos`
+- `GetRefreshedSocialUserProfile`
+
 # Version 11.4.0
 Release on June 01, 2022
 
