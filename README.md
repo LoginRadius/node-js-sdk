@@ -1685,7 +1685,6 @@ lrv2.accountApi.accountDeleteByEmail(email).then((response) => {
 
 List of APIs in this Section:<br>
 
-* POST : [Status Posting ](#StatusPosting-post-)<br>
 * GET : [Access Token](#ExchangeAccessToken-get-)<br>
 * GET : [Refresh Token](#RefreshAccessToken-get-)<br>
 * GET : [Token Validate](#ValidateAccessToken-get-)<br>
