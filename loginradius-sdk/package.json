@@ -1,14 +1,23 @@
 {
   "name": "loginradius-sdk",
   "readme": "",
+  "sideEffects": false,
   "scripts": {
     "lint": "prettier --check sdk/**/*.js && eslint sdk/**/*.js",
-    "lint:fix": "prettier --write sdk/**/*.js  && eslint sdk/**/*.js --fix"
+    "lint:fix": "prettier --write sdk/**/*.js  && eslint sdk/**/*.js --fix",
+    "clean": "npx rimraf ./lib",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run build:declarations",
+    "build:esm": "tsc --outDir lib/esm --module ES6 --declaration false",
+    "build:cjs": "tsc --outDir lib/cjs --module commonjs --declaration false",
+    "build:declarations": "tsc --declaration --emitDeclarationOnly",
+    "prepublishOnly": "npm run-script build"
   },
   "version": "11.5.0",
   "description": "A LoginRadius SDK for node.js",
   "homepage": "https://www.loginradius.com",
-  "main": "./sdk/util/lr.js",
+  "main": "./lib/cjs/util/lr.js",
+  "module": "./lib/esm/util/lr.js",
+  "types": "lib/types/util/lr.d.ts",
   "repository": {
     "type": "git",
     "url": "",
@@ -30,5 +39,8 @@
   "dependencies": {
     "eslint": "^8.29.0",
     "prettier": "^2.8.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.4"
   }
 }

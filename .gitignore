@@ -18,6 +18,7 @@ prepros.cfg
 
 /demo/node_modules
 demo/node_modules
+/loginradius-sdk/node_modules
 /nbproject/private/
 nbproject/project.properties
 nbproject/project.xml
