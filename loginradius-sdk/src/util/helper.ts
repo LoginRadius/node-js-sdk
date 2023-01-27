@@ -2,11 +2,9 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-import { SottConfig } from '../types';
 import crypto from 'crypto';
 import https from 'https';
 import querystring from 'querystring';
-import sott from './sott';
 
 const jsonData = {
   Description: 'Oops something went wrong, Please try again.',
@@ -50,21 +48,6 @@ export function checkJson (input: object) {
     Array.isArray(input) ||
     typeof input !== 'object'
   );
-}
-
-/**
- * Generate the sott
- * @param sottconfig site config
- * @param startDate start date
- * @param endDate end date
- * @return generated sott
- */
-export async function getSott (sottconfig: SottConfig, startDate: string, endDate: string, timeDifference: number) {
-  try {
-    return await sott(sottconfig, startDate, endDate, timeDifference);
-  } catch (err) {
-    throw err;
-  }
 }
 
 /**
