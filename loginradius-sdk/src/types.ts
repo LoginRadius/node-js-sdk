@@ -12,3 +12,8 @@ export interface LoginRadiusConfig {
   apiRequestSigning?: boolean;
   apiKey: string;
 }
+
+export interface SottConfig {
+  apiKey: string,
+  apiSecret: string
+}

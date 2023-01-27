@@ -24,8 +24,7 @@ import WebHookApi from '../api/advanced/webHookApi';
 
 export default function (config: LoginRadiusConfig) {
   if (config.apiKey === undefined || config.apiSecret === undefined) {
-    console.error('Please set apiKey API & apiSecret');
-    return;
+    throw new Error('Please set apiKey API & apiSecret');
   }
   if (!config.apiDomain || config.apiDomain === '') {
     config.apiDomain = 'api.loginradius.com';

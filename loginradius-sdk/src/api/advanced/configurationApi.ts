@@ -25,12 +25,12 @@ export default class ConfigurationApi {
 
   /**
    * This API allows you to query your LoginRadius account for basic server information and server time information which is useful when generating an SOTT token.
-   * @param {timeDifference} The time difference you would like to pass, If you not pass difference then the default value is 10 minutes
+   * @param timeDifference The time difference you would like to pass, If you not pass difference then the default value is 10 minutes
    * @return Response containing Definition of Complete service info data
    *3.1
    */
 
-  getServerInfo (timeDifference) {
+  getServerInfo (timeDifference: number) {
     var queryParameters: any = {};
 
     queryParameters.apiKey = this.config.apiKey;

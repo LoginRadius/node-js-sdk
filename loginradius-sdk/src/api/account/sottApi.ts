@@ -12,11 +12,11 @@ export default class SottApi {
 
   /**
    * This API allows you to generate SOTT with a given expiration time.
-   * @param {timeDifference} The time difference you would like to pass, If you not pass difference then the default value is 10 minutes
+   * @param timeDifference The time difference you would like to pass, If you not pass difference then the default value is 10 minutes
    * @return Sott data For Registration
    *18.28
    */
-  generateSott (timeDifference) {
+  generateSott (timeDifference: number) {
     var queryParameters: any = {};
 
     queryParameters.apiKey = this.config.apiKey;

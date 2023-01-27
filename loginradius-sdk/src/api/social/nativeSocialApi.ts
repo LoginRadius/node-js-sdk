@@ -15,12 +15,12 @@ export default class NativeSocialApi {
 
   /**
    * The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.
-   * @param {fbAccessToken} Facebook Access Token
-   * @param {socialAppName} Name of Social provider APP
+   * @param fbAccessToken Facebook Access Token
+   * @param socialAppName Name of Social provider APP
    * @return Response containing Definition of Complete Token data
    *20.3
    */
-  getAccessTokenByFacebookAccessToken (fbAccessToken, socialAppName) {
+  getAccessTokenByFacebookAccessToken (fbAccessToken: string, socialAppName?: string) {
     if (isNullOrWhiteSpace(fbAccessToken)) {
       return Promise.reject(getValidationMessage('fbAccessToken'));
     }
@@ -39,16 +39,16 @@ export default class NativeSocialApi {
 
   /**
    * The API is used to get LoginRadius access token by sending Twitter's access token. It will be valid for the specific duration of time specified in the response.
-   * @param {twAccessToken} Twitter Access Token
-   * @param {twTokenSecret} Twitter Token Secret
-   * @param {socialAppName} Name of Social provider APP
+   * @param twAccessToken Twitter Access Token
+   * @param twTokenSecret Twitter Token Secret
+   * @param socialAppName Name of Social provider APP
    * @return Response containing Definition of Complete Token data
    *20.4
    */
   getAccessTokenByTwitterAccessToken (
-    twAccessToken,
-    twTokenSecret,
-    socialAppName
+    twAccessToken: string,
+    twTokenSecret: string,
+    socialAppName?: string
   ) {
     if (isNullOrWhiteSpace(twAccessToken)) {
       return Promise.reject(getValidationMessage('twAccessToken'));
@@ -72,18 +72,18 @@ export default class NativeSocialApi {
 
   /**
    * The API is used to get LoginRadius access token by sending Google's access token. It will be valid for the specific duration of time specified in the response.
-   * @param {googleAccessToken} Google Access Token
-   * @param {clientId} Google Client ID
-   * @param {refreshToken} LoginRadius refresh token
-   * @param {socialAppName} Name of Social provider APP
+   * @param googleAccessToken Google Access Token
+   * @param clientId Google Client ID
+   * @param refreshToken LoginRadius refresh token
+   * @param socialAppName Name of Social provider APP
    * @return Response containing Definition of Complete Token data
    *20.5
    */
   getAccessTokenByGoogleAccessToken (
-    googleAccessToken,
-    clientId,
-    refreshToken,
-    socialAppName
+    googleAccessToken: string,
+    clientId?: string,
+    refreshToken?: string,
+    socialAppName?: string
   ) {
     if (isNullOrWhiteSpace(googleAccessToken)) {
       return Promise.reject(getValidationMessage('googleAccessToken'));
@@ -109,11 +109,11 @@ export default class NativeSocialApi {
 
   /**
    * This API is used to Get LoginRadius Access Token using google jwt id token for google native mobile login/registration.
-   * @param {idToken} Google JWT id_token
+   * @param idToken Google JWT id_token
    * @return Response containing Definition of Complete Token data
    *20.6
    */
-  getAccessTokenByGoogleJWTAccessToken (idToken) {
+  getAccessTokenByGoogleJWTAccessToken (idToken: string) {
     if (isNullOrWhiteSpace(idToken)) {
       return Promise.reject(getValidationMessage('idToken'));
     }
@@ -129,12 +129,12 @@ export default class NativeSocialApi {
 
   /**
    * The API is used to get LoginRadius access token by sending Linkedin's access token. It will be valid for the specific duration of time specified in the response.
-   * @param {lnAccessToken} Linkedin Access Token
-   * @param {socialAppName} Name of Social provider APP
+   * @param lnAccessToken Linkedin Access Token
+   * @param socialAppName Name of Social provider APP
    * @return Response containing Definition of Complete Token data
    *20.7
    */
-  getAccessTokenByLinkedinAccessToken (lnAccessToken, socialAppName) {
+  getAccessTokenByLinkedinAccessToken (lnAccessToken: string, socialAppName?: string) {
     if (isNullOrWhiteSpace(lnAccessToken)) {
       return Promise.reject(getValidationMessage('lnAccessToken'));
     }
@@ -153,11 +153,11 @@ export default class NativeSocialApi {
 
   /**
    * The API is used to get LoginRadius access token by sending Foursquare's access token. It will be valid for the specific duration of time specified in the response.
-   * @param {fsAccessToken} Foursquare Access Token
+   * @param fsAccessToken Foursquare Access Token
    * @return Response containing Definition of Complete Token data
    *20.8
    */
-  getAccessTokenByFoursquareAccessToken (fsAccessToken) {
+  getAccessTokenByFoursquareAccessToken (fsAccessToken: string) {
     if (isNullOrWhiteSpace(fsAccessToken)) {
       return Promise.reject(getValidationMessage('fsAccessToken'));
     }
@@ -173,12 +173,12 @@ export default class NativeSocialApi {
 
   /**
    * The API is used to get LoginRadius access token by sending a valid Apple ID OAuth Code. It will be valid for the specific duration of time specified in the response.
-   * @param {code} Apple Code
-   * @param {socialAppName} Name of Social provider APP
+   * @param code Apple Code
+   * @param socialAppName Name of Social provider APP
    * @return Response containing Definition of Complete Token data
    *20.12
    */
-  getAccessTokenByAppleIdCode (code, socialAppName) {
+  getAccessTokenByAppleIdCode (code: string, socialAppName: string) {
     if (isNullOrWhiteSpace(code)) {
       return Promise.reject(getValidationMessage('code'));
     }
@@ -197,11 +197,11 @@ export default class NativeSocialApi {
 
   /**
    * This API is used to retrieve a LoginRadius access token by passing in a valid WeChat OAuth Code.
-   * @param {code} WeChat Code
+   * @param code WeChat Code
    * @return Response containing Definition of Complete Token data
    *20.13
    */
-  getAccessTokenByWeChatCode (code) {
+  getAccessTokenByWeChatCode (code: string) {
     if (isNullOrWhiteSpace(code)) {
       return Promise.reject(getValidationMessage('code'));
     }
@@ -217,12 +217,12 @@ export default class NativeSocialApi {
 
   /**
    * The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.
-   * @param {googleAuthcode} Google AuthCode
-   * @param {socialAppName} Name of Social provider APP
+   * @param googleAuthcode Google AuthCode
+   * @param socialAppName Name of Social provider APP
    * @return Response containing Definition of Complete Token data
    *20.16
    */
-  getAccessTokenByGoogleAuthCode (googleAuthcode, socialAppName) {
+  getAccessTokenByGoogleAuthCode (googleAuthcode: string, socialAppName?: string) {
     if (isNullOrWhiteSpace(googleAuthcode)) {
       return Promise.reject(getValidationMessage('googleAuthcode'));
     }

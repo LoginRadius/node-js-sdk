@@ -16,18 +16,18 @@ export default class OneTouchLoginApi {
 
   /**
    * This API is used to send a link to a specified email for a frictionless login/registration
-   * @param {oneTouchLoginByEmailModel} Model Class containing Definition of payload for OneTouchLogin By EmailModel API
-   * @param {oneTouchLoginEmailTemplate} Name of the One Touch Login Email Template
-   * @param {redirecturl} Url where the user will redirect after success authentication
-   * @param {welcomeemailtemplate} Name of the welcome email template
+   * @param oneTouchLoginByEmailModel Model Class containing Definition of payload for OneTouchLogin By EmailModel API
+   * @param oneTouchLoginEmailTemplate Name of the One Touch Login Email Template
+   * @param redirecturl Url where the user will redirect after success authentication
+   * @param welcomeemailtemplate Name of the welcome email template
    * @return Response containing Definition of Complete Validation data
    *1.2
    */
   oneTouchLoginByEmail (
-    oneTouchLoginByEmailModel,
-    oneTouchLoginEmailTemplate,
-    redirecturl,
-    welcomeemailtemplate
+    oneTouchLoginByEmailModel: object,
+    oneTouchLoginEmailTemplate?: string,
+    redirecturl?: string,
+    welcomeemailtemplate?: string
   ) {
     if (checkJson(oneTouchLoginByEmailModel)) {
       return Promise.reject(getValidationMessage('oneTouchLoginByEmailModel'));
@@ -58,12 +58,12 @@ export default class OneTouchLoginApi {
 
   /**
    * This API is used to send one time password to a given phone number for a frictionless login/registration.
-   * @param {oneTouchLoginByPhoneModel} Model Class containing Definition of payload for OneTouchLogin By PhoneModel API
-   * @param {smsTemplate} SMS Template name
+   * @param oneTouchLoginByPhoneModel Model Class containing Definition of payload for OneTouchLogin By PhoneModel API
+   * @param smsTemplate SMS Template name
    * @return Response containing Definition of Complete Validation data
    *1.4
    */
-  oneTouchLoginByPhone (oneTouchLoginByPhoneModel, smsTemplate) {
+  oneTouchLoginByPhone (oneTouchLoginByPhoneModel: object, smsTemplate?: string) {
     if (checkJson(oneTouchLoginByPhoneModel)) {
       return Promise.reject(getValidationMessage('oneTouchLoginByPhoneModel'));
     }
@@ -87,14 +87,14 @@ export default class OneTouchLoginApi {
 
   /**
    * This API is used to verify the otp for One Touch Login.
-   * @param {otp} The Verification Code
-   * @param {phone} New Phone Number
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-   * @param {smsTemplate} SMS Template name
+   * @param otp The Verification Code
+   * @param phone New Phone Number
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param smsTemplate SMS Template name
    * @return Response Containing Access Token and Complete Profile Data
    *1.5
    */
-  oneTouchLoginOTPVerification (otp, phone, fields, smsTemplate) {
+  oneTouchLoginOTPVerification (otp: string, phone: string, fields?: string, smsTemplate?: string) {
     if (isNullOrWhiteSpace(otp)) {
       return Promise.reject(getValidationMessage('otp'));
     }
@@ -128,12 +128,12 @@ export default class OneTouchLoginApi {
 
   /**
    * This API verifies the provided token for One Touch Login
-   * @param {verificationToken} Verification token received in the email
-   * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param verificationToken Verification token received in the email
+   * @param welcomeEmailTemplate Name of the welcome email template
    * @return Complete verified response data
    *8.4.2
    */
-  oneTouchEmailVerification (verificationToken, welcomeEmailTemplate) {
+  oneTouchEmailVerification (verificationToken: string, welcomeEmailTemplate?: string) {
     if (isNullOrWhiteSpace(verificationToken)) {
       return Promise.reject(getValidationMessage('verificationToken'));
     }
@@ -152,12 +152,12 @@ export default class OneTouchLoginApi {
 
   /**
    * This API is used to check if the One Touch Login link has been clicked or not.
-   * @param {clientGuid} Unique string used in the Smart Login request
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param clientGuid Unique string used in the Smart Login request
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing User Profile Data and access token
    *9.21.2
    */
-  oneTouchLoginPing (clientGuid, fields) {
+  oneTouchLoginPing (clientGuid: string, fields?: string) {
     if (isNullOrWhiteSpace(clientGuid)) {
       return Promise.reject(getValidationMessage('clientGuid'));
     }

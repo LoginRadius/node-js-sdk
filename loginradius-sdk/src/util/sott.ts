@@ -1,6 +1,7 @@
+import { SottConfig } from '../types';
 import crypto from 'crypto';
 
-export default function (sottconfig, startDate, endDate, timeDifference) {
+export default function (sottconfig: SottConfig, startDate: string, endDate: string, timeDifference: number) {
   var key = sottconfig.apiKey;
   var secret = sottconfig.apiSecret;
   var time = timeDifference;

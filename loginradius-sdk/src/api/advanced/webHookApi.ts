@@ -16,11 +16,11 @@ export default class WebHookApi {
 
   /**
    * This API is used to fatch all the subscribed URLs, for particular event
-   * @param {event} Allowed events: Login, Register, UpdateProfile, ResetPassword, ChangePassword, emailVerification, AddEmail, RemoveEmail, BlockAccount, DeleteAccount, SetUsername, AssignRoles, UnassignRoles, SetPassword, LinkAccount, UnlinkAccount, UpdatePhoneId, VerifyPhoneNumber, CreateCustomObject, UpdateCustomobject, DeleteCustomObject
+   * @param event Allowed events: Login, Register, UpdateProfile, ResetPassword, ChangePassword, emailVerification, AddEmail, RemoveEmail, BlockAccount, DeleteAccount, SetUsername, AssignRoles, UnassignRoles, SetPassword, LinkAccount, UnlinkAccount, UpdatePhoneId, VerifyPhoneNumber, CreateCustomObject, UpdateCustomobject, DeleteCustomObject
    * @return Response Containing List of Webhhook Data
    *40.1
    */
-  getWebHookSubscribedURLs (event) {
+  getWebHookSubscribedURLs (event: string) {
     if (isNullOrWhiteSpace(event)) {
       return Promise.reject(getValidationMessage('event'));
     }
@@ -37,11 +37,11 @@ export default class WebHookApi {
 
   /**
    * API can be used to configure a WebHook on your LoginRadius site. Webhooks also work on subscribe and notification model, subscribe your hook and get a notification. Equivalent to RESThook but these provide security on basis of signature and RESThook work on unique URL. Following are the events that are allowed by LoginRadius to trigger a WebHook service call.
-   * @param {webHookSubscribeModel} Model Class containing Definition of payload for Webhook Subscribe API
+   * @param webHookSubscribeModel Model Class containing Definition of payload for Webhook Subscribe API
    * @return Response containing Definition of Complete Validation data
    *40.2
    */
-  webHookSubscribe (webHookSubscribeModel) {
+  webHookSubscribe (webHookSubscribeModel: object) {
     if (checkJson(webHookSubscribeModel)) {
       return Promise.reject(getValidationMessage('webHookSubscribeModel'));
     }
@@ -79,11 +79,11 @@ export default class WebHookApi {
 
   /**
    * API can be used to unsubscribe a WebHook configured on your LoginRadius site.
-   * @param {webHookSubscribeModel} Model Class containing Definition of payload for Webhook Subscribe API
+   * @param webHookSubscribeModel Model Class containing Definition of payload for Webhook Subscribe API
    * @return Response containing Definition of Delete Request
    *40.4
    */
-  webHookUnsubscribe (webHookSubscribeModel) {
+  webHookUnsubscribe (webHookSubscribeModel: object) {
     if (checkJson(webHookSubscribeModel)) {
       return Promise.reject(getValidationMessage('webHookSubscribeModel'));
     }

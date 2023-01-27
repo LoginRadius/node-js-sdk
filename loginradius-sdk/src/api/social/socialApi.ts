@@ -15,11 +15,11 @@ export default class SocialApi {
 
   /**
    * This API Is used to translate the Request Token returned during authentication into an Access Token that can be used with other API calls.
-   * @param {token} Token generated from a successful oauth from social platform
+   * @param token Token generated from a successful oauth from social platform
    * @return Response containing Definition of Complete Token data
    *20.1
    */
-  exchangeAccessToken (token) {
+  exchangeAccessToken (token: string) {
     if (isNullOrWhiteSpace(token)) {
       return Promise.reject(getValidationMessage('token'));
     }
@@ -35,13 +35,13 @@ export default class SocialApi {
 
   /**
    * The Refresh Access Token API is used to refresh the provider access token after authentication. It will be valid for up to 60 days on LoginRadius depending on the provider. In order to use the access token in other APIs, always refresh the token using this API.<br><br><b>Supported Providers :</b> Facebook,Yahoo,Google,Twitter, Linkedin.<br><br> Contact LoginRadius support team to enable this API.
-   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-   * @param {expiresIn} Allows you to specify a desired expiration time in minutes for the newly issued access token.
-   * @param {isWeb} Is web or not.
+   * @param accessToken Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param expiresIn Allows you to specify a desired expiration time in minutes for the newly issued access token.
+   * @param isWeb Is web or not.
    * @return Response containing Definition of Complete Token data
    *20.2
    */
-  refreshAccessToken (accessToken, expiresIn, isWeb) {
+  refreshAccessToken (accessToken: string, expiresIn: number, isWeb: boolean) {
     if (isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(getValidationMessage('accessToken'));
     }
@@ -63,11 +63,11 @@ export default class SocialApi {
 
   /**
    * This API validates access token, if valid then returns a response with its expiry otherwise error.
-   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param accessToken Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
    * @return Response containing Definition of Complete Token data
    *20.9
    */
-  validateAccessToken (accessToken) {
+  validateAccessToken (accessToken: string) {
     if (isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(getValidationMessage('accessToken'));
     }
@@ -84,11 +84,11 @@ export default class SocialApi {
 
   /**
    * This api invalidates the active access token or expires an access token validity.
-   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param accessToken Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
    * @return Response containing Definition for Complete Validation data
    *20.10
    */
-  inValidateAccessToken (accessToken) {
+  inValidateAccessToken (accessToken: string) {
     if (isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(getValidationMessage('accessToken'));
     }
@@ -105,11 +105,11 @@ export default class SocialApi {
 
   /**
    * This api is use to get all active session by Access Token.
-   * @param {token} Token generated from a successful oauth from social platform
+   * @param token Token generated from a successful oauth from social platform
    * @return Response containing Definition for Complete active sessions
    *20.11.1
    */
-  getActiveSession (token) {
+  getActiveSession (token: string) {
     if (isNullOrWhiteSpace(token)) {
       return Promise.reject(getValidationMessage('token'));
     }
@@ -126,11 +126,11 @@ export default class SocialApi {
 
   /**
    * This api is used to get all active sessions by AccountID(UID).
-   * @param {accountId} UID, the unified identifier for each user account
+   * @param accountId UID, the unified identifier for each user account
    * @return Response containing Definition for Complete active sessions
    *20.11.2
    */
-  getActiveSessionByAccountID (accountId) {
+  getActiveSessionByAccountID (accountId: string) {
     if (isNullOrWhiteSpace(accountId)) {
       return Promise.reject(getValidationMessage('accountId'));
     }
@@ -147,11 +147,11 @@ export default class SocialApi {
 
   /**
    * This api is used to get all active sessions by ProfileId.
-   * @param {profileId} Social Provider Id
+   * @param profileId Social Provider Id
    * @return Response containing Definition for Complete active sessions
    *20.11.3
    */
-  getActiveSessionByProfileID (profileId) {
+  getActiveSessionByProfileID (profileId: string) {
     if (isNullOrWhiteSpace(profileId)) {
       return Promise.reject(getValidationMessage('profileId'));
     }

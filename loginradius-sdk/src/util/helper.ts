@@ -2,6 +2,7 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
+import { SottConfig } from '../types';
 import crypto from 'crypto';
 import https from 'https';
 import querystring from 'querystring';
@@ -17,20 +18,20 @@ const jsonData = {
 
 /**
  * Check null or undefined
- * @param {string} as input
+ * @param input as input
  * @return input is null or not
  */
-export function isNullOrWhiteSpace (input) {
+export function isNullOrWhiteSpace (input?: string) {
   return !(input === null || typeof input === 'undefined' ? '' : input);
 }
 
 /**
  * Get Error response
- * @param {string} status
- * @param {json} input
+ * @param status
+ * @param input
  * @return json of api response
  */
-export function checkError (status, input) {
+export function checkError (status: string, input: any) {
   if (status === 'serverError') {
     return input !== '' ? input : jsonData;
   }
@@ -39,10 +40,10 @@ export function checkError (status, input) {
 
 /**
  * Check json is correct or not
- * @param {string} input
- * @return input is json or not
+ * @param input
+ * @return true if input is invalid
  */
-export function checkJson (input) {
+export function checkJson (input: object) {
   return !!(
     input === null ||
     input === undefined ||
@@ -53,12 +54,12 @@ export function checkJson (input) {
 
 /**
  * Generate the sott
- * @param {json} config as site config
- * @param {string} startDate as start date
- * @param {string} endDate as end date
+ * @param sottconfig site config
+ * @param startDate start date
+ * @param endDate end date
  * @return generated sott
  */
-export async function getSott (sottconfig, startDate, endDate, timeDifference) {
+export async function getSott (sottconfig: SottConfig, startDate: string, endDate: string, timeDifference: number) {
   try {
     return await sott(sottconfig, startDate, endDate, timeDifference);
   } catch (err) {
@@ -68,10 +69,10 @@ export async function getSott (sottconfig, startDate, endDate, timeDifference) {
 
 /**
  * Get Validation Message
- * @param {string} type as error string
+ * @param type error string
  * @return jsondata as json error object
  */
-export function getValidationMessage (type) {
+export function getValidationMessage (type: string) {
   return {
     ...jsonData,
     Description: `The API Request Parameter ${type} is not Correct or WellFormated`
@@ -80,12 +81,12 @@ export function getValidationMessage (type) {
 
 /**
  * Manage the api response
- * @param {string} status as error status
- * @param {json} data as response data
- * @param {*} resolve as promise resolve
- * @param {*} reject as promise reject
+ * @param status error status
+ * @param data response data
+ * @param resolve as promise resolve
+ * @param reject as promise reject
  */
-export function manageRequestResponse (status, data, resolve, reject) {
+export function manageRequestResponse (status: string, data: any, resolve, reject) {
   if (checkError(status, data)) {
     if (!data) {
       data = checkError(status, data);
@@ -98,8 +99,8 @@ export function manageRequestResponse (status, data, resolve, reject) {
 
 /**
  * Get Query String
- * @param {object} string as json input object
- * @return qauery string
+ * @param string json input object
+ * @return query string
  */
 export function getQueryString (string) {
   return querystring.stringify(string, undefined, undefined, {
@@ -109,11 +110,11 @@ export function getQueryString (string) {
 
 /**
  * Generate signin header
- * @param {object} options as options object
- * @param {string} apiSecret
+ * @param options as options object
+ * @param apiSecret
  * @return header object
  */
-export function generateSigningHeader (options, apiSecret) {
+export function generateSigningHeader (options: any, apiSecret: string) {
   var SIXTY = 60;
   var SIXTYTHOUSAND = 60000;
   var TEN = 10;

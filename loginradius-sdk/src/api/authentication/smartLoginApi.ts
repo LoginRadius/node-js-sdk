@@ -15,12 +15,12 @@ export default class SmartLoginApi {
 
   /**
    * This API verifies the provided token for Smart Login
-   * @param {verificationToken} Verification token received in the email
-   * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param verificationToken Verification token received in the email
+   * @param welcomeEmailTemplate Name of the welcome email template
    * @return Complete verified response data
    *8.4.1
    */
-  smartLoginTokenVerification (verificationToken, welcomeEmailTemplate) {
+  smartLoginTokenVerification (verificationToken: string, welcomeEmailTemplate?: string) {
     if (isNullOrWhiteSpace(verificationToken)) {
       return Promise.reject(getValidationMessage('verificationToken'));
     }
@@ -39,20 +39,20 @@ export default class SmartLoginApi {
 
   /**
    * This API sends a Smart Login link to the user's Email Id.
-   * @param {clientGuid} Unique string used in the Smart Login request
-   * @param {email} Email of the user
-   * @param {redirectUrl} Url where the user will redirect after success authentication
-   * @param {smartLoginEmailTemplate} Email template for Smart Login link
-   * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param clientGuid Unique string used in the Smart Login request
+   * @param email Email of the user
+   * @param redirectUrl Url where the user will redirect after success authentication
+   * @param smartLoginEmailTemplate Email template for Smart Login link
+   * @param welcomeEmailTemplate Name of the welcome email template
    * @return Response containing Definition of Complete Validation data
    *9.17.1
    */
   smartLoginByEmail (
-    clientGuid,
-    email,
-    redirectUrl,
-    smartLoginEmailTemplate,
-    welcomeEmailTemplate
+    clientGuid: string,
+    email: string,
+    redirectUrl?: string,
+    smartLoginEmailTemplate?: string,
+    welcomeEmailTemplate?: string
   ) {
     if (isNullOrWhiteSpace(clientGuid)) {
       return Promise.reject(getValidationMessage('clientGuid'));
@@ -82,20 +82,20 @@ export default class SmartLoginApi {
 
   /**
    * This API sends a Smart Login link to the user's Email Id.
-   * @param {clientGuid} Unique string used in the Smart Login request
-   * @param {username} UserName of the user
-   * @param {redirectUrl} Url where the user will redirect after success authentication
-   * @param {smartLoginEmailTemplate} Email template for Smart Login link
-   * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param clientGuid Unique string used in the Smart Login request
+   * @param username UserName of the user
+   * @param redirectUrl Url where the user will redirect after success authentication
+   * @param smartLoginEmailTemplate Email template for Smart Login link
+   * @param welcomeEmailTemplate Name of the welcome email template
    * @return Response containing Definition of Complete Validation data
    *9.17.2
    */
   smartLoginByUserName (
-    clientGuid,
-    username,
-    redirectUrl,
-    smartLoginEmailTemplate,
-    welcomeEmailTemplate
+    clientGuid: string,
+    username: string,
+    redirectUrl?: string,
+    smartLoginEmailTemplate?: string,
+    welcomeEmailTemplate?: string
   ) {
     if (isNullOrWhiteSpace(clientGuid)) {
       return Promise.reject(getValidationMessage('clientGuid'));
@@ -125,8 +125,8 @@ export default class SmartLoginApi {
 
   /**
    * This API is used to check if the Smart Login link has been clicked or not
-   * @param {clientGuid} Unique string used in the Smart Login request
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param clientGuid Unique string used in the Smart Login request
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing User Profile Data and access token
    *9.21.1
    */

@@ -16,16 +16,16 @@ export default class PasswordlessLoginApi {
 
   /**
    * This API verifies an account by OTP and allows the customer to login.
-   * @param {passwordLessLoginOtpModel} Model Class containing Definition of payload for PasswordLessLoginOtpModel API
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-   * @param {smsTemplate} SMS Template name
+   * @param passwordLessLoginOtpModel Model Class containing Definition of payload for PasswordLessLoginOtpModel API
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param smsTemplate SMS Template name
    * @return Response containing User Profile Data and access token
    *9.6
    */
   passwordlessLoginPhoneVerification (
-    passwordLessLoginOtpModel,
-    fields,
-    smsTemplate
+    passwordLessLoginOtpModel: object,
+    fields?: string,
+    smsTemplate?: string
   ) {
     if (checkJson(passwordLessLoginOtpModel)) {
       return Promise.reject(getValidationMessage('passwordLessLoginOtpModel'));
@@ -53,12 +53,12 @@ export default class PasswordlessLoginApi {
 
   /**
    * API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID
-   * @param {phone} The Registered Phone Number
-   * @param {smsTemplate} SMS Template name
+   * @param phone The Registered Phone Number
+   * @param smsTemplate SMS Template name
    * @return Response Containing Definition of SMS Data
    *9.15
    */
-  passwordlessLoginByPhone (phone, smsTemplate) {
+  passwordlessLoginByPhone (phone: string, smsTemplate?: string) {
     if (isNullOrWhiteSpace(phone)) {
       return Promise.reject(getValidationMessage('phone'));
     }
@@ -77,13 +77,13 @@ export default class PasswordlessLoginApi {
 
   /**
    * This API is used to send a Passwordless Login verification link to the provided Email ID
-   * @param {email} Email of the user
-   * @param {passwordLessLoginTemplate} Passwordless Login Template Name
-   * @param {verificationUrl} Email verification url
+   * @param email Email of the user
+   * @param passwordLessLoginTemplate Passwordless Login Template Name
+   * @param verificationUrl Email verification url
    * @return Response containing Definition of Complete Validation data
    *9.18.1
    */
-  passwordlessLoginByEmail (email, passwordLessLoginTemplate, verificationUrl) {
+  passwordlessLoginByEmail (email: string, passwordLessLoginTemplate?: string, verificationUrl?: string) {
     if (isNullOrWhiteSpace(email)) {
       return Promise.reject(getValidationMessage('email'));
     }
@@ -105,16 +105,16 @@ export default class PasswordlessLoginApi {
 
   /**
    * This API is used to send a Passwordless Login Verification Link to a customer by providing their UserName
-   * @param {username} UserName of the user
-   * @param {passwordLessLoginTemplate} Passwordless Login Template Name
-   * @param {verificationUrl} Email verification url
+   * @param username UserName of the user
+   * @param passwordLessLoginTemplate Passwordless Login Template Name
+   * @param verificationUrl Email verification url
    * @return Response containing Definition of Complete Validation data
    *9.18.2
    */
   passwordlessLoginByUserName (
-    username,
-    passwordLessLoginTemplate,
-    verificationUrl
+    username: string,
+    passwordLessLoginTemplate: string,
+    verificationUrl: string
   ) {
     if (isNullOrWhiteSpace(username)) {
       return Promise.reject(getValidationMessage('username'));
@@ -137,16 +137,16 @@ export default class PasswordlessLoginApi {
 
   /**
    * This API is used to verify the Passwordless Login verification link. Note: If you are using Passwordless Login by Phone you will need to use the Passwordless Login Phone Verification API
-   * @param {verificationToken} Verification token received in the email
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-   * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param verificationToken Verification token received in the email
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param welcomeEmailTemplate Name of the welcome email template
    * @return Response containing User Profile Data and access token
    *9.19
    */
   passwordlessLoginVerification (
-    verificationToken,
-    fields,
-    welcomeEmailTemplate
+    verificationToken: string,
+    fields?: string,
+    welcomeEmailTemplate?: string
   ) {
     if (isNullOrWhiteSpace(verificationToken)) {
       return Promise.reject(getValidationMessage('verificationToken'));
@@ -169,14 +169,14 @@ export default class PasswordlessLoginApi {
 
   /**
    * This API is used to verify the otp sent to the email when doing a passwordless login.
-   * @param {passwordLessLoginByEmailAndOtpModel} payload
-   * @param {fields} Fields
+   * @param passwordLessLoginByEmailAndOtpModel payload
+   * @param fields Fields
    * @return Response containing User Profile Data and access token
    *9.23
    */
   passwordlessLoginVerificationByEmailAndOTP (
-    passwordLessLoginByEmailAndOtpModel,
-    fields
+    passwordLessLoginByEmailAndOtpModel: object,
+    fields?: string
   ) {
     if (checkJson(passwordLessLoginByEmailAndOtpModel)) {
       return Promise.reject(
@@ -204,14 +204,14 @@ export default class PasswordlessLoginApi {
 
   /**
    * This API is used to verify the otp sent to the email when doing a passwordless login.
-   * @param {passwordLessLoginByUserNameAndOtpModel} payload
-   * @param {fields} Fields
+   * @param passwordLessLoginByUserNameAndOtpModel payload
+   * @param fields Fields
    * @return Response containing User Profile Data and access token
    *9.24
    */
   passwordlessLoginVerificationByUserNameAndOTP (
-    passwordLessLoginByUserNameAndOtpModel,
-    fields
+    passwordLessLoginByUserNameAndOtpModel: object,
+    fields: string
   ) {
     if (checkJson(passwordLessLoginByUserNameAndOtpModel)) {
       return Promise.reject(

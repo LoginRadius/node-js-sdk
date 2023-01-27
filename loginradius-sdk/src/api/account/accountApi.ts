@@ -17,11 +17,11 @@ export default class AccountApi {
 
   /**
    * This API is used to retrieve all of the accepted Policies by the user, associated with their UID.
-   * @param {uid} UID, the unified identifier for each user account
+   * @param uid the unified identifier for each user account
    * @return Complete Policy History data
    *15.1.1
    */
-  getPrivacyPolicyHistoryByUid (uid) {
+  getPrivacyPolicyHistoryByUid (uid: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -38,12 +38,12 @@ export default class AccountApi {
 
   /**
    * This API is used to create an account in Cloud Storage. This API bypass the normal email verification process and manually creates the user. <br><br>In order to use this API, you need to format a JSON request body with all of the mandatory fields
-   * @param {accountCreateModel} Model Class containing Definition of payload for Account Create API
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param accountCreateModel Model Class containing Definition of payload for Account Create API
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing Definition for Complete profile data
    *18.1
    */
-  createAccount (accountCreateModel, fields) {
+  createAccount (accountCreateModel: object, fields?: string) {
     if (checkJson(accountCreateModel)) {
       return Promise.reject(getValidationMessage('accountCreateModel'));
     }
@@ -68,12 +68,12 @@ export default class AccountApi {
 
   /**
    * This API is used to retrieve all of the profile data, associated with the specified account by email in Cloud Storage.
-   * @param {email} Email of the user
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param email Email of the user
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing Definition for Complete profile data
    *18.2
    */
-  getAccountProfileByEmail (email, fields) {
+  getAccountProfileByEmail (email: string, fields?: string) {
     if (isNullOrWhiteSpace(email)) {
       return Promise.reject(getValidationMessage('email'));
     }
@@ -93,12 +93,12 @@ export default class AccountApi {
 
   /**
    * This API is used to retrieve all of the profile data associated with the specified account by user name in Cloud Storage.
-   * @param {userName} UserName of the user
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param userName UserName of the user
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing Definition for Complete profile data
    *18.3
    */
-  getAccountProfileByUserName (userName, fields) {
+  getAccountProfileByUserName (userName: string, fields?: string) {
     if (isNullOrWhiteSpace(userName)) {
       return Promise.reject(getValidationMessage('userName'));
     }
@@ -118,13 +118,12 @@ export default class AccountApi {
 
   /**
    * This API is used to retrieve all of the profile data, associated with the account by phone number in Cloud Storage.
-   * @param {phone} The Registered Phone Number
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param phone The Registered Phone Number
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing Definition for Complete profile data
    *18.4
    */
-
-  getAccountProfileByPhone (phone, fields) {
+  getAccountProfileByPhone (phone: string, fields?: string) {
     if (isNullOrWhiteSpace(phone)) {
       return Promise.reject(getValidationMessage('phone'));
     }
@@ -144,13 +143,12 @@ export default class AccountApi {
 
   /**
    * This API is used to retrieve all of the profile data, associated with the account by uid in Cloud Storage.
-   * @param {uid} UID, the unified identifier for each user account
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param id The unified identifier for each user account
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing Definition for Complete profile data
    *18.5
    */
-
-  getAccountProfileByUid (uid, fields) {
+  getAccountProfileByUid (uid: string, fields?: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -169,15 +167,14 @@ export default class AccountApi {
 
   /**
    * This API is used to update the information of existing accounts in your Cloud Storage. See our Advanced API Usage section <a href='https://www.loginradius.com/docs/api/v2/customer-identity-api/advanced-api-usage/'>Here</a> for more capabilities.
-   * @param {accountUserProfileUpdateModel} Model Class containing Definition of payload for Account Update API
-   * @param {uid} UID, the unified identifier for each user account
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-   * @param {nullSupport} Boolean, pass true if you wish to update any user profile field with a NULL value, You can get the details
+   * @param accountUserProfileUpdateModel Model Class containing Definition of payload for Account Update API
+   * @param uid The unified identifier for each user account
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param nullSupport Boolean, pass true if you wish to update any user profile field with a NULL value, You can get the details
    * @return Response containing Definition for Complete profile data
    *18.15
    */
-
-  updateAccountByUid (accountUserProfileUpdateModel, uid, fields, nullSupport) {
+  updateAccountByUid (accountUserProfileUpdateModel: object, uid: string, fields: string, nullSupport: boolean) {
     if (checkJson(accountUserProfileUpdateModel)) {
       return Promise.reject(
         getValidationMessage('accountUserProfileUpdateModel')
@@ -210,14 +207,13 @@ export default class AccountApi {
 
   /**
    * This API is used to update the PhoneId by using the Uid's. Admin can update the PhoneId's for both the verified and unverified profiles. It will directly replace the PhoneId and bypass the OTP verification process.
-   * @param {phone} Phone number
-   * @param {uid} UID, the unified identifier for each user account
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param phone Phone number
+   * @param uid The unified identifier for each user account
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing Definition for Complete profile data
    *18.16
    */
-
-  updatePhoneIDByUid (phone, uid, fields) {
+  updatePhoneIDByUid (phone: string, uid: string, fields?: string) {
     if (isNullOrWhiteSpace(phone)) {
       return Promise.reject(getValidationMessage('phone'));
     }
@@ -248,12 +244,12 @@ export default class AccountApi {
 
   /**
    * This API use to retrive the hashed password of a specified account in Cloud Storage.
-   * @param {uid} UID, the unified identifier for each user account
+   * @param uid UID, the unified identifier for each user account
    * @return Response containing Definition for Complete PasswordHash data
    *18.17
    */
 
-  getAccountPasswordHashByUid (uid) {
+  getAccountPasswordHashByUid (uid: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -269,12 +265,12 @@ export default class AccountApi {
 
   /**
    * This API is used to set the password of an account in Cloud Storage.
-   * @param {password} New password
-   * @param {uid} UID, the unified identifier for each user account
+   * @param password New password
+   * @param uid UID, the unified identifier for each user account
    * @return Response containing Definition for Complete PasswordHash data
    *18.18
    */
-  setAccountPasswordByUid (password, uid) {
+  setAccountPasswordByUid (password: string, uid: string) {
     if (isNullOrWhiteSpace(password)) {
       return Promise.reject(getValidationMessage('password'));
     }
@@ -302,11 +298,11 @@ export default class AccountApi {
 
   /**
    * This API deletes the Users account and allows them to re-register for a new account.
-   * @param {uid} UID, the unified identifier for each user account
+   * @param uid UID, the unified identifier for each user account
    * @return Response containing Definition of Delete Request
    *18.19
    */
-  deleteAccountByUid (uid) {
+  deleteAccountByUid (uid: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -322,14 +318,13 @@ export default class AccountApi {
 
   /**
    * This API is used to invalidate the Email Verification status on an account.
-   * @param {uid} UID, the unified identifier for each user account
-   * @param {emailTemplate} Email template name
-   * @param {verificationUrl} Email verification url
+   * @param uid The unified identifier for each user account
+   * @param emailTemplate Email template name
+   * @param verificationUrl Email verification url
    * @return Response containing Definition of Complete Validation data
    *18.20
    */
-
-  invalidateAccountEmailVerification (uid, emailTemplate, verificationUrl) {
+  invalidateAccountEmailVerification (uid: string, emailTemplate?: string, verificationUrl?: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -351,14 +346,14 @@ export default class AccountApi {
 
   /**
    * This API Returns a Forgot Password Token it can also be used to send a Forgot Password email to the customer. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username' in the body.
-   * @param {email} user's email
-   * @param {emailTemplate} Email template name
-   * @param {resetPasswordUrl} Url to which user should get re-directed to for resetting the password
-   * @param {sendEmail} If set to true, the API will also send a Forgot Password email to the customer, bypassing any Bot Protection challenges that they are faced with.
+   * @param email user's email
+   * @param emailTemplate Email template name
+   * @param resetPasswordUrl Url to which user should get re-directed to for resetting the password
+   * @param sendEmail If set to true, the API will also send a Forgot Password email to the customer, bypassing any Bot Protection challenges that they are faced with.
    * @return Response containing Definition of Complete Forgot Password data
    *18.22
    */
-  getForgotPasswordToken (email, emailTemplate, resetPasswordUrl, sendEmail) {
+  getForgotPasswordToken (email: string, emailTemplate?: string, resetPasswordUrl?: string, sendEmail?: boolean) {
     if (isNullOrWhiteSpace(email)) {
       return Promise.reject(getValidationMessage('email'));
     }
@@ -392,11 +387,11 @@ export default class AccountApi {
 
   /**
    * This API Returns an Email Verification token.
-   * @param {email} user's email
+   * @param email user's email
    * @return Response containing Definition of Complete Verification data
    *18.23
    */
-  getEmailVerificationToken (email) {
+  getEmailVerificationToken (email: string) {
     if (isNullOrWhiteSpace(email)) {
       return Promise.reject(getValidationMessage('email'));
     }
@@ -421,11 +416,11 @@ export default class AccountApi {
 
   /**
    * The API is used to get LoginRadius access token based on UID.
-   * @param {uid} UID, the unified identifier for each user account
+   * @param uid The unified identifier for each user account
    * @return Response containing Definition of Complete Token data
    *18.24
    */
-  getAccessTokenByUid (uid) {
+  getAccessTokenByUid (uid: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -442,12 +437,12 @@ export default class AccountApi {
 
   /**
    * This API Allows you to reset the phone no verification of an end user’s account.
-   * @param {uid} UID, the unified identifier for each user account
-   * @param {smsTemplate} SMS Template name
+   * @param uid The unified identifier for each user account
+   * @param smsTemplate SMS Template name
    * @return Response containing Definition of Complete Validation data
    *18.27
    */
-  resetPhoneIDVerificationByUid (uid, smsTemplate) {
+  resetPhoneIDVerificationByUid (uid: string, smsTemplate?: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -466,13 +461,13 @@ export default class AccountApi {
 
   /**
    * This API is used to add/upsert another emails in account profile by different-different email types. If the email type is same then it will simply update the existing email, otherwise it will add a new email in Email array.
-   * @param {upsertEmailModel} Model Class containing Definition of payload for UpsertEmail Property
-   * @param {uid} UID, the unified identifier for each user account
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param upsertEmailModel Model Class containing Definition of payload for UpsertEmail Property
+   * @param uid The unified identifier for each user account
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing Definition for Complete profile data
    *18.29
    */
-  upsertEmail (upsertEmailModel, uid, fields) {
+  upsertEmail (upsertEmailModel: object, uid: string, fields: string) {
     if (checkJson(upsertEmailModel)) {
       return Promise.reject(getValidationMessage('upsertEmailModel'));
     }
@@ -500,13 +495,13 @@ export default class AccountApi {
 
   /**
    * Use this API to Remove emails from a user Account
-   * @param {email} user's email
-   * @param {uid} UID, the unified identifier for each user account
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param email user's email
+   * @param uid The unified identifier for each user account
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Response containing Definition for Complete profile data
    *18.30
    */
-  removeEmail (email, uid, fields) {
+  removeEmail (email: string, uid: string, fields?: string) {
     if (isNullOrWhiteSpace(email)) {
       return Promise.reject(getValidationMessage('email'));
     }
@@ -537,11 +532,11 @@ export default class AccountApi {
 
   /**
    * This API is used to refresh an access token via it's associated refresh token.
-   * @param {refreshToken} LoginRadius refresh token
+   * @param refreshToken LoginRadius refresh token
    * @return Response containing Definition of Complete Token data
    *18.31
    */
-  refreshAccessTokenByRefreshToken (refreshToken) {
+  refreshAccessTokenByRefreshToken (refreshToken: string) {
     if (isNullOrWhiteSpace(refreshToken)) {
       return Promise.reject(getValidationMessage('refreshToken'));
     }
@@ -558,11 +553,11 @@ export default class AccountApi {
 
   /**
    * The Revoke Refresh Access Token API is used to revoke a refresh token or the Provider Access Token, revoking an existing refresh token will invalidate the refresh token but the associated access token will work until the expiry.
-   * @param {refreshToken} LoginRadius refresh token
+   * @param refreshToken LoginRadius refresh token
    * @return Response containing Definition of Delete Request
    *18.32
    */
-  revokeRefreshToken (refreshToken) {
+  revokeRefreshToken (refreshToken: string) {
     if (isNullOrWhiteSpace(refreshToken)) {
       return Promise.reject(getValidationMessage('refreshToken'));
     }
@@ -579,12 +574,12 @@ export default class AccountApi {
 
   /**
    * Note: This is intended for specific workflows where an email may be associated to multiple UIDs. This API is used to retrieve all of the identities (UID and Profiles), associated with a specified email in Cloud Storage.
-   * @param {email} Email of the user
-   * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+   * @param email Email of the user
+   * @param fields The fields parameter filters the API response so that the response only includes a specific set of fields
    * @return Complete user Identity data
    *18.35
    */
-  getAccountIdentitiesByEmail (email, fields) {
+  getAccountIdentitiesByEmail (email: string, fields?: string) {
     if (isNullOrWhiteSpace(email)) {
       return Promise.reject(getValidationMessage('email'));
     }
@@ -604,11 +599,11 @@ export default class AccountApi {
 
   /**
    * This API is used to delete all user profiles associated with an Email.
-   * @param {email} Email of the user
+   * @param email Email of the user
    * @return Response containing Definition of Delete Request
    *18.36
    */
-  accountDeleteByEmail (email) {
+  accountDeleteByEmail (email: string) {
     if (isNullOrWhiteSpace(email)) {
       return Promise.reject(getValidationMessage('email'));
     }
@@ -625,12 +620,12 @@ export default class AccountApi {
 
   /**
    * This API is used to update a user's Uid. It will update all profiles, custom objects and consent management logs associated with the Uid.
-   * @param {updateUidModel} Payload containing Update UID
-   * @param {uid} UID, the unified identifier for each user account
+   * @param updateUidModel Payload containing Update UID
+   * @param uid UID, the unified identifier for each user account
    * @return Response containing Definition of Complete Validation data
    *18.41
    */
-  accountUpdateUid (updateUidModel, uid) {
+  accountUpdateUid (updateUidModel: object, uid: string) {
     if (checkJson(updateUidModel)) {
       return Promise.reject(getValidationMessage('updateUidModel'));
     }

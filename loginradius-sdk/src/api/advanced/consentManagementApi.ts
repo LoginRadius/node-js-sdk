@@ -16,11 +16,11 @@ export default class ConsentManagementApi {
 
   /**
    * This API is used to get the Consent logs of the user.
-   * @param {uid} UID, the unified identifier for each user account
+   * @param uid The unified identifier for each user account
    * @return Response containing consent logs
    *18.37
    */
-  getConsentLogsByUid (uid) {
+  getConsentLogsByUid (uid: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -36,12 +36,12 @@ export default class ConsentManagementApi {
 
   /**
    * This API is to submit consent form using consent token.
-   * @param {consentToken} The consent token received after login error 1226
-   * @param {consentSubmitModel} Model class containing list of multiple consent
+   * @param consentToken The consent token received after login error 1226
+   * @param consentSubmitModel Model class containing list of multiple consent
    * @return Response containing User Profile Data and access token
    *43.1
    */
-  submitConsentByConsentToken (consentToken, consentSubmitModel) {
+  submitConsentByConsentToken (consentToken: string, consentSubmitModel: object) {
     if (isNullOrWhiteSpace(consentToken)) {
       return Promise.reject(getValidationMessage('consentToken'));
     }
@@ -66,11 +66,11 @@ export default class ConsentManagementApi {
 
   /**
    * This API is used to fetch consent logs.
-   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param accessToken Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
    * @return Response containing consent logs
    *43.2
    */
-  getConsentLogs (accessToken) {
+  getConsentLogs (accessToken: string) {
     if (isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(getValidationMessage('accessToken'));
     }
@@ -86,12 +86,12 @@ export default class ConsentManagementApi {
 
   /**
    * API to provide a way to end user to submit a consent form for particular event type.
-   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-   * @param {consentSubmitModel} Model class containing list of multiple consent
+   * @param accessToken Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param consentSubmitModel Model class containing list of multiple consent
    * @return Response containing Definition for Complete profile data
    *43.3
    */
-  submitConsentByAccessToken (accessToken, consentSubmitModel) {
+  submitConsentByAccessToken (accessToken: string, consentSubmitModel: object) {
     if (isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(getValidationMessage('accessToken'));
     }
@@ -116,13 +116,13 @@ export default class ConsentManagementApi {
 
   /**
    * This API is used to check if consent is submitted for a particular event or not.
-   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-   * @param {event} Allowed events: Login, Register, UpdateProfile, ResetPassword, ChangePassword, emailVerification, AddEmail, RemoveEmail, BlockAccount, DeleteAccount, SetUsername, AssignRoles, UnassignRoles, SetPassword, LinkAccount, UnlinkAccount, UpdatePhoneId, VerifyPhoneNumber, CreateCustomObject, UpdateCustomobject, DeleteCustomObject
-   * @param {isCustom} true/false
+   * @param accessToken Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param event Allowed events: Login, Register, UpdateProfile, ResetPassword, ChangePassword, emailVerification, AddEmail, RemoveEmail, BlockAccount, DeleteAccount, SetUsername, AssignRoles, UnassignRoles, SetPassword, LinkAccount, UnlinkAccount, UpdatePhoneId, VerifyPhoneNumber, CreateCustomObject, UpdateCustomobject, DeleteCustomObject
+   * @param isCustom true/false
    * @return Response containing consent profile
    *43.4
    */
-  verifyConsentByAccessToken (accessToken, event, isCustom) {
+  verifyConsentByAccessToken (accessToken: string, event: string, isCustom: boolean) {
     if (isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(getValidationMessage('accessToken'));
     }
@@ -143,12 +143,12 @@ export default class ConsentManagementApi {
 
   /**
    * This API is to update consents using access token.
-   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-   * @param {consentUpdateModel} Model class containg list of multiple consent
+   * @param accessToken Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param consentUpdateModel Model class containg list of multiple consent
    * @return Response containing consent profile
    *43.5
    */
-  updateConsentProfileByAccessToken (accessToken, consentUpdateModel) {
+  updateConsentProfileByAccessToken (accessToken: string, consentUpdateModel: object) {
     if (isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(getValidationMessage('accessToken'));
     }

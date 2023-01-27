@@ -17,11 +17,11 @@ export default class RoleApi {
 
   /**
    * API is used to retrieve all the assigned roles of a particular User.
-   * @param {uid} UID, the unified identifier for each user account
+   * @param uid The unified identifier for each user account
    * @return Response containing Definition of Complete Roles data
    *18.6
    */
-  getRolesByUid (uid) {
+  getRolesByUid (uid: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -37,12 +37,12 @@ export default class RoleApi {
 
   /**
    * This API is used to assign your desired roles to a given user.
-   * @param {accountRolesModel} Model Class containing Definition of payload for Create Role API
-   * @param {uid} UID, the unified identifier for each user account
+   * @param accountRolesModel Model Class containing Definition of payload for Create Role API
+   * @param uid The unified identifier for each user account
    * @return Response containing Definition of Complete Roles data
    *18.7
    */
-  assignRolesByUid (accountRolesModel, uid) {
+  assignRolesByUid (accountRolesModel: object, uid: string) {
     if (checkJson(accountRolesModel)) {
       return Promise.reject(getValidationMessage('accountRolesModel'));
     }
@@ -67,12 +67,12 @@ export default class RoleApi {
 
   /**
    * This API is used to unassign roles from a user.
-   * @param {accountRolesModel} Model Class containing Definition of payload for Create Role API
-   * @param {uid} UID, the unified identifier for each user account
+   * @param accountRolesModel Model Class containing Definition of payload for Create Role API
+   * @param uid The unified identifier for each user account
    * @return Response containing Definition of Delete Request
    *18.8
    */
-  unassignRolesByUid (accountRolesModel, uid) {
+  unassignRolesByUid (accountRolesModel: object, uid: string) {
     if (checkJson(accountRolesModel)) {
       return Promise.reject(getValidationMessage('accountRolesModel'));
     }
@@ -97,11 +97,11 @@ export default class RoleApi {
 
   /**
    * This API Gets the contexts that have been configured and the associated roles and permissions.
-   * @param {uid} UID, the unified identifier for each user account
+   * @param uid The unified identifier for each user account
    * @return Complete user RoleContext data
    *18.9
    */
-  getRoleContextByUid (uid) {
+  getRoleContextByUid (uid: string) {
     if (isNullOrWhiteSpace(uid)) {
       return Promise.reject(getValidationMessage('uid'));
     }
@@ -117,11 +117,11 @@ export default class RoleApi {
 
   /**
    * The API is used to retrieve role context by the context name.
-   * @param {contextName} Name of context
+   * @param contextName Name of context
    * @return Complete user RoleContext data
    *18.10
    */
-  getRoleContextByContextName (contextName) {
+  getRoleContextByContextName (contextName: string) {
     if (isNullOrWhiteSpace(contextName)) {
       return Promise.reject(getValidationMessage('contextName'));
     }
@@ -137,13 +137,12 @@ export default class RoleApi {
 
   /**
    * This API creates a Context with a set of Roles
-   * @param {accountRoleContextModel} Model Class containing Definition of RoleContext payload
-   * @param {uid} UID, the unified identifier for each user account
+   * @param accountRoleContextModel Model Class containing Definition of RoleContext payload
+   * @param uid The unified identifier for each user account
    * @return Complete user RoleContext data
    *18.11
    */
-
-  updateRoleContextByUid (accountRoleContextModel, uid) {
+  updateRoleContextByUid (accountRoleContextModel: object, uid: string) {
     if (checkJson(accountRoleContextModel)) {
       return Promise.reject(getValidationMessage('accountRoleContextModel'));
     }
@@ -168,12 +167,12 @@ export default class RoleApi {
 
   /**
    * This API Deletes the specified Role Context
-   * @param {contextName} Name of context
-   * @param {uid} UID, the unified identifier for each user account
+   * @param contextName Name of context
+   * @param uid The unified identifier for each user account
    * @return Response containing Definition of Delete Request
    *18.12
    */
-  deleteRoleContextByUid (contextName, uid) {
+  deleteRoleContextByUid (contextName: string, uid: string) {
     if (isNullOrWhiteSpace(contextName)) {
       return Promise.reject(getValidationMessage('contextName'));
     }
@@ -193,16 +192,16 @@ export default class RoleApi {
 
   /**
    * This API Deletes the specified Role from a Context.
-   * @param {contextName} Name of context
-   * @param {roleContextRemoveRoleModel} Model Class containing Definition of payload for RoleContextRemoveRole API
-   * @param {uid} UID, the unified identifier for each user account
+   * @param contextName Name of context
+   * @param roleContextRemoveRoleModel Model Class containing Definition of payload for RoleContextRemoveRole API
+   * @param uid The unified identifier for each user account
    * @return Response containing Definition of Delete Request
    *18.13
    */
   deleteRolesFromRoleContextByUid (
-    contextName,
-    roleContextRemoveRoleModel,
-    uid
+    contextName: string,
+    roleContextRemoveRoleModel: object,
+    uid: string
   ) {
     if (isNullOrWhiteSpace(contextName)) {
       return Promise.reject(getValidationMessage('contextName'));
@@ -236,16 +235,16 @@ export default class RoleApi {
 
   /**
    * This API Deletes Additional Permissions from Context.
-   * @param {contextName} Name of context
-   * @param {roleContextAdditionalPermissionRemoveRoleModel} Model Class containing Definition of payload for RoleContextAdditionalPermissionRemoveRole API
-   * @param {uid} UID, the unified identifier for each user account
+   * @param contextName Name of context
+   * @param roleContextAdditionalPermissionRemoveRoleModel Model Class containing Definition of payload for RoleContextAdditionalPermissionRemoveRole API
+   * @param uid The unified identifier for each user account
    * @return Response containing Definition of Delete Request
    *18.14
    */
   deleteAdditionalPermissionFromRoleContextByUid (
-    contextName,
-    roleContextAdditionalPermissionRemoveRoleModel,
-    uid
+    contextName: string,
+    roleContextAdditionalPermissionRemoveRoleModel: object,
+    uid: string
   ) {
     if (isNullOrWhiteSpace(contextName)) {
       return Promise.reject(getValidationMessage('contextName'));
@@ -297,11 +296,11 @@ export default class RoleApi {
 
   /**
    * This API creates a role with permissions.
-   * @param {rolesModel} Model Class containing Definition of payload for Roles API
+   * @param rolesModel Model Class containing Definition of payload for Roles API
    * @return Complete user Roles data
    *41.2
    */
-  createRoles (rolesModel) {
+  createRoles (rolesModel: object) {
     if (checkJson(rolesModel)) {
       return Promise.reject(getValidationMessage('rolesModel'));
     }
@@ -323,11 +322,11 @@ export default class RoleApi {
 
   /**
    * This API is used to delete the role.
-   * @param {role} Created RoleName
+   * @param role Created RoleName
    * @return Response containing Definition of Delete Request
    *41.3
    */
-  deleteRole (role) {
+  deleteRole (role: string) {
     if (isNullOrWhiteSpace(role)) {
       return Promise.reject(getValidationMessage('role'));
     }
@@ -343,12 +342,12 @@ export default class RoleApi {
 
   /**
    * This API is used to add permissions to a given role.
-   * @param {permissionsModel} Model Class containing Definition for PermissionsModel Property
-   * @param {role} Created RoleName
+   * @param permissionsModel Model Class containing Definition for PermissionsModel Property
+   * @param role Created RoleName
    * @return Response containing Definition of Complete role data
    *41.4
    */
-  addRolePermissions (permissionsModel, role) {
+  addRolePermissions (permissionsModel: object, role: string) {
     if (checkJson(permissionsModel)) {
       return Promise.reject(getValidationMessage('permissionsModel'));
     }
@@ -373,12 +372,12 @@ export default class RoleApi {
 
   /**
    * API is used to remove permissions from a role.
-   * @param {permissionsModel} Model Class containing Definition for PermissionsModel Property
-   * @param {role} Created RoleName
+   * @param permissionsModel Model Class containing Definition for PermissionsModel Property
+   * @param role Created RoleName
    * @return Response containing Definition of Complete role data
    *41.5
    */
-  removeRolePermissions (permissionsModel, role) {
+  removeRolePermissions (permissionsModel: object, role: string) {
     if (checkJson(permissionsModel)) {
       return Promise.reject(getValidationMessage('permissionsModel'));
     }
