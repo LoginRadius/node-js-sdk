@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class CustomObjectApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API is used to write information in JSON format to the custom object for the specified account.
@@ -14,31 +22,26 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete user custom object data
    *6.1
    */
-
-  module.createCustomObjectByToken = function (
-    accessToken,
-    objectName,
-    payload
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  createCustomObjectByToken (accessToken, objectName, payload) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
     }
-    if (helper.checkJson(payload)) {
-      return Promise.reject(helper.getValidationMessage('payload'));
+    if (checkJson(payload)) {
+      return Promise.reject(getValidationMessage('payload'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.objectName = objectName;
 
     var resourcePath = 'identity/v2/auth/customobject';
 
-    return config.request('POST', resourcePath, queryParameters, payload);
-  };
+    return request(this.config, 'POST', resourcePath, queryParameters, payload);
+  }
 
   /**
    * This API is used to update the specified custom object data of the specified account. If the value of updatetype is 'replace' then it will fully replace custom object with the new custom object and if the value of updatetype is 'partialreplace' then it will perform an upsert type operation
@@ -50,30 +53,29 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete user custom object data
    *6.2
    */
-
-  module.updateCustomObjectByToken = function (
+  updateCustomObjectByToken (
     accessToken,
     objectName,
     objectRecordId,
     payload,
     updateType
   ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
     }
-    if (helper.isNullOrWhiteSpace(objectRecordId)) {
-      return Promise.reject(helper.getValidationMessage('objectRecordId'));
+    if (isNullOrWhiteSpace(objectRecordId)) {
+      return Promise.reject(getValidationMessage('objectRecordId'));
     }
-    if (helper.checkJson(payload)) {
-      return Promise.reject(helper.getValidationMessage('payload'));
+    if (checkJson(payload)) {
+      return Promise.reject(getValidationMessage('payload'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.objectName = objectName;
     if (updateType !== null) {
       queryParameters.updateType = updateType;
@@ -81,8 +83,8 @@ module.exports = function (config) {
 
     var resourcePath = 'identity/v2/auth/customobject/' + objectRecordId;
 
-    return config.request('PUT', resourcePath, queryParameters, payload);
-  };
+    return request(this.config, 'PUT', resourcePath, queryParameters, payload);
+  }
 
   /**
    * This API is used to retrieve the specified Custom Object data for the specified account.
@@ -91,24 +93,23 @@ module.exports = function (config) {
    * @return Complete user CustomObject data
    *6.3
    */
-
-  module.getCustomObjectByToken = function (accessToken, objectName) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  getCustomObjectByToken (accessToken, objectName) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.objectName = objectName;
 
     var resourcePath = 'identity/v2/auth/customobject';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to retrieve the Custom Object data for the specified account.
@@ -118,31 +119,26 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete user custom object data
    *6.4
    */
-
-  module.getCustomObjectByRecordIDAndToken = function (
-    accessToken,
-    objectName,
-    objectRecordId
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  getCustomObjectByRecordIDAndToken (accessToken, objectName, objectRecordId) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
     }
-    if (helper.isNullOrWhiteSpace(objectRecordId)) {
-      return Promise.reject(helper.getValidationMessage('objectRecordId'));
+    if (isNullOrWhiteSpace(objectRecordId)) {
+      return Promise.reject(getValidationMessage('objectRecordId'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.objectName = objectName;
 
     var resourcePath = 'identity/v2/auth/customobject/' + objectRecordId;
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to remove the specified Custom Object data using ObjectRecordId of a specified account.
@@ -152,31 +148,26 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *6.5
    */
-
-  module.deleteCustomObjectByToken = function (
-    accessToken,
-    objectName,
-    objectRecordId
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  deleteCustomObjectByToken (accessToken, objectName, objectRecordId) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
     }
-    if (helper.isNullOrWhiteSpace(objectRecordId)) {
-      return Promise.reject(helper.getValidationMessage('objectRecordId'));
+    if (isNullOrWhiteSpace(objectRecordId)) {
+      return Promise.reject(getValidationMessage('objectRecordId'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.objectName = objectName;
 
     var resourcePath = 'identity/v2/auth/customobject/' + objectRecordId;
 
-    return config.request('DELETE', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'DELETE', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to write information in JSON format to the custom object for the specified account.
@@ -186,27 +177,26 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete user custom object data
    *19.1
    */
+  createCustomObjectByUid (objectName, payload, uid) {
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
+    }
+    if (checkJson(payload)) {
+      return Promise.reject(getValidationMessage('payload'));
+    }
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
+    }
+    var queryParameters: any = {};
 
-  module.createCustomObjectByUid = function (objectName, payload, uid) {
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
-    }
-    if (helper.checkJson(payload)) {
-      return Promise.reject(helper.getValidationMessage('payload'));
-    }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
-    }
-    var queryParameters = {};
-
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
     queryParameters.objectName = objectName;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject';
 
-    return config.request('POST', resourcePath, queryParameters, payload);
-  };
+    return request(this.config, 'POST', resourcePath, queryParameters, payload);
+  }
 
   /**
    * This API is used to update the specified custom object data of a specified account. If the value of updatetype is 'replace' then it will fully replace custom object with new custom object and if the value of updatetype is partialreplace then it will perform an upsert type operation.
@@ -218,30 +208,29 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete user custom object data
    *19.2
    */
-
-  module.updateCustomObjectByUid = function (
+  updateCustomObjectByUid (
     objectName,
     objectRecordId,
     payload,
     uid,
     updateType
   ) {
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
     }
-    if (helper.isNullOrWhiteSpace(objectRecordId)) {
-      return Promise.reject(helper.getValidationMessage('objectRecordId'));
+    if (isNullOrWhiteSpace(objectRecordId)) {
+      return Promise.reject(getValidationMessage('objectRecordId'));
     }
-    if (helper.checkJson(payload)) {
-      return Promise.reject(helper.getValidationMessage('payload'));
+    if (checkJson(payload)) {
+      return Promise.reject(getValidationMessage('payload'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
     queryParameters.objectName = objectName;
     if (updateType !== null) {
       queryParameters.updateType = updateType;
@@ -250,8 +239,8 @@ module.exports = function (config) {
     var resourcePath =
       'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
 
-    return config.request('PUT', resourcePath, queryParameters, payload);
-  };
+    return request(this.config, 'PUT', resourcePath, queryParameters, payload);
+  }
 
   /**
    * This API is used to retrieve all the custom objects by UID from cloud storage.
@@ -260,24 +249,23 @@ module.exports = function (config) {
    * @return Complete user CustomObject data
    *19.3
    */
-
-  module.getCustomObjectByUid = function (objectName, uid) {
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
+  getCustomObjectByUid (objectName, uid) {
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
     queryParameters.objectName = objectName;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/customobject';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to retrieve the Custom Object data for the specified account.
@@ -287,32 +275,27 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete user custom object data
    *19.4
    */
+  getCustomObjectByRecordID (objectName, objectRecordId, uid) {
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
+    }
+    if (isNullOrWhiteSpace(objectRecordId)) {
+      return Promise.reject(getValidationMessage('objectRecordId'));
+    }
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
+    }
+    var queryParameters: any = {};
 
-  module.getCustomObjectByRecordID = function (
-    objectName,
-    objectRecordId,
-    uid
-  ) {
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
-    }
-    if (helper.isNullOrWhiteSpace(objectRecordId)) {
-      return Promise.reject(helper.getValidationMessage('objectRecordId'));
-    }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
-    }
-    var queryParameters = {};
-
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
     queryParameters.objectName = objectName;
 
     var resourcePath =
       'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to remove the specified Custom Object data using ObjectRecordId of specified account.
@@ -322,31 +305,25 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *19.5
    */
+  deleteCustomObjectByRecordID (objectName, objectRecordId, uid) {
+    if (isNullOrWhiteSpace(objectName)) {
+      return Promise.reject(getValidationMessage('objectName'));
+    }
+    if (isNullOrWhiteSpace(objectRecordId)) {
+      return Promise.reject(getValidationMessage('objectRecordId'));
+    }
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
+    }
+    var queryParameters: any = {};
 
-  module.deleteCustomObjectByRecordID = function (
-    objectName,
-    objectRecordId,
-    uid
-  ) {
-    if (helper.isNullOrWhiteSpace(objectName)) {
-      return Promise.reject(helper.getValidationMessage('objectName'));
-    }
-    if (helper.isNullOrWhiteSpace(objectRecordId)) {
-      return Promise.reject(helper.getValidationMessage('objectRecordId'));
-    }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
-    }
-    var queryParameters = {};
-
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
     queryParameters.objectName = objectName;
 
     var resourcePath =
       'identity/v2/manage/account/' + uid + '/customobject/' + objectRecordId;
 
-    return config.request('DELETE', resourcePath, queryParameters, null);
-  };
-  return module;
-};
+    return request(this.config, 'DELETE', resourcePath, queryParameters, null);
+  }
+}

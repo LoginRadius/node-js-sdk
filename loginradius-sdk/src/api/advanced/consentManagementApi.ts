@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class ConsentManagementApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API is used to get the Consent logs of the user.
@@ -12,20 +20,19 @@ module.exports = function (config) {
    * @return Response containing consent logs
    *18.37
    */
-
-  module.getConsentLogsByUid = function (uid) {
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+  getConsentLogsByUid (uid) {
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/consent/logs';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is to submit consent form using consent token.
@@ -34,31 +41,28 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *43.1
    */
-
-  module.submitConsentByConsentToken = function (
-    consentToken,
-    consentSubmitModel
-  ) {
-    if (helper.isNullOrWhiteSpace(consentToken)) {
-      return Promise.reject(helper.getValidationMessage('consentToken'));
+  submitConsentByConsentToken (consentToken, consentSubmitModel) {
+    if (isNullOrWhiteSpace(consentToken)) {
+      return Promise.reject(getValidationMessage('consentToken'));
     }
-    if (helper.checkJson(consentSubmitModel)) {
-      return Promise.reject(helper.getValidationMessage('consentSubmitModel'));
+    if (checkJson(consentSubmitModel)) {
+      return Promise.reject(getValidationMessage('consentSubmitModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.consentToken = consentToken;
 
     var resourcePath = 'identity/v2/auth/consent';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       consentSubmitModel
     );
-  };
+  }
 
   /**
    * This API is used to fetch consent logs.
@@ -66,20 +70,19 @@ module.exports = function (config) {
    * @return Response containing consent logs
    *43.2
    */
-
-  module.getConsentLogs = function (accessToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  getConsentLogs (accessToken) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/consent/logs';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * API to provide a way to end user to submit a consent form for particular event type.
@@ -88,31 +91,28 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete profile data
    *43.3
    */
-
-  module.submitConsentByAccessToken = function (
-    accessToken,
-    consentSubmitModel
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  submitConsentByAccessToken (accessToken, consentSubmitModel) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(consentSubmitModel)) {
-      return Promise.reject(helper.getValidationMessage('consentSubmitModel'));
+    if (checkJson(consentSubmitModel)) {
+      return Promise.reject(getValidationMessage('consentSubmitModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/consent/profile';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       consentSubmitModel
     );
-  };
+  }
 
   /**
    * This API is used to check if consent is submitted for a particular event or not.
@@ -122,25 +122,24 @@ module.exports = function (config) {
    * @return Response containing consent profile
    *43.4
    */
-
-  module.verifyConsentByAccessToken = function (accessToken, event, isCustom) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  verifyConsentByAccessToken (accessToken, event, isCustom) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(event)) {
-      return Promise.reject(helper.getValidationMessage('event'));
+    if (isNullOrWhiteSpace(event)) {
+      return Promise.reject(getValidationMessage('event'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.event = event;
     queryParameters.isCustom = isCustom;
 
     var resourcePath = 'identity/v2/auth/consent/verify';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is to update consents using access token.
@@ -149,30 +148,26 @@ module.exports = function (config) {
    * @return Response containing consent profile
    *43.5
    */
-
-  module.updateConsentProfileByAccessToken = function (
-    accessToken,
-    consentUpdateModel
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  updateConsentProfileByAccessToken (accessToken, consentUpdateModel) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(consentUpdateModel)) {
-      return Promise.reject(helper.getValidationMessage('consentUpdateModel'));
+    if (checkJson(consentUpdateModel)) {
+      return Promise.reject(getValidationMessage('consentUpdateModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/consent';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       consentUpdateModel
     );
-  };
-  return module;
-};
+  }
+}

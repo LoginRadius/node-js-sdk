@@ -2,9 +2,16 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class SmartLoginApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API verifies the provided token for Smart Login
@@ -13,26 +20,22 @@ module.exports = function (config) {
    * @return Complete verified response data
    *8.4.1
    */
-
-  module.smartLoginTokenVerification = function (
-    verificationToken,
-    welcomeEmailTemplate
-  ) {
-    if (helper.isNullOrWhiteSpace(verificationToken)) {
-      return Promise.reject(helper.getValidationMessage('verificationToken'));
+  smartLoginTokenVerification (verificationToken, welcomeEmailTemplate) {
+    if (isNullOrWhiteSpace(verificationToken)) {
+      return Promise.reject(getValidationMessage('verificationToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.verificationToken = verificationToken;
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/email/smartlogin';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API sends a Smart Login link to the user's Email Id.
@@ -44,39 +47,38 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *9.17.1
    */
-
-  module.smartLoginByEmail = function (
+  smartLoginByEmail (
     clientGuid,
     email,
     redirectUrl,
     smartLoginEmailTemplate,
     welcomeEmailTemplate
   ) {
-    if (helper.isNullOrWhiteSpace(clientGuid)) {
-      return Promise.reject(helper.getValidationMessage('clientGuid'));
+    if (isNullOrWhiteSpace(clientGuid)) {
+      return Promise.reject(getValidationMessage('clientGuid'));
     }
-    if (helper.isNullOrWhiteSpace(email)) {
-      return Promise.reject(helper.getValidationMessage('email'));
+    if (isNullOrWhiteSpace(email)) {
+      return Promise.reject(getValidationMessage('email'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.clientGuid = clientGuid;
     queryParameters.email = email;
-    if (!helper.isNullOrWhiteSpace(redirectUrl)) {
+    if (!isNullOrWhiteSpace(redirectUrl)) {
       queryParameters.redirectUrl = redirectUrl;
     }
-    if (!helper.isNullOrWhiteSpace(smartLoginEmailTemplate)) {
+    if (!isNullOrWhiteSpace(smartLoginEmailTemplate)) {
       queryParameters.smartLoginEmailTemplate = smartLoginEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/login/smartlogin';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API sends a Smart Login link to the user's Email Id.
@@ -88,39 +90,38 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *9.17.2
    */
-
-  module.smartLoginByUserName = function (
+  smartLoginByUserName (
     clientGuid,
     username,
     redirectUrl,
     smartLoginEmailTemplate,
     welcomeEmailTemplate
   ) {
-    if (helper.isNullOrWhiteSpace(clientGuid)) {
-      return Promise.reject(helper.getValidationMessage('clientGuid'));
+    if (isNullOrWhiteSpace(clientGuid)) {
+      return Promise.reject(getValidationMessage('clientGuid'));
     }
-    if (helper.isNullOrWhiteSpace(username)) {
-      return Promise.reject(helper.getValidationMessage('username'));
+    if (isNullOrWhiteSpace(username)) {
+      return Promise.reject(getValidationMessage('username'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.clientGuid = clientGuid;
     queryParameters.username = username;
-    if (!helper.isNullOrWhiteSpace(redirectUrl)) {
+    if (!isNullOrWhiteSpace(redirectUrl)) {
       queryParameters.redirectUrl = redirectUrl;
     }
-    if (!helper.isNullOrWhiteSpace(smartLoginEmailTemplate)) {
+    if (!isNullOrWhiteSpace(smartLoginEmailTemplate)) {
       queryParameters.smartLoginEmailTemplate = smartLoginEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/login/smartlogin';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to check if the Smart Login link has been clicked or not
@@ -129,22 +130,20 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.21.1
    */
-
-  module.smartLoginPing = function (clientGuid, fields) {
-    if (helper.isNullOrWhiteSpace(clientGuid)) {
-      return Promise.reject(helper.getValidationMessage('clientGuid'));
+  smartLoginPing (clientGuid, fields) {
+    if (isNullOrWhiteSpace(clientGuid)) {
+      return Promise.reject(getValidationMessage('clientGuid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.clientGuid = clientGuid;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
 
     var resourcePath = 'identity/v2/auth/login/smartlogin/ping';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
-  return module;
-};
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
+}

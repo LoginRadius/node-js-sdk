@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class PinAuthenticationApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API is used to login a user by pin and session token.
@@ -13,28 +21,28 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.22
    */
-
-  module.pinLogin = function (loginByPINModel, sessionToken) {
-    if (helper.checkJson(loginByPINModel)) {
-      return Promise.reject(helper.getValidationMessage('loginByPINModel'));
+  pinLogin (loginByPINModel, sessionToken) {
+    if (checkJson(loginByPINModel)) {
+      return Promise.reject(getValidationMessage('loginByPINModel'));
     }
-    if (helper.isNullOrWhiteSpace(sessionToken)) {
-      return Promise.reject(helper.getValidationMessage('sessionToken'));
+    if (isNullOrWhiteSpace(sessionToken)) {
+      return Promise.reject(getValidationMessage('sessionToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.session_token = sessionToken;
 
     var resourcePath = 'identity/v2/auth/login/pin';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       loginByPINModel
     );
-  };
+  }
 
   /**
    * This API sends the reset pin email to specified email address.
@@ -44,36 +52,34 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.1
    */
-
-  module.sendForgotPINEmailByEmail = function (
+  sendForgotPINEmailByEmail (
     forgotPINLinkByEmailModel,
     emailTemplate,
     resetPINUrl
   ) {
-    if (helper.checkJson(forgotPINLinkByEmailModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('forgotPINLinkByEmailModel')
-      );
+    if (checkJson(forgotPINLinkByEmailModel)) {
+      return Promise.reject(getValidationMessage('forgotPINLinkByEmailModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(resetPINUrl)) {
+    if (!isNullOrWhiteSpace(resetPINUrl)) {
       queryParameters.resetPINUrl = resetPINUrl;
     }
 
     var resourcePath = 'identity/v2/auth/pin/forgot/email';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       forgotPINLinkByEmailModel
     );
-  };
+  }
 
   /**
    * This API sends the reset pin email using username.
@@ -83,36 +89,36 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.2
    */
-
-  module.sendForgotPINEmailByUsername = function (
+  sendForgotPINEmailByUsername (
     forgotPINLinkByUserNameModel,
     emailTemplate,
     resetPINUrl
   ) {
-    if (helper.checkJson(forgotPINLinkByUserNameModel)) {
+    if (checkJson(forgotPINLinkByUserNameModel)) {
       return Promise.reject(
-        helper.getValidationMessage('forgotPINLinkByUserNameModel')
+        getValidationMessage('forgotPINLinkByUserNameModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(resetPINUrl)) {
+    if (!isNullOrWhiteSpace(resetPINUrl)) {
       queryParameters.resetPINUrl = resetPINUrl;
     }
 
     var resourcePath = 'identity/v2/auth/pin/forgot/username';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       forgotPINLinkByUserNameModel
     );
-  };
+  }
 
   /**
    * This API is used to reset pin using reset token.
@@ -120,26 +126,24 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.3
    */
-
-  module.resetPINByResetToken = function (resetPINByResetToken) {
-    if (helper.checkJson(resetPINByResetToken)) {
-      return Promise.reject(
-        helper.getValidationMessage('resetPINByResetToken')
-      );
+  resetPINByResetToken (resetPINByResetToken) {
+    if (checkJson(resetPINByResetToken)) {
+      return Promise.reject(getValidationMessage('resetPINByResetToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/pin/reset/token';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPINByResetToken
     );
-  };
+  }
 
   /**
    * This API is used to reset pin using security question answer and email.
@@ -147,30 +151,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.4
    */
-
-  module.resetPINByEmailAndSecurityAnswer = function (
+  resetPINByEmailAndSecurityAnswer (
     resetPINBySecurityQuestionAnswerAndEmailModel
   ) {
-    if (helper.checkJson(resetPINBySecurityQuestionAnswerAndEmailModel)) {
+    if (checkJson(resetPINBySecurityQuestionAnswerAndEmailModel)) {
       return Promise.reject(
-        helper.getValidationMessage(
-          'resetPINBySecurityQuestionAnswerAndEmailModel'
-        )
+        getValidationMessage('resetPINBySecurityQuestionAnswerAndEmailModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/pin/reset/securityanswer/email';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPINBySecurityQuestionAnswerAndEmailModel
     );
-  };
+  }
 
   /**
    * This API is used to reset pin using security question answer and username.
@@ -178,30 +180,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.5
    */
-
-  module.resetPINByUsernameAndSecurityAnswer = function (
+  resetPINByUsernameAndSecurityAnswer (
     resetPINBySecurityQuestionAnswerAndUsernameModel
   ) {
-    if (helper.checkJson(resetPINBySecurityQuestionAnswerAndUsernameModel)) {
+    if (checkJson(resetPINBySecurityQuestionAnswerAndUsernameModel)) {
       return Promise.reject(
-        helper.getValidationMessage(
-          'resetPINBySecurityQuestionAnswerAndUsernameModel'
-        )
+        getValidationMessage('resetPINBySecurityQuestionAnswerAndUsernameModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/pin/reset/securityanswer/username';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPINBySecurityQuestionAnswerAndUsernameModel
     );
-  };
+  }
 
   /**
    * This API is used to reset pin using security question answer and phone.
@@ -209,30 +209,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.6
    */
-
-  module.resetPINByPhoneAndSecurityAnswer = function (
+  resetPINByPhoneAndSecurityAnswer (
     resetPINBySecurityQuestionAnswerAndPhoneModel
   ) {
-    if (helper.checkJson(resetPINBySecurityQuestionAnswerAndPhoneModel)) {
+    if (checkJson(resetPINBySecurityQuestionAnswerAndPhoneModel)) {
       return Promise.reject(
-        helper.getValidationMessage(
-          'resetPINBySecurityQuestionAnswerAndPhoneModel'
-        )
+        getValidationMessage('resetPINBySecurityQuestionAnswerAndPhoneModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/pin/reset/securityanswer/phone';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPINBySecurityQuestionAnswerAndPhoneModel
     );
-  };
+  }
 
   /**
    * This API sends the OTP to specified phone number
@@ -241,32 +239,27 @@ module.exports = function (config) {
    * @return Response Containing Validation Data and SMS Data
    *42.7
    */
-
-  module.sendForgotPINSMSByPhone = function (
-    forgotPINOtpByPhoneModel,
-    smsTemplate
-  ) {
-    if (helper.checkJson(forgotPINOtpByPhoneModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('forgotPINOtpByPhoneModel')
-      );
+  sendForgotPINSMSByPhone (forgotPINOtpByPhoneModel, smsTemplate) {
+    if (checkJson(forgotPINOtpByPhoneModel)) {
+      return Promise.reject(getValidationMessage('forgotPINOtpByPhoneModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/pin/forgot/otp';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       forgotPINOtpByPhoneModel
     );
-  };
+  }
 
   /**
    * This API is used to change a user's PIN using access token.
@@ -275,23 +268,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.8
    */
-
-  module.changePINByAccessToken = function (accessToken, changePINModel) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  changePINByAccessToken (accessToken, changePINModel) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(changePINModel)) {
-      return Promise.reject(helper.getValidationMessage('changePINModel'));
+    if (checkJson(changePINModel)) {
+      return Promise.reject(getValidationMessage('changePINModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/pin/change';
 
-    return config.request('PUT', resourcePath, queryParameters, changePINModel);
-  };
+    return request(
+      this.config,
+      'PUT',
+      resourcePath,
+      queryParameters,
+      changePINModel
+    );
+  }
 
   /**
    * This API is used to reset pin using phoneId and OTP.
@@ -299,26 +297,24 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.9
    */
-
-  module.resetPINByPhoneAndOtp = function (resetPINByPhoneAndOTPModel) {
-    if (helper.checkJson(resetPINByPhoneAndOTPModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('resetPINByPhoneAndOTPModel')
-      );
+  resetPINByPhoneAndOtp (resetPINByPhoneAndOTPModel) {
+    if (checkJson(resetPINByPhoneAndOTPModel)) {
+      return Promise.reject(getValidationMessage('resetPINByPhoneAndOTPModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/pin/reset/otp/phone';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPINByPhoneAndOTPModel
     );
-  };
+  }
 
   /**
    * This API is used to reset pin using email and OTP.
@@ -326,26 +322,24 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.10
    */
-
-  module.resetPINByEmailAndOtp = function (resetPINByEmailAndOtpModel) {
-    if (helper.checkJson(resetPINByEmailAndOtpModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('resetPINByEmailAndOtpModel')
-      );
+  resetPINByEmailAndOtp (resetPINByEmailAndOtpModel) {
+    if (checkJson(resetPINByEmailAndOtpModel)) {
+      return Promise.reject(getValidationMessage('resetPINByEmailAndOtpModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/pin/reset/otp/email';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPINByEmailAndOtpModel
     );
-  };
+  }
 
   /**
    * This API is used to reset pin using username and OTP.
@@ -353,26 +347,26 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.11
    */
-
-  module.resetPINByUsernameAndOtp = function (resetPINByUsernameAndOtpModel) {
-    if (helper.checkJson(resetPINByUsernameAndOtpModel)) {
+  resetPINByUsernameAndOtp (resetPINByUsernameAndOtpModel) {
+    if (checkJson(resetPINByUsernameAndOtpModel)) {
       return Promise.reject(
-        helper.getValidationMessage('resetPINByUsernameAndOtpModel')
+        getValidationMessage('resetPINByUsernameAndOtpModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/pin/reset/otp/username';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPINByUsernameAndOtpModel
     );
-  };
+  }
 
   /**
    * This API is used to change a user's PIN using Pin Auth token.
@@ -381,28 +375,28 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *42.12
    */
-
-  module.setPINByPinAuthToken = function (pINRequiredModel, pinAuthToken) {
-    if (helper.checkJson(pINRequiredModel)) {
-      return Promise.reject(helper.getValidationMessage('pINRequiredModel'));
+  setPINByPinAuthToken (pINRequiredModel, pinAuthToken) {
+    if (checkJson(pINRequiredModel)) {
+      return Promise.reject(getValidationMessage('pINRequiredModel'));
     }
-    if (helper.isNullOrWhiteSpace(pinAuthToken)) {
-      return Promise.reject(helper.getValidationMessage('pinAuthToken'));
+    if (isNullOrWhiteSpace(pinAuthToken)) {
+      return Promise.reject(getValidationMessage('pinAuthToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.pinAuthToken = pinAuthToken;
 
     var resourcePath = 'identity/v2/auth/pin/set/pinauthtoken';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       pINRequiredModel
     );
-  };
+  }
 
   /**
    * This API is used to invalidate pin session token.
@@ -410,19 +404,17 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *44.1
    */
-
-  module.inValidatePinSessionToken = function (sessionToken) {
-    if (helper.isNullOrWhiteSpace(sessionToken)) {
-      return Promise.reject(helper.getValidationMessage('sessionToken'));
+  inValidatePinSessionToken (sessionToken) {
+    if (isNullOrWhiteSpace(sessionToken)) {
+      return Promise.reject(getValidationMessage('sessionToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.session_token = sessionToken;
 
     var resourcePath = 'identity/v2/auth/session_token/invalidate';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
-  return module;
-};
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
+}

@@ -2,174 +2,294 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config = {}) {
-  var module = {};
-  var querystring = require('querystring');
-  var crypto = require('crypto');
+import crypto from 'crypto';
+import https from 'https';
+import querystring from 'querystring';
+import sott from './sott';
 
-  /**
-   * Define the JSON error format
-   */
-  var jsondata = {
-    Description: 'Oops something went wrong, Please try again.',
-    ErrorCode: 1000,
-    Message: 'Oops something went wrong, Please try again.',
-    IsProviderError: false,
-    ProviderErrorResponse: null
-  };
-  /**
-   * Check null or undefined
-   * @param {string} as input
-   * @return input is null or not
-   */
-  module.isNullOrWhiteSpace = function (input) {
-    return !(input === null || typeof input === 'undefined' ? '' : input);
-  };
+const jsonData = {
+  Description: 'Oops something went wrong, Please try again.',
+  ErrorCode: 1000,
+  Message: 'Oops something went wrong, Please try again.',
+  IsProviderError: false,
+  ProviderErrorResponse: null
+};
 
-  /**
-   * Get Error response
-   * @param {string} status
-   * @param {json} input
-   * @return json of api response
-   */
-  module.checkError = function (status, input) {
-    if (status === 'serverError') {
-      return input !== '' ? input : jsondata;
-    }
-    return input && input.ErrorCode;
-  };
-
-  /**
-   * Check json is correct or not
-   * @param {string} input
-   * @return input is json or not
-   */
-  module.checkJson = function (input) {
-    return !!(
-      input === null ||
-      input === undefined ||
-      Array.isArray(input) ||
-      typeof input !== 'object'
-    );
-  };
-
-  /**
-   * Generate the sott
-   * @param {json} config as site config
-   * @param {string} startDate as start date
-   * @param {string} endDate as end date
-   * @return generated sott
-   */
-  module.getSott = function (sottconfig, startDate, endDate, timeDifference) {
-    return new Promise(function (resolve, reject) {
-      var cipher = require('./sott')(config, sottconfig,
-        startDate,
-        endDate,
-        timeDifference
-      );
-      cipher.then(
-        function (sott) {
-          resolve(sott);
-        },
-        function (reason) {
-          reject(reason);
-        }
-      );
-    });
-  };
-
-  /**
-   * Get Validation Message
-   * @param {string} type as error string
-   * @return jsondata as json error object
-   */
-  module.getValidationMessage = function (type) {
-    jsondata.Description =
-      'The API Request Parameter ' + type + ' is not Correct or WellFormated';
-    return jsondata;
-  };
-
-  /**
-   * Manage the api response
-   * @param {string} status as error status
-   * @param {json} data as response data
-   * @param {*} resolve as promise resolve
-   * @param {*} reject as promise reject
-   */
-  module.manageRequestResponse = function (status, data, resolve, reject) {
-    if (this.checkError(status, data)) {
-      if (!data) {
-        data = this.checkError(status, data);
-      }
-      reject(data);
-    } else {
-      resolve(data);
-    }
-  };
-  /**
-   * Get Query String
-   * @param {object} string as json input object
-   * @return qauery string
-   */
-  module.getQueryString = function (string) {
-    return querystring.stringify(string, null, null, encodeURIComponent);
-  };
-
-  /**
-   * Generate signin header
-   * @param {object} options as options object
-   * @param {string} apiSecret
-   * @return header object
-   */
-  module.generateSigningHeader = function (options, apiSecret) {
-    var SIXTY = 60;
-    var SIXTYTHOUSAND = 60000;
-    var TEN = 10;
-    var expiryDate = new Date();
-    expiryDate = new Date(expiryDate.getTime() + SIXTY * SIXTYTHOUSAND);
-    var month = expiryDate.getMonth() + 1;
-
-    expiryDate =
-      expiryDate.getFullYear() +
-      '-' +
-      (month < TEN ? '0' + month : month) +
-      '-' +
-      (expiryDate.getDate() < TEN
-        ? '0' + expiryDate.getDate()
-        : expiryDate.getDate()) +
-      ' ' +
-      (expiryDate.getHours() < TEN
-        ? '0' + expiryDate.getHours()
-        : expiryDate.getHours()) +
-      ':' +
-      (expiryDate.getMinutes() < TEN
-        ? '0' + expiryDate.getMinutes()
-        : expiryDate.getMinutes()) +
-      ':' +
-      (expiryDate.getSeconds() < TEN
-        ? '0' + expiryDate.getSeconds()
-        : expiryDate.getSeconds());
-
-    var encodeUrl = encodeURIComponent(
-      decodeURIComponent(options.uri)
-    ).toLowerCase();
-
-    var urlString;
-    if (options.body) {
-      urlString = expiryDate + ':' + encodeUrl + ':' + options.body;
-    } else {
-      urlString = expiryDate + ':' + encodeUrl;
-    }
-    var hash = crypto
-      .createHmac('sha256', apiSecret)
-      .update(urlString)
-      .digest('base64');
-
-    return {
-      'X-Request-Expires': expiryDate,
-      digest: 'SHA-256=' + hash
-    };
-  };
-  return module;
+/**
+ * Check null or undefined
+ * @param {string} as input
+ * @return input is null or not
+ */
+export function isNullOrWhiteSpace (input) {
+  return !(input === null || typeof input === 'undefined' ? '' : input);
 }
 
+/**
+ * Get Error response
+ * @param {string} status
+ * @param {json} input
+ * @return json of api response
+ */
+export function checkError (status, input) {
+  if (status === 'serverError') {
+    return input !== '' ? input : jsonData;
+  }
+  return input && input.ErrorCode;
+}
+
+/**
+ * Check json is correct or not
+ * @param {string} input
+ * @return input is json or not
+ */
+export function checkJson (input) {
+  return !!(
+    input === null ||
+    input === undefined ||
+    Array.isArray(input) ||
+    typeof input !== 'object'
+  );
+}
+
+/**
+ * Generate the sott
+ * @param {json} config as site config
+ * @param {string} startDate as start date
+ * @param {string} endDate as end date
+ * @return generated sott
+ */
+export async function getSott (sottconfig, startDate, endDate, timeDifference) {
+  try {
+    return await sott(sottconfig, startDate, endDate, timeDifference);
+  } catch (err) {
+    throw err;
+  }
+}
+
+/**
+ * Get Validation Message
+ * @param {string} type as error string
+ * @return jsondata as json error object
+ */
+export function getValidationMessage (type) {
+  return {
+    ...jsonData,
+    Description: `The API Request Parameter ${type} is not Correct or WellFormated`
+  };
+}
+
+/**
+ * Manage the api response
+ * @param {string} status as error status
+ * @param {json} data as response data
+ * @param {*} resolve as promise resolve
+ * @param {*} reject as promise reject
+ */
+export function manageRequestResponse (status, data, resolve, reject) {
+  if (checkError(status, data)) {
+    if (!data) {
+      data = checkError(status, data);
+    }
+    reject(data);
+  } else {
+    resolve(data);
+  }
+}
+
+/**
+ * Get Query String
+ * @param {object} string as json input object
+ * @return qauery string
+ */
+export function getQueryString (string) {
+  return querystring.stringify(string, undefined, undefined, {
+    encodeURIComponent
+  });
+}
+
+/**
+ * Generate signin header
+ * @param {object} options as options object
+ * @param {string} apiSecret
+ * @return header object
+ */
+export function generateSigningHeader (options, apiSecret) {
+  var SIXTY = 60;
+  var SIXTYTHOUSAND = 60000;
+  var TEN = 10;
+  var expiryDate = new Date();
+  expiryDate = new Date(expiryDate.getTime() + SIXTY * SIXTYTHOUSAND);
+  var month = expiryDate.getMonth() + 1;
+
+  var expiryDateStr =
+    expiryDate.getFullYear() +
+    '-' +
+    (month < TEN ? '0' + month : month) +
+    '-' +
+    (expiryDate.getDate() < TEN
+      ? '0' + expiryDate.getDate()
+      : expiryDate.getDate()) +
+    ' ' +
+    (expiryDate.getHours() < TEN
+      ? '0' + expiryDate.getHours()
+      : expiryDate.getHours()) +
+    ':' +
+    (expiryDate.getMinutes() < TEN
+      ? '0' + expiryDate.getMinutes()
+      : expiryDate.getMinutes()) +
+    ':' +
+    (expiryDate.getSeconds() < TEN
+      ? '0' + expiryDate.getSeconds()
+      : expiryDate.getSeconds());
+
+  var encodeUrl = encodeURIComponent(
+    decodeURIComponent(options.uri)
+  ).toLowerCase();
+
+  var urlString;
+  if (options.body) {
+    urlString = expiryDateStr + ':' + encodeUrl + ':' + options.body;
+  } else {
+    urlString = expiryDateStr + ':' + encodeUrl;
+  }
+  var hash = crypto
+    .createHmac('sha256', apiSecret)
+    .update(urlString)
+    .digest('base64');
+
+  return {
+    'X-Request-Expires': expiryDateStr,
+    digest: 'SHA-256=' + hash
+  };
+}
+
+export function request (config, type, resourcePath, queryParameters, formData) {
+  var isApiSecret;
+  if (queryParameters.apiSecret) {
+    isApiSecret = queryParameters.apiSecret;
+    delete queryParameters.apiSecret;
+  }
+
+  if (!isNullOrWhiteSpace(config.serverRegion)) {
+    queryParameters.region = config.serverRegion;
+  }
+
+  var headers = { 'Content-Type': 'application/json' };
+
+  if (queryParameters.sott) {
+    Object.assign(headers, { 'X-LoginRadius-Sott': queryParameters.sott });
+    delete queryParameters.sott;
+  }
+  if (!isNullOrWhiteSpace(config.originIp)) {
+    Object.assign(headers, { 'X-Origin-IP': config.originIp });
+  }
+  var queryString = getQueryString(queryParameters);
+
+  if (queryParameters.access_token) {
+    Object.assign(headers, {
+      authorization: 'Bearer ' + queryParameters.access_token
+    });
+    delete queryParameters.access_token;
+  }
+  var options: any = {
+    method: type,
+    hostname:
+      resourcePath === 'ciam/appinfo'
+        ? 'config.lrcontent.com'
+        : config.apiDomain,
+    path: '/' + resourcePath + (queryString ? '?' + queryString : ''),
+    headers: headers
+  };
+
+  if (formData !== '' && formData !== null) {
+    var out_text = JSON.stringify(formData);
+    Object.assign(headers, { 'Content-Length': out_text.length });
+  }
+
+  if (config.proxy && config.proxy.host && config.proxy.port) {
+    options.proxy =
+      (config.proxy.protocol ? config.proxy.protocol : 'http') +
+      '://' +
+      config.proxy.user +
+      ':' +
+      config.proxy.password +
+      '@' +
+      config.proxy.host +
+      ':' +
+      config.proxy.port;
+  }
+
+  var customHeader = {
+    'X-LoginRadius-apiKey': config.apiKey,
+    'X-LoginRadius-apiSecret': config.apiSecret
+  };
+
+  if (config.fieldsParam && config.fieldsValue) {
+    var fieldsList;
+    if (options.path.match(/\?./)) {
+      fieldsList = config.fieldsParam + encodeURIComponent(config.fieldsValue);
+    } else {
+      fieldsList = '?fields=' + encodeURIComponent(config.fieldsValue);
+    }
+    options.path += fieldsList;
+  }
+
+  if (isApiSecret) {
+    if (config.apiRequestSigning) {
+      if (!options.path.match('apiKey')) {
+        options.path += '&apiKey=' + encodeURIComponent(config.apiKey);
+      }
+      var signingHeader = generateSigningHeader(options, config.apiSecret);
+
+      Object.assign(options.headers, signingHeader);
+    } else {
+      Object.assign(options.headers, customHeader);
+    }
+  }
+  return new Promise(function (resolve, reject) {
+    const req = https
+      .request(options, (resp) => {
+        var data = '';
+        if (
+          Object.prototype.hasOwnProperty.call(resp, 'statusCode') &&
+          resp.statusCode === 429
+        ) {
+          var tooManyRequestsData = {
+            Description: 'Too many request in particular time frame',
+            ErrorCode: 429,
+            Message: 'Too many request in particular time frame',
+            IsProviderError: false,
+            ProviderErrorResponse: null
+          };
+          manageRequestResponse(
+            'serverError',
+            tooManyRequestsData,
+            resolve,
+            reject
+          );
+        } else {
+          resp.on('data', (chunk) => {
+            data += chunk;
+          });
+
+          resp.on('end', () => {
+            try {
+              var response = JSON.parse(data);
+              manageRequestResponse('', response, resolve, reject);
+            } catch (err) {
+              manageRequestResponse('serverError', '', resolve, reject);
+            }
+          });
+        }
+      })
+      .on('error', (error) => {
+        manageRequestResponse('serverError', error, resolve, reject);
+      });
+
+    if (out_text) {
+      req.write(out_text);
+    }
+
+    req.end();
+  });
+}

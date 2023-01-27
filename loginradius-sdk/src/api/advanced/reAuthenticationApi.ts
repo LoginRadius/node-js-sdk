@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class ReAuthenticationApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API is used to trigger the Multi-Factor Autentication workflow for the provided access token
@@ -13,23 +21,22 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Multi-Factor Authentication Settings data
    *14.3
    */
-
-  module.mfaReAuthenticate = function (accessToken, smsTemplate2FA) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  mfaReAuthenticate (accessToken, smsTemplate2FA) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(smsTemplate2FA)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(smsTemplate2FA)) {
       queryParameters.smsTemplate2FA = smsTemplate2FA;
     }
 
     var resourcePath = 'identity/v2/auth/account/reauth/2fa';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to re-authenticate via Multi-factor authentication by passing the One Time Password received via SMS
@@ -38,28 +45,28 @@ module.exports = function (config) {
    * @return Complete user Multi-Factor Authentication Token data
    *14.4
    */
-
-  module.mfaReAuthenticateByOTP = function (accessToken, reauthByOtpModel) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  mfaReAuthenticateByOTP (accessToken, reauthByOtpModel) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(reauthByOtpModel)) {
-      return Promise.reject(helper.getValidationMessage('reauthByOtpModel'));
+    if (checkJson(reauthByOtpModel)) {
+      return Promise.reject(getValidationMessage('reauthByOtpModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/account/reauth/2fa/otp';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       reauthByOtpModel
     );
-  };
+  }
 
   /**
    * This API is used to re-authenticate by set of backup codes via access token on the site that has Multi-factor authentication enabled in re-authentication for the user that does not have the device
@@ -68,33 +75,28 @@ module.exports = function (config) {
    * @return Complete user Multi-Factor Authentication Token data
    *14.5
    */
-
-  module.mfaReAuthenticateByBackupCode = function (
-    accessToken,
-    reauthByBackupCodeModel
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  mfaReAuthenticateByBackupCode (accessToken, reauthByBackupCodeModel) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(reauthByBackupCodeModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('reauthByBackupCodeModel')
-      );
+    if (checkJson(reauthByBackupCodeModel)) {
+      return Promise.reject(getValidationMessage('reauthByBackupCodeModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/account/reauth/2fa/backupcode';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       reauthByBackupCodeModel
     );
-  };
+  }
 
   /**
    * This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code
@@ -103,34 +105,34 @@ module.exports = function (config) {
    * @return Complete user Multi-Factor Authentication Token data
    *14.6
    */
-
-  module.mfaReAuthenticateByGoogleAuth = function (
+  mfaReAuthenticateByGoogleAuth (
     accessToken,
     reauthByGoogleAuthenticatorCodeModel
   ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(reauthByGoogleAuthenticatorCodeModel)) {
+    if (checkJson(reauthByGoogleAuthenticatorCodeModel)) {
       return Promise.reject(
-        helper.getValidationMessage('reauthByGoogleAuthenticatorCodeModel')
+        getValidationMessage('reauthByGoogleAuthenticatorCodeModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath =
       'identity/v2/auth/account/reauth/2fa/googleauthenticatorcode';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       reauthByGoogleAuthenticatorCodeModel
     );
-  };
+  }
 
   /**
    * This API is used to re-authenticate via Multi-factor-authentication by passing the password
@@ -140,37 +142,37 @@ module.exports = function (config) {
    * @return Complete user Multi-Factor Authentication Token data
    *14.7
    */
-
-  module.mfaReAuthenticateByPassword = function (
+  mfaReAuthenticateByPassword (
     accessToken,
     passwordEventBasedAuthModelWithLockout,
     smsTemplate2FA
   ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(passwordEventBasedAuthModelWithLockout)) {
+    if (checkJson(passwordEventBasedAuthModelWithLockout)) {
       return Promise.reject(
-        helper.getValidationMessage('passwordEventBasedAuthModelWithLockout')
+        getValidationMessage('passwordEventBasedAuthModelWithLockout')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(smsTemplate2FA)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(smsTemplate2FA)) {
       queryParameters.smsTemplate2FA = smsTemplate2FA;
     }
 
     var resourcePath = 'identity/v2/auth/account/reauth/password';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       passwordEventBasedAuthModelWithLockout
     );
-  };
+  }
 
   /**
    * This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by OTP.
@@ -179,33 +181,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *18.38
    */
-
-  module.verifyMultiFactorOtpReauthentication = function (
-    eventBasedMultiFactorToken,
-    uid
-  ) {
-    if (helper.checkJson(eventBasedMultiFactorToken)) {
-      return Promise.reject(
-        helper.getValidationMessage('eventBasedMultiFactorToken')
-      );
+  verifyMultiFactorOtpReauthentication (eventBasedMultiFactorToken, uid) {
+    if (checkJson(eventBasedMultiFactorToken)) {
+      return Promise.reject(getValidationMessage('eventBasedMultiFactorToken'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/reauth/2fa';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       eventBasedMultiFactorToken
     );
-  };
+  }
 
   /**
    * This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by password.
@@ -214,33 +211,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *18.39
    */
-
-  module.verifyMultiFactorPasswordReauthentication = function (
-    eventBasedMultiFactorToken,
-    uid
-  ) {
-    if (helper.checkJson(eventBasedMultiFactorToken)) {
-      return Promise.reject(
-        helper.getValidationMessage('eventBasedMultiFactorToken')
-      );
+  verifyMultiFactorPasswordReauthentication (eventBasedMultiFactorToken, uid) {
+    if (checkJson(eventBasedMultiFactorToken)) {
+      return Promise.reject(getValidationMessage('eventBasedMultiFactorToken'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/reauth/password';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       eventBasedMultiFactorToken
     );
-  };
+  }
 
   /**
    * This API is used on the server-side to validate and verify the re-authentication token created by the MFA re-authentication API. This API checks re-authentications created by PIN.
@@ -249,33 +241,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *18.40
    */
-
-  module.verifyMultiFactorPINReauthentication = function (
-    eventBasedMultiFactorToken,
-    uid
-  ) {
-    if (helper.checkJson(eventBasedMultiFactorToken)) {
-      return Promise.reject(
-        helper.getValidationMessage('eventBasedMultiFactorToken')
-      );
+  verifyMultiFactorPINReauthentication (eventBasedMultiFactorToken, uid) {
+    if (checkJson(eventBasedMultiFactorToken)) {
+      return Promise.reject(getValidationMessage('eventBasedMultiFactorToken'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/reauth/pin';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       eventBasedMultiFactorToken
     );
-  };
+  }
 
   /**
    * This API is used to validate the triggered MFA authentication flow with a password.
@@ -285,37 +272,37 @@ module.exports = function (config) {
    * @return Response containing Definition response of MFA reauthentication
    *42.13
    */
-
-  module.verifyPINAuthentication = function (
+  verifyPINAuthentication (
     accessToken,
     pINAuthEventBasedAuthModelWithLockout,
     smsTemplate2FA
   ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(pINAuthEventBasedAuthModelWithLockout)) {
+    if (checkJson(pINAuthEventBasedAuthModelWithLockout)) {
       return Promise.reject(
-        helper.getValidationMessage('pINAuthEventBasedAuthModelWithLockout')
+        getValidationMessage('pINAuthEventBasedAuthModelWithLockout')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(smsTemplate2FA)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(smsTemplate2FA)) {
       queryParameters.smsTemplate2FA = smsTemplate2FA;
     }
 
     var resourcePath = 'identity/v2/auth/account/reauth/pin';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       pINAuthEventBasedAuthModelWithLockout
     );
-  };
+  }
 
   /**
    * This API is used to validate the triggered MFA authentication flow with an Email OTP.
@@ -324,33 +311,28 @@ module.exports = function (config) {
    * @return Response containing Definition response of MFA reauthentication
    *42.14
    */
-
-  module.reAuthValidateEmailOtp = function (
-    accessToken,
-    reauthByEmailOtpModel
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  reAuthValidateEmailOtp (accessToken, reauthByEmailOtpModel) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(reauthByEmailOtpModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('reauthByEmailOtpModel')
-      );
+    if (checkJson(reauthByEmailOtpModel)) {
+      return Promise.reject(getValidationMessage('reauthByEmailOtpModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/account/reauth/2fa/otp/email/verify';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       reauthByEmailOtpModel
     );
-  };
+  }
 
   /**
    * This API is used to send the MFA Email OTP to the email for Re-authentication
@@ -360,31 +342,26 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *42.15
    */
-
-  module.reAuthSendEmailOtp = function (
-    accessToken,
-    emailId,
-    emailTemplate2FA
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  reAuthSendEmailOtp (accessToken, emailId, emailTemplate2FA) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(emailId)) {
-      return Promise.reject(helper.getValidationMessage('emailId'));
+    if (isNullOrWhiteSpace(emailId)) {
+      return Promise.reject(getValidationMessage('emailId'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.emailId = emailId;
-    if (!helper.isNullOrWhiteSpace(emailTemplate2FA)) {
+    if (!isNullOrWhiteSpace(emailTemplate2FA)) {
       queryParameters.emailTemplate2FA = emailTemplate2FA;
     }
 
     var resourcePath = 'identity/v2/auth/account/reauth/2fa/otp/email';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to validate the triggered MFA re-authentication flow with security questions answers.
@@ -393,33 +370,29 @@ module.exports = function (config) {
    * @return Response containing Definition response of MFA reauthentication
    *42.16
    */
-
-  module.reAuthBySecurityQuestion = function (
-    accessToken,
-    securityQuestionAnswerUpdateModel
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  reAuthBySecurityQuestion (accessToken, securityQuestionAnswerUpdateModel) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(securityQuestionAnswerUpdateModel)) {
+    if (checkJson(securityQuestionAnswerUpdateModel)) {
       return Promise.reject(
-        helper.getValidationMessage('securityQuestionAnswerUpdateModel')
+        getValidationMessage('securityQuestionAnswerUpdateModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath =
       'identity/v2/auth/account/reauth/2fa/securityquestionanswer/verify';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       securityQuestionAnswerUpdateModel
     );
-  };
-  return module;
-};
+  }
+}

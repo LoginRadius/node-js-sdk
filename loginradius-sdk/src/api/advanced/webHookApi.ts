@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class WebHookApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API is used to fatch all the subscribed URLs, for particular event
@@ -12,21 +20,20 @@ module.exports = function (config) {
    * @return Response Containing List of Webhhook Data
    *40.1
    */
-
-  module.getWebHookSubscribedURLs = function (event) {
-    if (helper.isNullOrWhiteSpace(event)) {
-      return Promise.reject(helper.getValidationMessage('event'));
+  getWebHookSubscribedURLs (event) {
+    if (isNullOrWhiteSpace(event)) {
+      return Promise.reject(getValidationMessage('event'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apikey = config.apiKey;
-    queryParameters.apisecret = config.apiSecret;
+    queryParameters.apikey = this.config.apiKey;
+    queryParameters.apisecret = this.config.apiSecret;
     queryParameters.event = event;
 
     var resourcePath = 'api/v2/webhook';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * API can be used to configure a WebHook on your LoginRadius site. Webhooks also work on subscribe and notification model, subscribe your hook and get a notification. Equivalent to RESThook but these provide security on basis of signature and RESThook work on unique URL. Following are the events that are allowed by LoginRadius to trigger a WebHook service call.
@@ -34,44 +41,41 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *40.2
    */
-
-  module.webHookSubscribe = function (webHookSubscribeModel) {
-    if (helper.checkJson(webHookSubscribeModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('webHookSubscribeModel')
-      );
+  webHookSubscribe (webHookSubscribeModel) {
+    if (checkJson(webHookSubscribeModel)) {
+      return Promise.reject(getValidationMessage('webHookSubscribeModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apikey = config.apiKey;
-    queryParameters.apisecret = config.apiSecret;
+    queryParameters.apikey = this.config.apiKey;
+    queryParameters.apisecret = this.config.apiSecret;
 
     var resourcePath = 'api/v2/webhook';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       webHookSubscribeModel
     );
-  };
+  }
 
   /**
    * API can be used to test a subscribed WebHook.
    * @return Response containing Definition of Complete Validation data
    *40.3
    */
+  webhookTest () {
+    var queryParameters: any = {};
 
-  module.webhookTest = function () {
-    var queryParameters = {};
-
-    queryParameters.apikey = config.apiKey;
-    queryParameters.apisecret = config.apiSecret;
+    queryParameters.apikey = this.config.apiKey;
+    queryParameters.apisecret = this.config.apiSecret;
 
     var resourcePath = 'api/v2/webhook/test';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * API can be used to unsubscribe a WebHook configured on your LoginRadius site.
@@ -79,26 +83,23 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *40.4
    */
-
-  module.webHookUnsubscribe = function (webHookSubscribeModel) {
-    if (helper.checkJson(webHookSubscribeModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('webHookSubscribeModel')
-      );
+  webHookUnsubscribe (webHookSubscribeModel) {
+    if (checkJson(webHookSubscribeModel)) {
+      return Promise.reject(getValidationMessage('webHookSubscribeModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apikey = config.apiKey;
-    queryParameters.apisecret = config.apiSecret;
+    queryParameters.apikey = this.config.apiKey;
+    queryParameters.apisecret = this.config.apiSecret;
 
     var resourcePath = 'api/v2/webhook';
 
-    return config.request(
+    return request(
+      this.config,
       'DELETE',
       resourcePath,
       queryParameters,
       webHookSubscribeModel
     );
-  };
-  return module;
-};
+  }
+}

@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class AuthenticationApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.
@@ -12,20 +20,19 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete SecurityQuestions data
    *2.1
    */
-
-  module.getSecurityQuestionsByEmail = function (email) {
-    if (helper.isNullOrWhiteSpace(email)) {
-      return Promise.reject(helper.getValidationMessage('email'));
+  getSecurityQuestionsByEmail (email) {
+    if (isNullOrWhiteSpace(email)) {
+      return Promise.reject(getValidationMessage('email'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.email = email;
 
     var resourcePath = 'identity/v2/auth/securityquestion/email';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.
@@ -33,20 +40,19 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete SecurityQuestions data
    *2.2
    */
-
-  module.getSecurityQuestionsByUserName = function (userName) {
-    if (helper.isNullOrWhiteSpace(userName)) {
-      return Promise.reject(helper.getValidationMessage('userName'));
+  getSecurityQuestionsByUserName (userName) {
+    if (isNullOrWhiteSpace(userName)) {
+      return Promise.reject(getValidationMessage('userName'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.userName = userName;
 
     var resourcePath = 'identity/v2/auth/securityquestion/username';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.
@@ -54,20 +60,19 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete SecurityQuestions data
    *2.3
    */
-
-  module.getSecurityQuestionsByPhone = function (phone) {
-    if (helper.isNullOrWhiteSpace(phone)) {
-      return Promise.reject(helper.getValidationMessage('phone'));
+  getSecurityQuestionsByPhone (phone) {
+    if (isNullOrWhiteSpace(phone)) {
+      return Promise.reject(getValidationMessage('phone'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.phone = phone;
 
     var resourcePath = 'identity/v2/auth/securityquestion/phone';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.
@@ -75,20 +80,19 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete SecurityQuestions data
    *2.4
    */
-
-  module.getSecurityQuestionsByAccessToken = function (accessToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  getSecurityQuestionsByAccessToken (accessToken) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/securityquestion/accesstoken';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This api validates access token, if valid then returns a response with its expiry otherwise error.
@@ -96,20 +100,19 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Token data
    *4.1
    */
-
-  module.authValidateAccessToken = function (accessToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  authValidateAccessToken (accessToken) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/access_token/validate';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This api call invalidates the active access token or expires an access token's validity.
@@ -117,24 +120,23 @@ module.exports = function (config) {
    * @param {preventRefresh} Boolean value that when set as true, in addition of the access token being invalidated, it will no longer have the capability of being refreshed.
    * @return Response containing Definition of Complete Validation data
    *4.2
-   */
-
-  module.authInValidateAccessToken = function (accessToken, preventRefresh) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+   this.config.this.config.*/
+  authInValidateAccessToken (accessToken, preventRefresh) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     if (preventRefresh !== null) {
       queryParameters.preventRefresh = preventRefresh;
     }
 
     var resourcePath = 'identity/v2/auth/access_token/invalidate';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This api call provide the active access token Information
@@ -142,20 +144,19 @@ module.exports = function (config) {
    * @return Response containing Definition of Token Information
    *4.3
    */
-
-  module.getAccessTokenInfo = function (accessToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  getAccessTokenInfo (accessToken) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/access_token';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API retrieves a copy of the user data based on the access token.
@@ -167,38 +168,37 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete profile data
    *5.2
    */
-
-  module.getProfileByAccessToken = function (
+  getProfileByAccessToken (
     accessToken,
     fields,
     emailTemplate,
     verificationUrl,
     welcomeEmailTemplate
   ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/account';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API sends a welcome email
@@ -207,23 +207,22 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *5.3
    */
-
-  module.sendWelcomeEmail = function (accessToken, welcomeEmailTemplate) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  sendWelcomeEmail (accessToken, welcomeEmailTemplate) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/account/sendwelcomeemail';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to update the user's profile by passing the access token.
@@ -237,8 +236,7 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation and UserProfile data
    *5.4
    */
-
-  module.updateProfileByAccessToken = function (
+  updateProfileByAccessToken (
     accessToken,
     userProfileUpdateModel,
     emailTemplate,
@@ -247,43 +245,42 @@ module.exports = function (config) {
     smsTemplate,
     verificationUrl
   ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(userProfileUpdateModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('userProfileUpdateModel')
-      );
+    if (checkJson(userProfileUpdateModel)) {
+      return Promise.reject(getValidationMessage('userProfileUpdateModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
     if (nullSupport !== null) {
       queryParameters.nullSupport = nullSupport;
     }
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
     var resourcePath = 'identity/v2/auth/account';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       userProfileUpdateModel
     );
-  };
+  }
 
   /**
    * This API will send a confirmation email for account deletion to the customer's email when passed the customer's access token
@@ -293,30 +290,25 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *5.5
    */
-
-  module.deleteAccountWithEmailConfirmation = function (
-    accessToken,
-    deleteUrl,
-    emailTemplate
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  deleteAccountWithEmailConfirmation (accessToken, deleteUrl, emailTemplate) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(deleteUrl)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(deleteUrl)) {
       queryParameters.deleteUrl = deleteUrl;
     }
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/account';
 
-    return config.request('DELETE', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'DELETE', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to delete an account by passing it a delete token.
@@ -324,20 +316,19 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *5.6
    */
-
-  module.deleteAccountByDeleteToken = function (deletetoken) {
-    if (helper.isNullOrWhiteSpace(deletetoken)) {
-      return Promise.reject(helper.getValidationMessage('deletetoken'));
+  deleteAccountByDeleteToken (deletetoken) {
+    if (isNullOrWhiteSpace(deletetoken)) {
+      return Promise.reject(getValidationMessage('deletetoken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.deletetoken = deletetoken;
 
     var resourcePath = 'identity/v2/auth/account/delete';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to allow a customer with a valid access token to unlock their account provided that they successfully pass the prompted Bot Protection challenges. The Block or Suspend block types are not applicable for this API. For additional details see our Auth Security Configuration documentation.You are only required to pass the Post Parameters that correspond to the prompted challenges.
@@ -346,28 +337,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *5.15
    */
-
-  module.unlockAccountByToken = function (accessToken, unlockProfileModel) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  unlockAccountByToken (accessToken, unlockProfileModel) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.checkJson(unlockProfileModel)) {
-      return Promise.reject(helper.getValidationMessage('unlockProfileModel'));
+    if (checkJson(unlockProfileModel)) {
+      return Promise.reject(getValidationMessage('unlockProfileModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/account/unlock';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       unlockProfileModel
     );
-  };
+  }
 
   /**
    * This API is used to get a user's profile using the clientGuid parameter if no callback feature enabled
@@ -379,38 +370,37 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *5.16
    */
-
-  module.getProfileByPing = function (
+  getProfileByPing (
     clientGuid,
     emailTemplate,
     fields,
     verificationUrl,
     welcomeEmailTemplate
   ) {
-    if (helper.isNullOrWhiteSpace(clientGuid)) {
-      return Promise.reject(helper.getValidationMessage('clientGuid'));
+    if (isNullOrWhiteSpace(clientGuid)) {
+      return Promise.reject(getValidationMessage('clientGuid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.clientGuid = clientGuid;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/account/ping';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to check the email exists or not on your site.
@@ -418,20 +408,19 @@ module.exports = function (config) {
    * @return Response containing Definition Complete ExistResponse data
    *8.1
    */
-
-  module.checkEmailAvailability = function (email) {
-    if (helper.isNullOrWhiteSpace(email)) {
-      return Promise.reject(helper.getValidationMessage('email'));
+  checkEmailAvailability (email) {
+    if (isNullOrWhiteSpace(email)) {
+      return Promise.reject(getValidationMessage('email'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.email = email;
 
     var resourcePath = 'identity/v2/auth/email';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to verify the email of user. Note: This API will only return the full profile if you have 'Enable auto login after email verification' set in your LoginRadius Admin Console's Email Workflow settings under 'Verification Email'.
@@ -442,34 +431,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
    *8.2
    */
-
-  module.verifyEmail = function (
-    verificationToken,
-    fields,
-    url,
-    welcomeEmailTemplate
-  ) {
-    if (helper.isNullOrWhiteSpace(verificationToken)) {
-      return Promise.reject(helper.getValidationMessage('verificationToken'));
+  verifyEmail (verificationToken, fields, url, welcomeEmailTemplate) {
+    if (isNullOrWhiteSpace(verificationToken)) {
+      return Promise.reject(getValidationMessage('verificationToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.verificationToken = verificationToken;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(url)) {
+    if (!isNullOrWhiteSpace(url)) {
       queryParameters.url = url;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/email';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to verify the email of user when the OTP Email verification flow is enabled, please note that you must contact LoginRadius to have this feature enabled.
@@ -480,40 +463,40 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
    *8.3
    */
-
-  module.verifyEmailByOTP = function (
+  verifyEmailByOTP (
     emailVerificationByOtpModel,
     fields,
     url,
     welcomeEmailTemplate
   ) {
-    if (helper.checkJson(emailVerificationByOtpModel)) {
+    if (checkJson(emailVerificationByOtpModel)) {
       return Promise.reject(
-        helper.getValidationMessage('emailVerificationByOtpModel')
+        getValidationMessage('emailVerificationByOtpModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(url)) {
+    if (!isNullOrWhiteSpace(url)) {
       queryParameters.url = url;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/email';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       emailVerificationByOtpModel
     );
-  };
+  }
 
   /**
    * This API is used to add additional emails to a user's account.
@@ -525,47 +508,41 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *8.5
    */
-
-  module.addEmail = function (
-    accessToken,
-    email,
-    type,
-    emailTemplate,
-    verificationUrl
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  addEmail (accessToken, email, type, emailTemplate, verificationUrl) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(email)) {
-      return Promise.reject(helper.getValidationMessage('email'));
+    if (isNullOrWhiteSpace(email)) {
+      return Promise.reject(getValidationMessage('email'));
     }
-    if (helper.isNullOrWhiteSpace(type)) {
-      return Promise.reject(helper.getValidationMessage('type'));
+    if (isNullOrWhiteSpace(type)) {
+      return Promise.reject(getValidationMessage('type'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.email = email;
     bodyParameters.type = type;
 
     var resourcePath = 'identity/v2/auth/email';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       bodyParameters
     );
-  };
+  }
 
   /**
    * This API is used to remove additional emails from a user's account.
@@ -574,31 +551,31 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *8.6
    */
-
-  module.removeEmail = function (accessToken, email) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  removeEmail (accessToken, email) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(email)) {
-      return Promise.reject(helper.getValidationMessage('email'));
+    if (isNullOrWhiteSpace(email)) {
+      return Promise.reject(getValidationMessage('email'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.email = email;
 
     var resourcePath = 'identity/v2/auth/email';
 
-    return config.request(
+    return request(
+      this.config,
       'DELETE',
       resourcePath,
       queryParameters,
       bodyParameters
     );
-  };
+  }
 
   /**
    * This API retrieves a copy of the user data based on the Email
@@ -610,44 +587,42 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.2.1
    */
-
-  module.loginByEmail = function (
+  loginByEmail (
     emailAuthenticationModel,
     emailTemplate,
     fields,
     loginUrl,
     verificationUrl
   ) {
-    if (helper.checkJson(emailAuthenticationModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('emailAuthenticationModel')
-      );
+    if (checkJson(emailAuthenticationModel)) {
+      return Promise.reject(getValidationMessage('emailAuthenticationModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(loginUrl)) {
+    if (!isNullOrWhiteSpace(loginUrl)) {
       queryParameters.loginUrl = loginUrl;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
     var resourcePath = 'identity/v2/auth/login';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       emailAuthenticationModel
     );
-  };
+  }
 
   /**
    * This API retrieves a copy of the user data based on the Username
@@ -659,44 +634,44 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.2.2
    */
-
-  module.loginByUserName = function (
+  loginByUserName (
     userNameAuthenticationModel,
     emailTemplate,
     fields,
     loginUrl,
     verificationUrl
   ) {
-    if (helper.checkJson(userNameAuthenticationModel)) {
+    if (checkJson(userNameAuthenticationModel)) {
       return Promise.reject(
-        helper.getValidationMessage('userNameAuthenticationModel')
+        getValidationMessage('userNameAuthenticationModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(loginUrl)) {
+    if (!isNullOrWhiteSpace(loginUrl)) {
       queryParameters.loginUrl = loginUrl;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
     var resourcePath = 'identity/v2/auth/login';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       userNameAuthenticationModel
     );
-  };
+  }
 
   /**
    * This API is used to send the reset password url to a specified account. Note: If you have the UserName workflow enabled, you may replace the 'email' parameter with 'username'
@@ -706,34 +681,34 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *10.1
    */
-
-  module.forgotPassword = function (email, resetPasswordUrl, emailTemplate) {
-    if (helper.isNullOrWhiteSpace(email)) {
-      return Promise.reject(helper.getValidationMessage('email'));
+  forgotPassword (email, resetPasswordUrl, emailTemplate) {
+    if (isNullOrWhiteSpace(email)) {
+      return Promise.reject(getValidationMessage('email'));
     }
-    if (helper.isNullOrWhiteSpace(resetPasswordUrl)) {
-      return Promise.reject(helper.getValidationMessage('resetPasswordUrl'));
+    if (isNullOrWhiteSpace(resetPasswordUrl)) {
+      return Promise.reject(getValidationMessage('resetPasswordUrl'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.resetPasswordUrl = resetPasswordUrl;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.email = email;
 
     var resourcePath = 'identity/v2/auth/password';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       bodyParameters
     );
-  };
+  }
 
   /**
    * This API is used to reset password for the specified account by security question
@@ -741,30 +716,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Validation data and access token
    *10.3.1
    */
-
-  module.resetPasswordBySecurityAnswerAndEmail = function (
+  resetPasswordBySecurityAnswerAndEmail (
     resetPasswordBySecurityAnswerAndEmailModel
   ) {
-    if (helper.checkJson(resetPasswordBySecurityAnswerAndEmailModel)) {
+    if (checkJson(resetPasswordBySecurityAnswerAndEmailModel)) {
       return Promise.reject(
-        helper.getValidationMessage(
-          'resetPasswordBySecurityAnswerAndEmailModel'
-        )
+        getValidationMessage('resetPasswordBySecurityAnswerAndEmailModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/securityanswer';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPasswordBySecurityAnswerAndEmailModel
     );
-  };
+  }
 
   /**
    * This API is used to reset password for the specified account by security question
@@ -772,30 +745,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Validation data and access token
    *10.3.2
    */
-
-  module.resetPasswordBySecurityAnswerAndPhone = function (
+  resetPasswordBySecurityAnswerAndPhone (
     resetPasswordBySecurityAnswerAndPhoneModel
   ) {
-    if (helper.checkJson(resetPasswordBySecurityAnswerAndPhoneModel)) {
+    if (checkJson(resetPasswordBySecurityAnswerAndPhoneModel)) {
       return Promise.reject(
-        helper.getValidationMessage(
-          'resetPasswordBySecurityAnswerAndPhoneModel'
-        )
+        getValidationMessage('resetPasswordBySecurityAnswerAndPhoneModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/securityanswer';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPasswordBySecurityAnswerAndPhoneModel
     );
-  };
+  }
 
   /**
    * This API is used to reset password for the specified account by security question
@@ -803,30 +774,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Validation data and access token
    *10.3.3
    */
-
-  module.resetPasswordBySecurityAnswerAndUserName = function (
+  resetPasswordBySecurityAnswerAndUserName (
     resetPasswordBySecurityAnswerAndUserNameModel
   ) {
-    if (helper.checkJson(resetPasswordBySecurityAnswerAndUserNameModel)) {
+    if (checkJson(resetPasswordBySecurityAnswerAndUserNameModel)) {
       return Promise.reject(
-        helper.getValidationMessage(
-          'resetPasswordBySecurityAnswerAndUserNameModel'
-        )
+        getValidationMessage('resetPasswordBySecurityAnswerAndUserNameModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/securityanswer';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPasswordBySecurityAnswerAndUserNameModel
     );
-  };
+  }
 
   /**
    * This API is used to set a new password for the specified account.
@@ -834,26 +803,26 @@ module.exports = function (config) {
    * @return Response containing Definition of Validation data and access token
    *10.7.1
    */
-
-  module.resetPasswordByResetToken = function (resetPasswordByResetTokenModel) {
-    if (helper.checkJson(resetPasswordByResetTokenModel)) {
+  resetPasswordByResetToken (resetPasswordByResetTokenModel) {
+    if (checkJson(resetPasswordByResetTokenModel)) {
       return Promise.reject(
-        helper.getValidationMessage('resetPasswordByResetTokenModel')
+        getValidationMessage('resetPasswordByResetTokenModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/reset';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPasswordByResetTokenModel
     );
-  };
+  }
 
   /**
    * This API is used to set a new password for the specified account.
@@ -861,26 +830,26 @@ module.exports = function (config) {
    * @return Response containing Definition of Validation data and access token
    *10.7.2
    */
-
-  module.resetPasswordByEmailOTP = function (resetPasswordByEmailAndOtpModel) {
-    if (helper.checkJson(resetPasswordByEmailAndOtpModel)) {
+  resetPasswordByEmailOTP (resetPasswordByEmailAndOtpModel) {
+    if (checkJson(resetPasswordByEmailAndOtpModel)) {
       return Promise.reject(
-        helper.getValidationMessage('resetPasswordByEmailAndOtpModel')
+        getValidationMessage('resetPasswordByEmailAndOtpModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/reset';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPasswordByEmailAndOtpModel
     );
-  };
+  }
 
   /**
    * This API is used to set a new password for the specified account if you are using the username as the unique identifier in your workflow
@@ -888,28 +857,26 @@ module.exports = function (config) {
    * @return Response containing Definition of Validation data and access token
    *10.7.3
    */
-
-  module.resetPasswordByOTPAndUserName = function (
-    resetPasswordByUserNameModel
-  ) {
-    if (helper.checkJson(resetPasswordByUserNameModel)) {
+  resetPasswordByOTPAndUserName (resetPasswordByUserNameModel) {
+    if (checkJson(resetPasswordByUserNameModel)) {
       return Promise.reject(
-        helper.getValidationMessage('resetPasswordByUserNameModel')
+        getValidationMessage('resetPasswordByUserNameModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/password/reset';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       resetPasswordByUserNameModel
     );
-  };
+  }
 
   /**
    * This API is used to change the accounts password based on the previous password
@@ -919,30 +886,35 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *10.8
    */
-
-  module.changePassword = function (accessToken, newPassword, oldPassword) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  changePassword (accessToken, newPassword, oldPassword) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(newPassword)) {
-      return Promise.reject(helper.getValidationMessage('newPassword'));
+    if (isNullOrWhiteSpace(newPassword)) {
+      return Promise.reject(getValidationMessage('newPassword'));
     }
-    if (helper.isNullOrWhiteSpace(oldPassword)) {
-      return Promise.reject(helper.getValidationMessage('oldPassword'));
+    if (isNullOrWhiteSpace(oldPassword)) {
+      return Promise.reject(getValidationMessage('oldPassword'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.newPassword = newPassword;
     bodyParameters.oldPassword = oldPassword;
 
     var resourcePath = 'identity/v2/auth/password/change';
 
-    return config.request('PUT', resourcePath, queryParameters, bodyParameters);
-  };
+    return request(
+      this.config,
+      'PUT',
+      resourcePath,
+      queryParameters,
+      bodyParameters
+    );
+  }
 
   /**
    * This API is used to unlink up a social provider account with the specified account based on the access token and the social providers user access token. The unlinked account will automatically get removed from your database.
@@ -952,35 +924,35 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *12.2
    */
-
-  module.unlinkSocialIdentities = function (accessToken, provider, providerId) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  unlinkSocialIdentities (accessToken, provider, providerId) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(provider)) {
-      return Promise.reject(helper.getValidationMessage('provider'));
+    if (isNullOrWhiteSpace(provider)) {
+      return Promise.reject(getValidationMessage('provider'));
     }
-    if (helper.isNullOrWhiteSpace(providerId)) {
-      return Promise.reject(helper.getValidationMessage('providerId'));
+    if (isNullOrWhiteSpace(providerId)) {
+      return Promise.reject(getValidationMessage('providerId'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.provider = provider;
     bodyParameters.providerId = providerId;
 
     var resourcePath = 'identity/v2/auth/socialidentity';
 
-    return config.request(
+    return request(
+      this.config,
       'DELETE',
       resourcePath,
       queryParameters,
       bodyParameters
     );
-  };
+  }
 
   /**
    * This API is used to link up a social provider account with an existing LoginRadius account on the basis of access token and the social providers user access token.
@@ -989,31 +961,31 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *12.4
    */
-
-  module.linkSocialIdentities = function (accessToken, candidateToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  linkSocialIdentities (accessToken, candidateToken) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(candidateToken)) {
-      return Promise.reject(helper.getValidationMessage('candidateToken'));
+    if (isNullOrWhiteSpace(candidateToken)) {
+      return Promise.reject(getValidationMessage('candidateToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.candidateToken = candidateToken;
 
     var resourcePath = 'identity/v2/auth/socialidentity';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       bodyParameters
     );
-  };
+  }
 
   /**
    * This API is used to link up a social provider account with an existing LoginRadius account on the basis of ping and the social providers user access token.
@@ -1022,31 +994,31 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *12.5
    */
-
-  module.linkSocialIdentitiesByPing = function (accessToken, clientGuid) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  linkSocialIdentitiesByPing (accessToken, clientGuid) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(clientGuid)) {
-      return Promise.reject(helper.getValidationMessage('clientGuid'));
+    if (isNullOrWhiteSpace(clientGuid)) {
+      return Promise.reject(getValidationMessage('clientGuid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.clientGuid = clientGuid;
 
     var resourcePath = 'identity/v2/auth/socialidentity';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       bodyParameters
     );
-  };
+  }
 
   /**
    * This API is used to set or change UserName by access token.
@@ -1055,26 +1027,31 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *13.1
    */
-
-  module.setOrChangeUserName = function (accessToken, username) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  setOrChangeUserName (accessToken, username) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    if (helper.isNullOrWhiteSpace(username)) {
-      return Promise.reject(helper.getValidationMessage('username'));
+    if (isNullOrWhiteSpace(username)) {
+      return Promise.reject(getValidationMessage('username'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.username = username;
 
     var resourcePath = 'identity/v2/auth/username';
 
-    return config.request('PUT', resourcePath, queryParameters, bodyParameters);
-  };
+    return request(
+      this.config,
+      'PUT',
+      resourcePath,
+      queryParameters,
+      bodyParameters
+    );
+  }
 
   /**
    * This API is used to check the UserName exists or not on your site.
@@ -1082,20 +1059,19 @@ module.exports = function (config) {
    * @return Response containing Definition Complete ExistResponse data
    *13.2
    */
-
-  module.checkUserNameAvailability = function (username) {
-    if (helper.isNullOrWhiteSpace(username)) {
-      return Promise.reject(helper.getValidationMessage('username'));
+  checkUserNameAvailability (username) {
+    if (isNullOrWhiteSpace(username)) {
+      return Promise.reject(getValidationMessage('username'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.username = username;
 
     var resourcePath = 'identity/v2/auth/username';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to update the privacy policy stored in the user's profile by providing the access token of the user accepting the privacy policy
@@ -1104,23 +1080,22 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete profile data
    *15.1
    */
-
-  module.acceptPrivacyPolicy = function (accessToken, fields) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  acceptPrivacyPolicy (accessToken, fields) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
 
     var resourcePath = 'identity/v2/auth/privacypolicy/accept';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API will return all the accepted privacy policies for the user by providing the access token of that user.
@@ -1128,20 +1103,19 @@ module.exports = function (config) {
    * @return Complete Policy History data
    *15.2
    */
-
-  module.getPrivacyPolicyHistoryByAccessToken = function (accessToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  getPrivacyPolicyHistoryByAccessToken (accessToken) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
 
     var resourcePath = 'identity/v2/auth/privacypolicy/history';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API creates a user in the database as well as sends a verification email to the user.
@@ -1155,8 +1129,7 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
    *17.1.1
    */
-
-  module.userRegistrationByEmail = function (
+  userRegistrationByEmail (
     authUserRegistrationModel,
     sott,
     emailTemplate,
@@ -1165,43 +1138,42 @@ module.exports = function (config) {
     verificationUrl,
     welcomeEmailTemplate
   ) {
-    if (helper.checkJson(authUserRegistrationModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('authUserRegistrationModel')
-      );
+    if (checkJson(authUserRegistrationModel)) {
+      return Promise.reject(getValidationMessage('authUserRegistrationModel'));
     }
-    if (helper.isNullOrWhiteSpace(sott)) {
-      return Promise.reject(helper.getValidationMessage('sott'));
+    if (isNullOrWhiteSpace(sott)) {
+      return Promise.reject(getValidationMessage('sott'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.sott = sott;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(options)) {
+    if (!isNullOrWhiteSpace(options)) {
       queryParameters.options = options;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/register';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       authUserRegistrationModel
     );
-  };
+  }
 
   /**
    * This API creates a user in the database as well as sends a verification email to the user.
@@ -1215,8 +1187,7 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
    *17.2
    */
-
-  module.userRegistrationByCaptcha = function (
+  userRegistrationByCaptcha (
     authUserRegistrationModelWithCaptcha,
     emailTemplate,
     fields,
@@ -1225,42 +1196,43 @@ module.exports = function (config) {
     verificationUrl,
     welcomeEmailTemplate
   ) {
-    if (helper.checkJson(authUserRegistrationModelWithCaptcha)) {
+    if (checkJson(authUserRegistrationModelWithCaptcha)) {
       return Promise.reject(
-        helper.getValidationMessage('authUserRegistrationModelWithCaptcha')
+        getValidationMessage('authUserRegistrationModelWithCaptcha')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(options)) {
+    if (!isNullOrWhiteSpace(options)) {
       queryParameters.options = options;
     }
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/register/captcha';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       authUserRegistrationModelWithCaptcha
     );
-  };
+  }
 
   /**
    * This API resends the verification email to the user.
@@ -1270,31 +1242,31 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *17.3
    */
-
-  module.authResendEmailVerification = function (
-    email,
-    emailTemplate,
-    verificationUrl
-  ) {
-    if (helper.isNullOrWhiteSpace(email)) {
-      return Promise.reject(helper.getValidationMessage('email'));
+  authResendEmailVerification (email, emailTemplate, verificationUrl) {
+    if (isNullOrWhiteSpace(email)) {
+      return Promise.reject(getValidationMessage('email'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.email = email;
 
     var resourcePath = 'identity/v2/auth/register';
 
-    return config.request('PUT', resourcePath, queryParameters, bodyParameters);
-  };
-  return module;
-};
+    return request(
+      this.config,
+      'PUT',
+      resourcePath,
+      queryParameters,
+      bodyParameters
+    );
+  }
+}

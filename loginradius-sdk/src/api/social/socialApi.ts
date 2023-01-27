@@ -2,9 +2,16 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class SocialApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API Is used to translate the Request Token returned during authentication into an Access Token that can be used with other API calls.
@@ -12,20 +19,19 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Token data
    *20.1
    */
-
-  module.exchangeAccessToken = function (token) {
-    if (helper.isNullOrWhiteSpace(token)) {
-      return Promise.reject(helper.getValidationMessage('token'));
+  exchangeAccessToken (token) {
+    if (isNullOrWhiteSpace(token)) {
+      return Promise.reject(getValidationMessage('token'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.secret = config.apiSecret;
+    queryParameters.secret = this.config.apiSecret;
     queryParameters.token = token;
 
     var resourcePath = 'api/v2/access_token';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * The Refresh Access Token API is used to refresh the provider access token after authentication. It will be valid for up to 60 days on LoginRadius depending on the provider. In order to use the access token in other APIs, always refresh the token using this API.<br><br><b>Supported Providers :</b> Facebook,Yahoo,Google,Twitter, Linkedin.<br><br> Contact LoginRadius support team to enable this API.
@@ -35,15 +41,14 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Token data
    *20.2
    */
-
-  module.refreshAccessToken = function (accessToken, expiresIn, isWeb) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  refreshAccessToken (accessToken, expiresIn, isWeb) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.secret = config.apiSecret;
+    queryParameters.secret = this.config.apiSecret;
     if (expiresIn !== null) {
       queryParameters.expiresIn = expiresIn;
     }
@@ -53,8 +58,8 @@ module.exports = function (config) {
 
     var resourcePath = 'api/v2/access_token/refresh';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API validates access token, if valid then returns a response with its expiry otherwise error.
@@ -62,21 +67,20 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Token data
    *20.9
    */
-
-  module.validateAccessToken = function (accessToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  validateAccessToken (accessToken) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.key = config.apiKey;
-    queryParameters.secret = config.apiSecret;
+    queryParameters.key = this.config.apiKey;
+    queryParameters.secret = this.config.apiSecret;
 
     var resourcePath = 'api/v2/access_token/validate';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This api invalidates the active access token or expires an access token validity.
@@ -84,21 +88,20 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete Validation data
    *20.10
    */
-
-  module.inValidateAccessToken = function (accessToken) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
+  inValidateAccessToken (accessToken) {
+    if (isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(getValidationMessage('accessToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.access_token = accessToken;
-    queryParameters.key = config.apiKey;
-    queryParameters.secret = config.apiSecret;
+    queryParameters.key = this.config.apiKey;
+    queryParameters.secret = this.config.apiSecret;
 
     var resourcePath = 'api/v2/access_token/invalidate';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This api is use to get all active session by Access Token.
@@ -106,21 +109,20 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete active sessions
    *20.11.1
    */
-
-  module.getActiveSession = function (token) {
-    if (helper.isNullOrWhiteSpace(token)) {
-      return Promise.reject(helper.getValidationMessage('token'));
+  getActiveSession (token) {
+    if (isNullOrWhiteSpace(token)) {
+      return Promise.reject(getValidationMessage('token'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.key = config.apiKey;
-    queryParameters.secret = config.apiSecret;
+    queryParameters.key = this.config.apiKey;
+    queryParameters.secret = this.config.apiSecret;
     queryParameters.token = token;
 
     var resourcePath = 'api/v2/access_token/activesession';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This api is used to get all active sessions by AccountID(UID).
@@ -128,21 +130,20 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete active sessions
    *20.11.2
    */
-
-  module.getActiveSessionByAccountID = function (accountId) {
-    if (helper.isNullOrWhiteSpace(accountId)) {
-      return Promise.reject(helper.getValidationMessage('accountId'));
+  getActiveSessionByAccountID (accountId) {
+    if (isNullOrWhiteSpace(accountId)) {
+      return Promise.reject(getValidationMessage('accountId'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
     queryParameters.accountId = accountId;
-    queryParameters.key = config.apiKey;
-    queryParameters.secret = config.apiSecret;
+    queryParameters.key = this.config.apiKey;
+    queryParameters.secret = this.config.apiSecret;
 
     var resourcePath = 'api/v2/access_token/activesession';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This api is used to get all active sessions by ProfileId.
@@ -150,20 +151,18 @@ module.exports = function (config) {
    * @return Response containing Definition for Complete active sessions
    *20.11.3
    */
-
-  module.getActiveSessionByProfileID = function (profileId) {
-    if (helper.isNullOrWhiteSpace(profileId)) {
-      return Promise.reject(helper.getValidationMessage('profileId'));
+  getActiveSessionByProfileID (profileId) {
+    if (isNullOrWhiteSpace(profileId)) {
+      return Promise.reject(getValidationMessage('profileId'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.key = config.apiKey;
+    queryParameters.key = this.config.apiKey;
     queryParameters.profileId = profileId;
-    queryParameters.secret = config.apiSecret;
+    queryParameters.secret = this.config.apiSecret;
 
     var resourcePath = 'api/v2/access_token/activesession';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
-  return module;
-};
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
+}

@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class RiskBasedAuthenticationApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API retrieves a copy of the user data based on the Email
@@ -29,8 +37,7 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.2.4
    */
-
-  module.rbaLoginByEmail = function (
+  rbaLoginByEmail (
     emailAuthenticationModel,
     emailTemplate,
     fields,
@@ -50,75 +57,74 @@ module.exports = function (config) {
     smsTemplate,
     verificationUrl
   ) {
-    if (helper.checkJson(emailAuthenticationModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('emailAuthenticationModel')
-      );
+    if (checkJson(emailAuthenticationModel)) {
+      return Promise.reject(getValidationMessage('emailAuthenticationModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(loginUrl)) {
+    if (!isNullOrWhiteSpace(loginUrl)) {
       queryParameters.loginUrl = loginUrl;
     }
     if (passwordDelegation !== null) {
       queryParameters.passwordDelegation = passwordDelegation;
     }
-    if (!helper.isNullOrWhiteSpace(passwordDelegationApp)) {
+    if (!isNullOrWhiteSpace(passwordDelegationApp)) {
       queryParameters.passwordDelegationApp = passwordDelegationApp;
     }
-    if (!helper.isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
       queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaBrowserSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaBrowserSmsTemplate)) {
       queryParameters.rbaBrowserSmsTemplate = rbaBrowserSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCityEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCityEmailTemplate)) {
       queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCitySmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCitySmsTemplate)) {
       queryParameters.rbaCitySmsTemplate = rbaCitySmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
       queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCountrySmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCountrySmsTemplate)) {
       queryParameters.rbaCountrySmsTemplate = rbaCountrySmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaIpEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaIpEmailTemplate)) {
       queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaIpSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaIpSmsTemplate)) {
       queryParameters.rbaIpSmsTemplate = rbaIpSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaOneclickEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaOneclickEmailTemplate)) {
       queryParameters.rbaOneclickEmailTemplate = rbaOneclickEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaOTPSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaOTPSmsTemplate)) {
       queryParameters.rbaOTPSmsTemplate = rbaOTPSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
     var resourcePath = 'identity/v2/auth/login';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       emailAuthenticationModel
     );
-  };
+  }
 
   /**
    * This API retrieves a copy of the user data based on the Username
@@ -143,8 +149,7 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.2.5
    */
-
-  module.rbaLoginByUserName = function (
+  rbaLoginByUserName (
     userNameAuthenticationModel,
     emailTemplate,
     fields,
@@ -164,75 +169,76 @@ module.exports = function (config) {
     smsTemplate,
     verificationUrl
   ) {
-    if (helper.checkJson(userNameAuthenticationModel)) {
+    if (checkJson(userNameAuthenticationModel)) {
       return Promise.reject(
-        helper.getValidationMessage('userNameAuthenticationModel')
+        getValidationMessage('userNameAuthenticationModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(loginUrl)) {
+    if (!isNullOrWhiteSpace(loginUrl)) {
       queryParameters.loginUrl = loginUrl;
     }
     if (passwordDelegation !== null) {
       queryParameters.passwordDelegation = passwordDelegation;
     }
-    if (!helper.isNullOrWhiteSpace(passwordDelegationApp)) {
+    if (!isNullOrWhiteSpace(passwordDelegationApp)) {
       queryParameters.passwordDelegationApp = passwordDelegationApp;
     }
-    if (!helper.isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
       queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaBrowserSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaBrowserSmsTemplate)) {
       queryParameters.rbaBrowserSmsTemplate = rbaBrowserSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCityEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCityEmailTemplate)) {
       queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCitySmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCitySmsTemplate)) {
       queryParameters.rbaCitySmsTemplate = rbaCitySmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
       queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCountrySmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCountrySmsTemplate)) {
       queryParameters.rbaCountrySmsTemplate = rbaCountrySmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaIpEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaIpEmailTemplate)) {
       queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaIpSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaIpSmsTemplate)) {
       queryParameters.rbaIpSmsTemplate = rbaIpSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaOneclickEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaOneclickEmailTemplate)) {
       queryParameters.rbaOneclickEmailTemplate = rbaOneclickEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaOTPSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaOTPSmsTemplate)) {
       queryParameters.rbaOTPSmsTemplate = rbaOTPSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
     var resourcePath = 'identity/v2/auth/login';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       userNameAuthenticationModel
     );
-  };
+  }
 
   /**
    * This API retrieves a copy of the user data based on the Phone
@@ -257,8 +263,7 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.2.6
    */
-
-  module.rbaLoginByPhone = function (
+  rbaLoginByPhone (
     phoneAuthenticationModel,
     emailTemplate,
     fields,
@@ -278,74 +283,72 @@ module.exports = function (config) {
     smsTemplate,
     verificationUrl
   ) {
-    if (helper.checkJson(phoneAuthenticationModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('phoneAuthenticationModel')
-      );
+    if (checkJson(phoneAuthenticationModel)) {
+      return Promise.reject(getValidationMessage('phoneAuthenticationModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(emailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(loginUrl)) {
+    if (!isNullOrWhiteSpace(loginUrl)) {
       queryParameters.loginUrl = loginUrl;
     }
     if (passwordDelegation !== null) {
       queryParameters.passwordDelegation = passwordDelegation;
     }
-    if (!helper.isNullOrWhiteSpace(passwordDelegationApp)) {
+    if (!isNullOrWhiteSpace(passwordDelegationApp)) {
       queryParameters.passwordDelegationApp = passwordDelegationApp;
     }
-    if (!helper.isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaBrowserEmailTemplate)) {
       queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaBrowserSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaBrowserSmsTemplate)) {
       queryParameters.rbaBrowserSmsTemplate = rbaBrowserSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCityEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCityEmailTemplate)) {
       queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCitySmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCitySmsTemplate)) {
       queryParameters.rbaCitySmsTemplate = rbaCitySmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCountryEmailTemplate)) {
       queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaCountrySmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaCountrySmsTemplate)) {
       queryParameters.rbaCountrySmsTemplate = rbaCountrySmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaIpEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaIpEmailTemplate)) {
       queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaIpSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaIpSmsTemplate)) {
       queryParameters.rbaIpSmsTemplate = rbaIpSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaOneclickEmailTemplate)) {
+    if (!isNullOrWhiteSpace(rbaOneclickEmailTemplate)) {
       queryParameters.rbaOneclickEmailTemplate = rbaOneclickEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(rbaOTPSmsTemplate)) {
+    if (!isNullOrWhiteSpace(rbaOTPSmsTemplate)) {
       queryParameters.rbaOTPSmsTemplate = rbaOTPSmsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
     var resourcePath = 'identity/v2/auth/login';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       phoneAuthenticationModel
     );
-  };
-  return module;
-};
+  }
+}

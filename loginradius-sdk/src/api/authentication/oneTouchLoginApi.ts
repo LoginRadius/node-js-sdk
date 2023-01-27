@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class OneTouchLoginApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API is used to send a link to a specified email for a frictionless login/registration
@@ -15,40 +23,38 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *1.2
    */
-
-  module.oneTouchLoginByEmail = function (
+  oneTouchLoginByEmail (
     oneTouchLoginByEmailModel,
     oneTouchLoginEmailTemplate,
     redirecturl,
     welcomeemailtemplate
   ) {
-    if (helper.checkJson(oneTouchLoginByEmailModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('oneTouchLoginByEmailModel')
-      );
+    if (checkJson(oneTouchLoginByEmailModel)) {
+      return Promise.reject(getValidationMessage('oneTouchLoginByEmailModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(oneTouchLoginEmailTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(oneTouchLoginEmailTemplate)) {
       queryParameters.oneTouchLoginEmailTemplate = oneTouchLoginEmailTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(redirecturl)) {
+    if (!isNullOrWhiteSpace(redirecturl)) {
       queryParameters.redirecturl = redirecturl;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeemailtemplate)) {
+    if (!isNullOrWhiteSpace(welcomeemailtemplate)) {
       queryParameters.welcomeemailtemplate = welcomeemailtemplate;
     }
 
     var resourcePath = 'identity/v2/auth/onetouchlogin/email';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       oneTouchLoginByEmailModel
     );
-  };
+  }
 
   /**
    * This API is used to send one time password to a given phone number for a frictionless login/registration.
@@ -57,32 +63,27 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *1.4
    */
-
-  module.oneTouchLoginByPhone = function (
-    oneTouchLoginByPhoneModel,
-    smsTemplate
-  ) {
-    if (helper.checkJson(oneTouchLoginByPhoneModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('oneTouchLoginByPhoneModel')
-      );
+  oneTouchLoginByPhone (oneTouchLoginByPhoneModel, smsTemplate) {
+    if (checkJson(oneTouchLoginByPhoneModel)) {
+      return Promise.reject(getValidationMessage('oneTouchLoginByPhoneModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/onetouchlogin/phone';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       oneTouchLoginByPhoneModel
     );
-  };
+  }
 
   /**
    * This API is used to verify the otp for One Touch Login.
@@ -93,37 +94,37 @@ module.exports = function (config) {
    * @return Response Containing Access Token and Complete Profile Data
    *1.5
    */
-
-  module.oneTouchLoginOTPVerification = function (
-    otp,
-    phone,
-    fields,
-    smsTemplate
-  ) {
-    if (helper.isNullOrWhiteSpace(otp)) {
-      return Promise.reject(helper.getValidationMessage('otp'));
+  oneTouchLoginOTPVerification (otp, phone, fields, smsTemplate) {
+    if (isNullOrWhiteSpace(otp)) {
+      return Promise.reject(getValidationMessage('otp'));
     }
-    if (helper.isNullOrWhiteSpace(phone)) {
-      return Promise.reject(helper.getValidationMessage('phone'));
+    if (isNullOrWhiteSpace(phone)) {
+      return Promise.reject(getValidationMessage('phone'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.otp = otp;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
 
-    var bodyParameters = {};
+    var bodyParameters: any = {};
     bodyParameters.phone = phone;
 
     var resourcePath = 'identity/v2/auth/onetouchlogin/phone/verify';
 
-    return config.request('PUT', resourcePath, queryParameters, bodyParameters);
-  };
+    return request(
+      this.config,
+      'PUT',
+      resourcePath,
+      queryParameters,
+      bodyParameters
+    );
+  }
 
   /**
    * This API verifies the provided token for One Touch Login
@@ -132,26 +133,22 @@ module.exports = function (config) {
    * @return Complete verified response data
    *8.4.2
    */
-
-  module.oneTouchEmailVerification = function (
-    verificationToken,
-    welcomeEmailTemplate
-  ) {
-    if (helper.isNullOrWhiteSpace(verificationToken)) {
-      return Promise.reject(helper.getValidationMessage('verificationToken'));
+  oneTouchEmailVerification (verificationToken, welcomeEmailTemplate) {
+    if (isNullOrWhiteSpace(verificationToken)) {
+      return Promise.reject(getValidationMessage('verificationToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.verificationToken = verificationToken;
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/email/onetouchlogin';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to check if the One Touch Login link has been clicked or not.
@@ -160,22 +157,20 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.21.2
    */
-
-  module.oneTouchLoginPing = function (clientGuid, fields) {
-    if (helper.isNullOrWhiteSpace(clientGuid)) {
-      return Promise.reject(helper.getValidationMessage('clientGuid'));
+  oneTouchLoginPing (clientGuid, fields) {
+    if (isNullOrWhiteSpace(clientGuid)) {
+      return Promise.reject(getValidationMessage('clientGuid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.clientGuid = clientGuid;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
 
     var resourcePath = 'identity/v2/auth/login/smartlogin/ping';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
-  return module;
-};
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
+}

@@ -2,9 +2,18 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class RoleApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * API is used to retrieve all the assigned roles of a particular User.
@@ -12,20 +21,19 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Roles data
    *18.6
    */
-
-  module.getRolesByUid = function (uid) {
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+  getRolesByUid (uid) {
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/role';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to assign your desired roles to a given user.
@@ -34,28 +42,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Roles data
    *18.7
    */
-
-  module.assignRolesByUid = function (accountRolesModel, uid) {
-    if (helper.checkJson(accountRolesModel)) {
-      return Promise.reject(helper.getValidationMessage('accountRolesModel'));
+  assignRolesByUid (accountRolesModel, uid) {
+    if (checkJson(accountRolesModel)) {
+      return Promise.reject(getValidationMessage('accountRolesModel'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/role';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       accountRolesModel
     );
-  };
+  }
 
   /**
    * This API is used to unassign roles from a user.
@@ -64,28 +72,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *18.8
    */
-
-  module.unassignRolesByUid = function (accountRolesModel, uid) {
-    if (helper.checkJson(accountRolesModel)) {
-      return Promise.reject(helper.getValidationMessage('accountRolesModel'));
+  unassignRolesByUid (accountRolesModel, uid) {
+    if (checkJson(accountRolesModel)) {
+      return Promise.reject(getValidationMessage('accountRolesModel'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/role';
 
-    return config.request(
+    return request(
+      this.config,
       'DELETE',
       resourcePath,
       queryParameters,
       accountRolesModel
     );
-  };
+  }
 
   /**
    * This API Gets the contexts that have been configured and the associated roles and permissions.
@@ -93,20 +101,19 @@ module.exports = function (config) {
    * @return Complete user RoleContext data
    *18.9
    */
-
-  module.getRoleContextByUid = function (uid) {
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+  getRoleContextByUid (uid) {
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/rolecontext';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * The API is used to retrieve role context by the context name.
@@ -114,20 +121,19 @@ module.exports = function (config) {
    * @return Complete user RoleContext data
    *18.10
    */
-
-  module.getRoleContextByContextName = function (contextName) {
-    if (helper.isNullOrWhiteSpace(contextName)) {
-      return Promise.reject(helper.getValidationMessage('contextName'));
+  getRoleContextByContextName (contextName) {
+    if (isNullOrWhiteSpace(contextName)) {
+      return Promise.reject(getValidationMessage('contextName'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/rolecontext/' + contextName;
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API creates a Context with a set of Roles
@@ -137,29 +143,28 @@ module.exports = function (config) {
    *18.11
    */
 
-  module.updateRoleContextByUid = function (accountRoleContextModel, uid) {
-    if (helper.checkJson(accountRoleContextModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('accountRoleContextModel')
-      );
+  updateRoleContextByUid (accountRoleContextModel, uid) {
+    if (checkJson(accountRoleContextModel)) {
+      return Promise.reject(getValidationMessage('accountRoleContextModel'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/account/' + uid + '/rolecontext';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       accountRoleContextModel
     );
-  };
+  }
 
   /**
    * This API Deletes the specified Role Context
@@ -168,24 +173,23 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *18.12
    */
-
-  module.deleteRoleContextByUid = function (contextName, uid) {
-    if (helper.isNullOrWhiteSpace(contextName)) {
-      return Promise.reject(helper.getValidationMessage('contextName'));
+  deleteRoleContextByUid (contextName, uid) {
+    if (isNullOrWhiteSpace(contextName)) {
+      return Promise.reject(getValidationMessage('contextName'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath =
       'identity/v2/manage/account/' + uid + '/rolecontext/' + contextName;
 
-    return config.request('DELETE', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'DELETE', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API Deletes the specified Role from a Context.
@@ -195,27 +199,24 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *18.13
    */
-
-  module.deleteRolesFromRoleContextByUid = function (
+  deleteRolesFromRoleContextByUid (
     contextName,
     roleContextRemoveRoleModel,
     uid
   ) {
-    if (helper.isNullOrWhiteSpace(contextName)) {
-      return Promise.reject(helper.getValidationMessage('contextName'));
+    if (isNullOrWhiteSpace(contextName)) {
+      return Promise.reject(getValidationMessage('contextName'));
     }
-    if (helper.checkJson(roleContextRemoveRoleModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('roleContextRemoveRoleModel')
-      );
+    if (checkJson(roleContextRemoveRoleModel)) {
+      return Promise.reject(getValidationMessage('roleContextRemoveRoleModel'));
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath =
       'identity/v2/manage/account/' +
@@ -224,13 +225,14 @@ module.exports = function (config) {
       contextName +
       '/role';
 
-    return config.request(
+    return request(
+      this.config,
       'DELETE',
       resourcePath,
       queryParameters,
       roleContextRemoveRoleModel
     );
-  };
+  }
 
   /**
    * This API Deletes Additional Permissions from Context.
@@ -240,29 +242,26 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *18.14
    */
-
-  module.deleteAdditionalPermissionFromRoleContextByUid = function (
+  deleteAdditionalPermissionFromRoleContextByUid (
     contextName,
     roleContextAdditionalPermissionRemoveRoleModel,
     uid
   ) {
-    if (helper.isNullOrWhiteSpace(contextName)) {
-      return Promise.reject(helper.getValidationMessage('contextName'));
+    if (isNullOrWhiteSpace(contextName)) {
+      return Promise.reject(getValidationMessage('contextName'));
     }
-    if (helper.checkJson(roleContextAdditionalPermissionRemoveRoleModel)) {
+    if (checkJson(roleContextAdditionalPermissionRemoveRoleModel)) {
       return Promise.reject(
-        helper.getValidationMessage(
-          'roleContextAdditionalPermissionRemoveRoleModel'
-        )
+        getValidationMessage('roleContextAdditionalPermissionRemoveRoleModel')
       );
     }
-    if (helper.isNullOrWhiteSpace(uid)) {
-      return Promise.reject(helper.getValidationMessage('uid'));
+    if (isNullOrWhiteSpace(uid)) {
+      return Promise.reject(getValidationMessage('uid'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath =
       'identity/v2/manage/account/' +
@@ -271,30 +270,30 @@ module.exports = function (config) {
       contextName +
       '/additionalpermission';
 
-    return config.request(
+    return request(
+      this.config,
       'DELETE',
       resourcePath,
       queryParameters,
       roleContextAdditionalPermissionRemoveRoleModel
     );
-  };
+  }
 
   /**
    * This API retrieves the complete list of created roles with permissions of your app.
    * @return Complete user Roles List data
    *41.1
    */
+  getRolesList () {
+    var queryParameters: any = {};
 
-  module.getRolesList = function () {
-    var queryParameters = {};
-
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/role';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API creates a role with permissions.
@@ -302,20 +301,25 @@ module.exports = function (config) {
    * @return Complete user Roles data
    *41.2
    */
-
-  module.createRoles = function (rolesModel) {
-    if (helper.checkJson(rolesModel)) {
-      return Promise.reject(helper.getValidationMessage('rolesModel'));
+  createRoles (rolesModel) {
+    if (checkJson(rolesModel)) {
+      return Promise.reject(getValidationMessage('rolesModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/role';
 
-    return config.request('POST', resourcePath, queryParameters, rolesModel);
-  };
+    return request(
+      this.config,
+      'POST',
+      resourcePath,
+      queryParameters,
+      rolesModel
+    );
+  }
 
   /**
    * This API is used to delete the role.
@@ -323,20 +327,19 @@ module.exports = function (config) {
    * @return Response containing Definition of Delete Request
    *41.3
    */
-
-  module.deleteRole = function (role) {
-    if (helper.isNullOrWhiteSpace(role)) {
-      return Promise.reject(helper.getValidationMessage('role'));
+  deleteRole (role) {
+    if (isNullOrWhiteSpace(role)) {
+      return Promise.reject(getValidationMessage('role'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/role/' + role;
 
-    return config.request('DELETE', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'DELETE', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to add permissions to a given role.
@@ -345,28 +348,28 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete role data
    *41.4
    */
-
-  module.addRolePermissions = function (permissionsModel, role) {
-    if (helper.checkJson(permissionsModel)) {
-      return Promise.reject(helper.getValidationMessage('permissionsModel'));
+  addRolePermissions (permissionsModel, role) {
+    if (checkJson(permissionsModel)) {
+      return Promise.reject(getValidationMessage('permissionsModel'));
     }
-    if (helper.isNullOrWhiteSpace(role)) {
-      return Promise.reject(helper.getValidationMessage('role'));
+    if (isNullOrWhiteSpace(role)) {
+      return Promise.reject(getValidationMessage('role'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/role/' + role + '/permission';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       permissionsModel
     );
-  };
+  }
 
   /**
    * API is used to remove permissions from a role.
@@ -375,27 +378,26 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete role data
    *41.5
    */
-
-  module.removeRolePermissions = function (permissionsModel, role) {
-    if (helper.checkJson(permissionsModel)) {
-      return Promise.reject(helper.getValidationMessage('permissionsModel'));
+  removeRolePermissions (permissionsModel, role) {
+    if (checkJson(permissionsModel)) {
+      return Promise.reject(getValidationMessage('permissionsModel'));
     }
-    if (helper.isNullOrWhiteSpace(role)) {
-      return Promise.reject(helper.getValidationMessage('role'));
+    if (isNullOrWhiteSpace(role)) {
+      return Promise.reject(getValidationMessage('role'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    queryParameters.apiSecret = config.apiSecret;
+    queryParameters.apiKey = this.config.apiKey;
+    queryParameters.apiSecret = this.config.apiSecret;
 
     var resourcePath = 'identity/v2/manage/role/' + role + '/permission';
 
-    return config.request(
+    return request(
+      this.config,
       'DELETE',
       resourcePath,
       queryParameters,
       permissionsModel
     );
-  };
-  return module;
-};
+  }
+}

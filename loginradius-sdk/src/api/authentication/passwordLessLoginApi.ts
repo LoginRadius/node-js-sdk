@@ -2,9 +2,17 @@
  * Created by LoginRadius Development Team
    Copyright 2019 LoginRadius Inc. All rights reserved.
 */
-module.exports = function (config) {
-  var module = {};
-  var helper = require(config.HELPER_PATH)();
+import {
+  checkJson,
+  getValidationMessage,
+  isNullOrWhiteSpace,
+  request
+} from '../../util/helper';
+import { LoginRadiusConfig } from '../../types';
+
+export default class PasswordlessLoginApi {
+  // eslint-disable-next-line no-useless-constructor, no-unused-vars, no-empty-function
+  constructor (private config: LoginRadiusConfig) {}
 
   /**
    * This API verifies an account by OTP and allows the customer to login.
@@ -14,36 +22,34 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.6
    */
-
-  module.passwordlessLoginPhoneVerification = function (
+  passwordlessLoginPhoneVerification (
     passwordLessLoginOtpModel,
     fields,
     smsTemplate
   ) {
-    if (helper.checkJson(passwordLessLoginOtpModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('passwordLessLoginOtpModel')
-      );
+    if (checkJson(passwordLessLoginOtpModel)) {
+      return Promise.reject(getValidationMessage('passwordLessLoginOtpModel'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/login/passwordlesslogin/otp/verify';
 
-    return config.request(
+    return request(
+      this.config,
       'PUT',
       resourcePath,
       queryParameters,
       passwordLessLoginOtpModel
     );
-  };
+  }
 
   /**
    * API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID
@@ -52,23 +58,22 @@ module.exports = function (config) {
    * @return Response Containing Definition of SMS Data
    *9.15
    */
-
-  module.passwordlessLoginByPhone = function (phone, smsTemplate) {
-    if (helper.isNullOrWhiteSpace(phone)) {
-      return Promise.reject(helper.getValidationMessage('phone'));
+  passwordlessLoginByPhone (phone, smsTemplate) {
+    if (isNullOrWhiteSpace(phone)) {
+      return Promise.reject(getValidationMessage('phone'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.phone = phone;
-    if (!helper.isNullOrWhiteSpace(smsTemplate)) {
+    if (!isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/login/passwordlesslogin/otp';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to send a Passwordless Login verification link to the provided Email ID
@@ -78,30 +83,25 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *9.18.1
    */
-
-  module.passwordlessLoginByEmail = function (
-    email,
-    passwordLessLoginTemplate,
-    verificationUrl
-  ) {
-    if (helper.isNullOrWhiteSpace(email)) {
-      return Promise.reject(helper.getValidationMessage('email'));
+  passwordlessLoginByEmail (email, passwordLessLoginTemplate, verificationUrl) {
+    if (isNullOrWhiteSpace(email)) {
+      return Promise.reject(getValidationMessage('email'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.email = email;
-    if (!helper.isNullOrWhiteSpace(passwordLessLoginTemplate)) {
+    if (!isNullOrWhiteSpace(passwordLessLoginTemplate)) {
       queryParameters.passwordLessLoginTemplate = passwordLessLoginTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
     var resourcePath = 'identity/v2/auth/login/passwordlesslogin/email';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to send a Passwordless Login Verification Link to a customer by providing their UserName
@@ -111,30 +111,29 @@ module.exports = function (config) {
    * @return Response containing Definition of Complete Validation data
    *9.18.2
    */
-
-  module.passwordlessLoginByUserName = function (
+  passwordlessLoginByUserName (
     username,
     passwordLessLoginTemplate,
     verificationUrl
   ) {
-    if (helper.isNullOrWhiteSpace(username)) {
-      return Promise.reject(helper.getValidationMessage('username'));
+    if (isNullOrWhiteSpace(username)) {
+      return Promise.reject(getValidationMessage('username'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
+    queryParameters.apiKey = this.config.apiKey;
     queryParameters.username = username;
-    if (!helper.isNullOrWhiteSpace(passwordLessLoginTemplate)) {
+    if (!isNullOrWhiteSpace(passwordLessLoginTemplate)) {
       queryParameters.passwordLessLoginTemplate = passwordLessLoginTemplate;
     }
-    if (!helper.isNullOrWhiteSpace(verificationUrl)) {
+    if (!isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
     }
 
     var resourcePath = 'identity/v2/auth/login/passwordlesslogin/email';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to verify the Passwordless Login verification link. Note: If you are using Passwordless Login by Phone you will need to use the Passwordless Login Phone Verification API
@@ -144,30 +143,29 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.19
    */
-
-  module.passwordlessLoginVerification = function (
+  passwordlessLoginVerification (
     verificationToken,
     fields,
     welcomeEmailTemplate
   ) {
-    if (helper.isNullOrWhiteSpace(verificationToken)) {
-      return Promise.reject(helper.getValidationMessage('verificationToken'));
+    if (isNullOrWhiteSpace(verificationToken)) {
+      return Promise.reject(getValidationMessage('verificationToken'));
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apikey = config.apiKey;
+    queryParameters.apikey = this.config.apiKey;
     queryParameters.verificationToken = verificationToken;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
-    if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
+    if (!isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
 
     var resourcePath = 'identity/v2/auth/login/passwordlesslogin/email/verify';
 
-    return config.request('GET', resourcePath, queryParameters, null);
-  };
+    return request(this.config, 'GET', resourcePath, queryParameters, null);
+  }
 
   /**
    * This API is used to verify the otp sent to the email when doing a passwordless login.
@@ -176,33 +174,33 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.23
    */
-
-  module.passwordlessLoginVerificationByEmailAndOTP = function (
+  passwordlessLoginVerificationByEmailAndOTP (
     passwordLessLoginByEmailAndOtpModel,
     fields
   ) {
-    if (helper.checkJson(passwordLessLoginByEmailAndOtpModel)) {
+    if (checkJson(passwordLessLoginByEmailAndOtpModel)) {
       return Promise.reject(
-        helper.getValidationMessage('passwordLessLoginByEmailAndOtpModel')
+        getValidationMessage('passwordLessLoginByEmailAndOtpModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
 
     var resourcePath =
       'identity/v2/auth/login/passwordlesslogin/email/verifyotp';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       passwordLessLoginByEmailAndOtpModel
     );
-  };
+  }
 
   /**
    * This API is used to verify the otp sent to the email when doing a passwordless login.
@@ -211,32 +209,31 @@ module.exports = function (config) {
    * @return Response containing User Profile Data and access token
    *9.24
    */
-
-  module.passwordlessLoginVerificationByUserNameAndOTP = function (
+  passwordlessLoginVerificationByUserNameAndOTP (
     passwordLessLoginByUserNameAndOtpModel,
     fields
   ) {
-    if (helper.checkJson(passwordLessLoginByUserNameAndOtpModel)) {
+    if (checkJson(passwordLessLoginByUserNameAndOtpModel)) {
       return Promise.reject(
-        helper.getValidationMessage('passwordLessLoginByUserNameAndOtpModel')
+        getValidationMessage('passwordLessLoginByUserNameAndOtpModel')
       );
     }
-    var queryParameters = {};
+    var queryParameters: any = {};
 
-    queryParameters.apiKey = config.apiKey;
-    if (!helper.isNullOrWhiteSpace(fields)) {
+    queryParameters.apiKey = this.config.apiKey;
+    if (!isNullOrWhiteSpace(fields)) {
       queryParameters.fields = fields;
     }
 
     var resourcePath =
       'identity/v2/auth/login/passwordlesslogin/username/verifyotp';
 
-    return config.request(
+    return request(
+      this.config,
       'POST',
       resourcePath,
       queryParameters,
       passwordLessLoginByUserNameAndOtpModel
     );
-  };
-  return module;
-};
+  }
+}
