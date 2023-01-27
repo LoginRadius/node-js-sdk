@@ -74,7 +74,7 @@ The originIp will be added in `var config`
 
 Require the loginradius-sdk package and pass the config object.
 ```js
-  var lrv2 = require('loginradius-sdk')(config);
+  var lrv2 = new require('loginradius-sdk')(config);
 ```
 The below APIs will be used to implement the loginradius functionalities.
 

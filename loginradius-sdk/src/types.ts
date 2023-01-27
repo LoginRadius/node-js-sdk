@@ -3,11 +3,13 @@ export interface LoginRadiusConfig {
   serverRegion?: string;
   originIp?: string;
   apiDomain?: any;
-  proxy: {
+  proxy?: {
     host: string;
     port: number;
+    user?: string;
+    password?: string;
   };
-  fieldsParam: string;
+  fieldsParam?: string;
   fieldsValue?: string;
   apiRequestSigning?: boolean;
   apiKey: string;
