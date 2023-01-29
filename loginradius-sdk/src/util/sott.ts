@@ -1,17 +1,13 @@
-'use strict';
+import { SottConfig } from '../types';
+import crypto from 'crypto';
 
-module.exports = function (config, sottconfig, startDate, endDate, timeDifference) {
-  var helper = require(config.HELPER_PATH)();
- 
-  var key = !helper.isNullOrWhiteSpace(sottconfig.apiKey) ? sottconfig.apiKey : config.apiKey;
-  var secret = !helper.isNullOrWhiteSpace(sottconfig.apiSecret) ? sottconfig.apiSecret : config.apiSecret;
-  var time = !helper.isNullOrWhiteSpace(timeDifference) ? parseInt(timeDifference) : 10;
+export default function (sottconfig: SottConfig, startDate: string, endDate: string, timeDifference: number) {
+  var key = sottconfig.apiKey;
+  var secret = sottconfig.apiSecret;
+  var time = timeDifference;
 
-
-  var crypto = require('crypto');
   return new Promise(function (resolve, reject) {
     var tempToken = '';
-
 
     if (startDate && endDate) {
       tempToken = startDate + '#' + key + '#' + endDate;
@@ -58,13 +54,12 @@ module.exports = function (config, sottconfig, startDate, endDate, timeDifferenc
     encrypt(tempToken, resolve, reject);
   });
 
-  function encrypt(plainText, resolve, reject) {
+  function encrypt (plainText, resolve, reject) {
     var initVector = 'tu89geji340t89u2';
     var keySize = 256;
     var iterations = 10000;
     var keyLenNumber = 8;
     var initVectorBuffer = Buffer.from(initVector, 'utf8');
-    var plainTextBuffer = Buffer.from(plainText, 'utf8');
     crypto.pbkdf2(
       secret,
       Buffer.from(new Array(keyLenNumber)),
@@ -78,7 +73,7 @@ module.exports = function (config, sottconfig, startDate, endDate, timeDifferenc
           keyBytes,
           initVectorBuffer
         );
-        var cryptedText = cipher.update(plainTextBuffer, 'utf8', 'base64');
+        var cryptedText = cipher.update(plainText, 'utf8', 'base64');
         cryptedText += cipher.final('base64');
 
         var hash = crypto.createHash('md5');
@@ -87,4 +82,4 @@ module.exports = function (config, sottconfig, startDate, endDate, timeDifferenc
       }
     );
   }
-};
+}

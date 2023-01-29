@@ -74,7 +74,7 @@ The originIp will be added in `var config`
 
 Require the loginradius-sdk package and pass the config object.
 ```js
-  var lrv2 = require('loginradius-sdk')(config);
+  var lrv2 = new require('loginradius-sdk')(config);
 ```
 The below APIs will be used to implement the loginradius functionalities.
 
@@ -5520,7 +5520,7 @@ var startDate="2022-05-17 07:10:42"; // (Optional) Valid Start Date with Date an
 var endDate="2022-05-17 07:20:42"; // (Optional) Valid End Date with Date and time
 
 
-lrv2.helper.getSott(sottConfig,startDate, endDate,timeDifference).then(function (sott) {
+lrv2.getSott(sottConfig, startDate, endDate, timeDifference).then(function (sott) {
        console.log(sott)
 });
 

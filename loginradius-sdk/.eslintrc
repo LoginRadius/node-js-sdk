@@ -5,7 +5,15 @@
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "prettier"],
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "eslint:recommended"
+    ],
+    "ignorePatterns": [
+        "lib"
+    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -14,6 +22,7 @@
         "ecmaVersion": 2018
     },
     "rules": {
+        "@typescript-eslint/no-explicit-any": 0,
         "accessor-pairs": "error",
         "array-bracket-newline": "error",
         "array-bracket-spacing": "error",
@@ -112,7 +121,7 @@
         ],
         "lines-around-comment": "off",
         "lines-around-directive": "error",
-        "lines-between-class-members": "error",
+        "lines-between-class-members": "off",
         "max-classes-per-file": "error",
         "max-depth": "error",
         "max-len": "off",
@@ -218,6 +227,7 @@
         "no-unused-vars": "warn",
         "no-use-before-define": "off",
         "no-useless-call": "error",
+        "no-useless-catch": "off",
         "no-useless-computed-key": "error",
         "no-useless-concat": "error",
         "no-useless-constructor": "error",

@@ -17,7 +17,7 @@ var config = {
 
 // Module dependencies.
 var express = require('express');
-var lrv2 = require('loginradius-sdk')(config);
+var lrv2 = new require('loginradius-sdk')(config);
 var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
@@ -100,7 +100,7 @@ app.post('/ajax_handler/login', function (req, res) {
       var fields = '';
       var options = '';
 
-      lrv2.helper.getSott(config).then(function (sott) {
+      lrv2.getSott(config).then(function (sott) {
         lrv2.authenticationApi.userRegistrationByEmail(userprofileModel, sott, emailTemplate, fields, options, verificationUrl, welcomeEmailTemplate).then(function (response) {
           if ((response.EmailVerified)) {
             output.data = response;
