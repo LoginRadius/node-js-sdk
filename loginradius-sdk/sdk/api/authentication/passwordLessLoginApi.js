@@ -11,6 +11,7 @@ module.exports = function (config) {
    * @param {passwordLessLoginOtpModel} Model Class containing Definition of payload for PasswordLessLoginOtpModel API
    * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response containing User Profile Data and access token
    *9.6
    */
@@ -18,7 +19,8 @@ module.exports = function (config) {
   module.passwordlessLoginPhoneVerification = function (
     passwordLessLoginOtpModel,
     fields,
-    smsTemplate
+    smsTemplate,
+    isVoiceOtp
   ) {
     if (helper.checkJson(passwordLessLoginOtpModel)) {
       return Promise.reject(
@@ -33,6 +35,9 @@ module.exports = function (config) {
     }
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var resourcePath = 'identity/v2/auth/login/passwordlesslogin/otp/verify';
@@ -49,11 +54,12 @@ module.exports = function (config) {
    * API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID
    * @param {phone} The Registered Phone Number
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response Containing Definition of SMS Data
    *9.15
    */
 
-  module.passwordlessLoginByPhone = function (phone, smsTemplate) {
+  module.passwordlessLoginByPhone = function (phone, smsTemplate, isVoiceOtp) {
     if (helper.isNullOrWhiteSpace(phone)) {
       return Promise.reject(helper.getValidationMessage('phone'));
     }
@@ -63,6 +69,9 @@ module.exports = function (config) {
     queryParameters.phone = phone;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var resourcePath = 'identity/v2/auth/login/passwordlesslogin/otp';

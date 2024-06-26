@@ -238,13 +238,15 @@ module.exports = function (config) {
    * This API sends the OTP to specified phone number
    * @param {forgotPINOtpByPhoneModel} Model Class containing Definition for Forgot Pin Otp By Phone API
    * @param {smsTemplate}
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response Containing Validation Data and SMS Data
    *42.7
    */
 
   module.sendForgotPINSMSByPhone = function (
     forgotPINOtpByPhoneModel,
-    smsTemplate
+    smsTemplate,
+    isVoiceOtp
   ) {
     if (helper.checkJson(forgotPINOtpByPhoneModel)) {
       return Promise.reject(
@@ -256,6 +258,9 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var resourcePath = 'identity/v2/auth/pin/forgot/otp';

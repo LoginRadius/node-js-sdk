@@ -10,11 +10,16 @@ module.exports = function (config) {
    * This API is used to trigger the Multi-Factor Autentication workflow for the provided access token
    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
    * @param {smsTemplate2FA} SMS Template Name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response containing Definition of Complete Multi-Factor Authentication Settings data
    *14.3
    */
 
-  module.mfaReAuthenticate = function (accessToken, smsTemplate2FA) {
+  module.mfaReAuthenticate = function (
+    accessToken,
+    smsTemplate2FA,
+    isVoiceOtp
+  ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
@@ -24,6 +29,9 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(smsTemplate2FA)) {
       queryParameters.smsTemplate2FA = smsTemplate2FA;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var resourcePath = 'identity/v2/auth/account/reauth/2fa';
@@ -93,42 +101,6 @@ module.exports = function (config) {
       resourcePath,
       queryParameters,
       reauthByBackupCodeModel
-    );
-  };
-
-  /**
-   * This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code
-   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-   * @param {reauthByGoogleAuthenticatorCodeModel} Model Class containing Definition for MFA Reauthentication by Google Authenticator
-   * @return Complete user Multi-Factor Authentication Token data
-   *14.6
-   */
-
-  module.mfaReAuthenticateByGoogleAuth = function (
-    accessToken,
-    reauthByGoogleAuthenticatorCodeModel
-  ) {
-    if (helper.isNullOrWhiteSpace(accessToken)) {
-      return Promise.reject(helper.getValidationMessage('accessToken'));
-    }
-    if (helper.checkJson(reauthByGoogleAuthenticatorCodeModel)) {
-      return Promise.reject(
-        helper.getValidationMessage('reauthByGoogleAuthenticatorCodeModel')
-      );
-    }
-    var queryParameters = {};
-
-    queryParameters.access_token = accessToken;
-    queryParameters.apiKey = config.apiKey;
-
-    var resourcePath =
-      'identity/v2/auth/account/reauth/2fa/googleauthenticatorcode';
-
-    return config.request(
-      'PUT',
-      resourcePath,
-      queryParameters,
-      reauthByGoogleAuthenticatorCodeModel
     );
   };
 
@@ -419,6 +391,41 @@ module.exports = function (config) {
       resourcePath,
       queryParameters,
       securityQuestionAnswerUpdateModel
+    );
+  };
+
+  /**
+   * This API is used to validate the triggered MFA authentication flow with the Authenticator Code.
+   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param {multiFactorAuthModelByAuthenticatorCode} Model Class containing Definition of payload for MultiFactorAuthModel By Authenticator Code API
+   * @return Complete user Multi-Factor Authentication Token data
+   *44.6
+   */
+
+  module.mfaReAuthenticateByAuthenticatorCode = function (
+    accessToken,
+    multiFactorAuthModelByAuthenticatorCode
+  ) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.checkJson(multiFactorAuthModelByAuthenticatorCode)) {
+      return Promise.reject(
+        helper.getValidationMessage('multiFactorAuthModelByAuthenticatorCode')
+      );
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+
+    var resourcePath = 'identity/v2/auth/account/reauth/2fa/authenticatorcode';
+
+    return config.request(
+      'PUT',
+      resourcePath,
+      queryParameters,
+      multiFactorAuthModelByAuthenticatorCode
     );
   };
   return module;
