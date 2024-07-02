@@ -34,7 +34,7 @@ LoginRadius Combined Node SDK features a combined SDK set to encompass Social Lo
 This document contains information and examples regarding the LoginRadius Node.js SDK. It provides guidance for working with social authentication, user profile data, and sending messages with a variety of social networks such as Facebook, Google, Twitter, Yahoo, LinkedIn, and more. 
 You can get the SDK from [here](http://github.com/LoginRadius/node-js-sdk) 
 
-Note: The latest version(11.1.0) of Node js SDK works with LoginRadius V2 APIs.
+Note: The latest version(11.6.0) of Node js SDK works with LoginRadius V2 APIs.
 
 Installation <br/>
 run `npm install loginradius-sdk` <br/>
@@ -119,6 +119,7 @@ List of APIs in this Section:<br>
 * GET : [Auth Check UserName Availability](#CheckUserNameAvailability-get-)<br>
 * GET : [Auth Privacy Policy Accept](#AcceptPrivacyPolicy-get-)<br>
 * GET : [Auth Privacy Policy History By Access Token](#GetPrivacyPolicyHistoryByAccessToken-get-)<br>
+* GET : [Auth send verification Email for linking social profiles](#AuthSendVerificationEmailForLinkingSocialProfiles-get-)<br>
 * DELETE : [Auth Delete Account with Email Confirmation](#DeleteAccountWithEmailConfirmation-delete-)<br>
 * DELETE : [Auth Remove Email](#RemoveEmail-delete-)<br>
 * DELETE : [Auth Unlink Social Identities](#UnlinkSocialIdentities-delete-)<br>
@@ -146,8 +147,10 @@ var fields = null; //Optional
 var nullSupport = true; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
+var isVoiceOtp = true; //Optional
+var options = "<options>"; //Optional
 
-lrv2.authenticationApi.updateProfileByAccessToken(accessToken, userProfileUpdateModel, emailTemplate, fields, nullSupport, smsTemplate, verificationUrl).then((response) => {
+lrv2.authenticationApi.updateProfileByAccessToken(accessToken, userProfileUpdateModel, emailTemplate, fields, nullSupport, smsTemplate, verificationUrl, isVoiceOtp, options).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -625,8 +628,9 @@ var fields = null; //Optional
 var options = "<options>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.authenticationApi.userRegistrationByEmail(authUserRegistrationModel, sott, emailTemplate, fields, options, verificationUrl, welcomeEmailTemplate).then((response) => {
+lrv2.authenticationApi.userRegistrationByEmail(authUserRegistrationModel, sott, emailTemplate, fields, options, verificationUrl, welcomeEmailTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -663,8 +667,9 @@ var options = "<options>"; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.authenticationApi.userRegistrationByCaptcha(authUserRegistrationModelWithCaptcha, emailTemplate, fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate).then((response) => {
+lrv2.authenticationApi.userRegistrationByCaptcha(authUserRegistrationModelWithCaptcha, emailTemplate, fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -956,8 +961,9 @@ var verificationToken = "<verificationToken>"; //Required
 var fields = null; //Optional
 var url = "<url>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
+var uuid = "<uuid>"; //Optional
 
-lrv2.authenticationApi.verifyEmail(verificationToken, fields, url, welcomeEmailTemplate).then((response) => {
+lrv2.authenticationApi.verifyEmail(verificationToken, fields, url, welcomeEmailTemplate, uuid).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -1032,6 +1038,26 @@ lrv2.authenticationApi.getPrivacyPolicyHistoryByAccessToken(accessToken).then((r
 
  ```
  
+
+ <h6 id="AuthSendVerificationEmailForLinkingSocialProfiles-get-"> Auth send verification Email for linking social profiles (GET)</h6>
+
+ This API is used to Send verification email to the unverified email of the social profile. This API can be used only incase of optional verification workflow.  [More Info](/api/v2/customer-identity-api/authentication/auth-send-verification-for-social-email/)
+
+ 
+ 
+
+ ```js
+
+var accessToken = "<accessToken>"; //Required
+var clientguid = "<clientguid>"; //Required
+
+lrv2.authenticationApi.authSendVerificationEmailForLinkingSocialProfiles(accessToken, clientguid).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
   
   
  
@@ -1123,6 +1149,8 @@ List of APIs in this Section:<br>
 * POST : [Account Create](#CreateAccount-post-)<br>
 * POST : [Forgot Password token](#GetForgotPasswordToken-post-)<br>
 * POST : [Email Verification token](#GetEmailVerificationToken-post-)<br>
+* POST : [Multipurpose Email Token Generation API](#MultipurposeEmailTokenGeneration-post-)<br>
+* POST : [Multipurpose SMS OTP Generation API](#MultipurposeSMSOTPGeneration-post-)<br>
 * GET : [Get Privacy Policy History By Uid](#GetPrivacyPolicyHistoryByUid-get-)<br>
 * GET : [Account Profiles by Email](#GetAccountProfileByEmail-get-)<br>
 * GET : [Account Profiles by Username](#GetAccountProfileByUserName-get-)<br>
@@ -1135,6 +1163,7 @@ List of APIs in this Section:<br>
 * GET : [Account Identities by Email](#GetAccountIdentitiesByEmail-get-)<br>
 * DELETE : [Account Delete](#DeleteAccountByUid-delete-)<br>
 * DELETE : [Account Remove Email](#RemoveEmail-delete-)<br>
+* DELETE : [Revoke All Refresh Token](#RevokeAllRefreshToken-delete-)<br>
 * DELETE : [Delete User Profiles By Email](#AccountDeleteByEmail-delete-)<br>
 
 
@@ -1249,8 +1278,9 @@ lrv2.accountApi.invalidateAccountEmailVerification(uid, emailTemplate, verificat
 
 var uid = "<uid>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.accountApi.resetPhoneIDVerificationByUid(uid, smsTemplate).then((response) => {
+lrv2.accountApi.resetPhoneIDVerificationByUid(uid, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -1375,6 +1405,64 @@ lrv2.accountApi.getForgotPasswordToken(email, emailTemplate, resetPasswordUrl, s
 var email = "<email>"; //Required
 
 lrv2.accountApi.getEmailVerificationToken(email).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+
+
+  
+<h6 id="MultipurposeEmailTokenGeneration-post-"> Multipurpose Email Token Generation API (POST)</h6>
+
+ This API generate Email tokens and Email OTPs for Email verification, Add email, Forgot password, Delete user, Passwordless login, Forgot pin, One-touch login and Auto login.  [More Info](/api/v2/customer-identity-api/account/multipurpose-token-and-sms-otp-generation-api/multipurpose-email-token-generation/)
+
+ 
+ 
+
+ ```Js
+
+
+var multiEmailToken ={ 
+"clientguid" : "<clientguid>",
+"email" : "<email>",
+"name" : "<name>",
+"type" : "<type>",
+"uid" : "<uid>",
+"userName" : "<userName>"
+};  //Required
+var tokentype = "<tokentype>"; //Required
+
+lrv2.accountApi.multipurposeEmailTokenGeneration(multiEmailToken, tokentype).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MultipurposeSMSOTPGeneration-post-"> Multipurpose SMS OTP Generation API (POST)</h6>
+
+ This API generates SMS OTP for Add phone, Phone Id verification, Forgot password, Forgot pin, One-touch login, smart login and Passwordless login.  [More Info](/api/v2/customer-identity-api/account/multipurpose-token-and-sms-otp-generation-api/multipurpose-sms-otp-generation/)
+
+ 
+ 
+
+ ```Js
+
+
+var multiSmsOtp ={ 
+"name" : "<name>",
+"phone" : "<phone>",
+"uid" : "<uid>"
+};  //Required
+var smsotptype = "<smsotptype>"; //Required
+
+lrv2.accountApi.multipurposeSMSOTPGeneration(multiSmsOtp, smsotptype).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -1653,7 +1741,24 @@ lrv2.accountApi.removeEmail(email, uid, fields).then((response) => {
 
  ```
  
-  
+<h6 id="RevokeAllRefreshToken-delete-"> Revoke All Refresh Token (DELETE)</h6>
+
+ The Revoke All Refresh Access Token API is used to revoke all refresh tokens for a specific user.  [More Info](/api/v2/customer-identity-api/refresh-token/revoke-all-refresh-token/)
+
+ 
+ 
+
+ ```js
+
+var uid = "<uid>"; //Required
+
+lrv2.accountApi.revokeAllRefreshToken(uid).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
   
  
 <h6 id="AccountDeleteByEmail-delete-"> Delete User Profiles By Email (DELETE)</h6>
@@ -2178,8 +2283,9 @@ var otp = "<otp>"; //Required
 var phone = "<phone>"; //Required
 var fields = null; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.phoneAuthenticationApi.phoneVerificationByOTP(otp, phone, fields, smsTemplate).then((response) => {
+lrv2.phoneAuthenticationApi.phoneVerificationByOTP(otp, phone, fields, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2202,8 +2308,9 @@ lrv2.phoneAuthenticationApi.phoneVerificationByOTP(otp, phone, fields, smsTempla
 var accessToken = "<accessToken>"; //Required
 var otp = "<otp>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.phoneAuthenticationApi.phoneVerificationOTPByAccessToken(accessToken, otp, smsTemplate).then((response) => {
+lrv2.phoneAuthenticationApi.phoneVerificationOTPByAccessToken(accessToken, otp, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2226,8 +2333,9 @@ lrv2.phoneAuthenticationApi.phoneVerificationOTPByAccessToken(accessToken, otp, 
 var accessToken = "<accessToken>"; //Required
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.phoneAuthenticationApi.updatePhoneNumber(accessToken, phone, smsTemplate).then((response) => {
+lrv2.phoneAuthenticationApi.updatePhoneNumber(accessToken, phone, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2277,8 +2385,9 @@ lrv2.phoneAuthenticationApi.loginByPhone(phoneAuthenticationModel, fields, login
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.phoneAuthenticationApi.forgotPasswordByPhoneOTP(phone, smsTemplate).then((response) => {
+lrv2.phoneAuthenticationApi.forgotPasswordByPhoneOTP(phone, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2300,8 +2409,9 @@ lrv2.phoneAuthenticationApi.forgotPasswordByPhoneOTP(phone, smsTemplate).then((r
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.phoneAuthenticationApi.phoneResendVerificationOTP(phone, smsTemplate).then((response) => {
+lrv2.phoneAuthenticationApi.phoneResendVerificationOTP(phone, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2346,10 +2456,6 @@ lrv2.phoneAuthenticationApi.phoneResendVerificationOTPByToken(accessToken, phone
  ```js
 
 var authUserRegistrationModel ={ 
-"email" : [   { 
-    "type" : "<type>"  ,
-    "value" : "<value>"   
-}  ] ,
 "firstName" : "<firstName>",
 "lastName" : "<lastName>",
 "password" : "<password>",
@@ -2362,8 +2468,9 @@ var smsTemplate = "<smsTemplate>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
 var emailTemplate = "<emailTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.phoneAuthenticationApi.userRegistrationByPhone(authUserRegistrationModel, sott, fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate, emailTemplate).then((response) => {
+lrv2.phoneAuthenticationApi.userRegistrationByPhone(authUserRegistrationModel, sott, fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate, emailTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2426,16 +2533,16 @@ lrv2.phoneAuthenticationApi.removePhoneIDByAccessToken(accessToken).then((respon
 List of APIs in this Section:<br>
 
 * PUT : [Update MFA Setting](#MFAUpdateSetting-put-)<br>
-* PUT : [Update MFA by Access Token](#MFAUpdateByAccessToken-put-)<br>
 * PUT : [MFA Update Phone Number by Token](#MFAUpdatePhoneNumberByToken-put-)<br>
 * PUT : [Verify MFA Email OTP by Access Token](#MFAValidateEmailOtpByAccessToken-put-)<br>
 * PUT : [Update MFA Security Question by Access Token](#MFASecurityQuestionAnswerByAccessToken-put-)<br>
 * PUT : [MFA Validate OTP](#MFAValidateOTPByPhone-put-)<br>
-* PUT : [MFA Validate Google Auth Code](#MFAValidateGoogleAuthCode-put-)<br>
 * PUT : [MFA Validate Backup code](#MFAValidateBackupCode-put-)<br>
 * PUT : [MFA Update Phone Number](#MFAUpdatePhoneNumber-put-)<br>
 * PUT : [Verify MFA Email OTP by MFA Token](#MFAValidateEmailOtp-put-)<br>
 * PUT : [Update MFA Security Question by MFA Token](#MFASecurityQuestionAnswer-put-)<br>
+* PUT : [MFA Validate Authenticator Code](#MFAValidateAuthenticatorCode-put-)<br>
+* PUT : [MFA Verify Authenticator Code](#MFAVerifyAuthenticatorCode-put-)<br>
 * POST : [MFA Email Login](#MFALoginByEmail-post-)<br>
 * POST : [MFA UserName Login](#MFALoginByUserName-post-)<br>
 * POST : [MFA Phone Login](#MFALoginByPhone-post-)<br>
@@ -2448,12 +2555,12 @@ List of APIs in this Section:<br>
 * GET : [MFA Resend Otp](#MFAResendOTP-get-)<br>
 * GET : [MFA Backup Code by UID](#MFABackupCodeByUid-get-)<br>
 * GET : [MFA Reset Backup Code by UID](#MFAResetBackupCodeByUid-get-)<br>
-* DELETE : [MFA Reset Google Authenticator by Token](#MFAResetGoogleAuthByToken-delete-)<br>
+* DELETE : [MFA Reset Authenticator by Token](#MFAResetAuthenticatorByToken-delete-)<br>
 * DELETE : [MFA Reset SMS Authenticator by Token](#MFAResetSMSAuthByToken-delete-)<br>
 * DELETE : [Reset MFA Email OTP Authenticator By Access Token](#MFAResetEmailOtpAuthenticatorByAccessToken-delete-)<br>
 * DELETE : [MFA Reset Security Question Authenticator By Access Token](#MFAResetSecurityQuestionAuthenticatorByAccessToken-delete-)<br>
 * DELETE : [MFA Reset SMS Authenticator By UID](#MFAResetSMSAuthenticatorByUid-delete-)<br>
-* DELETE : [MFA Reset Google Authenticator By UID](#MFAResetGoogleAuthenticatorByUid-delete-)<br>
+* DELETE : [MFA Reset Authenticator By UID](#MFAResetAuthenticatorByUid-delete-)<br>
 * DELETE : [Reset MFA Email OTP Authenticator Settings by Uid](#MFAResetEmailOtpAuthenticatorByUid-delete-)<br>
 * DELETE : [Reset MFA Security Question Authenticator Settings by Uid](#MFAResetSecurityQuestionAuthenticatorByUid-delete-)<br>
 
@@ -2484,32 +2591,6 @@ lrv2.multiFactorAuthenticationApi.mfaUpdateSetting(accessToken, multiFactorAuthM
  ```
  
   
-  
- 
-<h6 id="MFAUpdateByAccessToken-put-"> Update MFA by Access Token (PUT)</h6>
-
- This API is used to Enable Multi-factor authentication by access token on user login  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/update-mfa-by-access-token/)
-
- 
- 
-
- ```js
-
-var accessToken = "<accessToken>"; //Required
-
-var multiFactorAuthModelByGoogleAuthenticatorCode ={ 
-"googleAuthenticatorCode" : "<googleAuthenticatorCode>"
-};  //Required
-var fields = null; //Optional
-var smsTemplate = "<smsTemplate>"; //Optional
-
-lrv2.multiFactorAuthenticationApi.mfaUpdateByAccessToken(accessToken, multiFactorAuthModelByGoogleAuthenticatorCode, fields, smsTemplate).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
  
   
   
@@ -2526,8 +2607,10 @@ lrv2.multiFactorAuthenticationApi.mfaUpdateByAccessToken(accessToken, multiFacto
 var accessToken = "<accessToken>"; //Required
 var phoneNo2FA = "<phoneNo2FA>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+var isVoiceOtp = true; //Optional
+var options = "<options>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumberByToken(accessToken, phoneNo2FA, smsTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumberByToken(accessToken, phoneNo2FA, smsTemplate2FA, isVoiceOtp,options).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2624,34 +2707,7 @@ lrv2.multiFactorAuthenticationApi.mfaValidateOTPByPhone(multiFactorAuthModelWith
 });
 
  ```
- 
-  
-  
- 
-<h6 id="MFAValidateGoogleAuthCode-put-"> MFA Validate Google Auth Code (PUT)</h6>
 
- This API is used to login via Multi-factor-authentication by passing the google authenticator code.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-validate-google-auth-code/)
-
- 
- 
-
- ```js
-
-var googleAuthenticatorCode = "<googleAuthenticatorCode>"; //Required
-var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
-var fields = null; //Optional
-var rbaBrowserEmailTemplate = "<rbaBrowserEmailTemplate>"; //Optional
-var rbaCityEmailTemplate = "<rbaCityEmailTemplate>"; //Optional
-var rbaCountryEmailTemplate = "<rbaCountryEmailTemplate>"; //Optional
-var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
-
-lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthenticatorCode, secondFactorAuthenticationToken, fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
  
   
   
@@ -2698,8 +2754,10 @@ lrv2.multiFactorAuthenticationApi.mfaValidateBackupCode(multiFactorAuthModelByBa
 var phoneNo2FA = "<phoneNo2FA>"; //Required
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+var isVoiceOtp = true; //Optional
+var options = "<options>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumber(phoneNo2FA, secondFactorAuthenticationToken, smsTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaUpdatePhoneNumber(phoneNo2FA, secondFactorAuthenticationToken, smsTemplate2FA, isVoiceOtp, options).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2766,6 +2824,57 @@ lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswer(securityQuestionAnsw
 });
 
  ```
+
+<h6 id="MFAValidateAuthenticatorCode-put-"> MFA Validate Authenticator Code (PUT)</h6>
+
+ This API is used to login to a user's account during the second MFA step with an Authenticator Code.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-validate-authenticator-code/)
+
+ 
+ 
+
+ ```js
+
+
+var multiFactorAuthModelByAuthenticatorCode ={  
+    "authenticatorCode" : "<authenticatorCode>"
+ };  //Required
+var secondfactorauthenticationtoken = "<secondfactorauthenticationtoken>"; //Required
+var fields = null; //Optional
+
+lrv2.multiFactorAuthenticationApi.mfaValidateAuthenticatorCode(multiFactorAuthModelByAuthenticatorCode, secondfactorauthenticationtoken, fields).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
+ 
+  
+  
+ 
+<h6 id="MFAVerifyAuthenticatorCode-put-"> MFA Verify Authenticator Code (PUT)</h6>
+
+ This API is used to validate an Authenticator Code as part of the MFA process.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-verify-authenticator-code/)
+
+ 
+ 
+
+ ```js
+
+var accessToken = "<accessToken>"; //Required
+
+var multiFactorAuthModelByAuthenticatorCodeSecurityAnswer ={ 
+"authenticatorCode" : "<authenticatorCode>"
+};  //Required
+var fields = null; //Optional
+
+lrv2.multiFactorAuthenticationApi.mfaVerifyAuthenticatorCode(accessToken, multiFactorAuthModelByAuthenticatorCodeSecurityAnswer, fields).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
  
   
   
@@ -2788,8 +2897,10 @@ var smsTemplate = "<smsTemplate>"; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
 var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
+var isVoiceOtp = true; //Optional
+var options = "<options>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl,emailTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl,emailTemplate2FA, isVoiceOtp,options).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2809,7 +2920,6 @@ lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate
 
  ```js
 
-var password = "<password>"; //Required
 var username = "<username>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
 var fields = null; //Optional
@@ -2818,8 +2928,9 @@ var smsTemplate = "<smsTemplate>"; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
 var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaLoginByUserName(password, username, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl, emailTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaLoginByUserName(password, username, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl, emailTemplate2FA, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2848,8 +2959,10 @@ var smsTemplate = "<smsTemplate>"; //Optional
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
 var verificationUrl = "<verificationUrl>"; //Optional
 var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
+var isVoiceOtp = true; //Optional
+var options = "<options>"; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaLoginByPhone(password, phone, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl, emailTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaLoginByPhone(password, phone, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl,emailTemplate2FA, isVoiceOtp, options).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -2930,13 +3043,14 @@ lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswerVerification(security
  ```js
 
 var accessToken = "<accessToken>"; //Required
-var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaConfigureByAccessToken(accessToken, smsTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaConfigureByAccessToken(accessToken, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
 });
+
 
  ```
  
@@ -3022,8 +3136,9 @@ lrv2.multiFactorAuthenticationApi.mfaEmailOtpByAccessToken(accessToken, emailId,
 
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.multiFactorAuthenticationApi.mfaResendOTP(secondFactorAuthenticationToken, smsTemplate2FA).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaResendOTP(secondFactorAuthenticationToken, smsTemplate2FA, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3075,22 +3190,19 @@ lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByUid(uid).then((response) =
 
  ```
  
-  
-  
- 
-<h6 id="MFAResetGoogleAuthByToken-delete-"> MFA Reset Google Authenticator by Token (DELETE)</h6>
+ <h6 id="MFAResetAuthenticatorByToken-delete-"> MFA Reset Authenticator by Token (DELETE)</h6>
 
- This API Resets the Google Authenticator configurations on a given account via the access token  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-token/)
+ This API Resets the Authenticator configurations on a given account via the access_token.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-authenticator-by-token/)
 
  
  
 
- ```js
+ ```Js
 
 var accessToken = "<accessToken>"; //Required
-var googleauthenticator = true; //Required
+var authenticator = true; //Required
 
-lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthByToken(accessToken, googleauthenticator).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaResetAuthenticatorByToken(accessToken, authenticator).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3189,21 +3301,19 @@ lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthenticatorByUid(otpauthenticator
  ```
  
   
-  
- 
-<h6 id="MFAResetGoogleAuthenticatorByUid-delete-"> MFA Reset Google Authenticator By UID (DELETE)</h6>
+<h6 id="MFAResetAuthenticatorByUid-delete-"> MFA Reset Authenticator By UID (DELETE)</h6>
 
- This API resets the Google Authenticator configurations on a given account via the UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-google-authenticator-by-uid/)
+ This API resets the Authenticator configurations on a given account via the UID.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-reset-authenticator-by-uid/)
 
  
  
 
- ```js
+ ```Js
 
-var googleauthenticator = true; //Required
+var authenticator = true; //Required
 var uid = "<uid>"; //Required
 
-lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthenticatorByUid(googleauthenticator, uid).then((response) => {
+lrv2.multiFactorAuthenticationApi.mfaResetAuthenticatorByUid(authenticator, uid).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3580,8 +3690,9 @@ var forgotPINOtpByPhoneModel ={
 "phone" : "<phone>"
 };  //Required
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.pinAuthenticationApi.sendForgotPINSMSByPhone(forgotPINOtpByPhoneModel, smsTemplate).then((response) => {
+lrv2.pinAuthenticationApi.sendForgotPINSMSByPhone(forgotPINOtpByPhoneModel, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -3648,10 +3759,10 @@ List of APIs in this Section:<br>
 
 * PUT : [Validate MFA by OTP](#MFAReAuthenticateByOTP-put-)<br>
 * PUT : [Validate MFA by Backup Code](#MFAReAuthenticateByBackupCode-put-)<br>
-* PUT : [Validate MFA by Google Authenticator Code](#MFAReAuthenticateByGoogleAuth-put-)<br>
 * PUT : [Validate MFA by Password](#MFAReAuthenticateByPassword-put-)<br>
 * PUT : [MFA Re-authentication by PIN](#VerifyPINAuthentication-put-)<br>
 * PUT : [MFA Re-authentication by Email OTP](#ReAuthValidateEmailOtp-put-)<br>
+* PUT : [MFA Step-Up Authentication by Authenticator Code](#MFAReAuthenticateByAuthenticatorCode-put-)<br>
 * POST : [Verify Multifactor OTP Authentication](#VerifyMultiFactorOtpReauthentication-post-)<br>
 * POST : [Verify Multifactor Password Authentication](#VerifyMultiFactorPasswordReauthentication-post-)<br>
 * POST : [Verify Multifactor PIN Authentication](#VerifyMultiFactorPINReauthentication-post-)<br>
@@ -3710,31 +3821,7 @@ lrv2.reAuthenticationApi.mfaReAuthenticateByBackupCode(accessToken, reauthByBack
 
  ```
  
-  
-  
- 
-<h6 id="MFAReAuthenticateByGoogleAuth-put-"> Validate MFA by Google Authenticator Code (PUT)</h6>
 
- This API is used to re-authenticate via Multi-factor-authentication by passing the google authenticator code  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/re-authentication/re-auth-by-google-authenticator-code)
-
- 
- 
-
- ```js
-
-var accessToken = "<accessToken>"; //Required
-
-var reauthByGoogleAuthenticatorCodeModel ={ 
-"googleAuthenticatorCode" : "<googleAuthenticatorCode>"
-};  //Required
-
-lrv2.reAuthenticationApi.mfaReAuthenticateByGoogleAuth(accessToken, reauthByGoogleAuthenticatorCodeModel).then((response) => {
-    console.log(response);
-}).catch((error) => {
-    console.log(error);
-});
-
- ```
  
   
   
@@ -3817,7 +3904,26 @@ lrv2.reAuthenticationApi.reAuthValidateEmailOtp(accessToken, reauthByEmailOtpMod
 
  ```
  
-  
+<h6 id="MFAReAuthenticateByAuthenticatorCode-put-"> MFA Step-Up Authentication by Authenticator Code (PUT)</h6>
+
+ This API is used to validate the triggered MFA authentication flow with the Authenticator Code.  [More Info](/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-otp/)
+
+ 
+ 
+
+ ```js
+
+var accessToken = "<accessToken>"; //Required
+
+var multiFactorAuthModelByAuthenticatorCode ={   };  //Required
+
+lrv2.reAuthenticationApi.mfaReAuthenticateByAuthenticatorCode(accessToken, multiFactorAuthModelByAuthenticatorCode).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ``` 
   
  
 <h6 id="VerifyMultiFactorOtpReauthentication-post-"> Verify Multifactor OTP Authentication (POST)</h6>
@@ -3937,8 +4043,9 @@ lrv2.reAuthenticationApi.reAuthBySecurityQuestion(accessToken, securityQuestionA
 
 var accessToken = "<accessToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.reAuthenticationApi.mfaReAuthenticate(accessToken, smsTemplate2FA).then((response) => {
+lrv2.reAuthenticationApi.mfaReAuthenticate(accessToken, smsTemplate2FA, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -4345,8 +4452,9 @@ var oneTouchLoginByPhoneModel ={
 "phone" : "<phone>"
 };  //Required
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.oneTouchLoginApi.oneTouchLoginByPhone(oneTouchLoginByPhoneModel, smsTemplate).then((response) => {
+lrv2.oneTouchLoginApi.oneTouchLoginByPhone(oneTouchLoginByPhoneModel, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -4432,8 +4540,9 @@ var passwordLessLoginOtpModel ={
 };  //Required
 var fields = null; //Optional
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.passwordLessLoginApi.passwordlessLoginPhoneVerification(passwordLessLoginOtpModel, fields, smsTemplate).then((response) => {
+lrv2.passwordLessLoginApi.passwordlessLoginPhoneVerification(passwordLessLoginOtpModel, fields, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -4503,8 +4612,9 @@ lrv2.passwordLessLoginApi.passwordlessLoginVerificationByUserNameAndOTP(password
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
+var isVoiceOtp = true; //Optional
 
-lrv2.passwordLessLoginApi.passwordlessLoginByPhone(phone, smsTemplate).then((response) => {
+lrv2.passwordLessLoginApi.passwordlessLoginByPhone(phone, smsTemplate, isVoiceOtp).then((response) => {
     console.log(response);
 }).catch((error) => {
     console.log(error);
@@ -5172,6 +5282,7 @@ lrv2.sottApi.generateSott(timeDifference).then((response) => {
 
 List of APIs in this Section:<br>
 
+* GET : [Get Access Token via Custom JWT Token](#AccessTokenViaCustomJWTToken-get-)<br>
 * GET : [Access Token via Facebook Token](#GetAccessTokenByFacebookAccessToken-get-)<br>
 * GET : [Access Token via Twitter Token](#GetAccessTokenByTwitterAccessToken-get-)<br>
 * GET : [Access Token via Google Token](#GetAccessTokenByGoogleAccessToken-get-)<br>
@@ -5183,6 +5294,25 @@ List of APIs in this Section:<br>
 * GET : [Access Token via Google AuthCode](#GetAccessTokenByGoogleAuthCode-get-)<br>
 
 
+<h6 id="AccessTokenViaCustomJWTToken-get-"> Get Access Token via Custom JWT Token (GET)</h6>
+
+ This API is used to retrieve a LoginRadius access token by passing in a valid custom JWT token.  [More Info](/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-by-custom-jwt-token/)
+
+ 
+ 
+
+ ```js
+
+var idToken = "<idToken>"; //Required
+var providername = "<providername>"; //Required
+
+lrv2.nativeSocialApi.accessTokenViaCustomJWTToken(idToken, providername).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
+
+ ```
 
 <h6 id="GetAccessTokenByFacebookAccessToken-get-"> Access Token via Facebook Token (GET)</h6>
 
@@ -5495,6 +5625,30 @@ lrv2.webHookApi.webHookUnsubscribe(webHookSubscribeModel).then((response) => {
  ```
  
   
+
+### SlidingToken API
+
+
+List of APIs in this Section:<br>
+
+* GET : [Get Sliding Access Token](#SlidingAccessToken-get-)<br>
+
+
+<h6 id="SlidingAccessToken-get-"> (GET)</h6>
+
+This API is used to get access token and refresh token with the expired/nonexpired access token. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/sliding-access-token)
+ 
+ 
+
+ ```js
+
+var accessToken = "<accessToken>"; //Required
+
+lrv2.slidingTokenApi.slidingAccessToken(accessToken).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
 
  
 

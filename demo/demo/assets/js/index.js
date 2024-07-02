@@ -165,7 +165,7 @@ function handleMFALogin() {
                     } else {
                         qrHtml = '';
                     }
-                    $('#minimal-mfalogin-login').html(qrHtml + "Google Auth Code: <input type='text' id='minimal-mfalogin-googlecode'/><br/><button id='btn-minimal-mfalogin-login'>Login</button><br/>");
+                    $('#minimal-mfalogin-login').html(qrHtml + "Auth Code: <input type='text' id='minimal-mfalogin-googlecode'/><br/><button id='btn-minimal-mfalogin-login'>Login</button><br/>");
 
                     $('#btn-minimal-mfalogin-login').on('click', function () {
                         if ($('#minimal-mfalogin-googlecode').val().trim() == '') {
