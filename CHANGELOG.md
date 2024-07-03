@@ -4,7 +4,7 @@
 
 # Version 11.6.0
 
-Release on **July 02, 2024**
+Release on **July 03, 2024**
 
 ## Added following APIs:
 - `MFAValidateAuthenticatorCode`
