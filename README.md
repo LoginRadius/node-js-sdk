@@ -1041,7 +1041,7 @@ lrv2.authenticationApi.getPrivacyPolicyHistoryByAccessToken(accessToken).then((r
 
  <h6 id="AuthSendVerificationEmailForLinkingSocialProfiles-get-"> Auth send verification Email for linking social profiles (GET)</h6>
 
- This API is used to Send verification email to the unverified email of the social profile. This API can be used only incase of optional verification workflow.  [More Info](/api/v2/customer-identity-api/authentication/auth-send-verification-for-social-email/)
+ This API is used to Send verification email to the unverified email of the social profile. This API can be used only incase of optional verification workflow.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-send-verification-for-social-email/)
 
  
  
@@ -1416,7 +1416,7 @@ lrv2.accountApi.getEmailVerificationToken(email).then((response) => {
   
 <h6 id="MultipurposeEmailTokenGeneration-post-"> Multipurpose Email Token Generation API (POST)</h6>
 
- This API generate Email tokens and Email OTPs for Email verification, Add email, Forgot password, Delete user, Passwordless login, Forgot pin, One-touch login and Auto login.  [More Info](/api/v2/customer-identity-api/account/multipurpose-token-and-sms-otp-generation-api/multipurpose-email-token-generation/)
+ This API generate Email tokens and Email OTPs for Email verification, Add email, Forgot password, Delete user, Passwordless login, Forgot pin, One-touch login and Auto login.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/multipurpose-token-and-sms-otp-generation-api/multipurpose-email-token-generation/)
 
  
  
@@ -1447,7 +1447,7 @@ lrv2.accountApi.multipurposeEmailTokenGeneration(multiEmailToken, tokentype).the
  
 <h6 id="MultipurposeSMSOTPGeneration-post-"> Multipurpose SMS OTP Generation API (POST)</h6>
 
- This API generates SMS OTP for Add phone, Phone Id verification, Forgot password, Forgot pin, One-touch login, smart login and Passwordless login.  [More Info](/api/v2/customer-identity-api/account/multipurpose-token-and-sms-otp-generation-api/multipurpose-sms-otp-generation/)
+ This API generates SMS OTP for Add phone, Phone Id verification, Forgot password, Forgot pin, One-touch login, smart login and Passwordless login.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/account/multipurpose-token-and-sms-otp-generation-api/multipurpose-sms-otp-generation/)
 
  
  
@@ -1743,7 +1743,7 @@ lrv2.accountApi.removeEmail(email, uid, fields).then((response) => {
  
 <h6 id="RevokeAllRefreshToken-delete-"> Revoke All Refresh Token (DELETE)</h6>
 
- The Revoke All Refresh Access Token API is used to revoke all refresh tokens for a specific user.  [More Info](/api/v2/customer-identity-api/refresh-token/revoke-all-refresh-token/)
+ The Revoke All Refresh Access Token API is used to revoke all refresh tokens for a specific user.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/revoke-all-refresh-token/)
 
  
  
@@ -2827,7 +2827,7 @@ lrv2.multiFactorAuthenticationApi.mfaSecurityQuestionAnswer(securityQuestionAnsw
 
 <h6 id="MFAValidateAuthenticatorCode-put-"> MFA Validate Authenticator Code (PUT)</h6>
 
- This API is used to login to a user's account during the second MFA step with an Authenticator Code.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-validate-authenticator-code/)
+ This API is used to login to a user's account during the second MFA step with an Authenticator Code.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-validate-authenticator-code/)
 
  
  
@@ -2854,7 +2854,7 @@ lrv2.multiFactorAuthenticationApi.mfaValidateAuthenticatorCode(multiFactorAuthMo
  
 <h6 id="MFAVerifyAuthenticatorCode-put-"> MFA Verify Authenticator Code (PUT)</h6>
 
- This API is used to validate an Authenticator Code as part of the MFA process.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-verify-authenticator-code/)
+ This API is used to validate an Authenticator Code as part of the MFA process.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-verify-authenticator-code/)
 
  
  
@@ -2920,6 +2920,7 @@ lrv2.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate
 
  ```js
 
+var password = "<password>"; //Required
 var username = "<username>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
 var fields = null; //Optional
@@ -3192,7 +3193,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetBackupCodeByUid(uid).then((response) =
  
  <h6 id="MFAResetAuthenticatorByToken-delete-"> MFA Reset Authenticator by Token (DELETE)</h6>
 
- This API Resets the Authenticator configurations on a given account via the access_token.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-authenticator-by-token/)
+ This API Resets the Authenticator configurations on a given account via the access_token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/google-authenticator/mfa-reset-authenticator-by-token/)
 
  
  
@@ -3303,7 +3304,7 @@ lrv2.multiFactorAuthenticationApi.mfaResetSMSAuthenticatorByUid(otpauthenticator
   
 <h6 id="MFAResetAuthenticatorByUid-delete-"> MFA Reset Authenticator By UID (DELETE)</h6>
 
- This API resets the Authenticator configurations on a given account via the UID.  [More Info](/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-reset-authenticator-by-uid/)
+ This API resets the Authenticator configurations on a given account via the UID.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/multi-factor-authentication/authenticator/mfa-reset-authenticator-by-uid/)
 
  
  
@@ -3906,7 +3907,7 @@ lrv2.reAuthenticationApi.reAuthValidateEmailOtp(accessToken, reauthByEmailOtpMod
  
 <h6 id="MFAReAuthenticateByAuthenticatorCode-put-"> MFA Step-Up Authentication by Authenticator Code (PUT)</h6>
 
- This API is used to validate the triggered MFA authentication flow with the Authenticator Code.  [More Info](/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-otp/)
+ This API is used to validate the triggered MFA authentication flow with the Authenticator Code.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/re-authentication/mfa/re-auth-by-otp/)
 
  
  
@@ -5298,7 +5299,7 @@ List of APIs in this Section:<br>
 
 <h6 id="AccessTokenViaCustomJWTToken-get-"> Get Access Token via Custom JWT Token (GET)</h6>
 
- This API is used to retrieve a LoginRadius access token by passing in a valid custom JWT token.  [More Info](/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-by-custom-jwt-token/)
+ This API is used to retrieve a LoginRadius access token by passing in a valid custom JWT token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-by-custom-jwt-token/)
 
  
  
