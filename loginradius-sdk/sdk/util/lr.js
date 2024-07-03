@@ -276,6 +276,13 @@ module.exports = function (config = {}) {
       'api',
       'social',
       'socialApi'
+    ))(config),
+    slidingTokenApi:require(path.join(
+      __dirname,
+      '..',
+      'api',
+      'authentication',
+      'slidingTokenApi'
     ))(config)
   };
 };
