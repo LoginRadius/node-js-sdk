@@ -5636,7 +5636,7 @@ List of APIs in this Section:<br>
 * GET : [Get Sliding Access Token](#SlidingAccessToken-get-)<br>
 
 
-<h6 id="SlidingAccessToken-get-"> (GET)</h6>
+<h6 id="SlidingAccessToken-get-"> (GET) Sliding Access Token</h6>
 
 This API is used to get access token and refresh token with the expired/nonexpired access token. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/refresh-token/sliding-access-token)
  
