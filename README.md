@@ -3915,7 +3915,9 @@ lrv2.reAuthenticationApi.reAuthValidateEmailOtp(accessToken, reauthByEmailOtpMod
 
 var accessToken = "<accessToken>"; //Required
 
-var multiFactorAuthModelByAuthenticatorCode ={   };  //Required
+var multiFactorAuthModelByAuthenticatorCode ={  
+  "authenticatorCode" : "<authenticatorCode>"
+ };  //Required
 
 lrv2.reAuthenticationApi.mfaReAuthenticateByAuthenticatorCode(accessToken, multiFactorAuthModelByAuthenticatorCode).then((response) => {
     console.log(response);
