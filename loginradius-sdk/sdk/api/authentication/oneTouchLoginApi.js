@@ -54,13 +54,15 @@ module.exports = function (config) {
    * This API is used to send one time password to a given phone number for a frictionless login/registration.
    * @param {oneTouchLoginByPhoneModel} Model Class containing Definition of payload for OneTouchLogin By PhoneModel API
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response containing Definition of Complete Validation data
    *1.4
    */
 
   module.oneTouchLoginByPhone = function (
     oneTouchLoginByPhoneModel,
-    smsTemplate
+    smsTemplate,
+    isVoiceOtp
   ) {
     if (helper.checkJson(oneTouchLoginByPhoneModel)) {
       return Promise.reject(
@@ -72,6 +74,9 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var resourcePath = 'identity/v2/auth/onetouchlogin/phone';

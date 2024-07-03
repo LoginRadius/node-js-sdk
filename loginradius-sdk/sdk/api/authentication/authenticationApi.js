@@ -234,6 +234,8 @@ module.exports = function (config) {
    * @param {nullSupport} Boolean, pass true if you wish to update any user profile field with a NULL value, You can get the details
    * @param {smsTemplate} SMS Template name
    * @param {verificationUrl} Email verification url
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
+   * @param {options} PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
    * @return Response containing Definition of Complete Validation and UserProfile data
    *5.4
    */
@@ -245,7 +247,9 @@ module.exports = function (config) {
     fields,
     nullSupport,
     smsTemplate,
-    verificationUrl
+    verificationUrl,
+    isVoiceOtp,
+    options
   ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
@@ -273,6 +277,12 @@ module.exports = function (config) {
     }
     if (!helper.isNullOrWhiteSpace(verificationUrl)) {
       queryParameters.verificationUrl = verificationUrl;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
+    }
+    if (!helper.isNullOrWhiteSpace(options)) {
+      queryParameters.options = options;
     }
 
     var resourcePath = 'identity/v2/auth/account';
@@ -439,6 +449,7 @@ module.exports = function (config) {
    * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
    * @param {url} Mention URL to log the main URL(Domain name) in Database.
    * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param {uuid} The uuid received in the response
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
    *8.2
    */
@@ -447,7 +458,8 @@ module.exports = function (config) {
     verificationToken,
     fields,
     url,
-    welcomeEmailTemplate
+    welcomeEmailTemplate,
+    uuid
   ) {
     if (helper.isNullOrWhiteSpace(verificationToken)) {
       return Promise.reject(helper.getValidationMessage('verificationToken'));
@@ -464,6 +476,9 @@ module.exports = function (config) {
     }
     if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
+    }
+    if (!helper.isNullOrWhiteSpace(uuid)) {
+      queryParameters.uuid = uuid;
     }
 
     var resourcePath = 'identity/v2/auth/email';
@@ -1152,6 +1167,7 @@ module.exports = function (config) {
    * @param {options} PreventVerificationEmail (Specifying this value prevents the verification email from being sent. Only applicable if you have the optional email verification flow)
    * @param {verificationUrl} Email verification url
    * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
    *17.1.1
    */
@@ -1163,7 +1179,8 @@ module.exports = function (config) {
     fields,
     options,
     verificationUrl,
-    welcomeEmailTemplate
+    welcomeEmailTemplate,
+    isVoiceOtp
   ) {
     if (helper.checkJson(authUserRegistrationModel)) {
       return Promise.reject(
@@ -1192,6 +1209,9 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
     }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
+    }
 
     var resourcePath = 'identity/v2/auth/register';
 
@@ -1212,6 +1232,7 @@ module.exports = function (config) {
    * @param {smsTemplate} SMS Template name
    * @param {verificationUrl} Email verification url
    * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
    *17.2
    */
@@ -1223,7 +1244,8 @@ module.exports = function (config) {
     options,
     smsTemplate,
     verificationUrl,
-    welcomeEmailTemplate
+    welcomeEmailTemplate,
+    isVoiceOtp
   ) {
     if (helper.checkJson(authUserRegistrationModelWithCaptcha)) {
       return Promise.reject(
@@ -1250,6 +1272,9 @@ module.exports = function (config) {
     }
     if (!helper.isNullOrWhiteSpace(welcomeEmailTemplate)) {
       queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var resourcePath = 'identity/v2/auth/register/captcha';
@@ -1295,6 +1320,35 @@ module.exports = function (config) {
     var resourcePath = 'identity/v2/auth/register';
 
     return config.request('PUT', resourcePath, queryParameters, bodyParameters);
+  };
+
+  /**
+   * This API is used to Send verification email to the unverified email of the social profile. This API can be used only incase of optional verification workflow.
+   * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+   * @param {clientguid} Unique string used in the Smart Login request
+   * @return Response containing Definition for Complete AuthSendVerificationEmailForLinkingSocialProfiles API Response
+   *44.9
+   */
+
+  module.authSendVerificationEmailForLinkingSocialProfiles = function (
+    accessToken,
+    clientguid
+  ) {
+    if (helper.isNullOrWhiteSpace(accessToken)) {
+      return Promise.reject(helper.getValidationMessage('accessToken'));
+    }
+    if (helper.isNullOrWhiteSpace(clientguid)) {
+      return Promise.reject(helper.getValidationMessage('clientguid'));
+    }
+    var queryParameters = {};
+
+    queryParameters.access_token = accessToken;
+    queryParameters.apiKey = config.apiKey;
+    queryParameters.clientguid = clientguid;
+
+    var resourcePath = 'identity/v2/auth/email/sendverificationemail';
+
+    return config.request('GET', resourcePath, queryParameters, null);
   };
   return module;
 };

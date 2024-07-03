@@ -7,11 +7,11 @@ module.exports = function (config) {
   var helper = require(config.HELPER_PATH)();
 
   /**
-  * This API allows you to generate SOTT with a given expiration time.
-  * @param {timeDifference} The time difference you would like to pass, If you not pass difference then the default value is 10 minutes
-  * @return Sott data For Registration
-  *18.28
-  */
+   * This API allows you to generate SOTT with a given expiration time.
+   * @param {timeDifference} The time difference you would like to pass, If you not pass difference then the default value is 10 minutes
+   * @return Sott data For Registration
+   *18.28
+   */
 
   module.generateSott = function (timeDifference) {
     var queryParameters = {};

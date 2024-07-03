@@ -12,6 +12,7 @@ module.exports = function (config) {
    * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
    * @param {loginUrl} Url where the user is logging from
    * @param {smsTemplate} SMS Template name
+   * @param {options}
    * @return Response containing User Profile Data and access token
    *9.2.3
    */
@@ -20,7 +21,8 @@ module.exports = function (config) {
     phoneAuthenticationModel,
     fields,
     loginUrl,
-    smsTemplate
+    smsTemplate,
+    options
   ) {
     if (helper.checkJson(phoneAuthenticationModel)) {
       return Promise.reject(
@@ -39,6 +41,9 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
+    if (!helper.isNullOrWhiteSpace(options)) {
+      queryParameters.options = options;
+    }
 
     var resourcePath = 'identity/v2/auth/login';
 
@@ -54,11 +59,12 @@ module.exports = function (config) {
    * This API is used to send the OTP to reset the account password.
    * @param {phone} New Phone Number
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response Containing Validation Data and SMS Data
    *10.4
    */
 
-  module.forgotPasswordByPhoneOTP = function (phone, smsTemplate) {
+  module.forgotPasswordByPhoneOTP = function (phone, smsTemplate, isVoiceOtp) {
     if (helper.isNullOrWhiteSpace(phone)) {
       return Promise.reject(helper.getValidationMessage('phone'));
     }
@@ -67,6 +73,9 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var bodyParameters = {};
@@ -115,11 +124,18 @@ module.exports = function (config) {
    * @param {phone} New Phone Number
    * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response containing User Profile Data and access token
    *11.1.1
    */
 
-  module.phoneVerificationByOTP = function (otp, phone, fields, smsTemplate) {
+  module.phoneVerificationByOTP = function (
+    otp,
+    phone,
+    fields,
+    smsTemplate,
+    isVoiceOtp
+  ) {
     if (helper.isNullOrWhiteSpace(otp)) {
       return Promise.reject(helper.getValidationMessage('otp'));
     }
@@ -136,6 +152,9 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
+    }
 
     var bodyParameters = {};
     bodyParameters.phone = phone;
@@ -150,6 +169,7 @@ module.exports = function (config) {
    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
    * @param {otp} The Verification Code
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response containing Definition of Complete Validation data
    *11.1.2
    */
@@ -157,7 +177,8 @@ module.exports = function (config) {
   module.phoneVerificationOTPByAccessToken = function (
     accessToken,
     otp,
-    smsTemplate
+    smsTemplate,
+    isVoiceOtp
   ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
@@ -173,6 +194,9 @@ module.exports = function (config) {
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
     }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
+    }
 
     var resourcePath = 'identity/v2/auth/phone/otp';
 
@@ -183,11 +207,16 @@ module.exports = function (config) {
    * This API is used to resend a verification OTP to verify a user's Phone Number. The user will receive a verification code that they will need to input
    * @param {phone} New Phone Number
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response Containing Validation Data and SMS Data
    *11.2.1
    */
 
-  module.phoneResendVerificationOTP = function (phone, smsTemplate) {
+  module.phoneResendVerificationOTP = function (
+    phone,
+    smsTemplate,
+    isVoiceOtp
+  ) {
     if (helper.isNullOrWhiteSpace(phone)) {
       return Promise.reject(helper.getValidationMessage('phone'));
     }
@@ -196,6 +225,9 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var bodyParameters = {};
@@ -216,6 +248,7 @@ module.exports = function (config) {
    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
    * @param {phone} New Phone Number
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response Containing Validation Data and SMS Data
    *11.2.2
    */
@@ -223,7 +256,8 @@ module.exports = function (config) {
   module.phoneResendVerificationOTPByToken = function (
     accessToken,
     phone,
-    smsTemplate
+    smsTemplate,
+    isVoiceOtp
   ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
@@ -237,6 +271,9 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var bodyParameters = {};
@@ -257,11 +294,17 @@ module.exports = function (config) {
    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
    * @param {phone} New Phone Number
    * @param {smsTemplate} SMS Template name
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response Containing Validation Data and SMS Data
    *11.5
    */
 
-  module.updatePhoneNumber = function (accessToken, phone, smsTemplate) {
+  module.updatePhoneNumber = function (
+    accessToken,
+    phone,
+    smsTemplate,
+    isVoiceOtp
+  ) {
     if (helper.isNullOrWhiteSpace(accessToken)) {
       return Promise.reject(helper.getValidationMessage('accessToken'));
     }
@@ -274,6 +317,9 @@ module.exports = function (config) {
     queryParameters.apiKey = config.apiKey;
     if (!helper.isNullOrWhiteSpace(smsTemplate)) {
       queryParameters.smsTemplate = smsTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var bodyParameters = {};
@@ -335,8 +381,9 @@ module.exports = function (config) {
    * @param {smsTemplate} SMS Template name
    * @param {verificationUrl} Email verification url
    * @param {welcomeEmailTemplate} Name of the welcome email template
+   * @param {emailTemplate}
+   * @param {isVoiceOtp} Boolean, pass true if you wish to trigger voice OTP
    * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
-   * @param {emailTemplate} Email Template Name
    *17.1.2
    */
 
@@ -348,7 +395,8 @@ module.exports = function (config) {
     smsTemplate,
     verificationUrl,
     welcomeEmailTemplate,
-    emailTemplate
+    emailTemplate,
+    isVoiceOtp
   ) {
     if (helper.checkJson(authUserRegistrationModel)) {
       return Promise.reject(
@@ -379,6 +427,9 @@ module.exports = function (config) {
     }
     if (!helper.isNullOrWhiteSpace(emailTemplate)) {
       queryParameters.emailTemplate = emailTemplate;
+    }
+    if (isVoiceOtp !== null) {
+      queryParameters.isVoiceOtp = isVoiceOtp;
     }
 
     var resourcePath = 'identity/v2/auth/register';

@@ -108,7 +108,7 @@ module.exports = function (config) {
 
   /**
    * This API is used to Get LoginRadius Access Token using google jwt id token for google native mobile login/registration.
-   * @param {idToken} Google JWT id_token
+   * @param {idToken} Custom JWT Token
    * @return Response containing Definition of Complete Token data
    *20.6
    */
@@ -246,6 +246,32 @@ module.exports = function (config) {
     }
 
     var resourcePath = 'api/v2/access_token/google';
+
+    return config.request('GET', resourcePath, queryParameters, null);
+  };
+
+  /**
+   * This API is used to retrieve a LoginRadius access token by passing in a valid custom JWT token.
+   * @param {idToken} Custom JWT Token
+   * @param {providername} JWT Provider Name
+   * @return Response containing Definition of Complete Token data
+   *44.3
+   */
+
+  module.accessTokenViaCustomJWTToken = function (idToken, providername) {
+    if (helper.isNullOrWhiteSpace(idToken)) {
+      return Promise.reject(helper.getValidationMessage('idToken'));
+    }
+    if (helper.isNullOrWhiteSpace(providername)) {
+      return Promise.reject(helper.getValidationMessage('providername'));
+    }
+    var queryParameters = {};
+
+    queryParameters.id_Token = idToken;
+    queryParameters.key = config.apiKey;
+    queryParameters.providername = providername;
+
+    var resourcePath = 'api/v2/access_token/jwt';
 
     return config.request('GET', resourcePath, queryParameters, null);
   };

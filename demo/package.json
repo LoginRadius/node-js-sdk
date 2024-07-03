@@ -13,6 +13,6 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "loginradius-sdk": "11.5.0"
+    "loginradius-sdk": "11.6.0"
   }
 }

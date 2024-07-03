@@ -254,17 +254,16 @@ app.post('/ajax_handler/login', function (req, res) {
     if (secondFactorAuthenticationToken === '') {
       output.message = 'Second Factor Authentication Token is required';
     } else if (googleAuthCode === '') {
-      output.message = 'Google Auth Code is required';
+      output.message = 'Auth Code is required';
     } else {
       var fields = '';
-      var rbaBrowserEmailTemplate='';
-      var rbaCityEmailTemplate='';
-      var rbaCountryEmailTemplate='';
-      var rbaIpEmailTemplate='';
-      lrv2.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthCode, secondFactorAuthenticationToken, fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate).then(function (response) {
+      var multiFactorAuthModelByAuthenticatorCode ={  
+        "authenticatorCode" : googleAuthCode
+     }; 
+      lrv2.multiFactorAuthenticationApi.mfaValidateAuthenticatorCode(multiFactorAuthModelByAuthenticatorCode, secondFactorAuthenticationToken, fields).then(function (response) {
         if ((response.access_token) && (response.access_token !== '')) {
           output.data = response;
-          output.message = 'Mfa validate google auth code.';
+          output.message = 'Mfa validate auth code.';
           output.status = 'success';
         }
         res.send(output);
@@ -562,10 +561,10 @@ app.post('/ajax_handler/profile', function (req, res) {
     });
   } else if (action === 'resetMultifactor') {
     var uid = req.body.uid ? req.body.uid : '';
-    lrv2.multiFactorAuthenticationApi.mfaResetGoogleAuthenticatorByUid(true, uid).then(function (response) {
+    lrv2.multiFactorAuthenticationApi.mfaResetAuthenticatorByUid(true, uid).then(function (response) {
       if (response.IsDeleted) {
         output.data = response;
-        output.message = 'Google authenticator reset successfully.';
+        output.message = 'Authenticator reset successfully.';
         output.status = 'success';
       } else {
         output.message = 'mfa not reset.';
