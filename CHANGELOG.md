@@ -2,6 +2,12 @@
 > **LoginRadius Node JS SDK Change Log** provides information regarding what has changed, more specifically what changes, improvements and bug fix has been made to the SDK. For more details please refer to the [LoginRadius API Documention](https://docs.loginradius.com/api/v2/deployment/sdk-libraries/node-js-library)
 
 
+# Version 11.6.1
+
+Release on **October 25, 2024**
+
+- We have introduced support for the "X-PreventWebhook" header in the SDK. When the PreventWebhook configuration is set to true, this feature prevents the specific API from triggering webhooks, providing enhanced flexibility to address specific customer use cases.
+
 # Version 11.6.0
 
 Release on **July 03, 2024**

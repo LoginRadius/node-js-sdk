@@ -73,6 +73,12 @@ module.exports = function (config = {}) {
       'X-LoginRadius-apiKey': config.apiKey,
       'X-LoginRadius-apiSecret': config.apiSecret
     };
+      if(config.PreventWebhook !=undefined && config.PreventWebhook != "" && config.PreventWebhook){
+        Object.assign(headers, { 'X-PreventWebhook': true }); 
+      }
+
+   
+  
 
     if (config.fieldsParam && config.fieldsValue) {
       var fieldsList;

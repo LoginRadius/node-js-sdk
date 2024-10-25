@@ -5,7 +5,7 @@
     "lint": "prettier --check sdk/**/*.js && eslint sdk/**/*.js",
     "lint:fix": "prettier --write sdk/**/*.js  && eslint sdk/**/*.js --fix"
   },
-  "version": "11.6.0",
+  "version": "11.6.1",
   "description": "A LoginRadius SDK for node.js",
   "homepage": "https://www.loginradius.com",
   "main": "./sdk/util/lr.js",
