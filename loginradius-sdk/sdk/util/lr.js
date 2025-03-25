@@ -1,14 +1,14 @@
 /*
  * Created by LoginRadius Development Team
-   Copyright 2019 LoginRadius Inc. All rights reserved.
+   Copyright 2025 LoginRadius Inc. All rights reserved.
 */
 var https = require('https');
 var path = require('path');
 
 module.exports = function (config = {}) {
+  // Validate required configuration values
   if (config.apiKey === undefined || config.apiSecret === undefined) {
-    console.error('Please set apiKey API & apiSecret');
-    return;
+    throw new Error('Please set apiKey and apiSecret');
   }
 
   config.HELPER_PATH = path.join(__dirname, 'helper.js');
@@ -115,9 +115,9 @@ module.exports = function (config = {}) {
             resp.statusCode === 429
           ) {
             var jsondata = {
-              Description: 'Too many request in particular time frame',
+              Description: 'Too many requests in a particular time frame',
               ErrorCode: 429,
-              Message: 'Too many request in particular time frame',
+              Message: 'Too many requests in a particular time frame',
               IsProviderError: false,
               ProviderErrorResponse: null
             };
