@@ -16,6 +16,9 @@ We've introduced a brand-new set of Webhook APIs, designed with enhanced functio
 
 As part of this upgrade, the legacy Webhook APIs have been deprecated in favor of the new, more robust versions.
 
+Additionally, this release includes minor improvements and bug fixes to enhance overall stability and performance.
+
+
 ## Newly Added APIs
 
 - `getWebhookSubscriptionDetail` – Retrieve detailed information about a specific webhook subscription  
