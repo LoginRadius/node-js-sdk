@@ -5547,7 +5547,7 @@ List of APIs in this Section:
  
  
 
- ```
+ ```js
 
 var hookId = "<hookId>"; //Required
 
@@ -5585,7 +5585,7 @@ lrv2.webHookApi.updateWebhookSubscription(hookId, webHookSubscriptionUpdateModel
  
  
 
- ```
+ ```js
 
 
 var webHookSubscribeModel ={ 
@@ -5625,7 +5625,7 @@ lrv2.webHookApi.createWebhookSubscription(webHookSubscribeModel).then((response)
  
  
 
- ```
+ ```js
 
 var hookId = "<hookId>"; //Required
 
@@ -5647,7 +5647,7 @@ lrv2.webHookApi.getWebhookSubscriptionDetail(hookId).then((response) => {
  
  
 
- ```
+ ```js
 
 
 lrv2.webHookApi.listAllWebhooks().then((response) => {
@@ -5668,7 +5668,7 @@ lrv2.webHookApi.listAllWebhooks().then((response) => {
  
  
 
- ```
+ ```js
 
 
 lrv2.webHookApi.getWebhookEvents().then((response) => {
@@ -5689,7 +5689,7 @@ lrv2.webHookApi.getWebhookEvents().then((response) => {
  
  
 
- ```
+ ```js
 
 var hookId = "<hookId>"; //Required
 
