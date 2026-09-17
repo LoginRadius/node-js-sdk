@@ -1,0 +1,14 @@
+{
+  "name": "loginradius-sdk-example-access-token",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": { "start": "ts-node index.ts" },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "loginradius-sdk": "file:../.."
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}

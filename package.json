@@ -1,0 +1,90 @@
+{
+  "name": "loginradius-sdk",
+  "version": "12.0.0-rc.1",
+  "description": "LoginRadius Node.js SDK (generated from the OpenAPI spec, fully typed)",
+  "keywords": [
+    "loginradius",
+    "ciam",
+    "identity",
+    "authentication",
+    "oauth",
+    "openid-connect",
+    "saml",
+    "mfa",
+    "sso",
+    "sdk"
+  ],
+  "homepage": "https://github.com/LoginRadius/node-js-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/LoginRadius/node-js-sdk/issues"
+  },
+  "license": "MIT",
+  "author": "LoginRadius",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoginRadius/node-js-sdk.git",
+    "directory": "v12"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "commonjs",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "MIGRATION_GUIDE.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json && node scripts/postbuild-esm.mjs",
+    "clean": "rm -rf dist",
+    "lint": "eslint src",
+    "docs": "typedoc",
+    "lint:package": "publint",
+    "check:exports": "node scripts/check-dual-build.mjs",
+    "format": "prettier --write 'src/**/*.ts' '__tests__/**/*.ts'",
+    "test": "jest",
+    "prepublishOnly": "npm run build && npm run lint:package && npm run check:exports"
+  },
+  "dependencies": {
+    "axios": "^1.7.7"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.10.2",
+    "@eslint/js": "^10.0.1",
+    "typescript-eslint": "^8.68.0",
+    "eslint": "^10.9.1",
+    "jest": "^30.4.2",
+    "prettier": "^3.4.2",
+    "publint": "^0.2.12",
+    "ts-jest": "^29.4.12",
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.13.0",
+    "typescript": "^5.9.3"
+  }
+}

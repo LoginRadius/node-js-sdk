@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "rootDir": "src",
+    "declaration": true,
+    // No sourceMap / declarationMap.
+    //
+    // They were emitted and shipped, but `src/` is not in the published
+    // tarball and `sourcesContent` was not inlined — so every map pointed at a
+    // file the consumer does not have. 3,691 unusable files, 43% of the
+    // package. Shipping sources *and* maps would be a defensible choice; maps
+    // without sources is the one combination that is purely dead weight.
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "__tests__", "examples"]
+}
