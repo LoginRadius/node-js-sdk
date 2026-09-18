@@ -17,7 +17,7 @@ app.use(cookieParser());
 const handlers = buildHandlers(calls, customHandlers);
 
 // The API surface comes from routes.generated.ts, generated from
-// manifest/sdk.yaml. Registering from the table (rather than by hand) is what
+// the shared SDK manifest. Registering from the table (rather than by hand) is what
 // keeps every language's demo on the same endpoints: the HTTP method and the
 // route's auth mode are applied uniformly here instead of being re-implemented,
 // slightly differently, in each handler.

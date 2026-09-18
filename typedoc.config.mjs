@@ -31,7 +31,7 @@ export default {
   // No "Defined in ..." links.
   //
   // TypeDoc infers them from the git remote of the working directory, which
-  // during generation is the sdk-factory repo — so every page linked to the
+  // during generation is the the LoginRadius SDK generator repo — so every page linked to the
   // FACTORY at a specific commit rather than the SDK, leaking an internal URL
   // into customer-facing docs. Line numbers would point at generated code
   // anyway, which is not somewhere to send a reader.

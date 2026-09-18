@@ -6,7 +6,7 @@ import { LoginRadius } from '../src/client';
 /**
  * Mirrors the Go SDK's cross-cutting request-option tests. Both suites assert
  * the same manifest-declared behaviour: if you change a header or query name
- * in manifest/sdk.yaml, both should fail together.
+ * in the shared SDK manifest, both should fail together.
  */
 function run(
   opts: ClientOptions,

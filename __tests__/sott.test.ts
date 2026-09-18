@@ -10,8 +10,8 @@ import { generateSOTT, generateSOTTWithWindow, SOTT_DEFAULT_WINDOW_MS } from '..
  * token that is silently rejected.
  *
  * If this test fails, the two SDKs have diverged. Fix the implementation, not
- * the expectation. The shared parameters live in sdk-factory's
- * manifest/sdk.yaml under `sott:`.
+ * the expectation. The shared parameters live in the SDK generator's
+ * the shared SDK manifest under `sott:`.
  *
  * The mirror of this test is TestSOTTGoldenValue in the Go SDK.
  */

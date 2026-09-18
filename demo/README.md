@@ -11,7 +11,7 @@ the package root covers the **ESM** half.
 ## Endpoints
 
 The route table is **generated** from `demo.routes` in the factory's
-`manifest/sdk.yaml`, so every LoginRadius SDK's demo exposes the same contract.
+the shared SDK manifest, so every LoginRadius SDK's demo exposes the same contract.
 It is not hand-maintained here and cannot drift from the handlers: a route with
 no implementation fails `tsc`.
 

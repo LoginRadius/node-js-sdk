@@ -12,7 +12,7 @@ import { signRequest, shouldSignRequest, stripSigningParam, SIGNING_EXPIRY_MS } 
  *
  * The Go SDK asserts the same values in TestSigningGoldenValue. If either
  * fails, fix the implementation, not the expectation; the shared parameters
- * live in sdk-factory's manifest/sdk.yaml under `signing:`.
+ * live in the SDK generator's shared configuration under `signing:`.
  *
  * NOT ported from the v11 Node SDK: its helper.js signs `options.uri` and
  * `options.body`, neither of which that path ever sets, so every v11 signature
