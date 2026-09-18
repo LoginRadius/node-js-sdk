@@ -1,0 +1,118 @@
+# Maintained in SDK-FACTORY: languages/node/static/.github/workflows/release.yml.mustache
+# An edit made in this repository is overwritten by the next sync — change it there.
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to publish (e.g. v12.0.0-rc.1)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Pack and validate only — do not publish to npm'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    # Requires a human approval on the 'release' environment before anything is
+    # published. Configure required reviewers on it — without them the
+    # environment is a label, not a gate. NPM_TOKEN belongs on this environment,
+    # not on the repository, so no other workflow can reach it.
+    environment: release
+    permissions:
+      contents: write   # create the GitHub Release
+      # Required by publishConfig.provenance in package.json. Without it
+      # `npm publish` fails outright rather than publishing unattested.
+      id-token: write
+    steps:
+      - name: Resolve tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "name=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.tag.outputs.name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          # The floor, matching package.json `engines.node`.
+          node-version: '20'
+          cache: npm
+          registry-url: 'https://registry.npmjs.org'
+
+      # npm publishes whatever package.json says, and a version published to
+      # npm can never be replaced. Compare the tag, the manifest and the
+      # generated SDK version before that becomes permanent.
+      - name: Tag matches package.json and the SDK version
+        run: |
+          expected='12.0.0-rc.1'
+          pkg="$(node -p 'require("./package.json").version')"
+          tag='${{ steps.tag.outputs.name }}'
+          if [ "${pkg}" != "${expected}" ]; then
+            echo "::error::package.json version ${pkg} does not match the generated SDK version ${expected}"
+            exit 1
+          fi
+          if [ "${tag}" != "v${expected}" ]; then
+            echo "::error::tag ${tag} does not match the generated SDK version v${expected}"
+            exit 1
+          fi
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Test
+        run: npm test
+
+      # `npm pack --dry-run` prints the tarball contents. package.json `files`
+      # ships dist/ only, and a missing build step there produces an empty,
+      # perfectly publishable package.
+      - name: Inspect the tarball
+        run: |
+          npm run build
+          npm pack --dry-run
+          test -f dist/cjs/index.js || { echo '::error::dist/cjs/index.js missing from the build'; exit 1; }
+          test -f dist/esm/index.js || { echo '::error::dist/esm/index.js missing from the build'; exit 1; }
+
+      - name: Publish
+        if: ${{ github.event_name == 'push' || inputs.dry_run == false }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # prepublishOnly re-runs build + publint + the dual-build export check,
+        # so a broken `exports` map fails the publish itself, not only CI.
+        # --provenance comes from publishConfig; --tag keeps a prerelease off
+        # `latest`, so `npm i loginradius-sdk` cannot resolve to an rc.
+        run: npm publish --access public --tag next
+
+      - name: Create the GitHub Release
+        if: ${{ github.event_name == 'push' || inputs.dry_run == false }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.tag.outputs.name }}
+        run: |
+          if gh release view "${TAG}" >/dev/null 2>&1; then
+            echo "release ${TAG} already exists — nothing to do"
+            exit 0
+          fi
+          PRERELEASE='--prerelease'
+          gh release create "${TAG}" --verify-tag --title "${TAG}" \
+            --notes-file CHANGELOG.md ${PRERELEASE}

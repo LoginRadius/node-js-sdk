@@ -22,8 +22,7 @@
   "author": "LoginRadius",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LoginRadius/node-js-sdk.git",
-    "directory": "v12"
+    "url": "git+https://github.com/LoginRadius/node-js-sdk.git"
   },
   "publishConfig": {
     "access": "public",

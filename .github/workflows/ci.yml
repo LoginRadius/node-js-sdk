@@ -1,0 +1,99 @@
+# Maintained in SDK-FACTORY: languages/node/static/.github/workflows/ci.yml.mustache
+# An edit made in this repository is overwritten by the next sync — change it there.
+#
+# The steps mirror languages/node/lang.yaml `verify:`, which is the factory's
+# own gate, so CI cannot go green on a tree the factory would reject.
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sdk:
+    name: SDK (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 20 is package.json `engines.node` — the floor promised to customers.
+        # 22 is the current LTS. The floor is not optional: testing only on the
+        # newest runtime never discovers that the promise is broken.
+        node: ['20', '22']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Build (cjs + esm)
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Lint the package manifest
+        run: npm run lint:package
+
+      # Resolves the package through BOTH halves of `exports` and asserts they
+      # agree. `npm run build` succeeding says nothing about whether a consumer
+      # can actually import the result.
+      - name: Check the dual build resolves
+        run: npm run check:exports
+
+  demos:
+    # `npm run build` compiles src/** only, so without this the demos are never
+    # type-checked — and demo/src/routes.generated.ts exists precisely to turn a
+    # missing handler into a BUILD failure rather than a 404 found later.
+    name: Demos (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['20', '22']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      # Both demos depend on "loginradius-sdk": "file:..", so the root build
+      # must exist before their installs resolve it.
+      - name: Build the SDK
+        run: npm run build
+
+      - name: Type-check the CommonJS demo
+        working-directory: demo
+        run: |
+          npm install --no-audit --no-fund --silent
+          npx tsc --noEmit -p tsconfig.json
+
+      # Builds for real, not --noEmit: proving the ESM resolution path works
+      # end to end is the whole point of this demo, and the extension rewrite
+      # only runs on emitted output.
+      - name: Build the ESM demo
+        working-directory: demo-esm
+        run: |
+          npm install --no-audit --no-fund --silent
+          npm run build
