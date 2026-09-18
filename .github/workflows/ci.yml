@@ -1,8 +1,9 @@
-# Maintained in SDK-FACTORY: languages/node/static/.github/workflows/ci.yml.mustache
-# An edit made in this repository is overwritten by the next sync — change it there.
+# GENERATED FILE — do not edit it in this repository.
+# This workflow is produced alongside the rest of this SDK and is overwritten
+# whenever the SDK is regenerated. Raise changes where the SDK is generated.
 #
-# The steps mirror languages/node/lang.yaml `verify:`, which is the factory's
-# own gate, so CI cannot go green on a tree the factory would reject.
+# These steps mirror this SDK's own build verification, so CI cannot go green
+# on a tree that verification would reject.
 name: CI
 
 on:
