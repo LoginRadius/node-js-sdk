@@ -10,8 +10,8 @@ the package root covers the **ESM** half.
 
 ## Endpoints
 
-The route table is **generated** from `demo.routes` in the factory's
-the shared SDK manifest, so every LoginRadius SDK's demo exposes the same contract.
+The route table is **generated** from the shared SDK manifest, so every
+LoginRadius SDK's demo exposes the same contract.
 It is not hand-maintained here and cannot drift from the handlers: a route with
 no implementation fails `tsc`.
 
@@ -51,7 +51,7 @@ credential.
   operation is admin-scoped and would delete *any* address in the tenant, so the
   handler reads the signed-in profile first and refuses a mismatch. That guard is
   demo policy, not an SDK limitation.
-- **Custom objects** are currently disabled in the factory's manifest pending a
+- **Custom objects** are currently disabled in the shared SDK manifest pending a
   tenant with a custom-object schema.
 
 ## Files

@@ -2,8 +2,8 @@
 
 The same app as [`../demo`](../demo), resolving the SDK through **ESM**.
 
-`src/` and `public/` here are **copies** of the CJS demo's, synced by the
-factory at build time. Only `package.json` and `tsconfig.json` differ, and that
+`src/` and `public/` here are **copies** of the CJS demo's, synced when the SDK
+is generated. Only `package.json` and `tsconfig.json` differ, and that
 difference is the entire point:
 
 | | Module system | How Node resolves the SDK |

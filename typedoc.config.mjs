@@ -35,7 +35,7 @@ export default {
   // FACTORY at a specific commit rather than the SDK, leaking an internal URL
   // into customer-facing docs. Line numbers would point at generated code
   // anyway, which is not somewhere to send a reader.
-  // docs/API.md is written by the factory's renderer BEFORE TypeDoc runs, and
+  // docs/API.md is written by the SDK generator BEFORE TypeDoc runs, and
   // TypeDoc empties its output directory by default — which would delete it.
   // Nothing stale accumulates: generate.sh cleans the whole dist tree each run.
   cleanOutputDir: false,
