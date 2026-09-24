@@ -1,18 +1,27 @@
 {
-  "name": "nodeJsDemo",
-  "version": "11.6.1-demo",
-  "keywords": [
-    "util",
-    "functional",
-    "server",
-    "client",
-    "browser"
-  ],
-  "description": "LoginRadius NodeJS SDK Demo",
-  "author": "LoginRadius",
+  "name": "loginradius-sdk-demo-express",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Express + TypeScript demo for loginradius-sdk@12 (CJS path)",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "loginradius-sdk": "11.7.0"
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "loginradius-sdk": "file:.."
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.17.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.3"
   }
 }

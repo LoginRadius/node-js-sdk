@@ -1,0 +1,13 @@
+src/
+__tests__/
+examples/
+codegen/
+tsconfig.json
+jest.config.js
+.eslintrc.json
+.prettierrc
+.gitignore
+*.log
+coverage/
+.env
+.env.*
