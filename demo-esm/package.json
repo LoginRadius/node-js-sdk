@@ -1,0 +1,25 @@
+{
+  "name": "loginradius-sdk-demo-esm",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Express + TypeScript demo for loginradius-sdk@12 (ESM path)",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "npm run build && node --watch dist/server.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "loginradius-sdk": "file:.."
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.9.3"
+  }
+}

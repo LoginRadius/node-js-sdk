@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LoginRadius SDK demo</title>
+<link rel="stylesheet" href="demo.css" />
+  </head>
+  <body>
+    <!-- Page chrome and layout shared with the Java, .NET and PHP demos: a
+         full-bleed <header> over a centred <main> holding one flat list of
+         titled cards. The stylesheet keys the layout off exactly this shape
+         (body:has(header) steps out of the way so the header spans the
+         viewport, and a <form> is a card wherever it sits), so all five demos
+         frame and group their content identically.
+
+         This demo used to split its surface across three pages behind a pill
+         tab strip. Both are gone: every section is on this page, visible, in
+         the same order the other demos use. Nothing was dropped — all 28
+         routes of the shared demo contract are still reachable. -->
+    <header>
+      <div>
+        <h1>LoginRadius Node.js SDK</h1>
+        <p>Every endpoint below comes from the shared demo contract in the shared SDK manifest. Only this page's design is Node's own.</p>
+      </div>
+    </header>
+
+    <main>
+      <span class="tag">Express · CJS (require)</span>
+
+      <p id="banner" class="banner" hidden></p>
+
+      <form id="form-register">
+        <h2>Register</h2>
+        <p class="hint">The SOTT is minted server-side per request; the browser never sees the API secret.</p>
+        <label>First name <input id="re-first" /></label>
+        <label>Last name <input id="re-last" /></label>
+        <label>Email <input id="re-email" type="email" required /></label>
+        <label>Password <input id="re-pass" type="password" required minlength="8" /></label>
+        <button type="submit">Create account</button>
+        <p id="re-msg" class="msg" hidden></p>
+      </form>
+
+      <form id="form-login">
+        <h2>Session</h2>
+        <p class="hint">Log in, then use Log out below to clear the demo session cookie.</p>
+        <label>Email <input id="li-email" type="email" required /></label>
+        <label>Password <input id="li-pass" type="password" required /></label>
+        <button type="submit">Log in</button>
+        <p id="li-msg" class="msg" hidden></p>
+      </form>
+
+      <!-- Revealed by the login handler when the tenant answers with a
+           challenge. Hidden rather than absent so the ids are always present. -->
+      <form id="form-mfa" hidden>
+        <h2>Second factor required</h2>
+        <p class="hint">
+          The login returned a challenge. Its token is held in a separate
+          short-lived cookie — a session cookie will not open these routes.
+        </p>
+        <label>Email address <input id="mfa-email" type="email" /></label>
+        <div class="row">
+          <button id="mfa-send" class="secondary" type="button">Email me an OTP</button>
+        </div>
+        <label>Email OTP <input id="mfa-otp" autocomplete="one-time-code" /></label>
+        <button id="mfa-verify-email" type="button">Verify email OTP</button>
+        <label>Authenticator code <input id="mfa-totp" autocomplete="one-time-code" /></label>
+        <button id="mfa-verify-totp" type="button">Verify TOTP</button>
+        <pre id="mfa-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Passwordless login</h2>
+        <p class="hint">
+          No password: a one-time code is emailed or texted to an existing
+          user, then verified here to start a session. A tenant with MFA
+          enabled still enforces its second factor afterward, same as the
+          Session card.
+        </p>
+        <label>Email <input id="pw-email" type="email" /></label>
+        <button id="pw-send-email" type="button">Email me a code</button>
+        <label style="margin-top:8px">Email code <input id="pw-email-otp" autocomplete="one-time-code" /></label>
+        <button id="pw-verify-email" type="button">Verify email code</button>
+        <label style="margin-top:8px">Phone <input id="pw-phone" placeholder="+15551234567" /></label>
+        <button id="pw-send-phone" class="secondary" type="button">Text me a code</button>
+        <label style="margin-top:8px">SMS code <input id="pw-phone-otp" autocomplete="one-time-code" /></label>
+        <button id="pw-verify-phone" class="secondary" type="button">Verify SMS code</button>
+        <pre id="pw-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Forgot password</h2>
+        <p class="hint">The reset token arrives by email and lands back on this page; the SMS route sends an OTP instead.</p>
+        <label>Email <input id="fp-email" type="email" /></label>
+        <button id="fp-send" type="button">Send reset email</button>
+        <label style="margin-top:8px">Phone <input id="fp-phone" /></label>
+        <button id="fp-otp" class="secondary" type="button">Send reset OTP</button>
+        <pre id="fp-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Reset password</h2>
+        <p id="rt-hint" class="hint">Paste the token from the reset email, or let the emailed link fill it in.</p>
+        <label>Reset token <input id="rt-token" /></label>
+        <label>New password <input id="rt-pass" type="password" /></label>
+        <button id="rt-go" type="button">Reset password</button>
+        <label style="margin-top:8px">Phone <input id="ro-phone" /></label>
+        <label>SMS OTP <input id="ro-otp" autocomplete="one-time-code" /></label>
+        <label>New password <input id="ro-pass" type="password" /></label>
+        <button id="ro-go" class="secondary" type="button">Reset with OTP</button>
+        <pre id="rt-out" class="out" hidden></pre>
+        <pre id="ro-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Change password</h2>
+        <p class="hint">Needs a signed-in session; returns 401 otherwise.</p>
+        <label>Current password <input id="cp-old" type="password" /></label>
+        <label>New password <input id="cp-new" type="password" /></label>
+        <button id="cp-save" type="button">Change password</button>
+        <pre id="cp-out" class="out" hidden></pre>
+      </form>
+
+      <form id="card-profile">
+        <h2>Profile</h2>
+        <p class="hint">Needs a signed-in session; returns 401 otherwise.</p>
+        <div class="row">
+          <button id="pr-load" type="button">Load profile</button>
+          <button id="pr-logout" class="secondary" type="button">Log out</button>
+        </div>
+        <pre id="pr-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Update profile</h2>
+        <label>First name <input id="up-first" /></label>
+        <label>Last name <input id="up-last" /></label>
+        <label>About <input id="up-about" /></label>
+        <button id="up-save" type="button">Save changes</button>
+        <pre id="up-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Identifiers</h2>
+        <p class="hint">Add / remove need a signed-in session.</p>
+        <label>Add email <input id="ae-email" type="email" /></label>
+        <label>Type <input id="ae-type" placeholder="Secondary" /></label>
+        <button id="ae-add" type="button">Add email</button>
+        <label style="margin-top:8px">Remove email <input id="de-email" type="email" /></label>
+        <button id="de-del" class="secondary" type="button">Delete email</button>
+        <label style="margin-top:8px">Phone number <input id="ph-phone" /></label>
+        <button id="ph-save" class="secondary" type="button">Update phone</button>
+        <pre id="id-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Delete account</h2>
+        <p class="hint">
+          The demo refuses any address other than the one you are signed in as. The
+          underlying API is admin-scoped and would delete any account in the tenant.
+        </p>
+        <label>Confirm your email <input id="da-email" type="email" /></label>
+        <button id="da-delete" type="button">Delete my account</button>
+        <pre id="da-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Custom objects</h2>
+        <p class="hint">
+          Needs a custom-object schema configured in the tenant and named in
+          <code>LR_CUSTOM_OBJECT_NAME</code>. Without it these routes report
+          which variable is missing rather than failing upstream.
+        </p>
+        <label>JSON payload <textarea id="co-create">{ "favouriteColour": "blue" }</textarea></label>
+        <button id="co-create-go" type="button">Create</button>
+        <div class="row" style="margin-top:8px">
+          <button id="co-list" class="secondary" type="button">List objects</button>
+        </div>
+        <label style="margin-top:8px">Record id <input id="co-id" required /></label>
+        <label>JSON payload <textarea id="co-update">{ "favouriteColour": "green" }</textarea></label>
+        <div class="row">
+          <button id="co-update-go" type="button">Update</button>
+          <button id="co-delete" class="secondary" type="button">Delete</button>
+        </div>
+        <pre id="co-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Access token</h2>
+        <p class="hint">
+          Refresh uses the <code>/manage/</code> operation. The native variant takes
+          the access token as a query parameter, which would put a bearer credential
+          into access and proxy logs. Refreshing rotates the session's tokens
+          server-side, so the cookie does not change.
+        </p>
+        <div class="row">
+          <button id="tk-refresh" type="button">Refresh</button>
+          <button id="tk-validate" class="secondary" type="button">Validate</button>
+          <button id="tk-session" class="secondary" type="button">Active session</button>
+        </div>
+        <pre id="tk-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Multi-factor authentication</h2>
+        <label>Duo redirect URI <input id="mf-duo" placeholder="https://example.com/duo/callback" /></label>
+        <p class="hint">
+          Optional. Where Duo returns the user after its challenge — only needed if
+          this tenant has Duo configured. Left blank, the parameter is omitted
+          entirely rather than sent empty.
+        </p>
+        <div class="row">
+          <button id="mf-settings" type="button">Load settings</button>
+          <button id="mf-codes" class="secondary" type="button">Generate backup codes</button>
+        </div>
+        <label style="margin-top:8px">Authenticator code <input id="mf-totp" autocomplete="one-time-code" /></label>
+        <button id="mf-enrol" type="button">Enrol authenticator</button>
+        <pre id="mf-out" class="out" hidden></pre>
+      </form>
+
+      <form>
+        <h2>Passkey</h2>
+        <p class="hint">
+          WebAuthn needs a secure context. <code>http://localhost</code> counts, so
+          this works as shipped; over plain HTTP on any other host the browser refuses.
+        </p>
+        <label>Identifier (email) <input id="pk-id" type="email" /></label>
+        <div class="row">
+          <button id="pk-register" type="button">Create passkey</button>
+          <button id="pk-login" class="secondary" type="button">Sign in with passkey</button>
+        </div>
+        <pre id="pk-out" class="out" hidden></pre>
+      </form>
+    </main>
+
+    <script type="module">
+      import { api, showMsg, showOut, describeError, onClick, val, passkeyRegister, passkeyLogin } from '/app.js';
+
+      const out = (id) => document.getElementById(id);
+      const q = new URLSearchParams(location.search);
+
+      // Everything is on one page now, so signing in is not a navigation. The
+      // demo loads the profile and scrolls to it, which is what the redirect to
+      // /profile.html used to accomplish.
+      async function goToProfile() {
+        await loadProfile();
+        out('card-profile').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      async function loadProfile() {
+        const r = await api('/api/profile');
+        if (r.status === 401) {
+          // Reported in this card rather than as a page-level banner: the
+          // sign-in controls are directly above, and nothing here is hidden
+          // from a signed-out visitor.
+          const b = out('pr-out');
+          b.hidden = false;
+          b.className = 'out err';
+          b.textContent = 'Not signed in. The sections below need a session — log in above, then load the profile again.';
+          return;
+        }
+        showOut(out('pr-out'), r, 'Profile loaded.');
+        const p = r.data ?? {};
+        if (p.FirstName) out('up-first').value = p.FirstName;
+        if (p.LastName) out('up-last').value = p.LastName;
+        if (p.About) out('up-about').value = p.About;
+      }
+
+      // ---- register / log in ----------------------------------------------
+
+      out('form-register').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = out('re-msg');
+        showMsg(msg, 'Creating account…', '');
+        const r = await api('/api/auth/register', {
+          email: val('re-email'), password: val('re-pass'),
+          firstName: val('re-first'), lastName: val('re-last'),
+        });
+        if (!r.ok) return showMsg(msg, describeError(r.data, `HTTP ${r.status}`), 'error');
+        if (r.data.signed_in) return void goToProfile();
+        showMsg(msg, 'Registered — check your email to verify before signing in.', 'ok');
+      });
+
+      out('form-login').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = out('li-msg');
+        showMsg(msg, 'Contacting LoginRadius…', '');
+        const r = await api('/api/auth/login', { email: val('li-email'), password: val('li-pass') });
+        if (!r.ok) return showMsg(msg, describeError(r.data, `HTTP ${r.status}`), 'error');
+        if (r.data.mfa_required) {
+          out('form-mfa').hidden = false;
+          out('mfa-email').value = val('li-email');
+          showMsg(msg, 'Second factor required — complete the challenge below.', '');
+          return;
+        }
+        goToProfile();
+      });
+
+      onClick('mfa-send', async () =>
+        showOut(out('mfa-out'), await api('/api/mfa/login/email', { email: val('mfa-email') }), 'OTP sent.'));
+
+      onClick('mfa-verify-email', async () => {
+        const r = await api('/api/mfa/login/email', { email: val('mfa-email'), otp: val('mfa-otp') }, 'PUT');
+        showOut(out('mfa-out'), r, 'Signed in.');
+        if (r.ok) goToProfile();
+      });
+
+      // ---- passwordless login -----------------------------------------------
+
+      onClick('pw-send-email', async () => {
+        const email = val('pw-email');
+        if (!email) return showOut(out('pw-out'), { ok: false, status: 0, data: 'enter an email first' }, '');
+        showOut(out('pw-out'), await api('/api/auth/passwordless/email?email=' + encodeURIComponent(email)), 'Code sent.');
+      });
+
+      onClick('pw-verify-email', async () => {
+        const r = await api('/api/auth/passwordless/email/verify', { email: val('pw-email'), otp: val('pw-email-otp') }, 'POST');
+        showOut(out('pw-out'), r, 'Signed in.');
+        if (r.ok && !r.data?.mfa_required) goToProfile();
+      });
+
+      onClick('pw-send-phone', async () => {
+        const phone = val('pw-phone');
+        if (!phone) return showOut(out('pw-out'), { ok: false, status: 0, data: 'enter a phone number first' }, '');
+        showOut(out('pw-out'), await api('/api/auth/passwordless/phone?phone=' + encodeURIComponent(phone)), 'Code sent.');
+      });
+
+      onClick('pw-verify-phone', async () => {
+        const r = await api('/api/auth/passwordless/phone/verify', { phone: val('pw-phone'), otp: val('pw-phone-otp') }, 'PUT');
+        showOut(out('pw-out'), r, 'Signed in.');
+        if (r.ok && !r.data?.mfa_required) goToProfile();
+      });
+
+      onClick('mfa-verify-totp', async () => {
+        const r = await api('/api/mfa/login/totp', { totp: val('mfa-totp') }, 'PUT');
+        showOut(out('mfa-out'), r, 'Signed in.');
+        if (r.ok) goToProfile();
+      });
+
+      // ---- password --------------------------------------------------------
+
+      onClick('fp-send', async () =>
+        showOut(out('fp-out'), await api('/api/password/forgot', { email: val('fp-email') }), 'Reset email sent.'));
+      onClick('fp-otp', async () =>
+        showOut(out('fp-out'), await api('/api/password/otp', { phone: val('fp-phone') }), 'OTP sent.'));
+
+      // LoginRadius appends the token to whatever LR_RESET_PASSWORD_URL points
+      // at, which is this page.
+      const token = q.get('vtoken') ?? q.get('resetToken');
+      if (token) {
+        out('rt-token').value = token;
+        out('rt-hint').textContent = `Reset token detected (${token.slice(0, 8)}…).`;
+      }
+
+      onClick('rt-go', async () =>
+        showOut(out('rt-out'),
+          await api('/api/password/reset', { resetToken: val('rt-token'), password: val('rt-pass') }),
+          'Password reset.'));
+
+      onClick('ro-go', async () =>
+        showOut(out('ro-out'),
+          await api('/api/password/otp', { phone: val('ro-phone'), otp: val('ro-otp'), password: val('ro-pass') }, 'PUT'),
+          'Password reset.'));
+
+      onClick('cp-save', async () =>
+        showOut(out('cp-out'), await api('/api/password/change', {
+          oldPassword: val('cp-old'), newPassword: val('cp-new'),
+        }), 'Password changed.'));
+
+      // ---- profile / identifiers ------------------------------------------
+
+      onClick('pr-load', loadProfile);
+      onClick('pr-logout', async () => {
+        await api('/api/auth/logout', {});
+        location.reload();
+      });
+
+      onClick('up-save', async () =>
+        showOut(out('up-out'), await api('/api/profile/update', {
+          firstName: val('up-first'), lastName: val('up-last'), about: val('up-about'),
+        }), 'Profile updated.'));
+
+      onClick('ae-add', async () =>
+        showOut(out('id-out'), await api('/api/email/add', { email: val('ae-email'), type: val('ae-type') }), 'Verification sent.'));
+      onClick('de-del', async () =>
+        showOut(out('id-out'), await api('/api/email', { email: val('de-email') }, 'DELETE'), 'Email removed.'));
+      onClick('ph-save', async () =>
+        showOut(out('id-out'), await api('/api/phone', { phone: val('ph-phone') }, 'PUT'), 'Verification OTP sent.'));
+
+      onClick('da-delete', async () => {
+        const r = await api('/api/account', { email: val('da-email') }, 'DELETE');
+        showOut(out('da-out'), r, 'Account deleted.');
+        if (r.ok) setTimeout(() => location.reload(), 1500);
+      });
+
+      // ---- custom objects ---------------------------------------------------
+
+      onClick('co-create-go', async () => {
+        let body;
+        try { body = JSON.parse(val('co-create')); } catch (e) {
+          showOut(out('co-out'), { ok: false, status: 0, data: { error: 'Invalid JSON: ' + e } });
+          return;
+        }
+        showOut(out('co-out'), await api('/api/customobject', { data: body }), 'Object created.');
+      });
+
+      onClick('co-list', async () =>
+        showOut(out('co-out'), await api('/api/customobject'), 'Loaded.'));
+
+      onClick('co-update-go', async () => {
+        const id = val('co-id');
+        if (!id) return showOut(out('co-out'), { ok: false, status: 0, data: { error: 'Record id is required to update.' } });
+        let body;
+        try { body = JSON.parse(val('co-update')); } catch (e) {
+          showOut(out('co-out'), { ok: false, status: 0, data: { error: 'Invalid JSON: ' + e } });
+          return;
+        }
+        showOut(out('co-out'),
+          await api(`/api/customobject/${encodeURIComponent(id)}`, { data: body }, 'PUT'),
+          'Object updated.');
+      });
+
+      onClick('co-delete', async () => {
+        const id = val('co-id');
+        if (!id) return showOut(out('co-out'), { ok: false, status: 0, data: { error: 'Record id is required to delete.' } });
+        showOut(out('co-out'),
+          await api(`/api/customobject/${encodeURIComponent(id)}`, undefined, 'DELETE'),
+          'Object deleted.');
+      });
+
+      // ---- tokens / MFA / passkey -----------------------------------------
+
+      onClick('tk-refresh', async () =>
+        showOut(out('tk-out'), await api('/api/token/refresh', {}), 'Access token refreshed.'));
+      onClick('tk-validate', async () =>
+        showOut(out('tk-out'), await api('/api/token/validate'), 'Token is valid.'));
+      onClick('tk-session', async () =>
+        showOut(out('tk-out'), await api('/api/token/session'), 'Loaded active sessions.'));
+
+      onClick('mf-settings', async () => {
+        // Only append the parameter when it has a value.
+        const duo = val('mf-duo');
+        const url = '/api/mfa/settings' + (duo ? `?duoRedirectUri=${encodeURIComponent(duo)}` : '');
+        showOut(out('mf-out'), await api(url), 'Loaded MFA settings.');
+      });
+      onClick('mf-codes', async () =>
+        showOut(out('mf-out'), await api('/api/mfa/backupcodes'), 'Backup codes issued.'));
+      onClick('mf-enrol', async () =>
+        showOut(out('mf-out'), await api('/api/mfa/totp', { totp: val('mf-totp') }, 'PUT'), 'Authenticator enrolled.'));
+
+      onClick('pk-register', async () => passkeyRegister(val('pk-id'), out('pk-out')));
+      onClick('pk-login', async () => {
+        const r = await passkeyLogin(val('pk-id'), out('pk-out'));
+        if (r?.ok) goToProfile();
+      });
+
+      // ---- email-verification redirect banner ------------------------------
+
+      if (q.has('verify')) {
+        const b = out('banner');
+        const state = q.get('verify');
+        b.hidden = false;
+        b.className = `banner ${state === 'success' ? 'ok' : 'error'}`;
+        b.textContent =
+          state === 'success' ? 'Email verified. You can log in now.'
+          : state === 'missing' ? 'That verification link carried no token.'
+          : `Verification failed${q.get('message') ? ` — ${q.get('message')}` : ''}`;
+      }
+    </script>
+  </body>
+</html>
